@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 895008262b089ae4ea78fcb6be845414, type: 3}
   m_Name: StaticData
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 4440950546071384554, guid: 6c712bf9e90bbec498972dc556d59a29, type: 3}
-  pathPoint: {fileID: 9144786980017384845, guid: 19a44e7220f37dd479f2f2a26484f67c, type: 3}
-  linePrefab: {fileID: 8082452047934244967, guid: 67dffa26f9d44534e8aa954b0d98ede5, type: 3}
+  playerPrefab: {fileID: 3084750065098843241, guid: 36f8e54dd12049c4c91315d237d68224, type: 3}
+  pathPoint: {fileID: 9071379678294461325, guid: b13f025b50cc4a2428bdfe682db8c2cd, type: 3}
+  linePrefab: {fileID: 5054944922090929322, guid: d44cf7d983540944ba924dd43d458d0f, type: 3}

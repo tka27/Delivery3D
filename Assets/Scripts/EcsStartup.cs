@@ -6,25 +6,24 @@ sealed class EcsStartup : MonoBehaviour
 {
     EcsWorld _world;
     EcsSystems _systems;
+    EcsSystems _fixedSystems;
     public StaticData staticData;
     public SceneData sceneData;
 
     void Start()
     {
         // void can be switched to IEnumerator for support coroutines.
-
         _world = new EcsWorld();
         _systems = new EcsSystems(_world);
-        RuntimeData runtimeData = new RuntimeData();
+        _fixedSystems = new EcsSystems(_world);
 #if UNITY_EDITOR
         Leopotam.Ecs.UnityIntegration.EcsWorldObserver.Create(_world);
         Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(_systems);
+        Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(_fixedSystems);
 #endif
         _systems
             .Add(new GameInitSystem())
-            .Add(new InputSystem())
             .Add(new DrawPathSystem())
-            .Add(new PlayerMoveSystem())
 
             // register one-frame components (order is important), for example:
             // .OneFrame<TestComponent1> ()
@@ -35,13 +34,25 @@ sealed class EcsStartup : MonoBehaviour
             // .Inject (new NavMeshSupport ())
             .Inject(staticData)
             .Inject(sceneData)
-            .Inject(runtimeData)
             .Init();
+        _fixedSystems
+        .Add(new PlayerMoveSystem())
+
+
+
+
+        .Inject(staticData)
+        .Inject(sceneData)
+        .Init();
     }
 
     void Update()
     {
         _systems?.Run();
+    }
+    void FixedUpdate()
+    {
+        _fixedSystems?.Run();
     }
 
     void OnDestroy()

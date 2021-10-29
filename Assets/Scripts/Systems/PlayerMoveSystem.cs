@@ -5,41 +5,66 @@ using UnityEngine;
 sealed class PlayerMoveSystem : IEcsRunSystem
 {
     RuntimeData runtimeData;
-    EcsFilter<MovableComp, InputComp, PlayerComp> playerFilter;
+    EcsFilter<PlayerComp> playerFilter;
     EcsFilter<PathComp> pathFilter;
     EcsFilter<LineComp> lineFilter;
 
     void IEcsRunSystem.Run()
     {
+        float steer;
+        Vector3 tgtPos;
         foreach (var f1 in playerFilter)
         {
-            ref var movable = ref playerFilter.Get1(f1);
-            ref var input = ref playerFilter.Get2(f1);
-            ref var player = ref playerFilter.Get3(f1);
+            ref var player = ref playerFilter.Get1(f1);
             foreach (var f2 in pathFilter)
             {
                 ref var path = ref pathFilter.Get1(f2);
 
-                if (input.spaceDown && movable.moveSpeed < 1500)
-                {
-                    movable.moveSpeed += 100 * Time.deltaTime;
-                }
-                else if (movable.moveSpeed >= 10)
-                {
-                    movable.moveSpeed -= 100 * Time.deltaTime;
-                }
-                else
-                {
-                    movable.moveSpeed = 0;
-                }
-                Debug.Log(movable.moveSpeed);////////////
-
                 if (path.wayPoints.Count != 0)
                 {
-                    float distanceToCurrentPoint = (path.wayPoints[0].transform.position - player.playerGO.transform.position).magnitude;
+                    tgtPos = path.wayPoints[0].transform.position;
+                    tgtPos.y = player.playerData.wheelPos.transform.position.y;
+                    float distanceToCurrentPoint = (path.wayPoints[0].transform.position - player.playerData.wheelPos.position).magnitude;
                     if (distanceToCurrentPoint >= 1.5f)
                     {
-                        player.wheelsRB.AddForce((path.wayPoints[0].transform.position - player.playerGO.transform.position).normalized * movable.moveSpeed * Time.deltaTime);
+                        steer = Vector3.SignedAngle(tgtPos - player.playerData.wheelPos.position, player.playerData.wheelPos.forward, player.playerData.wheelPos.up);
+                        steer *= -1;
+
+                        if (steer > player.maxSteerAngle)
+                        {
+                            steer = player.maxSteerAngle;
+                        }
+                        else if (steer < -player.maxSteerAngle)
+                        {
+                            steer = -player.maxSteerAngle;
+                        }
+                        //move method
+                        for (int i = 0; i < player.playerData.wheelColliders.Count; i++)
+                        {
+                            if (i < 2)
+                            {
+                                if (Input.GetKey(KeyCode.Space) && player.currentSpeed < player.maxTorque)
+                                {
+                                    player.currentSpeed += player.acceleration;
+                                }
+                                else
+                                {
+                                    player.currentSpeed -= player.acceleration;
+                                }
+                                if (player.currentSpeed < 0)
+                                {
+                                    player.currentSpeed = 0;
+                                }
+                                ///////////Debug.Log(player.currentSpeed);
+                                player.playerData.wheelColliders[i].motorTorque = player.currentSpeed; //motor
+                                player.playerData.wheelColliders[i].steerAngle = steer;
+                            }
+                            Vector3 pos;
+                            Quaternion quaternion;
+                            player.playerData.wheelColliders[i].GetWorldPose(out pos, out quaternion);
+                            player.playerData.wheelMeshes[i].transform.position = pos;
+                            player.playerData.wheelMeshes[i].transform.rotation = quaternion;
+                        }
                     }
                     else
                     {
@@ -49,16 +74,23 @@ sealed class PlayerMoveSystem : IEcsRunSystem
                 }
                 else
                 {
-                    movable.moveSpeed = 0;
+                    //stop method
+                    for (int i = 0; i < player.playerData.wheelColliders.Count; i++)
+                    {
+                        player.playerData.wheelColliders[i].motorTorque = 0;
+                        player.currentSpeed = 0;
+                    }
                 }
 
 
                 if (path.wayPoints.Count == 0)
+                {
                     foreach (var f3 in lineFilter)
                     {
                         lineFilter.Get1(f3).lineRenderer.positionCount = 1;
                         lineFilter.Get1(f3).lineRenderer.SetPosition(0, player.playerGO.transform.position);
                     }
+                }
             }
         }
     }

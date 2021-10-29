@@ -2,12 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct InputComp
-{
-    public Vector3 mouseWorldPos;
-    public bool spaceDown;
-    public bool mouse0Down;
-}
+
 public struct PathComp
 {
     public List<GameObject> wayPoints;
@@ -15,12 +10,17 @@ public struct PathComp
 public struct PlayerComp
 {
     public GameObject playerGO;
-    public Rigidbody2D wheelsRB;
+    public PlayerData playerData;
+    public float maxSteerAngle;
+    public float maxTorque;
+    public float currentSpeed;
+    public float acceleration;
 }
 public struct MovableComp
 {
     public float moveSpeed;
 }
-public struct LineComp{
+public struct LineComp
+{
     public LineRenderer lineRenderer;
 }
