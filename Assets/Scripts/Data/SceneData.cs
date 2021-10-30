@@ -4,8 +4,7 @@ public class SceneData : MonoBehaviour
 {
     public GameObject car;
     public GameMode gameMode;
-    public Button buildMode;
+    public GameObject buildCam;
 }
 
-public enum GameMode { Look, Build, Drive }
 

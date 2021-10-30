@@ -9,6 +9,7 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
     EcsFilter<PathComp> pathFilter;
     EcsFilter<LineComp> lineFilter;
     StaticData staticData;
+    SceneData sceneData;
     EcsWorld _world;
     LayerMask layer;
 
@@ -22,8 +23,11 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
         RaycastHit hit;
         Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         Vector3 waypointPos;
-        
-        if (Input.GetMouseButton(0) && Physics.Raycast(mouseRay, out hit, 1000, layer))
+
+        if (sceneData.gameMode == GameMode.Build && 
+        Input.GetMouseButton(0) && 
+        Physics.Raycast(mouseRay, out hit, 1000, layer) && 
+        !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()) //check ui button
         {
             waypointPos = new Vector3(hit.point.x, hit.point.y + 0.01f, hit.point.z);
             foreach (var f2 in pathFilter)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 sealed class PlayerMoveSystem : IEcsRunSystem
 {
-    RuntimeData runtimeData;
+    SceneData sceneData;
     EcsFilter<PlayerComp> playerFilter;
     EcsFilter<PathComp> pathFilter;
     EcsFilter<LineComp> lineFilter;
@@ -20,7 +20,7 @@ sealed class PlayerMoveSystem : IEcsRunSystem
             {
                 ref var path = ref pathFilter.Get1(f2);
 
-                if (path.wayPoints.Count != 0)
+                if (path.wayPoints.Count != 0 && sceneData.gameMode == GameMode.Drive)
                 {
                     tgtPos = path.wayPoints[0].transform.position;
                     tgtPos.y = player.playerData.wheelPos.transform.position.y;
@@ -43,7 +43,7 @@ sealed class PlayerMoveSystem : IEcsRunSystem
                         {
                             if (i < 2)
                             {
-                                if (Input.GetKey(KeyCode.Space) && player.currentSpeed < player.maxTorque)
+                                if (Input.GetMouseButton(0) && player.currentSpeed < player.maxTorque)
                                 {
                                     player.currentSpeed += player.acceleration;
                                 }
@@ -55,7 +55,6 @@ sealed class PlayerMoveSystem : IEcsRunSystem
                                 {
                                     player.currentSpeed = 0;
                                 }
-                                ///////////Debug.Log(player.currentSpeed);
                                 player.playerData.wheelColliders[i].motorTorque = player.currentSpeed; //motor
                                 player.playerData.wheelColliders[i].steerAngle = steer;
                             }

@@ -12,7 +12,7 @@ public class GameModeButton : MonoBehaviour
     {
         switch (sceneData.gameMode)
         {
-            case GameMode.Look:
+            case GameMode.View:
                 sceneData.gameMode = GameMode.Build;
                 break;
 
@@ -21,7 +21,7 @@ public class GameModeButton : MonoBehaviour
                 break;
 
             default:
-                sceneData.gameMode = GameMode.Look;
+                sceneData.gameMode = GameMode.View;
                 break;
         }
         buttonText.text = sceneData.gameMode.ToString();
