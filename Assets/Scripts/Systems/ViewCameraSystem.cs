@@ -7,10 +7,12 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
     SceneData sceneData;
     Vector3 startPos;
     float cameraHeight;
+    Camera camera;
 
     public void Init()
     {
         startPos = sceneData.buildCam.transform.position;
+        camera = Camera.main;
     }
 
     void IEcsRunSystem.Run()
@@ -18,7 +20,7 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
         if (sceneData.gameMode == GameMode.View)
         {
             RaycastHit hit;
-            Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray mouseRay = camera.ScreenPointToRay(Input.mousePosition);
             Physics.Raycast(mouseRay, out hit, 1000);
 
             if (Input.GetMouseButtonDown(0) &&

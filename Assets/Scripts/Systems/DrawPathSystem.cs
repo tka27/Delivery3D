@@ -13,21 +13,20 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
     SceneData sceneData;
     EcsWorld _world;
     LayerMask layer;
+    Camera camera;
 
     public void Init()
     {
         layer = LayerMask.GetMask("Ground");
+        camera = Camera.main;
+        playerPos = new Vector3();
     }
 
     void IEcsRunSystem.Run()
     {
-        foreach (var f3 in playerFilter)
-        {
-            playerPos = playerFilter.Get1(f3).playerGO.transform.position;
-            playerPos.y = -0.99f;
-        }
+
         RaycastHit hit;
-        Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray mouseRay = camera.ScreenPointToRay(Input.mousePosition);
         Vector3 waypointPos;
 
         if (sceneData.gameMode == GameMode.Build &&
@@ -46,11 +45,15 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
                 }
                 else
                 {
-                    distanceToNextPoint = 1;
+                    foreach (var f3 in playerFilter)
+                    {
+                        playerPos = playerFilter.Get1(f3).playerGO.transform.position;
+                        playerPos.y = -0.99f;
+                    }
+                    distanceToNextPoint = (waypointPos - playerPos).magnitude;
                 }
                 if (distanceToNextPoint >= 0.2 && distanceToNextPoint <= 10) //distance btw points
                 {
-                    //path.wayPoints.Add(GameObject.Instantiate(staticData.pathPoint, waypointPos, Quaternion.identity));
                     if (path.wayPoints.Count != 0)
                     {
                         SetWaypoints(path.wayPoints[path.wayPoints.Count - 1].transform.position, waypointPos);
