@@ -7,25 +7,24 @@ sealed class PlayerMoveSystem : IEcsRunSystem
     SceneData sceneData;
     EcsFilter<PlayerComp> playerFilter;
     EcsFilter<PathComp> pathFilter;
-    EcsFilter<LineComp> lineFilter;
+    EcsWorld _world;
 
     void IEcsRunSystem.Run()
     {
         float steer;
         Vector3 tgtPos;
-        int currentWaypointIndex = 0;
-        foreach (var f1 in playerFilter)
+        foreach (var playerF in playerFilter)
         {
-            ref var player = ref playerFilter.Get1(f1);
-            foreach (var f2 in pathFilter)
+            ref var player = ref playerFilter.Get1(playerF);
+            foreach (var pathF in pathFilter)
             {
-                ref var path = ref pathFilter.Get1(f2);
+                ref var path = ref pathFilter.Get1(pathF);
 
                 if (path.wayPoints.Count != 0 && sceneData.gameMode == GameMode.Drive)
                 {
-                    tgtPos = path.wayPoints[0].transform.position;
+                    tgtPos = path.wayPoints[path.currentWaypointIndex].transform.position;
                     tgtPos.y = player.playerData.wheelPos.transform.position.y;
-                    float distanceToCurrentPoint = (path.wayPoints[0].transform.position - player.playerData.wheelPos.position).magnitude;
+                    float distanceToCurrentPoint = (path.wayPoints[path.currentWaypointIndex].transform.position - player.playerData.wheelPos.position).magnitude;
                     if (distanceToCurrentPoint >= 3f)
                     {
                         steer = Vector3.SignedAngle(tgtPos - player.playerData.wheelPos.position, player.playerData.wheelPos.forward, player.playerData.wheelPos.up);
@@ -68,7 +67,15 @@ sealed class PlayerMoveSystem : IEcsRunSystem
                     }
                     else
                     {
-                        path.wayPoints.Remove(path.wayPoints[0]);
+                        //GameObject.Destroy(path.wayPoints[0]);
+                        //path.wayPoints.Remove(path.wayPoints[0]);
+                        if (path.currentWaypointIndex < path.wayPoints.Count-1)
+                        {
+                            path.currentWaypointIndex++;
+                        }else{
+                            pathFilter.GetEntity(pathF).Get<DestroyRoadRequest>();
+                        }
+
                     }
                 }
                 else
@@ -82,14 +89,14 @@ sealed class PlayerMoveSystem : IEcsRunSystem
                 }
 
 
-                if (path.wayPoints.Count == 0)
+                /*if (path.wayPoints.Count == 0)
                 {
-                    foreach (var f3 in lineFilter)
+                    foreach (var lineF in lineFilter)
                     {
-                        lineFilter.Get1(f3).lineRenderer.positionCount = 1;
-                        lineFilter.Get1(f3).lineRenderer.SetPosition(0, player.playerGO.transform.position);
+                        lineFilter.Get1(lineF).lineRenderer.positionCount = 1;
+                        lineFilter.Get1(lineF).lineRenderer.SetPosition(0, player.playerGO.transform.position);
                     }
-                }
+                }*/
             }
         }
     }

@@ -17,6 +17,7 @@ public class GameInitSystem : IEcsInitSystem
         var pathEntity = _world.NewEntity();
         ref var pathComp = ref pathEntity.Get<PathComp>();
         pathComp.wayPoints = new List<GameObject>();
+        pathComp.lineRenderer = sceneData.lineRenderer;
 
         var playerEntity = _world.NewEntity();
         ref var playerComp = ref playerEntity.Get<PlayerComp>();
@@ -27,11 +28,5 @@ public class GameInitSystem : IEcsInitSystem
         playerComp.maxSteerAngle = 45;
         playerComp.maxTorque = 10000;
         playerComp.acceleration = 50;
-        playerEntity.Get<MovableComp>();
-
-        var lineEntity = _world.NewEntity();
-        var lineGO = Object.Instantiate(staticData.linePrefab);
-        lineEntity.Get<LineComp>().lineRenderer = lineGO.GetComponent<LineRenderer>();
-
     }
 }

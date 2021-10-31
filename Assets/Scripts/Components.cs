@@ -6,6 +6,10 @@ using UnityEngine;
 public struct PathComp
 {
     public List<GameObject> wayPoints;
+
+    public int currentWaypointIndex;
+
+    public LineRenderer lineRenderer;
 }
 public struct PlayerComp
 {
@@ -20,7 +24,8 @@ public struct MovableComp
 {
     public float moveSpeed;
 }
-public struct LineComp
+
+public struct DestroyRoadRequest
 {
-    public LineRenderer lineRenderer;
+
 }

@@ -7,10 +7,8 @@ using System.Collections.Generic;
 sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
 {
     EcsFilter<PathComp> pathFilter;
-    EcsFilter<LineComp> lineFilter;
     EcsFilter<PlayerComp> playerFilter;
     Vector3 playerPos;
-    LineRenderer lineRenderer;
     StaticData staticData;
     SceneData sceneData;
     EcsWorld _world;
@@ -19,10 +17,6 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
     public void Init()
     {
         layer = LayerMask.GetMask("Ground");
-        foreach (var f1 in lineFilter)
-        {
-            lineRenderer = lineFilter.Get1(f1).lineRenderer;
-        }
     }
 
     void IEcsRunSystem.Run()
@@ -66,9 +60,7 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
                         SetWaypoints(playerPos, waypointPos);
                     }
 
-                    lineRenderer.SetPosition(0, path.wayPoints[0].transform.position);
-
-
+                    path.lineRenderer.SetPosition(0, path.wayPoints[0].transform.position);
                 }
             }
         }
@@ -84,16 +76,14 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
             for (int i = 0; i < iterations; i++)
             {
                 Vector3 waypointPos = (last - first).normalized + first;
-                Debug.Log(waypointPos.magnitude);
-
                 first = waypointPos;
                 path.wayPoints.Add(GameObject.Instantiate(staticData.pathPoint, waypointPos, Quaternion.identity));
 
-                if (lineRenderer.positionCount <= path.wayPoints.Count)
+                if (path.lineRenderer.positionCount <= path.wayPoints.Count)
                 {
-                    lineRenderer.positionCount++;
+                    path.lineRenderer.positionCount++;
                 }
-                lineRenderer.SetPosition(path.wayPoints.Count, path.wayPoints[path.wayPoints.Count - 1].transform.position);
+                path.lineRenderer.SetPosition(path.wayPoints.Count, path.wayPoints[path.wayPoints.Count - 1].transform.position);
             }
         }
     }

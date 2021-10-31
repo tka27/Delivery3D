@@ -6,7 +6,6 @@ using UnityEngine;
     {
         public GameObject playerPrefab;
         public GameObject pathPoint;
-        public GameObject linePrefab;
 
     }
 
