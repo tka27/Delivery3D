@@ -19,9 +19,11 @@ sealed class DestroyRoadSystem : IEcsRunSystem
         {
             ref var path = ref pathFilter.Get1(pathF);
             path.currentWaypointIndex = 0;
+            path.currentPoolIndex = 0;
+            
             foreach (var wp in path.wayPoints)
             {
-                GameObject.Destroy(wp);
+                wp.SetActive(false);
             }
             path.wayPoints.Clear();
 

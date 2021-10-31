@@ -18,6 +18,7 @@ public class GameInitSystem : IEcsInitSystem
         ref var pathComp = ref pathEntity.Get<PathComp>();
         pathComp.wayPoints = new List<GameObject>();
         pathComp.lineRenderer = sceneData.lineRenderer;
+        pathComp.waypointsPool = sceneData.waypointsPool;
 
         var playerEntity = _world.NewEntity();
         ref var playerComp = ref playerEntity.Get<PlayerComp>();

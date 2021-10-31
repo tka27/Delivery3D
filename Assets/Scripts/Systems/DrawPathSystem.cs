@@ -11,7 +11,6 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
     Vector3 playerPos;
     StaticData staticData;
     SceneData sceneData;
-    EcsWorld _world;
     LayerMask layer;
     Camera camera;
 
@@ -20,6 +19,7 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
         layer = LayerMask.GetMask("Ground");
         camera = Camera.main;
         playerPos = new Vector3();
+
     }
 
     void IEcsRunSystem.Run()
@@ -35,10 +35,11 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
         !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()) //check ui button
         {
             waypointPos = new Vector3(hit.point.x, hit.point.y + 0.01f, hit.point.z);
-            foreach (var f2 in pathFilter)
+
+            float distanceToNextPoint = 0;
+            foreach (var pathF in pathFilter)
             {
-                ref var path = ref pathFilter.Get1(f2);
-                float distanceToNextPoint = 0;
+                ref var path = ref pathFilter.Get1(pathF);
                 if (path.wayPoints.Count != 0)
                 {
                     distanceToNextPoint = (waypointPos - path.wayPoints[path.wayPoints.Count - 1].transform.position).magnitude;
@@ -57,13 +58,12 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
                     if (path.wayPoints.Count != 0)
                     {
                         SetWaypoints(path.wayPoints[path.wayPoints.Count - 1].transform.position, waypointPos);
+                        path.lineRenderer.SetPosition(0, path.wayPoints[0].transform.position);
                     }
                     else
                     {
                         SetWaypoints(playerPos, waypointPos);
                     }
-
-                    path.lineRenderer.SetPosition(0, path.wayPoints[0].transform.position);
                 }
             }
         }
@@ -71,16 +71,15 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
 
     void SetWaypoints(Vector3 first, Vector3 last)
     {
-        foreach (var f2 in pathFilter)
+        foreach (var pathF in pathFilter)
         {
-            ref var path = ref pathFilter.Get1(f2);
-
+            ref var path = ref pathFilter.Get1(pathF);
             int iterations = (int)(last - first).magnitude;
             for (int i = 0; i < iterations; i++)
             {
                 Vector3 waypointPos = (last - first).normalized + first;
                 first = waypointPos;
-                path.wayPoints.Add(GameObject.Instantiate(staticData.pathPoint, waypointPos, Quaternion.identity));
+                path.wayPoints.Add(WPFromPool(waypointPos));//GameObject.Instantiate(staticData.pathPoint, waypointPos, Quaternion.identity));
 
                 if (path.lineRenderer.positionCount <= path.wayPoints.Count)
                 {
@@ -89,5 +88,18 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
                 path.lineRenderer.SetPosition(path.wayPoints.Count, path.wayPoints[path.wayPoints.Count - 1].transform.position);
             }
         }
+    }
+    GameObject WPFromPool(Vector3 pos)
+    {
+        foreach (var pathF in pathFilter)
+        {
+            ref var path = ref pathFilter.Get1(pathF);
+            GameObject waypoint = path.waypointsPool[path.currentPoolIndex];
+            waypoint.transform.position = pos;
+            waypoint.SetActive(true);
+            path.currentPoolIndex++;
+            return waypoint;
+        }
+        return null;
     }
 }

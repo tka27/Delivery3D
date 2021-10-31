@@ -10,6 +10,8 @@ public struct PathComp
     public int currentWaypointIndex;
 
     public LineRenderer lineRenderer;
+    public List<GameObject> waypointsPool;
+    public int currentPoolIndex;
 }
 public struct PlayerComp
 {
@@ -27,5 +29,4 @@ public struct MovableComp
 
 public struct DestroyRoadRequest
 {
-
 }
