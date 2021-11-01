@@ -5,16 +5,16 @@ using UnityEngine;
 sealed class PlayerMoveSystem : IEcsRunSystem
 {
     SceneData sceneData;
-    EcsFilter<PlayerComp> playerFilter;
+    EcsFilter<PlayerComp, MovableComp> playerFilter;
     EcsFilter<PathComp> pathFilter;
     EcsWorld _world;
 
     void IEcsRunSystem.Run()
     {
-        float steer;
-        Vector3 tgtPos;
         foreach (var playerF in playerFilter)
         {
+            float steer;
+            Vector3 tgtPos;
             ref var player = ref playerFilter.Get1(playerF);
             foreach (var pathF in pathFilter)
             {
@@ -43,19 +43,19 @@ sealed class PlayerMoveSystem : IEcsRunSystem
                         {
                             if (i < 2)
                             {
-                                if (Input.GetMouseButton(0) && player.currentSpeed < player.maxTorque)
+                                if (Input.GetMouseButton(0) && player.currentTorque < player.maxTorque)
                                 {
-                                    player.currentSpeed += player.acceleration;
+                                    player.currentTorque += player.acceleration;
                                 }
                                 else
                                 {
-                                    player.currentSpeed -= player.acceleration;
+                                    player.currentTorque -= player.acceleration;
                                 }
-                                if (player.currentSpeed < 0)
+                                if (player.currentTorque < 0)
                                 {
-                                    player.currentSpeed = 0;
+                                    player.currentTorque = 0;
                                 }
-                                player.playerData.wheelColliders[i].motorTorque = player.currentSpeed; //motor
+                                player.playerData.wheelColliders[i].motorTorque = player.currentTorque; //motor
                                 player.playerData.wheelColliders[i].steerAngle = steer;
                             }
                             Vector3 pos;
@@ -69,10 +69,12 @@ sealed class PlayerMoveSystem : IEcsRunSystem
                     {
                         //GameObject.Destroy(path.wayPoints[0]);
                         //path.wayPoints.Remove(path.wayPoints[0]);
-                        if (path.currentWaypointIndex < path.wayPoints.Count-1)
+                        if (path.currentWaypointIndex < path.wayPoints.Count - 1)
                         {
                             path.currentWaypointIndex++;
-                        }else{
+                        }
+                        else
+                        {
                             pathFilter.GetEntity(pathF).Get<DestroyRoadRequest>();
                         }
 
@@ -84,7 +86,7 @@ sealed class PlayerMoveSystem : IEcsRunSystem
                     for (int i = 0; i < player.playerData.wheelColliders.Count; i++)
                     {
                         player.playerData.wheelColliders[i].motorTorque = 0;
-                        player.currentSpeed = 0;
+                        player.currentTorque = 0;
                     }
                 }
 

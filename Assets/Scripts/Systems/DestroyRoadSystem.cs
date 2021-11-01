@@ -7,6 +7,7 @@ sealed class DestroyRoadSystem : IEcsRunSystem
 
     EcsFilter<PathComp, DestroyRoadRequest> pathFilter;
     EcsFilter<PlayerComp> playerFilter;
+    StaticData staticData;
 
     void IEcsRunSystem.Run()
     {
@@ -14,6 +15,7 @@ sealed class DestroyRoadSystem : IEcsRunSystem
         foreach (var playerF in playerFilter)
         {
             playerPos = playerFilter.Get1(playerF).playerGO.transform.position;
+            playerPos.y = staticData.groundHeight;
         }
         foreach (var pathF in pathFilter)
         {

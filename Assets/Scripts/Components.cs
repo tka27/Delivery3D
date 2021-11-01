@@ -6,27 +6,30 @@ using UnityEngine;
 public struct PathComp
 {
     public List<GameObject> wayPoints;
-
+    public List<Collider> wpColliders;
     public int currentWaypointIndex;
-
     public LineRenderer lineRenderer;
     public List<GameObject> waypointsPool;
     public int currentPoolIndex;
 }
 public struct PlayerComp
 {
+    public Rigidbody playerRB;
     public GameObject playerGO;
     public PlayerData playerData;
     public float maxSteerAngle;
     public float maxTorque;
-    public float currentSpeed;
+    public float currentTorque;
     public float acceleration;
+    public float maxHealth;
+    public float currentHealth;
+
 }
 public struct MovableComp
 {
-    public float moveSpeed;
 }
 
 public struct DestroyRoadRequest
 {
 }
+

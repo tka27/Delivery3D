@@ -8,4 +8,5 @@ public class PlayerData : MonoBehaviour
     public List<Transform> wheelMeshes;
     public Transform wheelPos;
     public Transform centerOfMass;
+    public List<WheelData> wheelDatas;
 }

@@ -40,6 +40,7 @@ sealed class EcsStartup : MonoBehaviour
             .Init();
         _fixedSystems
         .Add(new PlayerMoveSystem())
+        .Add(new DamageSystem())
 
 
 

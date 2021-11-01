@@ -8,7 +8,6 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
 {
     EcsFilter<PathComp> pathFilter;
     EcsFilter<PlayerComp> playerFilter;
-    Vector3 playerPos;
     StaticData staticData;
     SceneData sceneData;
     LayerMask layer;
@@ -18,13 +17,13 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
     {
         layer = LayerMask.GetMask("Ground");
         camera = Camera.main;
-        playerPos = new Vector3();
 
     }
 
     void IEcsRunSystem.Run()
     {
 
+        var playerPos = new Vector3();
         RaycastHit hit;
         Ray mouseRay = camera.ScreenPointToRay(Input.mousePosition);
         Vector3 waypointPos;
@@ -49,7 +48,7 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
                     foreach (var f3 in playerFilter)
                     {
                         playerPos = playerFilter.Get1(f3).playerGO.transform.position;
-                        playerPos.y = -0.99f;
+                        playerPos.y = -1;
                     }
                     distanceToNextPoint = (waypointPos - playerPos).magnitude;
                 }
@@ -79,8 +78,7 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
             {
                 Vector3 waypointPos = (last - first).normalized + first;
                 first = waypointPos;
-                path.wayPoints.Add(WPFromPool(waypointPos));//GameObject.Instantiate(staticData.pathPoint, waypointPos, Quaternion.identity));
-
+                path.wayPoints.Add(WPFromPool(waypointPos));
                 if (path.lineRenderer.positionCount <= path.wayPoints.Count)
                 {
                     path.lineRenderer.positionCount++;

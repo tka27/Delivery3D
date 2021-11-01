@@ -9,6 +9,7 @@ public class SceneData : MonoBehaviour
     public GameObject buildCam;
     public LineRenderer lineRenderer;
     public List<GameObject> waypointsPool;
+    public List<Collider> wpColliders;
 }
 
 

@@ -8,9 +8,8 @@ using System.Collections.Generic;
 public class GameInitSystem : IEcsInitSystem
 {
     private EcsWorld _world;
-    private StaticData staticData; // мы можем добавить новые ссылки на StaticData и SceneData
+    private StaticData staticData;
     private SceneData sceneData;
-    //private RuntimeData runtimeData; //юзать эту дату на gameobject
 
     public void Init()
     {
@@ -22,12 +21,16 @@ public class GameInitSystem : IEcsInitSystem
 
         var playerEntity = _world.NewEntity();
         ref var playerComp = ref playerEntity.Get<PlayerComp>();
-        GameObject playerGO = sceneData.car;//Object.Instantiate(staticData.playerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        playerEntity.Get<MovableComp>();
+        GameObject playerGO = sceneData.car;
         playerComp.playerGO = playerGO;
         playerComp.playerData = playerGO.GetComponent<PlayerData>();
-        playerComp.playerGO.GetComponent<Rigidbody>().centerOfMass = playerComp.playerData.centerOfMass.transform.localPosition;
+        playerComp.playerRB = playerComp.playerGO.GetComponent<Rigidbody>();
+        playerComp.playerRB.centerOfMass = playerComp.playerData.centerOfMass.transform.localPosition;
         playerComp.maxSteerAngle = 45;
         playerComp.maxTorque = 10000;
         playerComp.acceleration = 50;
+        playerComp.maxHealth = 100;
+        playerComp.currentHealth = 100;
     }
 }
