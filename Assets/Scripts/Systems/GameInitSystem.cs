@@ -31,6 +31,9 @@ public class GameInitSystem : IEcsInitSystem
         playerComp.maxTorque = 10000;
         playerComp.acceleration = 50;
         playerComp.maxHealth = 100;
-        playerComp.currentHealth = 100;
+        playerComp.currentHealth = playerComp.maxHealth;
+        playerComp.maxFuel = 100;
+        playerComp.currentFuel = playerComp.maxFuel;
+        playerComp.fuelConsumption = 0.01f;
     }
 }

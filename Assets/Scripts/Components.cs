@@ -23,6 +23,9 @@ public struct PlayerComp
     public float acceleration;
     public float maxHealth;
     public float currentHealth;
+    public float maxFuel;
+    public float currentFuel;
+    public float fuelConsumption;
 
 }
 public struct MovableComp
@@ -30,6 +33,9 @@ public struct MovableComp
 }
 
 public struct DestroyRoadRequest
+{
+}
+public struct ImmobilizeRequest
 {
 }
 

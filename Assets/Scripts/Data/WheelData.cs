@@ -28,7 +28,6 @@ public class WheelData : MonoBehaviour
         if (!firstCheck)
         {
             onRoad = false;
-            print(onRoad);
         }
     }
 }

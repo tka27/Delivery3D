@@ -41,6 +41,8 @@ sealed class EcsStartup : MonoBehaviour
         _fixedSystems
         .Add(new PlayerMoveSystem())
         .Add(new DamageSystem())
+        .Add(new FuelSystem())
+        .Add(new ImmobilizeSystem())
 
 
 
