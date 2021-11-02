@@ -67,8 +67,6 @@ sealed class PlayerMoveSystem : IEcsRunSystem
                     }
                     else
                     {
-                        //GameObject.Destroy(path.wayPoints[0]);
-                        //path.wayPoints.Remove(path.wayPoints[0]);
                         if (path.currentWaypointIndex < path.wayPoints.Count - 1)
                         {
                             path.currentWaypointIndex++;
@@ -76,6 +74,8 @@ sealed class PlayerMoveSystem : IEcsRunSystem
                         else
                         {
                             pathFilter.GetEntity(pathF).Get<DestroyRoadRequest>();
+                            sceneData.gameMode = GameMode.View;
+                            sceneData.gameModeText.text = sceneData.gameMode.ToString();
                         }
 
                     }

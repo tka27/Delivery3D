@@ -27,6 +27,7 @@ sealed class EcsStartup : MonoBehaviour
             .Add(new DrawPathSystem())
             .Add(new ViewCameraSystem())
             .Add(new DestroyRoadSystem())
+            .Add(new HideButtonsSystem())
 
             // register one-frame components (order is important), for example:
             // .OneFrame<TestComponent1> ()

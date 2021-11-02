@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class GameModeButton : MonoBehaviour
 {
-    public Text buttonText;
     [SerializeField] SceneData sceneData;
 
     public void OnClick()
@@ -13,17 +12,31 @@ public class GameModeButton : MonoBehaviour
         switch (sceneData.gameMode)
         {
             case GameMode.View:
-                sceneData.gameMode = GameMode.Build;
+                if (!sceneData.isPathConfirmed)
+                {
+                    sceneData.gameMode = GameMode.Build;
+                }
+                else
+                {
+                    sceneData.gameMode = GameMode.Drive;
+                }
                 break;
 
             case GameMode.Build:
-                sceneData.gameMode = GameMode.Drive;
+                if (sceneData.isPathConfirmed)
+                {
+                    sceneData.gameMode = GameMode.Drive;
+                }
+                else
+                {
+                    sceneData.gameMode = GameMode.View;
+                }
                 break;
 
             default:
                 sceneData.gameMode = GameMode.View;
                 break;
         }
-        buttonText.text = sceneData.gameMode.ToString();
+        sceneData.gameModeText.text = sceneData.gameMode.ToString();
     }
 }

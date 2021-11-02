@@ -16,7 +16,6 @@ sealed class FuelSystem : IEcsRunSystem
             {
                 ref var player = ref playerFilter.Get1(fPlayer);
                 player.currentFuel -= player.fuelConsumption;
-                Debug.Log(player.currentFuel);
                 if (player.currentFuel < 0)
                 {
                     player.currentFuel = 0;

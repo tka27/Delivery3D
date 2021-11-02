@@ -6,9 +6,18 @@ public class WheelData : MonoBehaviour
 {
     public bool onRoad;
     bool firstCheck;
+    string tag1;
+    string tag2;
+    string function;
+    void Start()
+    {
+        tag1 = "Road";
+        tag2 = "FinalPoint";
+        function = "OnRoadCheck";
+    }
     void OnTriggerStay(Collider collider)
     {
-        if (collider.tag == "Road")
+        if (collider.tag == tag1 || collider.tag == tag2)
         {
             onRoad = true;
             firstCheck = true;
@@ -17,10 +26,10 @@ public class WheelData : MonoBehaviour
 
     void OnTriggerExit(Collider collider)
     {
-        if (collider.tag == "Road")
+        if (collider.tag == tag1)
         {
             firstCheck = false;
-            Invoke("OnRoadCheck", 0.02f);
+            Invoke(function, 0.02f);
         }
     }
     void OnRoadCheck()

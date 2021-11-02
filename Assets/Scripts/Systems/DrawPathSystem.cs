@@ -17,7 +17,6 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
     {
         layer = LayerMask.GetMask("Ground");
         camera = Camera.main;
-
     }
 
     void IEcsRunSystem.Run()
@@ -39,6 +38,10 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
             foreach (var pathF in pathFilter)
             {
                 ref var path = ref pathFilter.Get1(pathF);
+                if (sceneData.isPathComplete)
+                {
+                    return;
+                }
                 if (path.wayPoints.Count != 0)
                 {
                     distanceToNextPoint = (waypointPos - path.wayPoints[path.wayPoints.Count - 1].transform.position).magnitude;
@@ -58,6 +61,10 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
                     {
                         SetWaypoints(path.wayPoints[path.wayPoints.Count - 1].transform.position, waypointPos);
                         path.lineRenderer.SetPosition(0, path.wayPoints[0].transform.position);
+                        if (!sceneData.isPathComplete)
+                        {
+                            checkPath();
+                        }
                     }
                     else
                     {
@@ -99,5 +106,23 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
             return waypoint;
         }
         return null;
+    }
+
+    void checkPath()
+    {
+        foreach (var pathF in pathFilter)
+        {
+            ref var path = ref pathFilter.Get1(pathF);
+            foreach (var finalPoint in sceneData.finalPoints)
+            {
+                float distanceToNextPoint = (finalPoint.position - path.wayPoints[path.wayPoints.Count - 1].transform.position).magnitude;
+                float distanceToCurrentPoint = (finalPoint.position - path.wayPoints[0].transform.position).magnitude;
+                if (distanceToNextPoint < 5 && distanceToCurrentPoint > 5)
+                {
+                    SetWaypoints(path.wayPoints[path.wayPoints.Count - 1].transform.position, finalPoint.position);
+                    sceneData.isPathComplete = true;
+                }
+            }
+        }
     }
 }

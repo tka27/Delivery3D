@@ -9,4 +9,5 @@ public class PlayerData : MonoBehaviour
     public Transform wheelPos;
     public Transform centerOfMass;
     public List<WheelData> wheelDatas;
+    public Collider carCollider;
 }
