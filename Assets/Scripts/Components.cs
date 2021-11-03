@@ -26,16 +26,40 @@ public struct PlayerComp
     public float maxFuel;
     public float currentFuel;
     public float fuelConsumption;
-
+    public int money;
 }
 public struct MovableComp
 {
 }
-
 public struct DestroyRoadRequest
 {
 }
 public struct ImmobilizeRequest
 {
+}
+public struct Factory
+{
+    GameObject factoryGO;
+    public ProductType buyingProduct;
+    public int buyingProductCount;
+    public ProductType sellingProduct;
+    public int sellingProductCount;
+    public float produceSpeed;
+    public int buyPrice;
+    public int sellPrice;
+}
+public struct Farm
+{
+    GameObject farmGO;
+    public ProductType sellingProduct;
+    public int sellingProductCount;
+    public float produceSpeed;
+    public int sellPrice;
+}
+public struct CargoComp
+{
+    public int maxWeight;
+    public int currentWeight;
+
 }
 

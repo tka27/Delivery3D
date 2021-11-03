@@ -17,6 +17,8 @@ public class SceneData : MonoBehaviour
     public bool clearPathRequest;
     public GameObject confirmButton;
     public GameObject clearButton;
+    public GameObject wheatFarm;
+    public List<GameObject> infoPanels;
 }
 
 

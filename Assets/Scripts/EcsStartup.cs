@@ -23,11 +23,12 @@ sealed class EcsStartup : MonoBehaviour
 #endif
         _systems
             .Add(new GameInitSystem())
-            .Add(new GameModeSystem())
+            .Add(new CameraSwitchSystem())
             .Add(new DrawPathSystem())
             .Add(new ViewCameraSystem())
             .Add(new DestroyRoadSystem())
             .Add(new HideButtonsSystem())
+            .Add(new InfoPanelSwitchSystem())
 
             // register one-frame components (order is important), for example:
             // .OneFrame<TestComponent1> ()
@@ -44,6 +45,7 @@ sealed class EcsStartup : MonoBehaviour
         .Add(new DamageSystem())
         .Add(new FuelSystem())
         .Add(new ImmobilizeSystem())
+        .Add(new FarmProduceSystem())
 
 
 

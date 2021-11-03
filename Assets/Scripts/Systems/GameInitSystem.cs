@@ -35,5 +35,14 @@ public class GameInitSystem : IEcsInitSystem
         playerComp.maxFuel = 100;
         playerComp.currentFuel = playerComp.maxFuel;
         playerComp.fuelConsumption = 0.01f;
+
+        var wheatFarmEntity = _world.NewEntity();
+        ref var wheatFactory = ref wheatFarmEntity.Get<Farm>();
+        wheatFactory.sellingProduct = ProductType.Wheat;
+        //wheatFactory.sellPrice = 0;
+        wheatFactory.produceSpeed = 80;
+        ref var wheatCargo = ref wheatFarmEntity.Get<CargoComp>();
+        wheatCargo.maxWeight = 500;
+        //wheatCargo.currentWeight = 0;
     }
 }

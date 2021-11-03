@@ -3,7 +3,7 @@ using UnityEngine;
 
 
 
-sealed class GameModeSystem : IEcsRunSystem
+sealed class CameraSwitchSystem : IEcsRunSystem
 {
     SceneData sceneData;
 
@@ -18,7 +18,4 @@ sealed class GameModeSystem : IEcsRunSystem
             sceneData.buildCam.SetActive(false);
         }
     }
-
 }
-
-public enum GameMode { View, Build, Drive }

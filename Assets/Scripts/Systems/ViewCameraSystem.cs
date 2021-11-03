@@ -5,36 +5,32 @@ using UnityEngine;
 sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
 {
     SceneData sceneData;
-    Vector3 startPos;
     float cameraHeight;
     Camera camera;
+    Transform buildCameraPos;
+    float minCameraHeight = 10;
+    float maxCameraHeight = 100;
 
     public void Init()
     {
-        startPos = sceneData.buildCam.transform.position;
         camera = Camera.main;
+        buildCameraPos = sceneData.buildCam.transform;
     }
 
     void IEcsRunSystem.Run()
     {
         if (sceneData.gameMode == GameMode.View)
         {
-            RaycastHit hit;
-            Ray mouseRay = camera.ScreenPointToRay(Input.mousePosition);
-            Physics.Raycast(mouseRay, out hit, 1000);
-
-            if (Input.GetMouseButtonDown(0) &&
-            !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())//check ui button)
-            {
-                startPos = hit.point;
-            }
-            else if (Input.GetMouseButton(0) &&
+            cameraHeight = buildCameraPos.position.y;
+            if (Input.GetMouseButton(0) &&
             !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
-                Vector3 tgtPos = hit.point;
-                sceneData.buildCam.transform.position += startPos - tgtPos;
+                Vector3 startPos = new Vector3(0.5f, 0, 0.5f);
+                Vector3 tgtPos = new Vector3(camera.ScreenToViewportPoint(Input.mousePosition).x, 0, camera.ScreenToViewportPoint(Input.mousePosition).y);
+                buildCameraPos.position += (tgtPos - startPos) * cameraHeight / 20;
             }
+            cameraHeight = Mathf.Clamp(cameraHeight - Input.mouseScrollDelta.y, minCameraHeight, maxCameraHeight); //test wishlist
+            buildCameraPos.position = new Vector3(buildCameraPos.position.x, cameraHeight, buildCameraPos.position.z);
         }
-
     }
 }
