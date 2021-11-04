@@ -28,7 +28,7 @@ sealed class EcsStartup : MonoBehaviour
             .Add(new DrawPathSystem())
             .Add(new ViewCameraSystem())
             .Add(new DestroyRoadSystem())
-            .Add(new HideButtonsSystem())
+            .Add(new HideUIElementsSystem())
             .Add(new InfoPanelSwitchSystem())
             .Add(new BuySystem())
             .Add(new SellSystem())

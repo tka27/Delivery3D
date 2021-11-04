@@ -57,7 +57,6 @@ sealed class BuySystem : IEcsRunSystem
                         seller.tradePointData.storageInfo.text = sellerStorage.currentMass + "/" + sellerStorage.maxMass;
                         sceneData.money -= dealMass * seller.sellPrice;
                         uiData.moneyText.text = sceneData.money.ToString("#");
-                        Debug.Log(cargo.inventory.Count);///////////////////
                     }
 
 

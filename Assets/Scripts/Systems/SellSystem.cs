@@ -13,13 +13,13 @@ sealed class SellSystem : IEcsRunSystem
 
     void IEcsRunSystem.Run()
     {
-        foreach (var fSeller in buyerFilter)
+        foreach (var fBuyer in buyerFilter)
         {
-            ref var buyer = ref buyerFilter.Get1(fSeller);
+            ref var buyer = ref buyerFilter.Get1(fBuyer);
             if (buyer.tradePointData.ableToTrade && uiData.sellRequest)
             {
                 uiData.sellRequest = false;
-                ref var buyerStorage = ref buyerFilter.Get2(fSeller);
+                ref var buyerStorage = ref buyerFilter.Get2(fBuyer);
                 foreach (var fCargo in playerFilter)
                 {
                     ref var cargo = ref playerFilter.Get1(fCargo);
@@ -36,17 +36,9 @@ sealed class SellSystem : IEcsRunSystem
                         {
                             playerActualProductsMass += cargo.inventory[i].mass;
                             productIndex = i;
-                            /* if (cargo.inventory[i].mass == 0)
-                             {
-                                 forRemove.Add(i);
-                             }*/
                         }
                     }
-                    /* for (int i = 0; i < forRemove.Count; i++)
-                     {
-                         cargo.inventory.RemoveAt(forRemove[i]);
-                     }*/
-
+                   
                     if (playerActualProductsMass == 0)
                     {
                         return;
@@ -77,7 +69,6 @@ sealed class SellSystem : IEcsRunSystem
                         buyer.tradePointData.storageInfo.text = buyerStorage.currentMass + "/" + buyerStorage.maxMass;
                         sceneData.money += dealMass * buyer.buyPrice;
                         uiData.moneyText.text = sceneData.money.ToString("#");
-                        Debug.Log(buyer.consumableProductsCount);
                     }
 
                     uiData.cargoText.text = playerStorage.currentMass + "/" + playerStorage.maxMass;
