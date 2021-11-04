@@ -2,10 +2,10 @@ using Leopotam.Ecs;
 using UnityEngine;
 
 
-sealed class FarmProduceSystem : IEcsRunSystem
+sealed class FactoryProduceSystem : IEcsRunSystem
 {
 
-    EcsFilter<ProductSeller, StorageComp>.Exclude<ProductBuyer> producerFilter;
+    EcsFilter<ProductSeller, StorageComp, ProductBuyer> producerFilter;
     float timer;
 
     void IEcsRunSystem.Run()
@@ -19,10 +19,11 @@ sealed class FarmProduceSystem : IEcsRunSystem
         {
             ref var producer = ref producerFilter.Get1(fProd);
             ref var storage = ref producerFilter.Get2(fProd);
-            if (storage.currentMass < storage.maxMass)
+            ref var consumer = ref producerFilter.Get3(fProd);
+            if (storage.currentMass <= storage.maxMass && consumer.consumableProductsCount != 0)
             {
                 producer.productsForSale++;
-                storage.currentMass = producer.productsForSale;
+                consumer.consumableProductsCount--;
                 producer.tradePointData.storageInfo.text = storage.currentMass + "/" + storage.maxMass;
             }
 

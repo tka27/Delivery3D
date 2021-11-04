@@ -6,35 +6,61 @@ sealed class BuySystem : IEcsRunSystem
 {
 
     EcsFilter<ProductSeller, StorageComp> sellerFilter;
-    EcsFilter<CargoComp, StorageComp> cargoFilter;
+    EcsFilter<CargoComp, StorageComp, PlayerComp> playerFilter;
     UIData uiData;
+    SceneData sceneData;
 
     void IEcsRunSystem.Run()
     {
         foreach (var fSeller in sellerFilter)
         {
             ref var seller = ref sellerFilter.Get1(fSeller);
-            ref var sellerStorage = ref sellerFilter.Get2(fSeller);
             if (seller.tradePointData.ableToTrade && uiData.buyRequest)
             {
-                foreach (var fCargo in cargoFilter)
+                ref var sellerStorage = ref sellerFilter.Get2(fSeller);
+                foreach (var fCargo in playerFilter)
                 {
-                    ref var cargo = ref cargoFilter.Get1(fCargo);
-                    ref var playerStorage = ref cargoFilter.Get2(fCargo);
+                    ref var cargo = ref playerFilter.Get1(fCargo);
+                    ref var playerStorage = ref playerFilter.Get2(fCargo);
+                    ref var player = ref playerFilter.Get3(fCargo);
 
                     int playerAvailableMass = playerStorage.maxMass - playerStorage.currentMass;
-                    if (playerAvailableMass < sellerStorage.currentMass)
+                    int dealMass = 0;
+                    if (playerAvailableMass < seller.productsForSale)
                     {
-                        cargo.inventory.Add(new Cargo(seller.sellingProduct, playerAvailableMass));
-                        sellerStorage.currentMass -= playerAvailableMass;
-                        playerStorage.currentMass += playerAvailableMass;
+                        dealMass = playerAvailableMass;
                     }
                     else
                     {
-                        cargo.inventory.Add(new Cargo(seller.sellingProduct, sellerStorage.currentMass));
-                        playerStorage.currentMass += sellerStorage.currentMass;
-                        sellerStorage.currentMass = 0;
+                        dealMass = seller.productsForSale;
                     }
+                    if (dealMass != 0)
+                    {
+                        bool haveProduct = false;
+                        foreach (var product in cargo.inventory)
+                        {
+                            if (product.type == seller.sellingProduct)
+                            {
+                                product.mass += dealMass;
+                                haveProduct = true;
+                            }
+                        }
+                        if (!haveProduct)
+                        {
+                            cargo.inventory.Add(new Cargo(seller.sellingProduct, dealMass));
+                        }
+
+                        seller.productsForSale -= dealMass;
+                        sellerStorage.currentMass -= dealMass;
+                        playerStorage.currentMass += dealMass;
+                        player.playerRB.mass += dealMass;
+                        seller.tradePointData.storageInfo.text = sellerStorage.currentMass + "/" + sellerStorage.maxMass;
+                        sceneData.money -= dealMass * seller.sellPrice;
+                        uiData.moneyText.text = sceneData.money.ToString("#");
+                        Debug.Log(cargo.inventory.Count);///////////////////
+                    }
+
+
                     uiData.cargoText.text = playerStorage.currentMass + "/" + playerStorage.maxMass;
                     uiData.buyRequest = false;
                 }

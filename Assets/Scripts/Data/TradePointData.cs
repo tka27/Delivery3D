@@ -15,7 +15,6 @@ public class TradePointData : MonoBehaviour
         if (collider.tag == playerTag)
         {
             ableToTrade = true;
-            Debug.Log(ableToTrade);
         }
     }
     void OnTriggerExit(Collider collider)
@@ -23,7 +22,6 @@ public class TradePointData : MonoBehaviour
         if (collider.tag == playerTag)
         {
             ableToTrade = false;
-            Debug.Log(ableToTrade);
         }
     }
 }

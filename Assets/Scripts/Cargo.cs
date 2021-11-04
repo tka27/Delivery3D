@@ -1,6 +1,6 @@
 public class Cargo
 {
-    ProductType type;
+    public ProductType type;
     public int mass;
     public Cargo(ProductType productType, int productMass)
     {

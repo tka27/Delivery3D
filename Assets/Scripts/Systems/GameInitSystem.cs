@@ -10,7 +10,6 @@ public class GameInitSystem : IEcsInitSystem
     private EcsWorld _world;
     private SceneData sceneData;
     UIData uiData;
-
     public void Init()
     {
         var pathEntity = _world.NewEntity();
@@ -46,11 +45,27 @@ public class GameInitSystem : IEcsInitSystem
 
         var wheatFarmEntity = _world.NewEntity();
         ref var wheatFarm = ref wheatFarmEntity.Get<ProductSeller>();
-        var wheatFarmGO = sceneData.wheatFarm;
-        wheatFarm.tradePointData = wheatFarmGO.GetComponent<TradePointData>();
-        wheatFarm.sellingProduct = ProductType.Wheat;
+        wheatFarm.sellerGO = sceneData.wheatFarmFinalPoint;
+        wheatFarm.tradePointData = wheatFarm.sellerGO.GetComponent<TradePointData>();
         wheatFarm.produceSpeed = 2;
-        ref var wheatFarmStorage = ref wheatFarmEntity.Get<StorageComp>();
-        wheatFarmStorage.maxMass = 500;
+        wheatFarm.sellingProduct = ProductType.Wheat;
+        wheatFarm.sellPrice = 0.5f;
+        wheatFarmEntity.Get<StorageComp>().maxMass = 200;
+
+        var bakeryEntity = _world.NewEntity();
+        ref var bakeryBuyer = ref bakeryEntity.Get<ProductBuyer>();
+        bakeryBuyer.buyerGO = sceneData.bakeryFinalPoint;
+        bakeryBuyer.tradePointData = bakeryBuyer.buyerGO.GetComponent<TradePointData>();
+        bakeryBuyer.buyingProduct = ProductType.Wheat;
+        bakeryBuyer.buyPrice = 1;
+        bakeryEntity.Get<StorageComp>().maxMass = 20;
+        ref var bakerySeller = ref bakeryEntity.Get<ProductSeller>();
+        bakerySeller.produceSpeed = 1;
+        bakerySeller.sellerGO = bakeryBuyer.buyerGO;
+        bakerySeller.sellingProduct = ProductType.Bread;
+        bakerySeller.sellPrice = 1.5f;
+        bakerySeller.tradePointData = bakeryBuyer.tradePointData;
+
+
     }
 }

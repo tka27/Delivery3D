@@ -26,7 +26,6 @@ public struct PlayerComp
     public float maxFuel;
     public float currentFuel;
     public float fuelConsumption;
-    public int money;
 }
 public struct MovableComp
 {
@@ -40,22 +39,19 @@ public struct ImmobilizeRequest
 public struct ProductBuyer
 {
     public GameObject buyerGO;
+    public TradePointData tradePointData;
     public ProductType buyingProduct;
-    public int buyingProductCount;
-    public ProductType sellingProduct;
-    public int sellingProductCount;
-    public float produceSpeed;
-    public int buyPrice;
-    public int sellPrice;
+    public int consumableProductsCount;
+    public float buyPrice;
 }
 public struct ProductSeller
 {
     public GameObject sellerGO;
     public TradePointData tradePointData;
     public ProductType sellingProduct;
-    public int sellingProductCount;
+    public int productsForSale;
     public float produceSpeed;
-    public int sellPrice;
+    public float sellPrice;
 }
 public struct StorageComp
 {
@@ -66,7 +62,4 @@ public struct CargoComp
 {
     public List<Cargo> inventory;
 }
-/*public struct BuyRequest
-{
-}*/
 
