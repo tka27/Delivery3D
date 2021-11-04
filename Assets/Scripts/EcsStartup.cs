@@ -9,6 +9,7 @@ sealed class EcsStartup : MonoBehaviour
     EcsSystems _fixedSystems;
     public StaticData staticData;
     public SceneData sceneData;
+    public UIData uiData;
 
     void Start()
     {
@@ -29,6 +30,7 @@ sealed class EcsStartup : MonoBehaviour
             .Add(new DestroyRoadSystem())
             .Add(new HideButtonsSystem())
             .Add(new InfoPanelSwitchSystem())
+            .Add(new BuySystem())
 
             // register one-frame components (order is important), for example:
             // .OneFrame<TestComponent1> ()
@@ -39,6 +41,7 @@ sealed class EcsStartup : MonoBehaviour
             // .Inject (new NavMeshSupport ())
             .Inject(staticData)
             .Inject(sceneData)
+            .Inject(uiData)
             .Init();
         _fixedSystems
         .Add(new PlayerMoveSystem())
@@ -52,6 +55,7 @@ sealed class EcsStartup : MonoBehaviour
 
         .Inject(staticData)
         .Inject(sceneData)
+        .Inject(uiData)
         .Init();
     }
 

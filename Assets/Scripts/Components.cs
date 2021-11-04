@@ -21,8 +21,8 @@ public struct PlayerComp
     public float maxTorque;
     public float currentTorque;
     public float acceleration;
-    public float maxHealth;
-    public float currentHealth;
+    public float maxDurability;
+    public float currentDurability;
     public float maxFuel;
     public float currentFuel;
     public float fuelConsumption;
@@ -37,9 +37,9 @@ public struct DestroyRoadRequest
 public struct ImmobilizeRequest
 {
 }
-public struct Factory
+public struct ProductBuyer
 {
-    GameObject factoryGO;
+    public GameObject buyerGO;
     public ProductType buyingProduct;
     public int buyingProductCount;
     public ProductType sellingProduct;
@@ -48,18 +48,25 @@ public struct Factory
     public int buyPrice;
     public int sellPrice;
 }
-public struct Farm
+public struct ProductSeller
 {
-    GameObject farmGO;
+    public GameObject sellerGO;
+    public TradePointData tradePointData;
     public ProductType sellingProduct;
     public int sellingProductCount;
     public float produceSpeed;
     public int sellPrice;
 }
+public struct StorageComp
+{
+    public int maxMass;
+    public int currentMass;
+}
 public struct CargoComp
 {
-    public int maxWeight;
-    public int currentWeight;
-
+    public List<Cargo> inventory;
 }
+/*public struct BuyRequest
+{
+}*/
 

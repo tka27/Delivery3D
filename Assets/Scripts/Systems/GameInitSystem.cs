@@ -8,8 +8,8 @@ using System.Collections.Generic;
 public class GameInitSystem : IEcsInitSystem
 {
     private EcsWorld _world;
-    private StaticData staticData;
     private SceneData sceneData;
+    UIData uiData;
 
     public void Init()
     {
@@ -30,19 +30,27 @@ public class GameInitSystem : IEcsInitSystem
         playerComp.maxSteerAngle = 45;
         playerComp.maxTorque = 10000;
         playerComp.acceleration = 50;
-        playerComp.maxHealth = 100;
-        playerComp.currentHealth = playerComp.maxHealth;
+        playerComp.maxDurability = 100;
+        playerComp.currentDurability = playerComp.maxDurability;
+        uiData.durabilityText.text = playerComp.currentDurability.ToString();
         playerComp.maxFuel = 100;
         playerComp.currentFuel = playerComp.maxFuel;
+        uiData.fuelText.text = playerComp.currentFuel.ToString();
         playerComp.fuelConsumption = 0.01f;
+        playerEntity.Get<CargoComp>().inventory = new List<Cargo>();
+        ref var playerStorage = ref playerEntity.Get<StorageComp>();
+        playerStorage.maxMass = 50;
+        uiData.cargoText.text = playerStorage.currentMass + "/" + playerStorage.maxMass;
+
+
 
         var wheatFarmEntity = _world.NewEntity();
-        ref var wheatFactory = ref wheatFarmEntity.Get<Farm>();
-        wheatFactory.sellingProduct = ProductType.Wheat;
-        //wheatFactory.sellPrice = 0;
-        wheatFactory.produceSpeed = 80;
-        ref var wheatCargo = ref wheatFarmEntity.Get<CargoComp>();
-        wheatCargo.maxWeight = 500;
-        //wheatCargo.currentWeight = 0;
+        ref var wheatFarm = ref wheatFarmEntity.Get<ProductSeller>();
+        var wheatFarmGO = sceneData.wheatFarm;
+        wheatFarm.tradePointData = wheatFarmGO.GetComponent<TradePointData>();
+        wheatFarm.sellingProduct = ProductType.Wheat;
+        wheatFarm.produceSpeed = 2;
+        ref var wheatFarmStorage = ref wheatFarmEntity.Get<StorageComp>();
+        wheatFarmStorage.maxMass = 500;
     }
 }

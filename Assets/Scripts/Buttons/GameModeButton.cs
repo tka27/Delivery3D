@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameModeButton : MonoBehaviour
 {
     [SerializeField] SceneData sceneData;
-
-    public void OnClick()
+    [SerializeField] UIData uiData;
+    public void GameModeClick()
     {
         switch (sceneData.gameMode)
         {
             case GameMode.View:
-                if (!sceneData.isPathConfirmed)
+                if (!uiData.isPathConfirmed)
                 {
                     sceneData.gameMode = GameMode.Build;
                 }
@@ -23,7 +22,7 @@ public class GameModeButton : MonoBehaviour
                 break;
 
             case GameMode.Build:
-                if (sceneData.isPathConfirmed)
+                if (uiData.isPathConfirmed)
                 {
                     sceneData.gameMode = GameMode.Drive;
                 }

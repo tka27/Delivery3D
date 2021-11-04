@@ -10,6 +10,7 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
     EcsFilter<PlayerComp> playerFilter;
     StaticData staticData;
     SceneData sceneData;
+    UIData uiData;
     LayerMask layer;
     Camera camera;
 
@@ -38,7 +39,7 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
             foreach (var pathF in pathFilter)
             {
                 ref var path = ref pathFilter.Get1(pathF);
-                if (sceneData.isPathComplete)
+                if (uiData.isPathComplete)
                 {
                     return;
                 }
@@ -61,7 +62,7 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
                     {
                         SetWaypoints(path.wayPoints[path.wayPoints.Count - 1].transform.position, waypointPos);
                         path.lineRenderer.SetPosition(0, path.wayPoints[0].transform.position);
-                        if (!sceneData.isPathComplete)
+                        if (!uiData.isPathComplete)
                         {
                             checkPath();
                         }
@@ -120,7 +121,7 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
                 if (distanceToNextPoint < 5 && distanceToCurrentPoint > 5)
                 {
                     SetWaypoints(path.wayPoints[path.wayPoints.Count - 1].transform.position, finalPoint.position);
-                    sceneData.isPathComplete = true;
+                    uiData.isPathComplete = true;
                 }
             }
         }

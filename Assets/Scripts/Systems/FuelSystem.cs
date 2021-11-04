@@ -7,6 +7,7 @@ sealed class FuelSystem : IEcsRunSystem
 
     EcsFilter<PlayerComp, MovableComp> playerFilter;
     SceneData sceneData;
+    UIData uiData;
 
     void IEcsRunSystem.Run()
     {
@@ -16,9 +17,11 @@ sealed class FuelSystem : IEcsRunSystem
             {
                 ref var player = ref playerFilter.Get1(fPlayer);
                 player.currentFuel -= player.fuelConsumption;
+                uiData.fuelText.text = player.currentFuel.ToString("#");
                 if (player.currentFuel < 0)
                 {
                     player.currentFuel = 0;
+                    uiData.fuelText.text = "No Fuel";
                     playerFilter.GetEntity(fPlayer).Get<ImmobilizeRequest>();
                 }
             }

@@ -9,6 +9,7 @@ sealed class DestroyRoadSystem : IEcsRunSystem
     EcsFilter<PlayerComp> playerFilter;
     StaticData staticData;
     SceneData sceneData;
+    UIData uiData;
 
     void IEcsRunSystem.Run()
     {
@@ -32,16 +33,15 @@ sealed class DestroyRoadSystem : IEcsRunSystem
 
             path.lineRenderer.positionCount = 1;
             path.lineRenderer.SetPosition(0, playerPos);
-            sceneData.isPathComplete = false;
-            sceneData.isPathConfirmed = false;
-            Debug.Log(sceneData.gameMode);
+            uiData.isPathComplete = false;
+            uiData.isPathConfirmed = false;
             pathFilter.GetEntity(fPath).Del<DestroyRoadRequest>();
         }
-        if (!sceneData.clearPathRequest)
+        if (!uiData.clearPathRequest)
         {
             return;
         }
-        sceneData.clearPathRequest = false;
+        uiData.clearPathRequest = false;
         foreach (var fPath in monoRequestFilter)
         {
             monoRequestFilter.GetEntity(fPath).Get<DestroyRoadRequest>();

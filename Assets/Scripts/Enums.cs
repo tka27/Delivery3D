@@ -5,3 +5,4 @@ using UnityEngine;
 
 public enum ProductType { None, Wheat }
 public enum GameMode { View, Build, Drive }
+

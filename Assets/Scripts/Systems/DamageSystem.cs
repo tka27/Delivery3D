@@ -9,6 +9,7 @@ sealed class DamageSystem : IEcsRunSystem
 
     EcsFilter<PlayerComp, MovableComp> playerFilter;
     SceneData sceneData;
+    UIData uiData;
 
     void IEcsRunSystem.Run()
     {
@@ -19,12 +20,14 @@ sealed class DamageSystem : IEcsRunSystem
             {
                 if (!check.onRoad && sceneData.gameMode == GameMode.Drive)
                 {
-                    player.currentHealth -= 0.05f * player.playerRB.velocity.magnitude;
+                    player.currentDurability -= 0.05f * player.playerRB.velocity.magnitude;
+                    uiData.durabilityText.text = player.currentDurability.ToString("#");
                 }
             }
-            if (player.currentHealth < 0)
+            if (player.currentDurability < 0)
             {
-                player.currentHealth = 0;
+                player.currentDurability = 0;
+                uiData.durabilityText.text = "Wheels are broken";
                 playerFilter.GetEntity(fPlayer).Get<ImmobilizeRequest>();
             }
         }

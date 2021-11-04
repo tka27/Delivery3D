@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class ClearButton : MonoBehaviour
 {
-    [SerializeField] SceneData sceneData;
-
+    [SerializeField]UIData uiData;
     public void ClearClick()
     {
-        sceneData.clearPathRequest = true;
+        uiData.clearPathRequest = true;
     }
 }

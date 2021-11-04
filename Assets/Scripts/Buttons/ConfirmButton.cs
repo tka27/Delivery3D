@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class ConfirmButton : MonoBehaviour
 {
+    [SerializeField] UIData uiData;
     [SerializeField] SceneData sceneData;
-    public void ClickConfirm()
+    public void ConfirmClick()
     {
-        if (sceneData.isPathComplete)
+        if (uiData.isPathComplete)
         {
-            sceneData.isPathConfirmed = true;
+            uiData.isPathConfirmed = true;
             sceneData.gameMode = GameMode.Drive;
             sceneData.gameModeText.text = sceneData.gameMode.ToString();
         }
@@ -18,5 +19,4 @@ public class ConfirmButton : MonoBehaviour
             Debug.Log("Проложи путь полностью");
         }
     }
-
 }

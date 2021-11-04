@@ -5,7 +5,7 @@ using UnityEngine;
 sealed class FarmProduceSystem : IEcsRunSystem
 {
 
-    EcsFilter<Farm, CargoComp> farmFilter;
+    EcsFilter<ProductSeller, StorageComp> farmFilter;
     float timer;
 
     void IEcsRunSystem.Run()
@@ -18,12 +18,12 @@ sealed class FarmProduceSystem : IEcsRunSystem
         foreach (var fFarm in farmFilter)
         {
             ref var farm = ref farmFilter.Get1(fFarm);
-            ref var cargo = ref farmFilter.Get2(fFarm);
-            if (cargo.currentWeight < cargo.maxWeight)
+            ref var storage = ref farmFilter.Get2(fFarm);
+            if (storage.currentMass < storage.maxMass)
             {
                 farm.sellingProductCount++;
-                cargo.currentWeight++;
-                Debug.Log(farm.sellingProductCount);
+                storage.currentMass++;
+                farm.tradePointData.storageInfo.text = storage.currentMass + " / " + storage.maxMass;
             }
 
             timer = 50 / farm.produceSpeed;
