@@ -3,6 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum ProductType { None, Wheat, Bread, Meat }
+public enum ProductType { Wheat, Bread, Fuel, AutoParts }
 public enum GameMode { View, Build, Drive }
 

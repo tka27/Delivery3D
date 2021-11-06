@@ -23,8 +23,8 @@ sealed class FarmProduceSystem : IEcsRunSystem
             {
                 producer.sellingProduct.mass++;
                 storage.currentMass = producer.sellingProduct.mass;
-                producer.tradePointData.storageInfo.text = storage.currentMass + "/" + storage.maxMass;
-                producer.tradePointData.sellCount.text = producer.sellingProduct.mass.ToString();
+                producer.tradePointData.storageInfo.text = storage.currentMass.ToString("0") + "/" + storage.maxMass.ToString("0");
+                producer.tradePointData.sellCount.text = producer.sellingProduct.mass.ToString("0");
             }
 
             timer = 50 / producer.produceSpeed;

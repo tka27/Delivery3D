@@ -36,6 +36,6 @@ public class GameModeButton : MonoBehaviour
                 sceneData.gameMode = GameMode.View;
                 break;
         }
-        sceneData.gameModeText.text = sceneData.gameMode.ToString();
+        uiData.gameModeText.text = sceneData.gameMode.ToString();
     }
 }

@@ -60,4 +60,7 @@ public struct CargoComp
 {
     public List<Product> inventory;
 }
+public struct AutoService
+{
+}
 

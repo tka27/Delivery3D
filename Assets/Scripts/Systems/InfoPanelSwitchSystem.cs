@@ -23,3 +23,4 @@ sealed class InfoPanelSwitchSystem : IEcsRunSystem
         }
     }
 }
+////////////////////////         OFF           //////////////////

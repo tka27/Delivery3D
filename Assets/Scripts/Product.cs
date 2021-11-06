@@ -2,9 +2,9 @@ using UnityEngine;
 public class Product
 {
     public ProductType type { get; }
-    public int mass { get; set; }
+    public float mass { get; set; }
     public Sprite icon { get; }
-    public Product(ProductType productType, int productMass, Sprite sprite)
+    public Product(ProductType productType, float productMass, Sprite sprite)
     {
         type = productType;
         mass = productMass;

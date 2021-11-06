@@ -12,7 +12,7 @@ public class ConfirmButton : MonoBehaviour
         {
             uiData.isPathConfirmed = true;
             sceneData.gameMode = GameMode.Drive;
-            sceneData.gameModeText.text = sceneData.gameMode.ToString();
+            uiData.gameModeText.text = sceneData.gameMode.ToString();
         }
         else
         {

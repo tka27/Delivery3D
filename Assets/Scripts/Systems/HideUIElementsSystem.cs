@@ -68,7 +68,7 @@ sealed class HideUIElementsSystem : IEcsRunSystem
         }
 
         //playerInfoPanel
-        if ((sceneData.gameMode == GameMode.Drive || sceneData.gameMode == GameMode.View) && !uiData.playerInfoPanel[0].activeSelf)
+        /*if ((sceneData.gameMode == GameMode.Drive || sceneData.gameMode == GameMode.View) && !uiData.playerInfoPanel[0].activeSelf)
         {
             foreach (var uiElement in uiData.playerInfoPanel)
             {
@@ -81,7 +81,7 @@ sealed class HideUIElementsSystem : IEcsRunSystem
             {
                 uiElement.SetActive(false);
             }
-        }
+        }*/
 
     }
 }

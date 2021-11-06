@@ -7,6 +7,7 @@ sealed class PlayerMoveSystem : IEcsRunSystem
     SceneData sceneData;
     EcsFilter<PlayerComp, MovableComp> playerFilter;
     EcsFilter<PathComp> pathFilter;
+    UIData uiData;
     EcsWorld _world;
 
     void IEcsRunSystem.Run()
@@ -70,7 +71,7 @@ sealed class PlayerMoveSystem : IEcsRunSystem
                         {
                             pathFilter.GetEntity(pathF).Get<DestroyRoadRequest>();
                             sceneData.gameMode = GameMode.View;
-                            sceneData.gameModeText.text = sceneData.gameMode.ToString();
+                            uiData.gameModeText.text = sceneData.gameMode.ToString();
                         }
 
                     }

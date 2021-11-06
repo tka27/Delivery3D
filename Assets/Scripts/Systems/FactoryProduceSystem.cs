@@ -24,9 +24,9 @@ sealed class FactoryProduceSystem : IEcsRunSystem
             {
                 producer.sellingProduct.mass++;
                 consumer.buyingProduct.mass--;
-                producer.tradePointData.storageInfo.text = storage.currentMass + "/" + storage.maxMass;
-                producer.tradePointData.sellCount.text = producer.sellingProduct.mass.ToString();
-                consumer.tradePointData.buyCount.text = consumer.buyingProduct.mass.ToString();
+                producer.tradePointData.storageInfo.text = storage.currentMass.ToString("0") + "/" + storage.maxMass.ToString("0");
+                producer.tradePointData.sellCount.text = producer.sellingProduct.mass.ToString("0");
+                consumer.tradePointData.buyCount.text = consumer.buyingProduct.mass.ToString("0");
             }
             timer = 50 / producer.produceSpeed;
         }

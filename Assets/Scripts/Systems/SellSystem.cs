@@ -26,7 +26,7 @@ sealed class SellSystem : IEcsRunSystem
                     ref var playerStorage = ref playerFilter.Get2(fCargo);
                     ref var player = ref playerFilter.Get3(fCargo);
 
-                    int playerActualProductsMass = 0;
+                    float playerActualProductsMass = 0;
                     List<int> forRemove = new List<int>();
                     int productIndex = 0;
 
@@ -43,8 +43,8 @@ sealed class SellSystem : IEcsRunSystem
                     {
                         return;
                     }
-                    var freeStorageMass = (int)(buyerStorage.maxMass - buyerStorage.currentMass);
-                    int dealMass = 0;
+                    var freeStorageMass = (buyerStorage.maxMass - buyerStorage.currentMass);
+                    float dealMass = 0;
 
                     if (freeStorageMass < playerActualProductsMass)
                     {
@@ -66,13 +66,13 @@ sealed class SellSystem : IEcsRunSystem
                         buyerStorage.currentMass += dealMass;
                         playerStorage.currentMass -= dealMass;
                         player.playerRB.mass -= dealMass;
-                        buyer.tradePointData.storageInfo.text = buyerStorage.currentMass + "/" + buyerStorage.maxMass;
+                        buyer.tradePointData.storageInfo.text = buyerStorage.currentMass.ToString("0") + "/" + buyerStorage.maxMass.ToString("0");
                         sceneData.money += dealMass * buyer.buyPrice;
-                        uiData.moneyText.text = sceneData.money.ToString("#");
+                        uiData.moneyText.text = sceneData.money.ToString("0");
                         SwitchCargo();
-                        buyer.tradePointData.buyCount.text = buyer.buyingProduct.mass.ToString();
+                        buyer.tradePointData.buyCount.text = buyer.buyingProduct.mass.ToString("#");
                     }
-                    uiData.cargoText.text = playerStorage.currentMass + "/" + playerStorage.maxMass;
+                    uiData.cargoText.text = playerStorage.currentMass.ToString("0") + "/" + playerStorage.maxMass.ToString("0");
                 }
             }
         }
