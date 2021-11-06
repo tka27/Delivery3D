@@ -24,7 +24,7 @@ sealed class BuySystem : IEcsRunSystem
                     ref var playerStorage = ref playerFilter.Get2(fCargo);
                     ref var player = ref playerFilter.Get3(fCargo);
 
-                    int playerAvailableMass = playerStorage.maxMass - playerStorage.currentMass;
+                    int playerAvailableMass = (int)(playerStorage.maxMass - playerStorage.currentMass);
                     int dealMass = 0;
                     if (playerAvailableMass < seller.productsForSale)
                     {
@@ -57,12 +57,34 @@ sealed class BuySystem : IEcsRunSystem
                         seller.tradePointData.storageInfo.text = sellerStorage.currentMass + "/" + sellerStorage.maxMass;
                         sceneData.money -= dealMass * seller.sellPrice;
                         uiData.moneyText.text = sceneData.money.ToString("#");
+                        SwitchCargo();
+                        seller.tradePointData.sellCount.text = seller.productsForSale.ToString();
                     }
 
 
                     uiData.cargoText.text = playerStorage.currentMass + "/" + playerStorage.maxMass;
                     uiData.buyRequest = false;
                 }
+            }
+        }
+    }
+
+    void SwitchCargo()
+    {
+
+        foreach (var fPlayer in playerFilter)
+        {
+            ref var playerStorage = ref playerFilter.Get2(fPlayer);
+            ref var player = ref playerFilter.Get3(fPlayer);
+            float filledPart = playerStorage.currentMass / playerStorage.maxMass;
+
+            foreach (var go in player.playerData.playerCargo)
+            {
+                go.SetActive(false);
+            }
+            for (int i = 0; i < player.playerData.playerCargo.Count * filledPart; i++)
+            {
+                player.playerData.playerCargo[i].SetActive(true);
             }
         }
     }

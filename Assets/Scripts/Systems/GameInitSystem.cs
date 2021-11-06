@@ -50,6 +50,7 @@ public class GameInitSystem : IEcsInitSystem
         wheatFarm.produceSpeed = 2;
         wheatFarm.sellingProduct = ProductType.Wheat;
         wheatFarm.sellPrice = 0.5f;
+        wheatFarm.tradePointData.sellPrice.text = wheatFarm.sellPrice.ToString();
         wheatFarmEntity.Get<StorageComp>().maxMass = 200;
 
         var bakeryEntity = _world.NewEntity();
@@ -58,13 +59,16 @@ public class GameInitSystem : IEcsInitSystem
         bakeryBuyer.tradePointData = bakeryBuyer.buyerGO.GetComponent<TradePointData>();
         bakeryBuyer.buyingProduct = ProductType.Wheat;
         bakeryBuyer.buyPrice = 1;
-        bakeryEntity.Get<StorageComp>().maxMass = 20;
+        bakeryBuyer.tradePointData.buyPrice.text = bakeryBuyer.buyPrice.ToString();
+        bakeryEntity.Get<StorageComp>().maxMass = 200;
         ref var bakerySeller = ref bakeryEntity.Get<ProductSeller>();
         bakerySeller.produceSpeed = 1;
         bakerySeller.sellerGO = bakeryBuyer.buyerGO;
         bakerySeller.sellingProduct = ProductType.Bread;
         bakerySeller.sellPrice = 1.5f;
         bakerySeller.tradePointData = bakeryBuyer.tradePointData;
+        bakerySeller.tradePointData.sellPrice.text = bakerySeller.sellPrice.ToString();
+
 
 
     }

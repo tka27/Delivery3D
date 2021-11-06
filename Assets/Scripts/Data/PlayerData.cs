@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
-    public List<WheelCollider> wheelColliders;
-    public List<Transform> wheelMeshes;
+    public List<Transform> allWheelMeshes;
+    public List<WheelCollider> allWheelColliders;
+    public List<WheelCollider> steeringWheelColliders;
+    public List<WheelCollider> drivingWheelColliders;
     public Transform wheelPos;
     public Transform centerOfMass;
     public List<WheelData> wheelDatas;
     public Collider carCollider;
+    public List<GameObject> playerCargo;
 }

@@ -39,30 +39,25 @@ sealed class PlayerMoveSystem : IEcsRunSystem
                             steer = -player.maxSteerAngle;
                         }
                         //move method
-                        for (int i = 0; i < player.playerData.wheelColliders.Count; i++)
+                        foreach (var drivingWheel in player.playerData.drivingWheelColliders)
                         {
-                            if (i < 2)
+                            if (Input.GetMouseButton(0) && player.currentTorque < player.maxTorque)
                             {
-                                if (Input.GetMouseButton(0) && player.currentTorque < player.maxTorque)
-                                {
-                                    player.currentTorque += player.acceleration;
-                                }
-                                else
-                                {
-                                    player.currentTorque -= player.acceleration;
-                                }
-                                if (player.currentTorque < 0)
-                                {
-                                    player.currentTorque = 0;
-                                }
-                                player.playerData.wheelColliders[i].motorTorque = player.currentTorque; //motor
-                                player.playerData.wheelColliders[i].steerAngle = steer;
+                                player.currentTorque += player.acceleration;
                             }
-                            Vector3 pos;
-                            Quaternion quaternion;
-                            player.playerData.wheelColliders[i].GetWorldPose(out pos, out quaternion);
-                            player.playerData.wheelMeshes[i].transform.position = pos;
-                            player.playerData.wheelMeshes[i].transform.rotation = quaternion;
+                            else
+                            {
+                                player.currentTorque -= player.acceleration;
+                            }
+                            if (player.currentTorque < 0)
+                            {
+                                player.currentTorque = 0;
+                            }
+                            drivingWheel.motorTorque = player.currentTorque;
+                        }
+                        foreach (var steeringWheel in player.playerData.steeringWheelColliders)
+                        {
+                            steeringWheel.steerAngle = steer;
                         }
                     }
                     else
@@ -83,22 +78,12 @@ sealed class PlayerMoveSystem : IEcsRunSystem
                 else
                 {
                     //stop method
-                    for (int i = 0; i < player.playerData.wheelColliders.Count; i++)
+                    for (int i = 0; i < player.playerData.drivingWheelColliders.Count; i++)
                     {
-                        player.playerData.wheelColliders[i].motorTorque = 0;
+                        player.playerData.drivingWheelColliders[i].motorTorque = 0;
                         player.currentTorque = 0;
                     }
                 }
-
-
-                /*if (path.wayPoints.Count == 0)
-                {
-                    foreach (var lineF in lineFilter)
-                    {
-                        lineFilter.Get1(lineF).lineRenderer.positionCount = 1;
-                        lineFilter.Get1(lineF).lineRenderer.SetPosition(0, player.playerGO.transform.position);
-                    }
-                }*/
             }
         }
     }

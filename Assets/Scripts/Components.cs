@@ -55,8 +55,8 @@ public struct ProductSeller
 }
 public struct StorageComp
 {
-    public int maxMass;
-    public int currentMass;
+    public float maxMass;
+    public float currentMass;
 }
 public struct CargoComp
 {

@@ -12,7 +12,7 @@ sealed class ImmobilizeSystem : IEcsRunSystem
         {
             ref var player = ref reqestFilter.Get1(fPlayer);
             player.currentTorque = 0;
-            foreach (var wheel in player.playerData.wheelColliders)
+            foreach (var wheel in player.playerData.drivingWheelColliders)
             {
                 wheel.motorTorque = player.currentTorque;
             }

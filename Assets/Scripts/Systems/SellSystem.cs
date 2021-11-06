@@ -38,12 +38,12 @@ sealed class SellSystem : IEcsRunSystem
                             productIndex = i;
                         }
                     }
-                   
+
                     if (playerActualProductsMass == 0)
                     {
                         return;
                     }
-                    var freeStorageMass = buyerStorage.maxMass - buyerStorage.currentMass;
+                    var freeStorageMass = (int)(buyerStorage.maxMass - buyerStorage.currentMass);
                     int dealMass = 0;
 
                     if (freeStorageMass < playerActualProductsMass)
@@ -69,10 +69,32 @@ sealed class SellSystem : IEcsRunSystem
                         buyer.tradePointData.storageInfo.text = buyerStorage.currentMass + "/" + buyerStorage.maxMass;
                         sceneData.money += dealMass * buyer.buyPrice;
                         uiData.moneyText.text = sceneData.money.ToString("#");
+                        SwitchCargo();
+                        buyer.tradePointData.buyCount.text = buyer.consumableProductsCount.ToString();
                     }
-
                     uiData.cargoText.text = playerStorage.currentMass + "/" + playerStorage.maxMass;
                 }
+            }
+        }
+    }
+
+
+    void SwitchCargo()
+    {
+
+        foreach (var fPlayer in playerFilter)
+        {
+            ref var playerStorage = ref playerFilter.Get2(fPlayer);
+            ref var player = ref playerFilter.Get3(fPlayer);
+            float filledPart = playerStorage.currentMass / playerStorage.maxMass;
+
+            foreach (var go in player.playerData.playerCargo)
+            {
+                go.SetActive(false);
+            }
+            for (int i = 0; i < player.playerData.playerCargo.Count * filledPart; i++)
+            {
+                player.playerData.playerCargo[i].SetActive(true);
             }
         }
     }
