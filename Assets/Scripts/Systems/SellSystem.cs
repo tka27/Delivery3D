@@ -32,7 +32,7 @@ sealed class SellSystem : IEcsRunSystem
 
                     for (int i = 0; i < cargo.inventory.Count; i++)
                     {
-                        if (cargo.inventory[i].type == buyer.buyingProduct)
+                        if (cargo.inventory[i].type == buyer.buyingProduct.type)
                         {
                             playerActualProductsMass += cargo.inventory[i].mass;
                             productIndex = i;
@@ -62,7 +62,7 @@ sealed class SellSystem : IEcsRunSystem
                         {
                             cargo.inventory.RemoveAt(productIndex);
                         }
-                        buyer.consumableProductsCount += dealMass;
+                        buyer.buyingProduct.mass += dealMass;
                         buyerStorage.currentMass += dealMass;
                         playerStorage.currentMass -= dealMass;
                         player.playerRB.mass -= dealMass;
@@ -70,7 +70,7 @@ sealed class SellSystem : IEcsRunSystem
                         sceneData.money += dealMass * buyer.buyPrice;
                         uiData.moneyText.text = sceneData.money.ToString("#");
                         SwitchCargo();
-                        buyer.tradePointData.buyCount.text = buyer.consumableProductsCount.ToString();
+                        buyer.tradePointData.buyCount.text = buyer.buyingProduct.mass.ToString();
                     }
                     uiData.cargoText.text = playerStorage.currentMass + "/" + playerStorage.maxMass;
                 }

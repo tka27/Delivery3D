@@ -26,20 +26,20 @@ sealed class BuySystem : IEcsRunSystem
 
                     int playerAvailableMass = (int)(playerStorage.maxMass - playerStorage.currentMass);
                     int dealMass = 0;
-                    if (playerAvailableMass < seller.productsForSale)
+                    if (playerAvailableMass < seller.sellingProduct.mass)
                     {
                         dealMass = playerAvailableMass;
                     }
                     else
                     {
-                        dealMass = seller.productsForSale;
+                        dealMass = seller.sellingProduct.mass;
                     }
                     if (dealMass != 0)
                     {
                         bool haveProduct = false;
                         foreach (var product in cargo.inventory)
                         {
-                            if (product.type == seller.sellingProduct)
+                            if (product.type == seller.sellingProduct.type)
                             {
                                 product.mass += dealMass;
                                 haveProduct = true;
@@ -47,10 +47,10 @@ sealed class BuySystem : IEcsRunSystem
                         }
                         if (!haveProduct)
                         {
-                            cargo.inventory.Add(new Cargo(seller.sellingProduct, dealMass));
+                            cargo.inventory.Add(new Product(seller.sellingProduct.type, dealMass, seller.sellingProduct.icon));
                         }
 
-                        seller.productsForSale -= dealMass;
+                        seller.sellingProduct.mass -= dealMass;
                         sellerStorage.currentMass -= dealMass;
                         playerStorage.currentMass += dealMass;
                         player.playerRB.mass += dealMass;
@@ -58,7 +58,7 @@ sealed class BuySystem : IEcsRunSystem
                         sceneData.money -= dealMass * seller.sellPrice;
                         uiData.moneyText.text = sceneData.money.ToString("#");
                         SwitchCargo();
-                        seller.tradePointData.sellCount.text = seller.productsForSale.ToString();
+                        seller.tradePointData.sellCount.text = seller.sellingProduct.mass.ToString();
                     }
 
 

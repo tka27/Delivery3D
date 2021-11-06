@@ -21,10 +21,10 @@ sealed class FarmProduceSystem : IEcsRunSystem
             ref var storage = ref producerFilter.Get2(fProd);
             if (storage.currentMass < storage.maxMass)
             {
-                producer.productsForSale++;
-                storage.currentMass = producer.productsForSale;
+                producer.sellingProduct.mass++;
+                storage.currentMass = producer.sellingProduct.mass;
                 producer.tradePointData.storageInfo.text = storage.currentMass + "/" + storage.maxMass;
-                producer.tradePointData.sellCount.text = producer.productsForSale.ToString();
+                producer.tradePointData.sellCount.text = producer.sellingProduct.mass.ToString();
             }
 
             timer = 50 / producer.produceSpeed;

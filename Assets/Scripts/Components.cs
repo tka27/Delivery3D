@@ -40,16 +40,14 @@ public struct ProductBuyer
 {
     public GameObject buyerGO;
     public TradePointData tradePointData;
-    public ProductType buyingProduct;
-    public int consumableProductsCount;
+    public Product buyingProduct;
     public float buyPrice;
 }
 public struct ProductSeller
 {
     public GameObject sellerGO;
     public TradePointData tradePointData;
-    public ProductType sellingProduct;
-    public int productsForSale;
+    public Product sellingProduct;
     public float produceSpeed;
     public float sellPrice;
 }
@@ -60,6 +58,6 @@ public struct StorageComp
 }
 public struct CargoComp
 {
-    public List<Cargo> inventory;
+    public List<Product> inventory;
 }
 

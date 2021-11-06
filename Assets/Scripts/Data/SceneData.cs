@@ -16,6 +16,7 @@ public class SceneData : MonoBehaviour
     public GameObject bakeryFinalPoint;
     public List<GameObject> infoPanels;
     public float money;
+    public Sprite image;
 }
 
 

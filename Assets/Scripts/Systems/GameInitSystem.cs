@@ -7,9 +7,10 @@ using System.Collections.Generic;
 
 public class GameInitSystem : IEcsInitSystem
 {
-    private EcsWorld _world;
-    private SceneData sceneData;
+    EcsWorld _world;
+    SceneData sceneData;
     UIData uiData;
+    ProductData productData;
     public void Init()
     {
         var pathEntity = _world.NewEntity();
@@ -36,7 +37,7 @@ public class GameInitSystem : IEcsInitSystem
         playerComp.currentFuel = playerComp.maxFuel;
         uiData.fuelText.text = playerComp.currentFuel.ToString();
         playerComp.fuelConsumption = 0.01f;
-        playerEntity.Get<CargoComp>().inventory = new List<Cargo>();
+        playerEntity.Get<CargoComp>().inventory = new List<Product>();
         ref var playerStorage = ref playerEntity.Get<StorageComp>();
         playerStorage.maxMass = 50;
         uiData.cargoText.text = playerStorage.currentMass + "/" + playerStorage.maxMass;
@@ -48,7 +49,7 @@ public class GameInitSystem : IEcsInitSystem
         wheatFarm.sellerGO = sceneData.wheatFarmFinalPoint;
         wheatFarm.tradePointData = wheatFarm.sellerGO.GetComponent<TradePointData>();
         wheatFarm.produceSpeed = 2;
-        wheatFarm.sellingProduct = ProductType.Wheat;
+        wheatFarm.sellingProduct = new Product(ProductType.Wheat,productData.wheat);//ProductType.Wheat;
         wheatFarm.sellPrice = 0.5f;
         wheatFarm.tradePointData.sellPrice.text = wheatFarm.sellPrice.ToString();
         wheatFarmEntity.Get<StorageComp>().maxMass = 200;
@@ -57,14 +58,14 @@ public class GameInitSystem : IEcsInitSystem
         ref var bakeryBuyer = ref bakeryEntity.Get<ProductBuyer>();
         bakeryBuyer.buyerGO = sceneData.bakeryFinalPoint;
         bakeryBuyer.tradePointData = bakeryBuyer.buyerGO.GetComponent<TradePointData>();
-        bakeryBuyer.buyingProduct = ProductType.Wheat;
+        bakeryBuyer.buyingProduct = new Product(ProductType.Wheat,productData.wheat);
         bakeryBuyer.buyPrice = 1;
         bakeryBuyer.tradePointData.buyPrice.text = bakeryBuyer.buyPrice.ToString();
         bakeryEntity.Get<StorageComp>().maxMass = 200;
         ref var bakerySeller = ref bakeryEntity.Get<ProductSeller>();
         bakerySeller.produceSpeed = 1;
         bakerySeller.sellerGO = bakeryBuyer.buyerGO;
-        bakerySeller.sellingProduct = ProductType.Bread;
+        bakerySeller.sellingProduct = new Product(ProductType.Wheat,productData.bread);
         bakerySeller.sellPrice = 1.5f;
         bakerySeller.tradePointData = bakeryBuyer.tradePointData;
         bakerySeller.tradePointData.sellPrice.text = bakerySeller.sellPrice.ToString();
