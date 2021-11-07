@@ -12,6 +12,5 @@ public class SaveData
     {
         totalMoney = staticData.totalMoney;
         unlockedCars = staticData.unlockedCars;
-        
     }
 }

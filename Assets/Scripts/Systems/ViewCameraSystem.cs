@@ -12,7 +12,7 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
     Camera camera;
     Transform buildCameraPos;
     float minCameraHeight = 10;
-    float maxCameraHeight = 100;
+    float maxCameraHeight = 250;
     Vector3 startPos = new Vector3();
 
     public void Init()
@@ -26,6 +26,10 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
         if (sceneData.gameMode == GameMode.View)
         {
             cameraHeight = buildCameraPos.position.y;
+            if (buildCameraPos.position != camera.transform.position)
+            {
+                return;
+            }
             if (Input.touchCount == 2 &&
             !UIData.IsMouseOverButton(uiData.buttons))
             {
@@ -39,16 +43,22 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
                 float currentDistance = (firstTouch.position - secondTouch.position).magnitude;
                 cameraHeight -= (currentDistance - lastDistance) * 0.02f;
             }
+            else if (Input.GetMouseButtonDown(0) &&
+           !UIData.IsMouseOverButton(uiData.buttons))
+            {
+                startPos = GetWorldPosition(0);
+            }
             else if (Input.GetMouseButton(0) &&
             !UIData.IsMouseOverButton(uiData.buttons))
             {
-                Vector3 startPos = new Vector3(0.5f, 0, 0.5f);
-                Vector3 tgtPos = new Vector3(camera.ScreenToViewportPoint(Input.mousePosition).x, 0, camera.ScreenToViewportPoint(Input.mousePosition).y);
-                buildCameraPos.position += (tgtPos - startPos) * cameraHeight / 20;
+                Vector3 tgtPos = startPos - GetWorldPosition(0);
+                buildCameraPos.position += tgtPos;
             }
-            cameraHeight = Mathf.Clamp(cameraHeight - Input.mouseScrollDelta.y, minCameraHeight, maxCameraHeight); //test wishlist
-            buildCameraPos.position = new Vector3(buildCameraPos.position.x, cameraHeight, buildCameraPos.position.z);
+            cameraHeight = Mathf.Clamp(cameraHeight - Input.mouseScrollDelta.y, minCameraHeight, maxCameraHeight);
+            buildCameraPos.position = new Vector3(Mathf.Clamp(buildCameraPos.position.x, -maxCameraHeight + cameraHeight, maxCameraHeight - cameraHeight),
+            cameraHeight, Mathf.Clamp(buildCameraPos.position.z, -maxCameraHeight + cameraHeight, maxCameraHeight - cameraHeight));
         }
+
         else if (sceneData.gameMode == GameMode.Build)
         {
             cameraHeight = buildCameraPos.position.y;
@@ -57,12 +67,20 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
                 startPos = new Vector3(camera.ScreenToViewportPoint(Input.mousePosition).x, 0, camera.ScreenToViewportPoint(Input.mousePosition).y);
             }
             else if (Input.GetMouseButton(0) &&
-            !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            !UIData.IsMouseOverButton(uiData.buttons))
             {
                 Vector3 tgtPos = new Vector3(camera.ScreenToViewportPoint(Input.mousePosition).x, 0, camera.ScreenToViewportPoint(Input.mousePosition).y);
                 buildCameraPos.position += (tgtPos - startPos) * cameraHeight / 50;
             }
         }
+    }
+    Vector3 GetWorldPosition(float y)
+    {
+        Ray mouseRay = camera.ScreenPointToRay(Input.mousePosition);
+        Plane plane = new Plane(Vector3.up, new Vector3(0, y, 0));
+        float distance;
+        plane.Raycast(mouseRay, out distance);
+        return mouseRay.GetPoint(distance);
     }
 
 }

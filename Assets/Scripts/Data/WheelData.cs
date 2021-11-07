@@ -8,11 +8,13 @@ public class WheelData : MonoBehaviour
     bool firstCheck;
     string tag1 = "Road";
     string function = "OnRoadCheck";
-    /*void Start()
+    public Rigidbody wheelRB;
+    public ParticleSystem particles;
+    void Start()
     {
-        tag1 = "Road";
-        function = "OnRoadCheck";
-    }*/
+        wheelRB = GetComponent<Rigidbody>();
+        particles = GetComponent<ParticleSystem>();
+    }
     void OnTriggerStay(Collider collider)
     {
         if (collider.tag == tag1)

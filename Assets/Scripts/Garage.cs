@@ -12,7 +12,7 @@ public class Garage : MonoBehaviour
         {
             staticData.totalMoney += staticData.currentMoney;
             staticData.currentMoney = 0;
-            SaveSystem.Save(new SaveData());
+            SaveSystem.Save();
             SceneManager.LoadScene(0);
         }
     }

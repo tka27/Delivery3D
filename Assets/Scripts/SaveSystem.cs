@@ -4,8 +4,9 @@ using UnityEngine;
 
 public static class SaveSystem
 {
-    public static void Save(SaveData saveData)
+    public static void Save()
     {
+        SaveData saveData = new SaveData();
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/Save.save";
         FileStream stream = new FileStream(path, FileMode.Create);
@@ -25,7 +26,7 @@ public static class SaveSystem
         }
         else
         {
-            SaveSystem.Save(new SaveData());
+            SaveSystem.Save();
             Debug.LogError("Save file was create : " + path);
             return null;
         }
