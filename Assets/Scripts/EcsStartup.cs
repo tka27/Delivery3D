@@ -85,7 +85,5 @@ sealed class EcsStartup : MonoBehaviour
             _world.Destroy();
             _world = null;
         }
-        staticData.totalMoney += staticData.currentMoney / 2;
-        staticData.currentMoney = 0;
     }
 }

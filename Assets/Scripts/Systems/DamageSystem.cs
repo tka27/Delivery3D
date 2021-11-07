@@ -18,8 +18,9 @@ sealed class DamageSystem : IEcsRunSystem
             ref var player = ref playerFilter.Get1(fPlayer);
             foreach (var check in player.playerData.wheelDatas)
             {
-                if (!check.onRoad && sceneData.gameMode == GameMode.Drive)
+                if (!check.onRoad && sceneData.gameMode == GameMode.Drive && player.playerRB.velocity.magnitude > 2)
                 {
+                    Handheld.Vibrate();
                     player.currentDurability -= 0.05f * player.playerRB.velocity.magnitude;
                     uiData.durabilityText.text = player.currentDurability.ToString("#");
                 }

@@ -61,9 +61,8 @@ sealed class BuySystem : IEcsRunSystem
                     sellerStorage.currentMass -= dealMass;
                     playerStorage.currentMass += dealMass;
                     player.playerRB.mass += dealMass;
-                    seller.tradePointData.storageInfo.text = sellerStorage.currentMass.ToString("0") + "/" + sellerStorage.maxMass.ToString("0");
                     staticData.currentMoney -= dealMass * seller.currentPrice;
-                    uiData.moneyText.text = staticData.currentMoney.ToString("0");
+                    uiData.moneyText.text = staticData.currentMoney.ToString("0.0");
                     SwitchCargo();
                     seller.tradePointData.sellCount.text = seller.product.mass.ToString("0");
                     uiData.cargoText.text = playerStorage.currentMass.ToString("0") + "/" + playerStorage.maxMass.ToString("0");

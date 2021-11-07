@@ -37,7 +37,7 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
 
                 float lastDistance = (firstTouchLastPos - secondTouchLastPos).magnitude;
                 float currentDistance = (firstTouch.position - secondTouch.position).magnitude;
-                cameraHeight -= (currentDistance - lastDistance) * 0.01f;
+                cameraHeight -= (currentDistance - lastDistance) * 0.02f;
             }
             else if (Input.GetMouseButton(0) &&
             !UIData.IsMouseOverButton(uiData.buttons))
