@@ -9,12 +9,13 @@ public class GameInitSystem : IEcsInitSystem
 {
     EcsWorld _world;
     SceneData sceneData;
+    StaticData staticData;
     UIData uiData;
     ProductData productData;
     public void Init()
     {
-        sceneData.money = 100;
-        uiData.moneyText.text = sceneData.money.ToString("0");
+        staticData.currentMoney = staticData.moneyForGame;
+        uiData.moneyText.text = staticData.currentMoney.ToString("0");
         var pathEntity = _world.NewEntity();
         ref var pathComp = ref pathEntity.Get<PathComp>();
         pathComp.wayPoints = new List<GameObject>();
@@ -61,7 +62,7 @@ public class GameInitSystem : IEcsInitSystem
         bakeryBuyer.tradePointData = bakeryBuyer.buyerGO.GetComponent<TradePointData>();
         bakeryBuyer.product = new Product(ProductType.Wheat, productData.wheat, 1);
         bakeryBuyer.repriceMultiplier = 1.2f;
-        bakeryEntity.Get<StorageComp>().maxMass = 20;
+        bakeryEntity.Get<StorageComp>().maxMass = 200;
         ref var bakerySeller = ref bakeryEntity.Get<ProductSeller>();
         bakerySeller.produceSpeed = 1;
         bakerySeller.sellerGO = bakeryBuyer.buyerGO;

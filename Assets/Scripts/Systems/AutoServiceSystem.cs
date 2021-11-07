@@ -7,6 +7,7 @@ sealed class AutoServiceSystem : IEcsRunSystem
     EcsFilter<PlayerComp> playerFilter;
     UIData uiData;
     SceneData sceneData;
+    StaticData staticData;
     void IEcsRunSystem.Run()
     {
         foreach (var fSeller in sellerFilter)
@@ -37,9 +38,9 @@ sealed class AutoServiceSystem : IEcsRunSystem
                 {
                     dealMass = seller.product.mass;
                 }
-                if (dealMass * seller.currentPrice > sceneData.money)
+                if (dealMass * seller.currentPrice > staticData.currentMoney)
                 {
-                    dealMass = sceneData.money / seller.currentPrice;
+                    dealMass = staticData.currentMoney / seller.currentPrice;
                 }
                 if (dealMass == 0)
                 {
@@ -49,8 +50,8 @@ sealed class AutoServiceSystem : IEcsRunSystem
                 sellerFilter.GetEntity(fSeller).Get<SellDataUpdateRequest>();
                 seller.product.mass -= dealMass;
                 sellerStorage.currentMass -= dealMass;
-                sceneData.money -= dealMass * seller.currentPrice;
-                uiData.moneyText.text = sceneData.money.ToString("0");
+                staticData.currentMoney -= dealMass * seller.currentPrice;
+                uiData.moneyText.text = staticData.currentMoney.ToString("0");
                 if (seller.product.type == ProductType.Fuel)
                 {
                     player.currentFuel += dealMass;

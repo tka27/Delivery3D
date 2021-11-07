@@ -4,11 +4,14 @@ using UnityEngine.SceneManagement;
 public class Garage : MonoBehaviour
 {
     string playerTag = "Player";
-    [SerializeField] bool isLeaveFromGarage;
+    bool isLeaveFromGarage;
+    [SerializeField] StaticData staticData;
     void OnTriggerEnter(Collider collider)
     {
         if (collider.tag == playerTag && isLeaveFromGarage)
         {
+            staticData.totalMoney += staticData.currentMoney;
+            staticData.currentMoney = 0;
             SceneManager.LoadScene(0);
         }
     }

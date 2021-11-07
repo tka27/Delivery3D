@@ -26,7 +26,20 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
         if (sceneData.gameMode == GameMode.View)
         {
             cameraHeight = buildCameraPos.position.y;
-            if (Input.GetMouseButton(0) &&
+            if (Input.touchCount == 2 &&
+            !UIData.IsMouseOverButton(uiData.buttons))
+            {
+                Touch firstTouch = Input.GetTouch(0);
+                Touch secondTouch = Input.GetTouch(1);
+
+                Vector2 firstTouchLastPos = firstTouch.position - firstTouch.deltaPosition;
+                Vector2 secondTouchLastPos = secondTouch.position - secondTouch.deltaPosition;
+
+                float lastDistance = (firstTouchLastPos - secondTouchLastPos).magnitude;
+                float currentDistance = (firstTouch.position - secondTouch.position).magnitude;
+                cameraHeight -= (currentDistance - lastDistance) * 0.01f;
+            }
+            else if (Input.GetMouseButton(0) &&
             !UIData.IsMouseOverButton(uiData.buttons))
             {
                 Vector3 startPos = new Vector3(0.5f, 0, 0.5f);
@@ -51,5 +64,5 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
             }
         }
     }
-    
+
 }

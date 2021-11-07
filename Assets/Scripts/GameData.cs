@@ -1,18 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameData : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] StaticData staticData;
+    [SerializeField] Text text;
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        text.text = staticData.totalMoney.ToString("0");
     }
 }

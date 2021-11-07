@@ -8,7 +8,7 @@ sealed class BuySystem : IEcsRunSystem
     EcsFilter<ProductSeller, StorageComp>.Exclude<AutoService> sellerFilter;
     EcsFilter<CargoComp, StorageComp, PlayerComp> playerFilter;
     UIData uiData;
-    SceneData sceneData;
+    StaticData staticData;
 
     void IEcsRunSystem.Run()
     {
@@ -39,9 +39,9 @@ sealed class BuySystem : IEcsRunSystem
                     {
                         return;
                     }
-                    if (dealMass * seller.currentPrice > sceneData.money)
+                    if (dealMass * seller.currentPrice > staticData.currentMoney)
                     {
-                        dealMass = sceneData.money / seller.currentPrice;
+                        dealMass = staticData.currentMoney / seller.currentPrice;
                     }
                     bool haveProduct = false;
                     foreach (var product in cargo.inventory)
@@ -62,8 +62,8 @@ sealed class BuySystem : IEcsRunSystem
                     playerStorage.currentMass += dealMass;
                     player.playerRB.mass += dealMass;
                     seller.tradePointData.storageInfo.text = sellerStorage.currentMass.ToString("0") + "/" + sellerStorage.maxMass.ToString("0");
-                    sceneData.money -= dealMass * seller.currentPrice;
-                    uiData.moneyText.text = sceneData.money.ToString("0");
+                    staticData.currentMoney -= dealMass * seller.currentPrice;
+                    uiData.moneyText.text = staticData.currentMoney.ToString("0");
                     SwitchCargo();
                     seller.tradePointData.sellCount.text = seller.product.mass.ToString("0");
                     uiData.cargoText.text = playerStorage.currentMass.ToString("0") + "/" + playerStorage.maxMass.ToString("0");

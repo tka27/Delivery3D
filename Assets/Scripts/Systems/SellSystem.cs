@@ -9,7 +9,7 @@ sealed class SellSystem : IEcsRunSystem
     EcsFilter<ProductBuyer, StorageComp> buyerFilter;
     EcsFilter<CargoComp, StorageComp, PlayerComp> playerFilter;
     UIData uiData;
-    SceneData sceneData;
+    StaticData staticData;
 
     void IEcsRunSystem.Run()
     {
@@ -68,8 +68,8 @@ sealed class SellSystem : IEcsRunSystem
                         playerStorage.currentMass -= dealMass;
                         player.playerRB.mass -= dealMass;
                         buyer.tradePointData.storageInfo.text = buyerStorage.currentMass.ToString("0") + "/" + buyerStorage.maxMass.ToString("0");
-                        sceneData.money += dealMass * buyer.currentPrice;
-                        uiData.moneyText.text = sceneData.money.ToString("0");
+                        staticData.currentMoney += dealMass * buyer.currentPrice;
+                        uiData.moneyText.text = staticData.currentMoney.ToString("0");
                         SwitchCargo();
                         buyer.tradePointData.buyCount.text = buyer.product.mass.ToString("#");
                     }

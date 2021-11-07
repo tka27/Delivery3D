@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 public class SceneData : MonoBehaviour
 {
+    public float groundHeight = -1.45f;
     public GameObject car;
     public GameMode gameMode;
     public GameObject buildCam;
@@ -18,7 +19,6 @@ public class SceneData : MonoBehaviour
 
 
     public List<GameObject> infoPanels;
-    public float money;
 }
 
 

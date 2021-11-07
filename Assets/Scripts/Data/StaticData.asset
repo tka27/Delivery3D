@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 3084750065098843241, guid: 36f8e54dd12049c4c91315d237d68224, type: 3}
   pathPoint: {fileID: 9071379678294461325, guid: b13f025b50cc4a2428bdfe682db8c2cd, type: 3}
-  linePrefab: {fileID: 5054944922090929322, guid: d44cf7d983540944ba924dd43d458d0f, type: 3}
+  groundHeight: -1.45
+  totalMoney: 0
+  currentMoney: 0
+  moneyForGame: 50
