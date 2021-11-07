@@ -68,20 +68,19 @@ sealed class HideUIElementsSystem : IEcsRunSystem
         }
 
         //playerInfoPanel
-        /*if ((sceneData.gameMode == GameMode.Drive || sceneData.gameMode == GameMode.View) && !uiData.playerInfoPanel[0].activeSelf)
+        /*if ((sceneData.gameMode == GameMode.View) && !uiData.playerInfoPanel[0].activeSelf)
         {
             foreach (var uiElement in uiData.playerInfoPanel)
             {
                 uiElement.SetActive(true);
             }
         }
-        else if (sceneData.gameMode != GameMode.Drive && sceneData.gameMode != GameMode.View)
+        else if (sceneData.gameMode != GameMode.View)
         {
             foreach (var uiElement in uiData.playerInfoPanel)
             {
                 uiElement.SetActive(false);
             }
         }*/
-
     }
 }

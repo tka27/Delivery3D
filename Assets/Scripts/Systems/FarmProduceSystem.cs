@@ -21,10 +21,9 @@ sealed class FarmProduceSystem : IEcsRunSystem
             ref var storage = ref producerFilter.Get2(fProd);
             if (storage.currentMass < storage.maxMass)
             {
-                producer.sellingProduct.mass++;
-                storage.currentMass = producer.sellingProduct.mass;
-                producer.tradePointData.storageInfo.text = storage.currentMass.ToString("0") + "/" + storage.maxMass.ToString("0");
-                producer.tradePointData.sellCount.text = producer.sellingProduct.mass.ToString("0");
+                producer.product.mass++;
+                storage.currentMass = producer.product.mass;
+                producerFilter.GetEntity(fProd).Get<SellDataUpdateRequest>();
             }
 
             timer = 50 / producer.produceSpeed;

@@ -7,14 +7,14 @@ sealed class InfoPanelSwitchSystem : IEcsRunSystem
     SceneData sceneData;
     void IEcsRunSystem.Run()
     {
-        if (sceneData.gameMode == GameMode.View && !sceneData.infoPanels[0].activeSelf)
+        if (sceneData.gameMode != GameMode.Drive && !sceneData.infoPanels[0].activeSelf)
         {
             foreach (var panel in sceneData.infoPanels)
             {
                 panel.SetActive(true);
             }
         }
-        else if (sceneData.gameMode != GameMode.View && sceneData.infoPanels[0].activeSelf)
+        else if (sceneData.gameMode == GameMode.Drive && sceneData.infoPanels[0].activeSelf)
         {
             foreach (var panel in sceneData.infoPanels)
             {
@@ -23,4 +23,3 @@ sealed class InfoPanelSwitchSystem : IEcsRunSystem
         }
     }
 }
-////////////////////////         OFF           //////////////////

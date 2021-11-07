@@ -40,16 +40,18 @@ public struct ProductBuyer
 {
     public GameObject buyerGO;
     public TradePointData tradePointData;
-    public Product buyingProduct;
-    public float buyPrice;
+    public Product product;
+    public float currentPrice;
+    public float repriceMultiplier;
 }
 public struct ProductSeller
 {
     public GameObject sellerGO;
     public TradePointData tradePointData;
-    public Product sellingProduct;
+    public Product product;
     public float produceSpeed;
-    public float sellPrice;
+    public float currentPrice;
+    public float repriceMultiplier;
 }
 public struct StorageComp
 {
@@ -63,4 +65,9 @@ public struct CargoComp
 public struct AutoService
 {
 }
-
+public struct SellDataUpdateRequest
+{
+}
+public struct BuyDataUpdateRequest
+{
+}

@@ -7,5 +7,5 @@ public class ProductData : MonoBehaviour
     public Sprite wheat;
     public Sprite bread;
     public Sprite fuel;
-    public Sprite repair;
+    public Sprite autoParts;
 }

@@ -20,13 +20,12 @@ sealed class FactoryProduceSystem : IEcsRunSystem
             ref var producer = ref producerFilter.Get1(fProd);
             ref var storage = ref producerFilter.Get2(fProd);
             ref var consumer = ref producerFilter.Get3(fProd);
-            if (storage.currentMass <= storage.maxMass && consumer.buyingProduct.mass != 0)
+            if (storage.currentMass <= storage.maxMass && consumer.product.mass != 0)
             {
-                producer.sellingProduct.mass++;
-                consumer.buyingProduct.mass--;
-                producer.tradePointData.storageInfo.text = storage.currentMass.ToString("0") + "/" + storage.maxMass.ToString("0");
-                producer.tradePointData.sellCount.text = producer.sellingProduct.mass.ToString("0");
-                consumer.tradePointData.buyCount.text = consumer.buyingProduct.mass.ToString("0");
+                producer.product.mass++;
+                consumer.product.mass--;
+                producerFilter.GetEntity(fProd).Get<BuyDataUpdateRequest>();
+                producerFilter.GetEntity(fProd).Get<SellDataUpdateRequest>();
             }
             timer = 50 / producer.produceSpeed;
         }

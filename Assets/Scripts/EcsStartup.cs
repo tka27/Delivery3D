@@ -35,6 +35,8 @@ sealed class EcsStartup : MonoBehaviour
             .Add(new BuySystem())
             .Add(new SellSystem())
             .Add(new FactoryProduceSystem())
+            .Add(new InfoPanelSwitchSystem())
+            .Add(new RepriceSystem())
 
             // register one-frame components (order is important), for example:
             // .OneFrame<TestComponent1> ()
