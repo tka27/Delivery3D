@@ -16,6 +16,7 @@ public class SceneData : MonoBehaviour
     public GameObject bakeryTradePoint;
     public GameObject gasStationTradePoint;
     public GameObject autoServiceTradePoint;
+    public GameObject shopTradePoint;
 
 
     public List<GameObject> infoPanels;

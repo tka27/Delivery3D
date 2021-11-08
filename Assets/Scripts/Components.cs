@@ -52,6 +52,7 @@ public struct ProductSeller
     public float produceSpeed;
     public float currentPrice;
     public float repriceMultiplier;
+    public float timer;
 }
 public struct StorageComp
 {
@@ -70,4 +71,10 @@ public struct SellDataUpdateRequest
 }
 public struct BuyDataUpdateRequest
 {
+}
+public struct Quest
+{
+    public float currentQuestTime;
+    public float maxQuestTime;
+    public float timer;
 }

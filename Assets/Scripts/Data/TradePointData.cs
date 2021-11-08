@@ -12,6 +12,11 @@ public class TradePointData : MonoBehaviour
     public Text buyCount;
     public Text sellCount;
     public Text sellPrice;
+    public Text currentQuestTime;
+    public SpriteRenderer buyProductSpriteRenderer;
+    
+    public SpriteRenderer buyProductSpriteRendererCopy;
+    public SpriteRenderer SellProductSpriteRenderer;
 
 
     void OnTriggerEnter(Collider collider)

@@ -2,13 +2,21 @@ using Leopotam.Ecs;
 using UnityEngine;
 
 
-sealed class PlayerMoveSystem : IEcsRunSystem
+sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
 {
     SceneData sceneData;
     EcsFilter<PlayerComp, MovableComp> playerFilter;
     EcsFilter<PathComp> pathFilter;
     UIData uiData;
     EcsWorld _world;
+    Camera camera;
+    Transform buildCameraPos;
+
+    public void Init()
+    {
+        camera = Camera.main;
+        buildCameraPos = sceneData.buildCam.transform;
+    }
 
     void IEcsRunSystem.Run()
     {
@@ -70,6 +78,9 @@ sealed class PlayerMoveSystem : IEcsRunSystem
                         else
                         {
                             pathFilter.GetEntity(pathF).Get<DestroyRoadRequest>();
+                            float cameraHeight = buildCameraPos.position.y;
+                            Vector3 pos = new Vector3(player.playerGO.transform.position.x, cameraHeight, player.playerGO.transform.position.z);
+                            buildCameraPos.position = pos;
                             sceneData.gameMode = GameMode.View;
                             uiData.gameModeText.text = sceneData.gameMode.ToString();
                         }

@@ -62,7 +62,7 @@ sealed class SellSystem : IEcsRunSystem
                         {
                             cargo.inventory.RemoveAt(productIndex);
                         }
-                        buyerFilter.GetEntity(fBuyer).Get<SellDataUpdateRequest>();
+                        buyerFilter.GetEntity(fBuyer).Get<BuyDataUpdateRequest>();
                         buyer.product.mass += dealMass;
                         buyerStorage.currentMass += dealMass;
                         playerStorage.currentMass -= dealMass;

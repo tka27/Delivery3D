@@ -56,6 +56,8 @@ sealed class EcsStartup : MonoBehaviour
         .Add(new FuelSystem())
         .Add(new ImmobilizeSystem())
         .Add(new FarmProduceSystem())
+        .Add(new ShopQuestSystem())
+        .Add(new ProductConsumingSystem())
 
 
 
