@@ -16,6 +16,10 @@ sealed class ImmobilizeSystem : IEcsRunSystem
             {
                 wheel.motorTorque = player.currentTorque;
             }
+            foreach (var wheelData in player.playerData.wheelDatas)
+            {
+                wheelData.particles.Stop();
+            }
             reqestFilter.GetEntity(fPlayer).Del<MovableComp>();
         }
     }

@@ -34,7 +34,6 @@ sealed class ShopQuestSystem : IEcsRunSystem
             buyer.product = new Product(product.type, product.icon, product.defaultPrice * 2f);
             buyer.tradePointData.buyProductSpriteRenderer.sprite = buyer.product.icon;
             buyer.tradePointData.buyProductSpriteRendererCopy.sprite = buyer.product.icon;
-            Debug.Log(buyer.product.type);
             shopFilter.GetEntity(fShop).Get<BuyDataUpdateRequest>();
         }
     }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 895008262b089ae4ea78fcb6be845414, type: 3}
   m_Name: StaticData
   m_EditorClassIdentifier: 
-  totalMoney: 10.629997
-  currentMoney: 50
-  moneyForGame: 50
-  unlockedCars: 0100
+  totalMoney: 88.67
+  currentMoney: 0
+  moneyForGame: 9.75
+  unlockedCars: 0001

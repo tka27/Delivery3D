@@ -15,7 +15,9 @@ public class MainMenu : MonoBehaviour
     void LoadGameProgress() //copy SaveData to staticData
     {
         SaveData data = SaveSystem.Load();
-        staticData.totalMoney = data.totalMoney;
-        staticData.unlockedCars = data.unlockedCars;
+        if (data != null)
+        {
+            staticData.UpdateStaticData(data);
+        }
     }
 }

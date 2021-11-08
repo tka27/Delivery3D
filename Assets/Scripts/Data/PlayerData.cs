@@ -13,4 +13,7 @@ public class PlayerData : MonoBehaviour
     public List<WheelData> wheelDatas;
     public Collider carCollider;
     public List<GameObject> playerCargo;
+    public List<Rigidbody> playerCargoRB;
+    public List<Vector3> playerCargoDefaultPos;
+    public List<Quaternion> playerCargoDefaultRot;
 }

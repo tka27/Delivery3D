@@ -28,6 +28,7 @@ public class GameInitSystem : IEcsInitSystem
         playerComp.playerGO = sceneData.car;
         playerComp.playerData = playerComp.playerGO.GetComponent<PlayerData>();
         playerComp.playerRB = playerComp.playerGO.GetComponent<Rigidbody>();
+        playerComp.defaultRBMass = playerComp.playerRB.mass;
         playerComp.playerRB.centerOfMass = playerComp.playerData.centerOfMass.transform.localPosition;
         playerComp.maxSteerAngle = 45;
         playerComp.maxTorque = 10000;
@@ -40,9 +41,14 @@ public class GameInitSystem : IEcsInitSystem
         uiData.fuelText.text = playerComp.currentFuel.ToString();
         playerComp.fuelConsumption = 0.01f;
         playerEntity.Get<CargoComp>().inventory = new List<Product>();
-        ref var playerStorage = ref playerEntity.Get<StorageComp>();
-        playerStorage.maxMass = 50;
-        uiData.cargoText.text = playerStorage.currentMass.ToString("0") + "/" + playerStorage.maxMass.ToString("0");
+        playerEntity.Get<StorageComp>().maxMass = 50;
+        playerEntity.Get<UpdateCargoRequest>();
+        for (int i = 0; i < playerComp.playerData.playerCargo.Count; i++)
+        {
+            playerComp.playerData.playerCargoRB.Add(playerComp.playerData.playerCargo[i].gameObject.GetComponent<Rigidbody>());
+            playerComp.playerData.playerCargoDefaultPos.Add(playerComp.playerData.playerCargo[i].transform.localPosition);
+            playerComp.playerData.playerCargoDefaultRot.Add(playerComp.playerData.playerCargo[i].transform.localRotation);
+        }
 
 
 
@@ -50,7 +56,7 @@ public class GameInitSystem : IEcsInitSystem
         ref var wheatFarm = ref wheatFarmEntity.Get<ProductSeller>();
         wheatFarm.sellerGO = sceneData.wheatFarmTradePoint;
         wheatFarm.tradePointData = wheatFarm.sellerGO.GetComponent<TradePointData>();
-        wheatFarm.produceSpeed = 0.5f;
+        wheatFarm.produceSpeed = 0.5f*10;
         wheatFarm.product = new Product(ProductType.Wheat, productData.wheat, 0.5f);
         wheatFarm.repriceMultiplier = 1.2f;
         wheatFarmEntity.Get<StorageComp>().maxMass = 200;

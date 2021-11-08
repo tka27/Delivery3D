@@ -20,11 +20,11 @@ sealed class SellSystem : IEcsRunSystem
             {
                 uiData.sellRequest = false;
                 ref var buyerStorage = ref buyerFilter.Get2(fBuyer);
-                foreach (var fCargo in playerFilter)
+                foreach (var fPlayer in playerFilter)
                 {
-                    ref var cargo = ref playerFilter.Get1(fCargo);
-                    ref var playerStorage = ref playerFilter.Get2(fCargo);
-                    ref var player = ref playerFilter.Get3(fCargo);
+                    ref var cargo = ref playerFilter.Get1(fPlayer);
+                    ref var playerStorage = ref playerFilter.Get2(fPlayer);
+                    ref var player = ref playerFilter.Get3(fPlayer);
 
                     float playerActualProductsMass = 0;
                     List<int> forRemove = new List<int>();
@@ -63,39 +63,17 @@ sealed class SellSystem : IEcsRunSystem
                             cargo.inventory.RemoveAt(productIndex);
                         }
                         buyerFilter.GetEntity(fBuyer).Get<BuyDataUpdateRequest>();
+                        playerFilter.GetEntity(0).Get<UpdateCargoRequest>();
                         buyer.product.mass += dealMass;
                         buyerStorage.currentMass += dealMass;
-                        playerStorage.currentMass -= dealMass;
-                        player.playerRB.mass -= dealMass;
-                        buyer.tradePointData.storageInfo.text = buyerStorage.currentMass.ToString("0") + "/" + buyerStorage.maxMass.ToString("0");
                         staticData.currentMoney += dealMass * buyer.currentPrice;
-                        uiData.moneyText.text = staticData.currentMoney.ToString("0.0");
-                        SwitchCargo();
-                        buyer.tradePointData.buyCount.text = buyer.product.mass.ToString("#");
+
+                        foreach (var go in player.playerData.playerCargo)
+                        {
+                            go.SetActive(false);
+                        }
                     }
-                    uiData.cargoText.text = playerStorage.currentMass.ToString("0") + "/" + playerStorage.maxMass.ToString("0");
                 }
-            }
-        }
-    }
-
-
-    void SwitchCargo()
-    {
-
-        foreach (var fPlayer in playerFilter)
-        {
-            ref var playerStorage = ref playerFilter.Get2(fPlayer);
-            ref var player = ref playerFilter.Get3(fPlayer);
-            float filledPart = playerStorage.currentMass / playerStorage.maxMass;
-
-            foreach (var go in player.playerData.playerCargo)
-            {
-                go.SetActive(false);
-            }
-            for (int i = 0; i < player.playerData.playerCargo.Count * filledPart; i++)
-            {
-                player.playerData.playerCargo[i].SetActive(true);
             }
         }
     }

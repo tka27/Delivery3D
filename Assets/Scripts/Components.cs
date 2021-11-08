@@ -26,6 +26,7 @@ public struct PlayerComp
     public float maxFuel;
     public float currentFuel;
     public float fuelConsumption;
+    public float defaultRBMass;
 }
 public struct MovableComp
 {
@@ -77,4 +78,10 @@ public struct Quest
     public float currentQuestTime;
     public float maxQuestTime;
     public float timer;
+}
+public struct UpdateCargoRequest
+{
+}
+public struct CratesDisplayRequest
+{
 }

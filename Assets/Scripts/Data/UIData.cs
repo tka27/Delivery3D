@@ -5,22 +5,23 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 public class UIData : MonoBehaviour
 {
-    public Text gameModeText;
     public bool isPathComplete;
     public bool isPathConfirmed;
     public bool clearPathRequest;
     public bool buyRequest;
     public bool sellRequest;
+    public bool dropRequest;
     public GameObject confirmButton;
     public GameObject clearButton;
     public GameObject buyButton;
     public GameObject sellButton;
+    public Text gameModeText;
     public Text fuelText;
     public Text durabilityText;
     public Text moneyText;
     public Text cargoText;
     public List<GameObject> playerInfoPanel;
-    public  List<GameObject> buttons;
+    public List<GameObject> buttons;
     public static bool IsMouseOverButton(List<GameObject> buttons)
     {
         PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
