@@ -5,9 +5,10 @@ using System.Collections.Generic;
 public class SceneData : MonoBehaviour
 {
     public float groundHeight = -1.45f;
-    public GameObject car;
+    public List<GameObject> cars;
     public GameMode gameMode;
     public GameObject buildCam;
+    public GameObject driveCam;
     public LineRenderer lineRenderer;
     public List<GameObject> waypointsPool;
     public List<Collider> wpColliders;

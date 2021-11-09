@@ -14,12 +14,12 @@ sealed class CratesDisplaySystem : IEcsRunSystem
             ref var playerStorage = ref playerFilter.Get2(fPlayer);
             float filledPart = playerStorage.currentMass / playerStorage.maxMass;
 
-            for (int i = 0; i < player.playerData.playerCargo.Count * filledPart; i++)
+            for (int i = 0; i < player.carData.playerCargo.Count * filledPart; i++)
             {
-                player.playerData.playerCargo[i].SetActive(true);
-                player.playerData.playerCargoRB[i].isKinematic = true;
-                player.playerData.playerCargo[i].transform.localPosition = player.playerData.playerCargoDefaultPos[i];
-                player.playerData.playerCargo[i].transform.localRotation = player.playerData.playerCargoDefaultRot[i];
+                player.carData.playerCargo[i].SetActive(true);
+                player.carData.playerCargoRB[i].isKinematic = true;
+                player.carData.playerCargo[i].transform.localPosition = player.carData.playerCargoDefaultPos[i];
+                player.carData.playerCargo[i].transform.localRotation = player.carData.playerCargoDefaultRot[i];
             }
             playerFilter.GetEntity(fPlayer).Del<CratesDisplayRequest>();
         }

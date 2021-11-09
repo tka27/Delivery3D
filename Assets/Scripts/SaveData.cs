@@ -7,10 +7,18 @@ public class SaveData
 {
     [System.NonSerialized] public StaticData staticData = (StaticData)Resources.Load("StaticData");
     public float totalMoney;
-    public List<bool> unlockedCars;
+    public float labRequiredProductsMultiplier; 
+    public List<bool> carsUnlockStatus;
+    public List<bool> carsBuyStatus;
+    public List<bool> buildingsUnlockStatus;
+    public List<bool> buildingsBuyStatus;
     public SaveData()
     {
         totalMoney = staticData.totalMoney;
-        unlockedCars = staticData.unlockedCars;
+        labRequiredProductsMultiplier = staticData.labRequiredProductsMultiplier;
+        carsUnlockStatus = staticData.carsUnlockStatus;
+        carsBuyStatus = staticData.carsBuyStatus;
+        buildingsUnlockStatus = staticData.buildingsUnlockStatus;
+        buildingsBuyStatus = staticData.buildingsBuyStatus;
     }
 }

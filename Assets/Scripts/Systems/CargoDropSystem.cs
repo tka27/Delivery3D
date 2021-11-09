@@ -16,12 +16,12 @@ sealed class CargoDropSystem : IEcsRunSystem
         var player = playerFilter.Get1(0);
         var cargo = playerFilter.Get2(0);
         player.playerRB.AddRelativeForce(new Vector3(0, -100000, 100000));
-        for (int i = 0; i < player.playerData.playerCargo.Count; i++)
+        for (int i = 0; i < player.carData.playerCargo.Count; i++)
         {
 
 
-            player.playerData.playerCargoRB[i].isKinematic = false;
-            player.playerData.playerCargoRB[i].AddExplosionForce(Random.Range(2000, 3000), player.playerData.centerOfMass.transform.position, 0);
+            player.carData.playerCargoRB[i].isKinematic = false;
+            player.carData.playerCargoRB[i].AddExplosionForce(Random.Range(2000, 3000), player.carData.centerOfMass.transform.position, 0);
         }
         cargo.inventory.Clear();
         playerFilter.GetEntity(0).Get<UpdateCargoRequest>();

@@ -32,11 +32,11 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
                 if (path.wayPoints.Count != 0 && sceneData.gameMode == GameMode.Drive)
                 {
                     tgtPos = path.wayPoints[path.currentWaypointIndex].transform.position;
-                    tgtPos.y = player.playerData.wheelPos.transform.position.y;
-                    float distanceToCurrentPoint = (path.wayPoints[path.currentWaypointIndex].transform.position - player.playerData.wheelPos.position).magnitude;
+                    tgtPos.y = player.carData.wheelPos.transform.position.y;
+                    float distanceToCurrentPoint = (path.wayPoints[path.currentWaypointIndex].transform.position - player.carData.wheelPos.position).magnitude;
                     if (distanceToCurrentPoint >= 3f)
                     {
-                        steer = Vector3.SignedAngle(tgtPos - player.playerData.wheelPos.position, player.playerData.wheelPos.forward, player.playerData.wheelPos.up);
+                        steer = Vector3.SignedAngle(tgtPos - player.carData.wheelPos.position, player.carData.wheelPos.forward, player.carData.wheelPos.up);
                         steer *= -1;
 
                         if (steer > player.maxSteerAngle)
@@ -48,7 +48,7 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
                             steer = -player.maxSteerAngle;
                         }
                         //move method
-                        foreach (var drivingWheel in player.playerData.drivingWheelColliders)
+                        foreach (var drivingWheel in player.carData.drivingWheelColliders)
                         {
                             if (Input.GetMouseButton(0) && player.currentTorque < player.maxTorque)
                             {
@@ -64,7 +64,7 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
                             }
                             drivingWheel.motorTorque = player.currentTorque;
                         }
-                        foreach (var steeringWheel in player.playerData.steeringWheelColliders)
+                        foreach (var steeringWheel in player.carData.steeringWheelColliders)
                         {
                             steeringWheel.steerAngle = steer;
                         }
@@ -90,9 +90,9 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
                 else
                 {
                     //stop method
-                    for (int i = 0; i < player.playerData.drivingWheelColliders.Count; i++)
+                    for (int i = 0; i < player.carData.drivingWheelColliders.Count; i++)
                     {
-                        player.playerData.drivingWheelColliders[i].motorTorque = 0;
+                        player.carData.drivingWheelColliders[i].motorTorque = 0;
                         player.currentTorque = 0;
                     }
                 }

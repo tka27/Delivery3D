@@ -21,7 +21,7 @@ public class UIData : MonoBehaviour
     public Text moneyText;
     public Text cargoText;
     public List<GameObject> playerInfoPanel;
-    public List<GameObject> buttons;
+    public List<GameObject> buttons;//for ui ignore
     public static bool IsMouseOverButton(List<GameObject> buttons)
     {
         PointerEventData pointerEventData = new PointerEventData(EventSystem.current);

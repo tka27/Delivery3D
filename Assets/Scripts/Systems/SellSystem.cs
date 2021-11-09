@@ -68,7 +68,7 @@ sealed class SellSystem : IEcsRunSystem
                         buyerStorage.currentMass += dealMass;
                         staticData.currentMoney += dealMass * buyer.currentPrice;
 
-                        foreach (var go in player.playerData.playerCargo)
+                        foreach (var go in player.carData.playerCargo)
                         {
                             go.SetActive(false);
                         }

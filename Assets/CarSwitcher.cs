@@ -8,6 +8,8 @@ public class CarSwitcher : MonoBehaviour
     new Camera camera;
     Vector3 startPos;
     Vector3 tgtPos;
+    [SerializeField] StaticData staticData;
+    [SerializeField] MainMenuSceneData mainMenuSceneData;
     void Start()
     {
         camera = Camera.main;
@@ -24,13 +26,23 @@ public class CarSwitcher : MonoBehaviour
             tgtPos = camera.ScreenToViewportPoint(Input.mousePosition);
             xDifference = startPos.x - tgtPos.x;
         }
+        mainMenuSceneData.carsGameObjects[staticData.selectedCarID].gameObject.SetActive(false);
         if (xDifference > 0.2)
         {
-            Debug.Log("+1");
+            staticData.selectedCarID++;
+            if (staticData.selectedCarID > mainMenuSceneData.carsGameObjects.Count - 1)
+            {
+                staticData.selectedCarID = 0;
+            }
         }
         else if (xDifference < -0.2)
         {
-            Debug.Log("-1");
+            staticData.selectedCarID--;
+            if (staticData.selectedCarID < 0)
+            {
+                staticData.selectedCarID = mainMenuSceneData.carsGameObjects.Count - 1;
+            }
         }
+        mainMenuSceneData.carsGameObjects[staticData.selectedCarID].gameObject.SetActive(true);
     }
 }

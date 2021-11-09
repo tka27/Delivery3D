@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 
 
 public class GameInitSystem : IEcsInitSystem
@@ -14,6 +15,8 @@ public class GameInitSystem : IEcsInitSystem
     ProductData productData;
     public void Init()
     {
+
+
         staticData.currentMoney = staticData.moneyForGame;
         uiData.moneyText.text = staticData.currentMoney.ToString("0");
         var pathEntity = _world.NewEntity();
@@ -25,38 +28,43 @@ public class GameInitSystem : IEcsInitSystem
         var playerEntity = _world.NewEntity();
         ref var playerComp = ref playerEntity.Get<PlayerComp>();
         playerEntity.Get<MovableComp>();
-        playerComp.playerGO = sceneData.car;
-        playerComp.playerData = playerComp.playerGO.GetComponent<PlayerData>();
+        sceneData.cars[staticData.selectedCarID].SetActive(true);
+        playerComp.playerGO = sceneData.cars[staticData.selectedCarID];
+        //playerComp.playerGO = GameObject.Instantiate(staticData.carsPrefabs[staticData.selectedCarID]);
+        playerComp.carData = playerComp.playerGO.GetComponent<CarData>();
         playerComp.playerRB = playerComp.playerGO.GetComponent<Rigidbody>();
         playerComp.defaultRBMass = playerComp.playerRB.mass;
-        playerComp.playerRB.centerOfMass = playerComp.playerData.centerOfMass.transform.localPosition;
-        playerComp.maxSteerAngle = 45;
-        playerComp.maxTorque = 10000;
-        playerComp.acceleration = 50;
-        playerComp.maxDurability = 100;
+        playerComp.playerRB.centerOfMass = playerComp.carData.centerOfMass.transform.localPosition;
+        playerComp.maxSteerAngle = playerComp.carData.maxSteerAngle;// 45;
+        playerComp.maxTorque = playerComp.carData.maxTorque;// 10000;
+        playerComp.acceleration = playerComp.carData.acceleration;// 50;
+        playerComp.maxDurability = playerComp.carData.maxDurability;// 100;
         playerComp.currentDurability = playerComp.maxDurability;
         uiData.durabilityText.text = playerComp.currentDurability.ToString();
-        playerComp.maxFuel = 100;
+        playerComp.maxFuel = playerComp.carData.maxFuel;// 100;
         playerComp.currentFuel = playerComp.maxFuel;
         uiData.fuelText.text = playerComp.currentFuel.ToString();
-        playerComp.fuelConsumption = 0.01f;
+        playerComp.fuelConsumption = playerComp.carData.fuelConsumption;// 0.01f;
         playerEntity.Get<CargoComp>().inventory = new List<Product>();
-        playerEntity.Get<StorageComp>().maxMass = 50;
+        playerEntity.Get<StorageComp>().maxMass = playerComp.carData.maxStorageMass;// 50;
         playerEntity.Get<UpdateCargoRequest>();
-        for (int i = 0; i < playerComp.playerData.playerCargo.Count; i++)
+        for (int i = 0; i < playerComp.carData.playerCargo.Count; i++)
         {
-            playerComp.playerData.playerCargoRB.Add(playerComp.playerData.playerCargo[i].gameObject.GetComponent<Rigidbody>());
-            playerComp.playerData.playerCargoDefaultPos.Add(playerComp.playerData.playerCargo[i].transform.localPosition);
-            playerComp.playerData.playerCargoDefaultRot.Add(playerComp.playerData.playerCargo[i].transform.localRotation);
+            playerComp.carData.playerCargoRB.Add(playerComp.carData.playerCargo[i].gameObject.GetComponent<Rigidbody>());
+            playerComp.carData.playerCargoDefaultPos.Add(playerComp.carData.playerCargo[i].transform.localPosition);
+            playerComp.carData.playerCargoDefaultRot.Add(playerComp.carData.playerCargo[i].transform.localRotation);
         }
 
+        var virtualCam = sceneData.driveCam.GetComponent<CinemachineVirtualCamera>();
+        virtualCam.Follow = playerComp.playerGO.transform;
+        virtualCam.LookAt = playerComp.carData.cameraLookPoint;
 
 
         var wheatFarmEntity = _world.NewEntity();
         ref var wheatFarm = ref wheatFarmEntity.Get<ProductSeller>();
         wheatFarm.sellerGO = sceneData.wheatFarmTradePoint;
         wheatFarm.tradePointData = wheatFarm.sellerGO.GetComponent<TradePointData>();
-        wheatFarm.produceSpeed = 0.5f*10;
+        wheatFarm.produceSpeed = 0.5f * 10;
         wheatFarm.product = new Product(ProductType.Wheat, productData.wheat, 0.5f);
         wheatFarm.repriceMultiplier = 1.2f;
         wheatFarmEntity.Get<StorageComp>().maxMass = 200;

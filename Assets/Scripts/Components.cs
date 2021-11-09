@@ -16,7 +16,7 @@ public struct PlayerComp
 {
     public Rigidbody playerRB;
     public GameObject playerGO;
-    public PlayerData playerData;
+    public CarData carData;
     public float maxSteerAngle;
     public float maxTorque;
     public float currentTorque;
@@ -84,4 +84,8 @@ public struct UpdateCargoRequest
 }
 public struct CratesDisplayRequest
 {
+}
+public struct ResearchLab
+{
+    public float progress;
 }

@@ -18,7 +18,7 @@ sealed class DamageSystem : IEcsRunSystem
         foreach (var fPlayer in playerFilter)
         {
             ref var player = ref playerFilter.Get1(fPlayer);
-            foreach (var wheelData in player.playerData.wheelDatas)
+            foreach (var wheelData in player.carData.wheelDatas)
             {
                 if (!wheelData.onRoad && sceneData.gameMode == GameMode.Drive && player.playerRB.velocity.magnitude > 1.5f)
                 {
