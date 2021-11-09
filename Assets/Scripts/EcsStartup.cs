@@ -40,6 +40,7 @@ sealed class EcsStartup : MonoBehaviour
             .Add(new RepriceSystem())
             .Add(new CargoDropSystem())
             .Add(new CratesDisplaySystem())
+            .Add(new CargoDisplaySystem())
 
             // register one-frame components (order is important), for example:
             // .OneFrame<TestComponent1> ()

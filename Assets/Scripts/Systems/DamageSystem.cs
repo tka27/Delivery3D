@@ -30,7 +30,7 @@ sealed class DamageSystem : IEcsRunSystem
 
 
                     Handheld.Vibrate();
-                    player.currentDurability -= 0.05f * player.playerRB.velocity.magnitude;
+                    player.currentDurability -= 0.02f * player.playerRB.velocity.magnitude*player.playerRB.mass/1000;
                     uiData.durabilityText.text = player.currentDurability.ToString("#");
                 }else{
                     wheelData.particles.Stop();

@@ -7,8 +7,10 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] StaticData staticData;
     [SerializeField] Text text;
+    [SerializeField] GameObject demoCam;
     void Start()
     {
+        demoCam.SetActive(false);
         LoadGameProgress();
         text.text = staticData.totalMoney.ToString("0.0");
     }

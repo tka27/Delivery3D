@@ -16,4 +16,6 @@ public class PlayerData : MonoBehaviour
     public List<Rigidbody> playerCargoRB;
     public List<Vector3> playerCargoDefaultPos;
     public List<Quaternion> playerCargoDefaultRot;
+    public GameObject inventoryCanvas;
+    public GameObject clearInventoryBtn;
 }
