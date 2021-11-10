@@ -63,10 +63,12 @@ sealed class SellSystem : IEcsRunSystem
                     {
                         for (int i = 0; i < playerIndexes.Count; i++)
                         {
-                            Debug.Log(buyerInventory.inventory[buyerIndexes[i]].mass);
-                            buyerInventory.inventory[buyerIndexes[i]].mass += playerInventory.inventory[playerIndexes[i]].mass;
-                            playerInventory.inventory[playerIndexes[i]].mass = 0;
-                            totalCost += buyerInventory.inventory[buyerIndexes[i]].mass * buyerInventory.inventory[buyerIndexes[i]].currentPrice;
+
+                            float productMass = playerInventory.inventory[playerIndexes[i]].mass / buyer.buyingProductTypes.Count;//fixed
+
+                            buyerInventory.inventory[buyerIndexes[i]].mass += productMass;
+                            playerInventory.inventory[playerIndexes[i]].mass -= productMass;
+                            totalCost += productMass * buyerInventory.inventory[buyerIndexes[i]].currentPrice;
                         }
                     }
                     else if (playerActualProductsMass > buyerFreeSpace)
@@ -82,7 +84,6 @@ sealed class SellSystem : IEcsRunSystem
                     staticData.currentMoney += totalCost;
 
                     buyerFilter.GetEntity(fBuyer).Get<BuyDataUpdateRequest>();
-                    buyerFilter.GetEntity(fBuyer).Get<SellDataUpdateRequest>();
                     playerFilter.GetEntity(0).Get<UpdateCargoRequest>();
                     playerInventory.RemoveEmptySlots();
                     foreach (var go in player.carData.playerCargo)

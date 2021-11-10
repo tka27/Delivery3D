@@ -15,6 +15,10 @@ public class SceneData : MonoBehaviour
     public List<Transform> finalPoints;
     public GameObject wheatFarmTradePoint;
     public GameObject bakeryTradePoint;
+    public GameObject meatFactoryTradePoint;
+    public GameObject milkFactoryTradePoint;
+    public GameObject pizzaTradePoint;
+    public GameObject cheeseTradePoint;
     public GameObject gasStationTradePoint;
     public GameObject autoServiceTradePoint;
     public GameObject shopTradePoint;

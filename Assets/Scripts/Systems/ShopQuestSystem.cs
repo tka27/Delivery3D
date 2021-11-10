@@ -1,6 +1,7 @@
 using Leopotam.Ecs;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 
 sealed class ShopQuestSystem : IEcsRunSystem
@@ -25,12 +26,17 @@ sealed class ShopQuestSystem : IEcsRunSystem
 
             ref var buyer = ref shopFilter.Get1(fShop);
             quest.currentQuestTime--;
-            buyer.tradePointData.currentQuestTime.text = quest.currentQuestTime.ToString("0");
+            TimeSpan time = new TimeSpan();
+
             if (quest.currentQuestTime > 0)
             {
+                time = TimeSpan.FromSeconds(quest.currentQuestTime);
+                buyer.tradePointData.currentQuestTime.text = time.ToString("mm':'ss");
                 continue;
             }
             quest.currentQuestTime = quest.maxQuestTime;
+            time = TimeSpan.FromSeconds(quest.currentQuestTime);
+            buyer.tradePointData.currentQuestTime.text = time.ToString("mm':'ss");
 
             Product product = SelectRandomProducedProduct();
             buyer.buyingProductTypes.Clear();
@@ -39,8 +45,7 @@ sealed class ShopQuestSystem : IEcsRunSystem
             shopInventory.inventory.Clear();
             shopInventory.inventory.Add(new Product(product.type, product.icon, product.defaultPrice * 2f));
             Debug.Log(shopInventory.inventory[0].type);
-            buyer.tradePointData.buyProductSpriteRenderer.sprite = product.icon;
-            buyer.tradePointData.buyProductSpriteRendererCopy.sprite = product.icon;
+            buyer.tradePointData.buyProductSpriteRenderer1.sprite = product.icon;
             shopFilter.GetEntity(fShop).Get<BuyDataUpdateRequest>();
         }
     }
@@ -53,9 +58,10 @@ sealed class ShopQuestSystem : IEcsRunSystem
             ref var seller = ref sellerFilter.Get1(fSeller);
             products.Add(seller.product);
         }
-        int randomIndex = Random.Range(0, products.Count);
+        int randomIndex = UnityEngine.Random.Range(0, products.Count);
         if (products.Count > 0)
         {
+            Debug.Log(products.Count);
             return products[randomIndex];
         }
         return null;
