@@ -6,8 +6,8 @@ using System.Collections.Generic;
 sealed class SellSystem : IEcsRunSystem
 {
 
-    EcsFilter<ProductBuyer, StorageComp> buyerFilter;
-    EcsFilter<CargoComp, StorageComp, PlayerComp> playerFilter;
+    EcsFilter<ProductBuyer, Inventory> buyerFilter;
+    EcsFilter<Inventory, PlayerComp> playerFilter;
     UIData uiData;
     StaticData staticData;
 
@@ -19,62 +19,79 @@ sealed class SellSystem : IEcsRunSystem
             if (buyer.tradePointData.ableToTrade && uiData.sellRequest)
             {
                 uiData.sellRequest = false;
-                ref var buyerStorage = ref buyerFilter.Get2(fBuyer);
+                ref var buyerInventory = ref buyerFilter.Get2(fBuyer);
                 foreach (var fPlayer in playerFilter)
                 {
-                    ref var cargo = ref playerFilter.Get1(fPlayer);
-                    ref var playerStorage = ref playerFilter.Get2(fPlayer);
-                    ref var player = ref playerFilter.Get3(fPlayer);
+                    ref var playerInventory = ref playerFilter.Get1(fPlayer);
+                    ref var player = ref playerFilter.Get2(fPlayer);
 
-                    float playerActualProductsMass = 0;
-                    List<int> forRemove = new List<int>();
-                    int productIndex = 0;
+                    List<int> playerIndexes = new List<int>();
+                    List<int> buyerIndexes = new List<int>();
 
-                    for (int i = 0; i < cargo.inventory.Count; i++)
+                    foreach (var buyingProductType in buyer.buyingProductTypes)
                     {
-                        if (cargo.inventory[i].type == buyer.product.type)
+                        for (int i = 0; i < playerInventory.inventory.Count; i++) // check all player products & buyer required products
                         {
-                            playerActualProductsMass += cargo.inventory[i].mass;
-                            productIndex = i;
+                            for (int j = 0; j < buyerInventory.inventory.Count; j++)
+                            {
+                                if (playerInventory.inventory[i].type == buyerInventory.inventory[j].type && buyerInventory.inventory[j].type == buyingProductType)
+                                {
+                                    playerIndexes.Add(i);
+                                    buyerIndexes.Add(j);// add indexes of same products
+                                }
+                            }
                         }
                     }
 
+
+
+                    float playerActualProductsMass = 0;
+                    for (int i = 0; i < playerIndexes.Count; i++)
+                    {
+                        playerActualProductsMass += playerInventory.inventory[playerIndexes[i]].mass;
+                    }
                     if (playerActualProductsMass == 0)
                     {
                         return;
                     }
-                    var freeStorageMass = (buyerStorage.maxMass - buyerStorage.currentMass);
-                    float dealMass = 0;
+                    float totalCost = 0;
 
-                    if (freeStorageMass < playerActualProductsMass)
-                    {
-                        dealMass = freeStorageMass;
-                    }
-                    else
-                    {
-                        dealMass = playerActualProductsMass;
-                    }
+                    float buyerCurrentMass = buyerInventory.GetCurrentMass();
+                    float buyerFreeSpace = buyerInventory.maxMass - buyerCurrentMass;
 
-                    if (dealMass != 0)
+                    if (playerActualProductsMass <= buyerFreeSpace) // sell all
                     {
-                        cargo.inventory[productIndex].mass -= dealMass;
-                        if (cargo.inventory[productIndex].mass == 0)
+                        for (int i = 0; i < playerIndexes.Count; i++)
                         {
-                            cargo.inventory.RemoveAt(productIndex);
+                            Debug.Log(buyerInventory.inventory[buyerIndexes[i]].mass);
+                            buyerInventory.inventory[buyerIndexes[i]].mass += playerInventory.inventory[playerIndexes[i]].mass;
+                            playerInventory.inventory[playerIndexes[i]].mass = 0;
+                            totalCost += buyerInventory.inventory[buyerIndexes[i]].mass * buyerInventory.inventory[buyerIndexes[i]].currentPrice;
                         }
-                        buyerFilter.GetEntity(fBuyer).Get<BuyDataUpdateRequest>();
-                        playerFilter.GetEntity(0).Get<UpdateCargoRequest>();
-                        buyer.product.mass += dealMass;
-                        buyerStorage.currentMass += dealMass;
-                        staticData.currentMoney += dealMass * buyer.currentPrice;
-
-                        foreach (var go in player.carData.playerCargo)
+                    }
+                    else if (playerActualProductsMass > buyerFreeSpace)
+                    {
+                        float eachProductMass = buyerFreeSpace / playerIndexes.Count;
+                        for (int i = 0; i < playerIndexes.Count; i++)
                         {
-                            go.SetActive(false);
+                            buyerInventory.inventory[buyerIndexes[i]].mass += eachProductMass;
+                            playerInventory.inventory[playerIndexes[i]].mass -= eachProductMass;
+                            totalCost += eachProductMass * buyerInventory.inventory[buyerIndexes[i]].currentPrice;
                         }
+                    }
+                    staticData.currentMoney += totalCost;
+
+                    buyerFilter.GetEntity(fBuyer).Get<BuyDataUpdateRequest>();
+                    buyerFilter.GetEntity(fBuyer).Get<SellDataUpdateRequest>();
+                    playerFilter.GetEntity(0).Get<UpdateCargoRequest>();
+                    playerInventory.RemoveEmptySlots();
+                    foreach (var go in player.carData.playerCargo)
+                    {
+                        go.SetActive(false);
                     }
                 }
             }
         }
     }
 }
+

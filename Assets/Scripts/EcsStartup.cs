@@ -38,9 +38,10 @@ sealed class EcsStartup : MonoBehaviour
             .Add(new FactoryProduceSystem())
             .Add(new InfoPanelSwitchSystem())
             .Add(new RepriceSystem())
-            .Add(new CargoDropSystem())
+            .Add(new ClearInventorySystem())
             .Add(new CratesDisplaySystem())
             .Add(new CargoDisplaySystem())
+            .Add(new QuestUpdateSystem())
 
             // register one-frame components (order is important), for example:
             // .OneFrame<TestComponent1> ()
@@ -61,7 +62,7 @@ sealed class EcsStartup : MonoBehaviour
         .Add(new ImmobilizeSystem())
         .Add(new FarmProduceSystem())
         .Add(new ShopQuestSystem())
-        .Add(new ProductConsumingSystem())
+        //.Add(new ProductConsumingSystem())
 
 
 

@@ -4,15 +4,15 @@ using Leopotam.Ecs;
 sealed class CratesDisplaySystem : IEcsRunSystem
 {
 
-    EcsFilter<PlayerComp, StorageComp, CratesDisplayRequest> playerFilter;
+    EcsFilter<PlayerComp, Inventory, CratesDisplayRequest> playerFilter;
 
     void IEcsRunSystem.Run()
     {
         foreach (var fPlayer in playerFilter)
         {
             ref var player = ref playerFilter.Get1(fPlayer);
-            ref var playerStorage = ref playerFilter.Get2(fPlayer);
-            float filledPart = playerStorage.currentMass / playerStorage.maxMass;
+            ref var playerInventory = ref playerFilter.Get2(fPlayer);
+            float filledPart = playerInventory.GetCurrentMass() / playerInventory.maxMass;
 
             for (int i = 0; i < player.carData.playerCargo.Count * filledPart; i++)
             {

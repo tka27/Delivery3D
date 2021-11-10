@@ -788,7 +788,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &83611648
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3014,6 +3014,7 @@ MonoBehaviour:
   staticData: {fileID: 11400000, guid: 6847ff8d4fdf49646b326ed19a8c5143, type: 2}
   text: {fileID: 1906958773}
   demoCam: {fileID: 1046310635}
+  button: {fileID: 83611650}
 --- !u!4 &380551755
 Transform:
   m_ObjectHideFlags: 0
@@ -9114,7 +9115,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1382114251
 RectTransform:
   m_ObjectHideFlags: 0

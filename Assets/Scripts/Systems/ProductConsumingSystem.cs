@@ -4,7 +4,8 @@ using Leopotam.Ecs;
 sealed class ProductConsumingSystem : IEcsRunSystem
 {
 
-    EcsFilter<ProductBuyer, StorageComp>.Exclude<ProductSeller> consumerFilter;
+        //////////////////OFF//////////////
+    EcsFilter<ProductBuyer, Inventory>.Exclude<ProductSeller> consumerFilter;
     float timer;
     void IEcsRunSystem.Run()
     {
@@ -18,10 +19,18 @@ sealed class ProductConsumingSystem : IEcsRunSystem
         foreach (var fCons in consumerFilter)
         {
             ref var buyer = ref consumerFilter.Get1(fCons);
-            ref var storage = ref consumerFilter.Get2(fCons);
-            if (storage.currentMass > 0)
+            ref var buyerInventory = ref consumerFilter.Get2(fCons);
+            if (buyerInventory.GetCurrentMass() > 0)
             {
-                storage.currentMass--;
+                foreach (var product in buyer.buyingProductTypes)
+                {
+                    foreach (var inventoryItem in buyerInventory.inventory)
+                    {
+                        if(product==inventoryItem.type){
+                            inventoryItem.mass--;
+                        }
+                    }//fixed
+                }
                 consumerFilter.GetEntity(fCons).Get<BuyDataUpdateRequest>();
             }
         }

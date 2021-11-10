@@ -5,7 +5,7 @@ using UnityEngine;
 sealed class FarmProduceSystem : IEcsRunSystem
 {
 
-    EcsFilter<ProductSeller, StorageComp>.Exclude<ProductBuyer> producerFilter;
+    EcsFilter<ProductSeller, Inventory>.Exclude<ProductBuyer> producerFilter;
 
     void IEcsRunSystem.Run()
     {
@@ -13,18 +13,21 @@ sealed class FarmProduceSystem : IEcsRunSystem
         {
             ref var producer = ref producerFilter.Get1(fProd);
 
-            producer.timer--;
-            if (producer.timer > 0)
+            producer.productionTimer--;
+            if (producer.productionTimer > 0)
             {
                 continue;
             }
-            producer.timer = 50 / producer.produceSpeed;
+            producer.productionTimer = 50 / producer.produceSpeed;
 
-            ref var storage = ref producerFilter.Get2(fProd);
-            if (storage.currentMass < storage.maxMass)
+            ref var producerInventory = ref producerFilter.Get2(fProd);
+            if (producerInventory.inventory.Count == 0)
             {
+                producerInventory.inventory.Add(producer.product);
+            }
+            if (producerInventory.GetCurrentMass() < producerInventory.maxMass)
+            { 
                 producer.product.mass++;
-                storage.currentMass = producer.product.mass;
                 producerFilter.GetEntity(fProd).Get<SellDataUpdateRequest>();
             }
         }

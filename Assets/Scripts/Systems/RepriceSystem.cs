@@ -4,44 +4,59 @@ using UnityEngine;
 
 sealed class RepriceSystem : IEcsRunSystem
 {
-    EcsFilter<StorageComp, ProductSeller, SellDataUpdateRequest> sellerFilter;
-    EcsFilter<StorageComp, ProductBuyer, BuyDataUpdateRequest> buyerFilter;
+    EcsFilter<Inventory, ProductSeller, SellDataUpdateRequest> sellerFilter;
+    EcsFilter<Inventory, ProductBuyer, BuyDataUpdateRequest> buyerFilter;
 
     void IEcsRunSystem.Run()
     {
         foreach (var fSeller in sellerFilter)
         {
             sellerFilter.GetEntity(fSeller).Del<SellDataUpdateRequest>();
-            ref var storage = ref sellerFilter.Get1(fSeller);
+            ref var sellerInventory = ref sellerFilter.Get1(fSeller);
             ref var seller = ref sellerFilter.Get2(fSeller);
-            if (seller.product.mass / storage.maxMass > 0.8f)
+            if (seller.product.mass / sellerInventory.maxMass > 0.8f)//fix
             {
-                seller.currentPrice = seller.product.defaultPrice / seller.repriceMultiplier;
+                seller.product.currentPrice = seller.product.defaultPrice / seller.repriceMultiplier;
             }
             else
             {
-                seller.currentPrice = seller.product.defaultPrice;
+                seller.product.currentPrice = seller.product.defaultPrice;
             }
             seller.tradePointData.sellCount.text = seller.product.mass.ToString("0");
-            seller.tradePointData.storageInfo.text = storage.currentMass.ToString("0") + "/" + storage.maxMass.ToString("0");
-            seller.tradePointData.sellPrice.text = seller.currentPrice.ToString("0.00");
+            seller.tradePointData.storageInfo.text = sellerInventory.GetCurrentMass().ToString("0") + "/" + sellerInventory.maxMass.ToString("0");
+            seller.tradePointData.sellPrice.text = seller.product.currentPrice.ToString("0.00");
         }
         foreach (var fBuyer in buyerFilter)
         {
             buyerFilter.GetEntity(fBuyer).Del<BuyDataUpdateRequest>();
-            ref var storage = ref buyerFilter.Get1(fBuyer);
+            ref var buyerInventory = ref buyerFilter.Get1(fBuyer);
             ref var buyer = ref buyerFilter.Get2(fBuyer);
-            if (storage.currentMass / storage.maxMass > 0.5f)
+
+            foreach (var product in buyer.buyingProductTypes)
             {
-                buyer.currentPrice = buyer.product.defaultPrice / buyer.repriceMultiplier;
+                for (int i = 0; i < buyerInventory.inventory.Count; i++)
+                {
+                    Product inventoryItem = buyerInventory.inventory[i];
+                    if (product == inventoryItem.type)
+                    {
+                        if (inventoryItem.mass > buyerInventory.maxMass / (buyer.buyingProductTypes.Count * 1.5f))
+                        {
+                            inventoryItem.currentPrice = inventoryItem.defaultPrice * 0.5f;
+                        }
+                        else
+                        {
+                            inventoryItem.currentPrice = inventoryItem.defaultPrice;
+                        }
+
+
+                        buyer.tradePointData.buyCount.text = inventoryItem.mass.ToString("0");//fixed
+                        buyer.tradePointData.buyPrice.text = inventoryItem.currentPrice.ToString("0.00");//fixed
+                    }
+                }
             }
-            else
-            {
-                buyer.currentPrice = buyer.product.defaultPrice;
-            }
-            buyer.tradePointData.buyCount.text = buyer.product.mass.ToString("0");
-            buyer.tradePointData.storageInfo.text = storage.currentMass.ToString("0") + "/" + storage.maxMass.ToString("0");
-            buyer.tradePointData.buyPrice.text = buyer.currentPrice.ToString("0.00");
+
+
+            buyer.tradePointData.storageInfo.text = buyerInventory.GetCurrentMass().ToString("0") + "/" + buyerInventory.maxMass.ToString("0");
         }
     }
 }

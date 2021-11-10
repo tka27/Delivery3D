@@ -16,7 +16,6 @@ public class GameInitSystem : IEcsInitSystem
     public void Init()
     {
 
-
         staticData.currentMoney = staticData.moneyForGame;
         uiData.moneyText.text = staticData.currentMoney.ToString("0");
         var pathEntity = _world.NewEntity();
@@ -45,8 +44,9 @@ public class GameInitSystem : IEcsInitSystem
         playerComp.currentFuel = playerComp.maxFuel;
         uiData.fuelText.text = playerComp.currentFuel.ToString();
         playerComp.fuelConsumption = playerComp.carData.fuelConsumption;// 0.01f;
-        playerEntity.Get<CargoComp>().inventory = new List<Product>();
-        playerEntity.Get<StorageComp>().maxMass = playerComp.carData.maxStorageMass;// 50;
+        ref var playerInventory = ref playerEntity.Get<Inventory>();
+        playerInventory.inventory = new List<Product>();
+        playerInventory.maxMass = playerComp.carData.maxStorageMass;// 50;
         playerEntity.Get<UpdateCargoRequest>();
         for (int i = 0; i < playerComp.carData.playerCargo.Count; i++)
         {
@@ -60,6 +60,9 @@ public class GameInitSystem : IEcsInitSystem
         virtualCam.LookAt = playerComp.carData.cameraLookPoint;
 
 
+
+
+
         var wheatFarmEntity = _world.NewEntity();
         ref var wheatFarm = ref wheatFarmEntity.Get<ProductSeller>();
         wheatFarm.sellerGO = sceneData.wheatFarmTradePoint;
@@ -67,24 +70,37 @@ public class GameInitSystem : IEcsInitSystem
         wheatFarm.produceSpeed = 0.5f * 10;
         wheatFarm.product = new Product(ProductType.Wheat, productData.wheat, 0.5f);
         wheatFarm.repriceMultiplier = 1.2f;
-        wheatFarmEntity.Get<StorageComp>().maxMass = 200;
+        ref var wheatFarmInventory = ref wheatFarmEntity.Get<Inventory>();
+        wheatFarmInventory.inventory = new List<Product>();
+        wheatFarmInventory.maxMass = 200;
         wheatFarmEntity.Get<SellDataUpdateRequest>();
+
+
 
         var bakeryEntity = _world.NewEntity();
         ref var bakeryBuyer = ref bakeryEntity.Get<ProductBuyer>();
         bakeryBuyer.buyerGO = sceneData.bakeryTradePoint;
         bakeryBuyer.tradePointData = bakeryBuyer.buyerGO.GetComponent<TradePointData>();
-        bakeryBuyer.product = new Product(ProductType.Wheat, productData.wheat, 0.75f);
         bakeryBuyer.repriceMultiplier = 1.2f;
-        bakeryEntity.Get<StorageComp>().maxMass = 200;
+        bakeryBuyer.buyingProductTypes = new List<ProductType>();
+        bakeryBuyer.buyingProductTypes.Add(ProductType.Wheat);
+
+        ref var bakeryInventory = ref bakeryEntity.Get<Inventory>();
+        bakeryInventory.inventory = new List<Product>();
+        bakeryInventory.inventory.Add(new Product(ProductType.Wheat, productData.wheat, 0.75f));
+        bakeryInventory.maxMass = 20;
+
         ref var bakerySeller = ref bakeryEntity.Get<ProductSeller>();
         bakerySeller.produceSpeed = 1;
         bakerySeller.sellerGO = bakeryBuyer.buyerGO;
         bakerySeller.product = new Product(ProductType.Bread, productData.bread, 1.33f);
+        bakeryInventory.inventory.Add(bakerySeller.product);
         bakerySeller.repriceMultiplier = 1.2f;
         bakerySeller.tradePointData = bakeryBuyer.tradePointData;
         bakeryEntity.Get<BuyDataUpdateRequest>();
         bakeryEntity.Get<SellDataUpdateRequest>();
+
+
 
         var gasStationEntity = _world.NewEntity();
         gasStationEntity.Get<AutoService>();
@@ -94,7 +110,9 @@ public class GameInitSystem : IEcsInitSystem
         gasStation.produceSpeed = 0.3f;
         gasStation.repriceMultiplier = 1.1f;
         gasStation.product = new Product(ProductType.Fuel, productData.fuel, 1);
-        gasStationEntity.Get<StorageComp>().maxMass = 200;
+        ref var gasStationInventory = ref gasStationEntity.Get<Inventory>();
+        gasStationInventory.inventory = new List<Product>();
+        gasStationInventory.maxMass = 200;
         gasStationEntity.Get<SellDataUpdateRequest>();
 
         var autoServiceEntity = _world.NewEntity();
@@ -105,16 +123,21 @@ public class GameInitSystem : IEcsInitSystem
         autoService.produceSpeed = 0.2f;
         autoService.repriceMultiplier = 1.1f;
         autoService.product = new Product(ProductType.AutoParts, productData.autoParts, 2);
-        autoServiceEntity.Get<StorageComp>().maxMass = 200;
+        ref var autoServiceInventory = ref autoServiceEntity.Get<Inventory>();
+        autoServiceInventory.inventory = new List<Product>();
+        autoServiceInventory.maxMass = 200;
         autoServiceEntity.Get<SellDataUpdateRequest>();
 
         var shopEntity = _world.NewEntity();
         shopEntity.Get<Quest>().maxQuestTime = 5;
         ref var shopBuyer = ref shopEntity.Get<ProductBuyer>();
+        shopBuyer.buyingProductTypes = new List<ProductType>();
         shopBuyer.buyerGO = sceneData.shopTradePoint;
         shopBuyer.tradePointData = shopBuyer.buyerGO.GetComponent<TradePointData>();
         shopBuyer.repriceMultiplier = 1.2f;
-        shopEntity.Get<StorageComp>().maxMass = 200;
+        ref var shopInventory = ref shopEntity.Get<Inventory>();
+        shopInventory.inventory = new List<Product>();
+        shopInventory.maxMass = 50;
         bakeryEntity.Get<BuyDataUpdateRequest>();
 
 

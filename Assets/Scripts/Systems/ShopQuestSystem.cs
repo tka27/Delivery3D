@@ -6,7 +6,7 @@ using UnityEngine;
 sealed class ShopQuestSystem : IEcsRunSystem
 {
 
-    EcsFilter<ProductBuyer, Quest> shopFilter;
+    EcsFilter<ProductBuyer, Quest, Inventory> shopFilter;
     EcsFilter<ProductSeller>.Exclude<AutoService> sellerFilter;
 
     void IEcsRunSystem.Run()
@@ -14,6 +14,7 @@ sealed class ShopQuestSystem : IEcsRunSystem
         foreach (var fShop in shopFilter)
         {
             ref var quest = ref shopFilter.Get2(fShop);
+            ref var shopInventory = ref shopFilter.Get3(fShop);
 
             quest.timer--;
             if (quest.timer > 0)
@@ -30,10 +31,16 @@ sealed class ShopQuestSystem : IEcsRunSystem
                 continue;
             }
             quest.currentQuestTime = quest.maxQuestTime;
+
             Product product = SelectRandomProducedProduct();
-            buyer.product = new Product(product.type, product.icon, product.defaultPrice * 2f);
-            buyer.tradePointData.buyProductSpriteRenderer.sprite = buyer.product.icon;
-            buyer.tradePointData.buyProductSpriteRendererCopy.sprite = buyer.product.icon;
+            buyer.buyingProductTypes.Clear();
+            buyer.buyingProductTypes.Add(product.type);
+
+            shopInventory.inventory.Clear();
+            shopInventory.inventory.Add(new Product(product.type, product.icon, product.defaultPrice * 2f));
+            Debug.Log(shopInventory.inventory[0].type);
+            buyer.tradePointData.buyProductSpriteRenderer.sprite = product.icon;
+            buyer.tradePointData.buyProductSpriteRendererCopy.sprite = product.icon;
             shopFilter.GetEntity(fShop).Get<BuyDataUpdateRequest>();
         }
     }

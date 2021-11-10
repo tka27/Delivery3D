@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] StaticData staticData;
     [SerializeField] Text text;
     [SerializeField] GameObject demoCam;
+    public Button button;
     void Start()
     {
         demoCam.SetActive(false);

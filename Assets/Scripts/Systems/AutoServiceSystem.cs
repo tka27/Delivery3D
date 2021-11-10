@@ -3,7 +3,7 @@ using Leopotam.Ecs;
 
 sealed class AutoServiceSystem : IEcsRunSystem
 {
-    EcsFilter<ProductSeller, StorageComp, AutoService> sellerFilter;
+    EcsFilter<ProductSeller, Inventory, AutoService> sellerFilter;
     EcsFilter<PlayerComp> playerFilter;
     UIData uiData;
     SceneData sceneData;
@@ -38,9 +38,9 @@ sealed class AutoServiceSystem : IEcsRunSystem
                 {
                     dealMass = seller.product.mass;
                 }
-                if (dealMass * seller.currentPrice > staticData.currentMoney)
+                if (dealMass * seller.product.currentPrice > staticData.currentMoney)
                 {
-                    dealMass = staticData.currentMoney / seller.currentPrice;
+                    dealMass = staticData.currentMoney / seller.product.currentPrice;
                 }
                 if (dealMass == 0)
                 {
@@ -49,8 +49,8 @@ sealed class AutoServiceSystem : IEcsRunSystem
 
                 sellerFilter.GetEntity(fSeller).Get<SellDataUpdateRequest>();
                 seller.product.mass -= dealMass;
-                sellerStorage.currentMass -= dealMass;
-                staticData.currentMoney -= dealMass * seller.currentPrice;
+                sellerStorage.inventory[0].mass -= dealMass;
+                staticData.currentMoney -= dealMass * seller.product.currentPrice;
                 uiData.moneyText.text = staticData.currentMoney.ToString("0");
                 if (seller.product.type == ProductType.Fuel)
                 {

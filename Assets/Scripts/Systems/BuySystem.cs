@@ -5,8 +5,8 @@ using UnityEngine;
 sealed class BuySystem : IEcsRunSystem
 {
 
-    EcsFilter<ProductSeller, StorageComp>.Exclude<AutoService> sellerFilter;
-    EcsFilter<CargoComp, StorageComp, PlayerComp> playerFilter;
+    EcsFilter<ProductSeller, Inventory>.Exclude<AutoService> sellerFilter;
+    EcsFilter<Inventory, PlayerComp> playerFilter;
     UIData uiData;
     StaticData staticData;
 
@@ -21,11 +21,10 @@ sealed class BuySystem : IEcsRunSystem
                 ref var sellerStorage = ref sellerFilter.Get2(fSeller);
                 foreach (var fPlayer in playerFilter)
                 {
-                    ref var cargo = ref playerFilter.Get1(fPlayer);
-                    ref var playerStorage = ref playerFilter.Get2(fPlayer);
-                    ref var player = ref playerFilter.Get3(fPlayer);
+                    ref var playerInventory = ref playerFilter.Get1(fPlayer);
+                    ref var player = ref playerFilter.Get2(fPlayer);
 
-                    float playerAvailableMass = (playerStorage.maxMass - playerStorage.currentMass);
+                    float playerAvailableMass = (playerInventory.maxMass - playerInventory.GetCurrentMass());
                     float dealMass = 0;
                     if (playerAvailableMass < seller.product.mass)
                     {
@@ -39,12 +38,12 @@ sealed class BuySystem : IEcsRunSystem
                     {
                         return;
                     }
-                    if (dealMass * seller.currentPrice > staticData.currentMoney)
+                    if (dealMass * seller.product.currentPrice > staticData.currentMoney)
                     {
-                        dealMass = staticData.currentMoney / seller.currentPrice;
+                        dealMass = staticData.currentMoney / seller.product.currentPrice;
                     }
                     bool haveProduct = false;
-                    foreach (var product in cargo.inventory)
+                    foreach (var product in playerInventory.inventory)
                     {
                         if (product.type == seller.product.type)
                         {
@@ -54,14 +53,13 @@ sealed class BuySystem : IEcsRunSystem
                     }
                     if (!haveProduct)
                     {
-                        cargo.inventory.Add(new Product(seller.product.type, dealMass, seller.product.icon, seller.product.defaultPrice));
+                        playerInventory.inventory.Add(new Product(seller.product.type, dealMass, seller.product.icon, seller.product.defaultPrice));
                     }
                     sellerFilter.GetEntity(fSeller).Get<SellDataUpdateRequest>();
                     playerFilter.GetEntity(0).Get<UpdateCargoRequest>();
 
                     seller.product.mass -= dealMass;
-                    sellerStorage.currentMass -= dealMass;
-                    staticData.currentMoney -= dealMass * seller.currentPrice;
+                    staticData.currentMoney -= dealMass * seller.product.currentPrice;
                  
                     foreach (var go in player.carData.playerCargo)
                     {

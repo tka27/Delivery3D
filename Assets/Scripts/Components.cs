@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,9 +40,9 @@ public struct ProductBuyer
 {
     public GameObject buyerGO;
     public TradePointData tradePointData;
-    public Product product;
-    public float currentPrice;
+    public List<ProductType> buyingProductTypes;
     public float repriceMultiplier;
+
 }
 public struct ProductSeller
 {
@@ -51,19 +50,40 @@ public struct ProductSeller
     public TradePointData tradePointData;
     public Product product;
     public float produceSpeed;
-    public float currentPrice;
     public float repriceMultiplier;
-    public float timer;
+    public float productionTimer;
+
 }
-public struct StorageComp
-{
-    public float maxMass;
-    public float currentMass;
-}
-public struct CargoComp
+public struct Inventory
 {
     public List<Product> inventory;
+    public float maxMass;
+    public float GetCurrentMass()
+    {
+        float currentMass = 0;
+        foreach (var product in inventory)
+        {
+            currentMass += product.mass;
+        }
+        return currentMass;
+    }
+    public void RemoveEmptySlots()// only for player
+    {
+        List<int> indexesForRemove = new List<int>();
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i].mass <= 0)
+            {
+                indexesForRemove.Add(i);
+            }
+        }
+        for (int i = indexesForRemove.Count - 1; i >= 0; i--)
+        {
+            inventory.RemoveAt(indexesForRemove[i]);
+        }
+    }
 }
+
 public struct AutoService
 {
 }
