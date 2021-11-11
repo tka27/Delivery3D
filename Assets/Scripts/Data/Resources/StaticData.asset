@@ -19,7 +19,7 @@ MonoBehaviour:
   currentMoney: 50
   moneyForGame: 50
   labRequiredProductsMultiplier: 0
-  selectedCarID: 0
+  selectedCarID: 1
   allCars:
   - {fileID: 8393939636788457002, guid: 25d6379ebe7720b4ebe5d5c52d900f69, type: 3}
   - {fileID: 8393939636788457002, guid: f5ca115ed4634574291a1ee157f29022, type: 3}

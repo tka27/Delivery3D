@@ -47,15 +47,23 @@ sealed class RepriceSystem : IEcsRunSystem
                         {
                             inventoryItem.currentPrice = inventoryItem.defaultPrice;
                         }
-
-
-                        buyer.tradePointData.buyCount.text = inventoryItem.mass.ToString("0");//fixed
-                        buyer.tradePointData.buyPrice.text = inventoryItem.currentPrice.ToString("0.00");//fixed
                     }
                 }
             }
-
-
+            
+            // text update
+            for (int j = 0; j < buyer.buyingProductTypes.Count; j++)
+            {
+                for (int i = 0; i < buyerInventory.inventory.Count; i++)
+                {
+                    Product inventoryItem = buyerInventory.inventory[i];
+                    if (buyer.buyingProductTypes[j] == inventoryItem.type)
+                    {
+                        buyer.tradePointData.buyCount[j].text = inventoryItem.mass.ToString("0");//fixed
+                        buyer.tradePointData.buyPrice[j].text = inventoryItem.currentPrice.ToString("0.00");//fixed
+                    }
+                }
+            }
             buyer.tradePointData.storageInfo.text = buyerInventory.GetCurrentMass().ToString("0") + "/" + buyerInventory.maxMass.ToString("0");
         }
     }

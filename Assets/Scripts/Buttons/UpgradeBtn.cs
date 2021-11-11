@@ -4,9 +4,18 @@ using UnityEngine;
 
 public class UpgradeBtn : MonoBehaviour
 {
-    [SerializeField] StaticData staticData;
-    public void OnClick()
+    [SerializeField] GameObject playBtn;
+    [SerializeField] GameObject upgradePanel;
+    [SerializeField] GameObject carInfoPanel;
+    [SerializeField] GameObject buyBtn;
+    [SerializeField] Transform moneyUpgradePos;
+    [SerializeField] Transform moneyGO;
+    public void UpgradeBtnClick()
     {
-        staticData.allCars[0].fuelLvl++;
+        playBtn.SetActive(false);
+        upgradePanel.SetActive(true);
+        carInfoPanel.SetActive(false);
+        buyBtn.SetActive(true);
+        moneyGO.position = moneyUpgradePos.position;
     }
 }

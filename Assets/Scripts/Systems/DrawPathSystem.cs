@@ -33,7 +33,7 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
         Physics.Raycast(mouseRay, out hit, 1000, layer) &&
         !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()) //check ui button
         {
-            waypointPos = new Vector3(hit.point.x, hit.point.y + 0.01f, hit.point.z);
+            waypointPos = new Vector3(hit.point.x, hit.point.y + 0.05f, hit.point.z);
 
             float distanceToNextPoint = 0;
             foreach (var pathF in pathFilter)

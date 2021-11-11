@@ -44,8 +44,7 @@ sealed class ShopQuestSystem : IEcsRunSystem
 
             shopInventory.inventory.Clear();
             shopInventory.inventory.Add(new Product(product.type, product.icon, product.defaultPrice * 2f));
-            Debug.Log(shopInventory.inventory[0].type);
-            buyer.tradePointData.buyProductSpriteRenderer1.sprite = product.icon;
+            buyer.tradePointData.buyProductSpriteRenderer.sprite = product.icon;
             shopFilter.GetEntity(fShop).Get<BuyDataUpdateRequest>();
         }
     }
@@ -61,7 +60,6 @@ sealed class ShopQuestSystem : IEcsRunSystem
         int randomIndex = UnityEngine.Random.Range(0, products.Count);
         if (products.Count > 0)
         {
-            Debug.Log(products.Count);
             return products[randomIndex];
         }
         return null;

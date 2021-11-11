@@ -8,14 +8,12 @@ public class TradePointData : MonoBehaviour
     public Text storageInfo;
     public bool ableToTrade;
     string playerTag = "Player";
-    public Text buyPrice;
-    public Text buyCount;
+    public List<Text> buyPrice;
+    public List<Text> buyCount;
     public Text sellCount;
     public Text sellPrice;
     public Text currentQuestTime;
-    public SpriteRenderer buyProductSpriteRenderer1;
-    public SpriteRenderer buyProductSpriteRenderer2;
-    public SpriteRenderer buyProductSpriteRenderer3;
+    public SpriteRenderer buyProductSpriteRenderer;
     public SpriteRenderer SellProductSpriteRenderer;
 
 

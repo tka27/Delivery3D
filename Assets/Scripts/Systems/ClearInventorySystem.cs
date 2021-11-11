@@ -22,7 +22,7 @@ sealed class ClearInventorySystem : IEcsRunSystem
 
 
                 player.carData.playerCargoRB[i].isKinematic = false;
-                player.carData.playerCargoRB[i].AddExplosionForce(Random.Range(2000, 3000), player.carData.centerOfMass.transform.position, 0);
+                player.carData.playerCargoRB[i].AddExplosionForce(Random.Range(2000, 3000), player.carData.wheelPos.transform.position, 0);
             }
             cargo.inventory.Clear();
             playerFilter.GetEntity(fPlayer).Get<UpdateCargoRequest>();

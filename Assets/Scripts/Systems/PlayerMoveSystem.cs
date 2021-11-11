@@ -34,10 +34,32 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
                     tgtPos = path.wayPoints[path.currentWaypointIndex].transform.position;
                     tgtPos.y = player.carData.wheelPos.transform.position.y;
                     float distanceToCurrentPoint = (path.wayPoints[path.currentWaypointIndex].transform.position - player.carData.wheelPos.position).magnitude;
+
+
+                    for (int i = path.currentWaypointIndex; i < path.wayPoints.Count; i++) //calc nearest point
+                    {
+                        float checkDist = (path.wayPoints[i].transform.position - player.carData.wheelPos.position).magnitude;
+                        if (checkDist < distanceToCurrentPoint)
+                        {
+                            path.currentWaypointIndex = i;
+                        }
+                    }
+
                     if (distanceToCurrentPoint >= 3f)
                     {
-                        steer = Vector3.SignedAngle(tgtPos - player.carData.wheelPos.position, player.carData.wheelPos.forward, player.carData.wheelPos.up);
+                        Vector3 tgtAt0 = new Vector3(tgtPos.x, 0, tgtPos.z);
+                        Vector3 playerAt0 = new Vector3(player.carData.wheelPos.position.x, 0, player.carData.wheelPos.position.z);
+
+                        Vector3 yNormal = Vector3.Cross(Vector3.forward - playerAt0, Vector3.right - playerAt0);
+                        if (yNormal.y < 0)
+                        {
+                            yNormal *= -1;
+                        }
+                        Vector3 projectToXZ = Vector3.ProjectOnPlane(player.carData.wheelPos.forward, yNormal);
+
+                        steer = Vector3.SignedAngle(tgtAt0 - playerAt0, projectToXZ, yNormal);
                         steer *= -1;
+
 
                         if (steer > player.maxSteerAngle)
                         {
@@ -47,6 +69,7 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
                         {
                             steer = -player.maxSteerAngle;
                         }
+
                         //move method
                         foreach (var drivingWheel in player.carData.drivingWheelColliders)
                         {
