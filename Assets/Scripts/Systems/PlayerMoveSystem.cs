@@ -103,12 +103,6 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
 
 
 
-                        Debug.Log(player.currentTorque);
-                        //Debug.Log(player.carData.drivingWheelColliders[0].rpm);
-
-
-
-
                         foreach (var steeringWheel in player.carData.steeringWheelColliders)
                         {
                             steeringWheel.steerAngle = steer;

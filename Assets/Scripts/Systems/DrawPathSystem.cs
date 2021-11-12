@@ -45,7 +45,10 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
                 }
                 if (path.wayPoints.Count != 0)
                 {
-                    distanceToNextPoint = (waypointPos - path.wayPoints[path.wayPoints.Count - 1].transform.position).magnitude;
+                    Vector3 waypointPos0 = new Vector3(waypointPos.x, 0, waypointPos.z);
+                    Vector3 nextPoint0 = new Vector3(path.wayPoints[path.wayPoints.Count - 1].transform.position.x, 0, path.wayPoints[path.wayPoints.Count - 1].transform.position.z);
+
+                    distanceToNextPoint = (waypointPos0 - nextPoint0).magnitude;
                 }
                 else
                 {

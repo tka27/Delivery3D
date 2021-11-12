@@ -34,18 +34,18 @@ public class GameInitSystem : IEcsInitSystem
         playerComp.defaultRBMass = playerComp.playerRB.mass;
         playerComp.playerRB.centerOfMass = playerComp.carData.centerOfMass.transform.localPosition;
         playerComp.maxSteerAngle = playerComp.carData.maxSteerAngle;
-        playerComp.maxTorque = playerComp.carData.maxTorque;
-        playerComp.acceleration = playerComp.carData.acceleration;
-        playerComp.maxDurability = playerComp.carData.maxDurability;
+        playerComp.maxFuel = playerComp.carData.maxFuel + playerComp.carData.maxFuel / 100 * 5 * staticData.carPerks[staticData.selectedCarID][0];
+        playerComp.maxTorque = playerComp.carData.maxTorque + playerComp.carData.maxTorque / 100 * 5 * staticData.carPerks[staticData.selectedCarID][1];
+        playerComp.acceleration = playerComp.carData.acceleration + playerComp.carData.acceleration / 100 * 5 * staticData.carPerks[staticData.selectedCarID][2];
+        playerComp.maxDurability = playerComp.carData.maxDurability + playerComp.carData.maxDurability / 100 * 5 * staticData.carPerks[staticData.selectedCarID][3];
         playerComp.currentDurability = playerComp.maxDurability;
         uiData.durabilityText.text = playerComp.currentDurability.ToString();
-        playerComp.maxFuel = playerComp.carData.maxFuel;
         playerComp.currentFuel = playerComp.maxFuel;
         uiData.fuelText.text = playerComp.currentFuel.ToString();
         playerComp.fuelConsumption = playerComp.carData.fuelConsumption;
         ref var playerInventory = ref playerEntity.Get<Inventory>();
         playerInventory.inventory = new List<Product>();
-        playerInventory.maxMass = playerComp.carData.maxStorageMass;
+        playerInventory.maxMass = playerComp.carData.maxStorageMass + playerComp.carData.maxStorageMass / 100 * 5 * staticData.carPerks[staticData.selectedCarID][4];
         playerEntity.Get<UpdateCargoRequest>();
         for (int i = 0; i < playerComp.carData.playerCargo.Count; i++)
         {
