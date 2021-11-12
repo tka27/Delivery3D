@@ -31,7 +31,7 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
         if (sceneData.gameMode == GameMode.Build &&
         Input.GetMouseButton(0) &&
         Physics.Raycast(mouseRay, out hit, 1000, layer) &&
-        !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()) //check ui button
+        !UIData.IsMouseOverButton(uiData.buttons)) //check ui button
         {
             waypointPos = new Vector3(hit.point.x, hit.point.y + 0.05f, hit.point.z);
 

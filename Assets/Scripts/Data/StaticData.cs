@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class StaticData : ScriptableObject
 {
     public List<GameObject> carsPrefabs;
+    public List<Product> availableProducts;
     public float totalMoney;
     public float currentMoney;
     public float moneyForGame = 50;

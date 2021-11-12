@@ -45,6 +45,7 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
                         }
                     }
 
+
                     if (distanceToCurrentPoint >= 3f)
                     {
                         Vector3 tgtAt0 = new Vector3(tgtPos.x, 0, tgtPos.z);
@@ -70,23 +71,44 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
                             steer = -player.maxSteerAngle;
                         }
 
-                        //move method
-                        foreach (var drivingWheel in player.carData.drivingWheelColliders)
+
+
+
+                        
+                        if (Input.GetMouseButton(0))//move
                         {
-                            if (Input.GetMouseButton(0) && player.currentTorque < player.maxTorque)
+                            if (player.currentTorque < player.maxTorque - player.acceleration)
                             {
                                 player.currentTorque += player.acceleration;
                             }
-                            else
+                            foreach (var wheel in player.carData.allWheelColliders)
                             {
-                                player.currentTorque -= player.acceleration;
+                                wheel.brakeTorque = 0;
                             }
-                            if (player.currentTorque < 0)
+
+                        }
+                        else    //stop
+                        {
+                            player.currentTorque = 0;
+                            foreach (var brakingWheel in player.carData.brakingWheelColliders)
                             {
-                                player.currentTorque = 0;
+                                brakingWheel.brakeTorque = player.maxTorque / 300;
+                                brakingWheel.motorTorque = 0;
                             }
+                        }
+                        foreach (var drivingWheel in player.carData.drivingWheelColliders)
+                        {
                             drivingWheel.motorTorque = player.currentTorque;
                         }
+
+
+
+                        Debug.Log(player.currentTorque);
+                        //Debug.Log(player.carData.drivingWheelColliders[0].rpm);
+
+
+
+
                         foreach (var steeringWheel in player.carData.steeringWheelColliders)
                         {
                             steeringWheel.steerAngle = steer;
@@ -113,10 +135,11 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
                 else
                 {
                     //stop method
+                    player.currentTorque = 0;
                     for (int i = 0; i < player.carData.drivingWheelColliders.Count; i++)
                     {
                         player.carData.drivingWheelColliders[i].motorTorque = 0;
-                        player.currentTorque = 0;
+                        player.carData.drivingWheelColliders[i].brakeTorque = player.carData.maxTorque;
                     }
                 }
             }

@@ -14,6 +14,7 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
     float minCameraHeight = 10;
     float maxCameraHeight = 250;
     Vector3 startPos = new Vector3();
+    bool moveMode;
 
     public void Init()
     {
@@ -33,6 +34,7 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
             if (Input.touchCount == 2 &&
             !UIData.IsMouseOverButton(uiData.buttons))
             {
+                moveMode = false;
                 Touch firstTouch = Input.GetTouch(0);
                 Touch secondTouch = Input.GetTouch(1);
 
@@ -47,8 +49,9 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
            !UIData.IsMouseOverButton(uiData.buttons))
             {
                 startPos = GetWorldPosition(0);
+                moveMode = true;
             }
-            else if (Input.GetMouseButton(0) &&
+            else if (Input.GetMouseButton(0) && moveMode &&
             !UIData.IsMouseOverButton(uiData.buttons))
             {
                 Vector3 tgtPos = startPos - GetWorldPosition(0);

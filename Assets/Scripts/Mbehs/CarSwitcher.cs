@@ -16,6 +16,7 @@ public class CarSwitcher : MonoBehaviour
     }
     void Update()
     {
+
         float xDifference = 0;
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
@@ -26,6 +27,10 @@ public class CarSwitcher : MonoBehaviour
             tgtPos = camera.ScreenToViewportPoint(Input.mousePosition);
             xDifference = startPos.x - tgtPos.x;
         }
+
+
+
+
         mainMenuSceneData.carsGameObjects[staticData.selectedCarID].gameObject.SetActive(false);
         if (xDifference > 0.2)
         {
@@ -34,6 +39,7 @@ public class CarSwitcher : MonoBehaviour
             {
                 staticData.selectedCarID = 0;
             }
+            mainMenuSceneData.carInfoUpdateRequest = true;
         }
         else if (xDifference < -0.2)
         {
@@ -42,6 +48,7 @@ public class CarSwitcher : MonoBehaviour
             {
                 staticData.selectedCarID = mainMenuSceneData.carsGameObjects.Count - 1;
             }
+            mainMenuSceneData.carInfoUpdateRequest = true;
         }
         mainMenuSceneData.carsGameObjects[staticData.selectedCarID].gameObject.SetActive(true);
     }

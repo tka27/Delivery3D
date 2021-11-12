@@ -14,6 +14,7 @@ public class CarData : MonoBehaviour
     public List<WheelCollider> allWheelColliders;
     public List<WheelCollider> steeringWheelColliders;
     public List<WheelCollider> drivingWheelColliders;
+    public List<WheelCollider> brakingWheelColliders;
     public Transform wheelPos;
     public Transform centerOfMass;
     public Transform cameraLookPoint;
@@ -33,5 +34,5 @@ public class CarData : MonoBehaviour
     public float maxFuel;
     public float fuelConsumption;
     public float maxStorageMass;
-    
+
 }

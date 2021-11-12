@@ -20,10 +20,10 @@ sealed class DamageSystem : IEcsRunSystem
             ref var player = ref playerFilter.Get1(fPlayer);
             foreach (var wheelData in player.carData.wheelDatas)
             {
-                if (!wheelData.onRoad && sceneData.gameMode == GameMode.Drive && player.playerRB.velocity.magnitude > 1.5f)
+                if (!wheelData.onRoad && player.playerRB.velocity.magnitude > 1.5f)
                 {
                     emissionModule = wheelData.particles.emission;
-                    emissionModule.rateOverTime = player.playerRB.velocity.magnitude * 10;
+                    emissionModule.rateOverTime = player.playerRB.velocity.magnitude * 20;
                     mainModule = wheelData.particles.main;
                     mainModule.startSpeed = player.playerRB.velocity.magnitude / 5;
                     wheelData.particles.Play();

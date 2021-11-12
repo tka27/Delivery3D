@@ -33,19 +33,19 @@ public class GameInitSystem : IEcsInitSystem
         playerComp.playerRB = playerComp.playerGO.GetComponent<Rigidbody>();
         playerComp.defaultRBMass = playerComp.playerRB.mass;
         playerComp.playerRB.centerOfMass = playerComp.carData.centerOfMass.transform.localPosition;
-        playerComp.maxSteerAngle = playerComp.carData.maxSteerAngle;// 45;
-        playerComp.maxTorque = playerComp.carData.maxTorque;// 10000;
-        playerComp.acceleration = playerComp.carData.acceleration;// 50;
-        playerComp.maxDurability = playerComp.carData.maxDurability;// 100;
+        playerComp.maxSteerAngle = playerComp.carData.maxSteerAngle;
+        playerComp.maxTorque = playerComp.carData.maxTorque;
+        playerComp.acceleration = playerComp.carData.acceleration;
+        playerComp.maxDurability = playerComp.carData.maxDurability;
         playerComp.currentDurability = playerComp.maxDurability;
         uiData.durabilityText.text = playerComp.currentDurability.ToString();
-        playerComp.maxFuel = playerComp.carData.maxFuel;// 100;
+        playerComp.maxFuel = playerComp.carData.maxFuel;
         playerComp.currentFuel = playerComp.maxFuel;
         uiData.fuelText.text = playerComp.currentFuel.ToString();
-        playerComp.fuelConsumption = playerComp.carData.fuelConsumption;// 0.01f;
+        playerComp.fuelConsumption = playerComp.carData.fuelConsumption;
         ref var playerInventory = ref playerEntity.Get<Inventory>();
         playerInventory.inventory = new List<Product>();
-        playerInventory.maxMass = playerComp.carData.maxStorageMass;// 50;
+        playerInventory.maxMass = playerComp.carData.maxStorageMass;
         playerEntity.Get<UpdateCargoRequest>();
         for (int i = 0; i < playerComp.carData.playerCargo.Count; i++)
         {

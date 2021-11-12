@@ -18,7 +18,18 @@ sealed class BuySystem : IEcsRunSystem
             if (seller.tradePointData.ableToTrade && uiData.buyRequest)
             {
                 uiData.buyRequest = false;
-                ref var sellerStorage = ref sellerFilter.Get2(fSeller);
+                ref var sellerInventory = ref sellerFilter.Get2(fSeller);
+
+                bool isProductAvailable = false;
+                foreach (var playerProd in staticData.availableProducts)
+                {
+                    if (playerProd.type == seller.product.type)
+                    {
+                        isProductAvailable = true;
+                    }
+                }
+                if (!isProductAvailable) return;
+
                 foreach (var fPlayer in playerFilter)
                 {
                     ref var playerInventory = ref playerFilter.Get1(fPlayer);
@@ -34,14 +45,18 @@ sealed class BuySystem : IEcsRunSystem
                     {
                         dealMass = seller.product.mass;
                     }
+
+
                     if (dealMass == 0)
                     {
                         return;
                     }
+
                     if (dealMass * seller.product.currentPrice > staticData.currentMoney)
                     {
                         dealMass = staticData.currentMoney / seller.product.currentPrice;
                     }
+
                     bool haveProduct = false;
                     foreach (var product in playerInventory.inventory)
                     {
@@ -60,7 +75,7 @@ sealed class BuySystem : IEcsRunSystem
 
                     seller.product.mass -= dealMass;
                     staticData.currentMoney -= dealMass * seller.product.currentPrice;
-                 
+
                     foreach (var go in player.carData.playerCargo)
                     {
                         go.SetActive(false);
