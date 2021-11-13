@@ -2,7 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-public class ProductData : MonoBehaviour
+
+[CreateAssetMenu]
+public class ProductData : ScriptableObject
 {
     public Sprite wheat;
     public Sprite bread;

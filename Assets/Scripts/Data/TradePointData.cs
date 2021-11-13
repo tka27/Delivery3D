@@ -13,6 +13,7 @@ public class TradePointData : MonoBehaviour
     public Text sellCount;
     public Text sellPrice;
     public Text currentQuestTime;
+    public Text labProgress;
     public SpriteRenderer buyProductSpriteRenderer;
     public SpriteRenderer SellProductSpriteRenderer;
 

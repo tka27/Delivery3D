@@ -3933,7 +3933,6 @@ GameObject:
   - component: {fileID: 380551754}
   - component: {fileID: 380551756}
   - component: {fileID: 380551757}
-  - component: {fileID: 380551758}
   m_Layer: 0
   m_Name: MainMenu
   m_TagString: Untagged
@@ -4004,26 +4003,6 @@ MonoBehaviour:
   carInfoUpdateRequest: 0
   upgradesUpdateRequest: 0
   selectedPerkID: 0
---- !u!114 &380551758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 380551753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e1c6a270dba2944db36761ff1496740, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wheat: {fileID: 21300000, guid: 853be5ee7eeff9a4b9d32b310a9cb2cf, type: 3}
-  bread: {fileID: 21300000, guid: 185d3fefb5650dc4988244edd55d4523, type: 3}
-  fuel: {fileID: 21300000, guid: 6aa5149cef057b44083e5794e4c99cc9, type: 3}
-  autoParts: {fileID: 21300000, guid: 46eb62f2c0f7b284da19a6b4f3c1474d, type: 3}
-  meat: {fileID: 21300000, guid: c448270bc1b7c1a4ebdbb28457655f2b, type: 3}
-  milk: {fileID: 21300000, guid: d7c8fefd5a7969840b501496c994bfb9, type: 3}
-  pizza: {fileID: 21300000, guid: 378466d530d7d4c41880440c12cc1975, type: 3}
-  cheese: {fileID: 21300000, guid: 4cf1d89cebbeb7f468897741caecfd43, type: 3}
 --- !u!1 &395745577
 GameObject:
   m_ObjectHideFlags: 0
@@ -6614,7 +6593,7 @@ MonoBehaviour:
   - {fileID: 1723214031}
   mainMenuSceneData: {fileID: 380551757}
   staticData: {fileID: 11400000, guid: 6847ff8d4fdf49646b326ed19a8c5143, type: 2}
-  productData: {fileID: 380551758}
+  productData: {fileID: 11400000, guid: 814f38a5d350092438ee9302a559b51b, type: 2}
 --- !u!1 &765515065
 GameObject:
   m_ObjectHideFlags: 0

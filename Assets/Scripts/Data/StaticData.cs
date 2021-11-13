@@ -11,7 +11,9 @@ public class StaticData : ScriptableObject
     public float currentMoney;
     public float moneyForGame = 50;
     public int selectedCarID;
+    public bool trailerIsSelected;
     public List<CarData> allCars;
+    public int researchLvl;
     public List<bool> carsUnlockStatus;
     public List<bool> carsBuyStatus;
     public List<bool> buildingsUnlockStatus;
@@ -21,6 +23,7 @@ public class StaticData : ScriptableObject
     public void UpdateStaticData(SaveData data)
     {
         this.totalMoney = data.totalMoney;
+        this.researchLvl = data.researchLvl;
         this.carsUnlockStatus = data.carsUnlockStatus;
         this.carPerks = data.carPerks;
     }

@@ -16,6 +16,12 @@ public class GameInitSystem : IEcsInitSystem
     public void Init()
     {
 
+
+        sceneData.researchList.Add(new Product(ProductType.Wheat, productData.wheat, -0.1f));
+
+
+
+        LoadGameProgress();
         staticData.currentMoney = staticData.moneyForGame;
         uiData.moneyText.text = staticData.currentMoney.ToString("0");
         var pathEntity = _world.NewEntity();
@@ -53,6 +59,15 @@ public class GameInitSystem : IEcsInitSystem
             playerComp.carData.playerCargoDefaultPos.Add(playerComp.carData.playerCargo[i].transform.localPosition);
             playerComp.carData.playerCargoDefaultRot.Add(playerComp.carData.playerCargo[i].transform.localRotation);
         }
+        if (staticData.trailerIsSelected)
+        {
+            playerComp.carData.trailer.SetActive(true);
+        }
+        else
+        {
+            playerComp.carData.trailer.SetActive(false);
+        }
+
 
         var virtualCam = sceneData.driveCam.GetComponent<CinemachineVirtualCamera>();
         virtualCam.Follow = playerComp.playerGO.transform;
@@ -270,9 +285,40 @@ public class GameInitSystem : IEcsInitSystem
         ref var shopInventory = ref shopEntity.Get<Inventory>();
         shopInventory.inventory = new List<Product>();
         shopInventory.maxMass = 50;
-        bakeryEntity.Get<BuyDataUpdateRequest>();
+        shopEntity.Get<BuyDataUpdateRequest>();
 
+        if (staticData.researchLvl < sceneData.researchList.Count)
+        {
+            sceneData.labTradePoint.SetActive(true);
+            var labEntity = _world.NewEntity();
+            ref var labComp = ref labEntity.Get<ResearchLab>();
+            labComp.requirement = 50;
+            ref var labBuyer = ref labEntity.Get<ProductBuyer>();
+            labBuyer.buyingProductTypes = new List<ProductType>();
+            labBuyer.buyingProductTypes.Add(sceneData.researchList[staticData.researchLvl].type);
+            labBuyer.buyerGO = sceneData.labTradePoint;
+            labBuyer.tradePointData = labBuyer.buyerGO.GetComponent<TradePointData>();
+            labBuyer.repriceMultiplier = 1.2f;
+            labBuyer.tradePointData.labProgress.text = labComp.progress.ToString() + "/" + labComp.requirement.ToString();
+            ref var labInventory = ref labEntity.Get<Inventory>();
+            labInventory.inventory = new List<Product>();
+            labInventory.inventory.Add(sceneData.researchList[staticData.researchLvl]);
+            labInventory.maxMass = 50;
+            labEntity.Get<BuyDataUpdateRequest>();
+        }
+        else
+        {
 
+            sceneData.labTradePoint.SetActive(false);
+        }
 
+    }
+    void LoadGameProgress() //copy SaveData to staticData
+    {
+        SaveData data = SaveSystem.Load();
+        if (data != null)
+        {
+            staticData.UpdateStaticData(data);
+        }
     }
 }

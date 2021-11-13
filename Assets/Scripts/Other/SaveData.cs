@@ -7,6 +7,7 @@ public class SaveData
 {
     [System.NonSerialized] public StaticData staticData = (StaticData)Resources.Load("StaticData");
     public float totalMoney;
+    public int researchLvl;
     public List<bool> carsUnlockStatus;
     public List<bool> carsBuyStatus;
     public List<bool> buildingsUnlockStatus;
@@ -15,6 +16,7 @@ public class SaveData
     {
         totalMoney = staticData.totalMoney;
         carPerks = staticData.carPerks;
+        researchLvl = staticData.researchLvl;
 
 
 

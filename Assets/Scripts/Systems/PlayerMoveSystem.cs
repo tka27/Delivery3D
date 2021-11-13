@@ -74,7 +74,6 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
 
 
 
-                        
                         if (Input.GetMouseButton(0))//move
                         {
                             if (player.currentTorque < player.maxTorque - player.acceleration)

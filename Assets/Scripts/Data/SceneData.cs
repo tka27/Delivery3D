@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 public class SceneData : MonoBehaviour
 {
+    [SerializeField] ProductData productData;
     public float groundHeight = -1.45f;
     public List<GameObject> cars;
     public GameMode gameMode;
@@ -22,9 +23,14 @@ public class SceneData : MonoBehaviour
     public GameObject gasStationTradePoint;
     public GameObject autoServiceTradePoint;
     public GameObject shopTradePoint;
+    public GameObject labTradePoint;
 
 
+
+    public List<Product> researchList = new List<Product>();
     public List<GameObject> infoPanels;
+
+
 }
 
 

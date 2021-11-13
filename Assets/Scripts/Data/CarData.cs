@@ -20,6 +20,7 @@ public class CarData : MonoBehaviour
     public Transform cameraLookPoint;
     public List<WheelData> wheelDatas;
     public Collider carCollider;
+    public GameObject trailer;
     public List<GameObject> playerCargo;
     public List<Rigidbody> playerCargoRB;
     public List<Vector3> playerCargoDefaultPos;

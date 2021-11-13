@@ -108,4 +108,5 @@ public struct CratesDisplayRequest
 public struct ResearchLab
 {
     public float progress;
+    public float requirement;
 }
