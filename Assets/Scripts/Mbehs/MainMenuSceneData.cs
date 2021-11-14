@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class MainMenuSceneData : MonoBehaviour
 {
-    public List<GameObject> carsGameObjects;
-    public bool carInfoUpdateRequest;
-    public bool upgradesUpdateRequest;
+    public List<GameObject> cars;
+    public List<GameObject> trailers;
     public int selectedPerkID;
 }

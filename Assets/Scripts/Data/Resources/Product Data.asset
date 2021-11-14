@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e1c6a270dba2944db36761ff1496740, type: 3}
   m_Name: Product Data
   m_EditorClassIdentifier: 
+  question: {fileID: 21300000, guid: 3dd3bf529dac9c6479350d34bd6933c3, type: 3}
   wheat: {fileID: 21300000, guid: 853be5ee7eeff9a4b9d32b310a9cb2cf, type: 3}
   bread: {fileID: 21300000, guid: 185d3fefb5650dc4988244edd55d4523, type: 3}
   fuel: {fileID: 21300000, guid: 6aa5149cef057b44083e5794e4c99cc9, type: 3}

@@ -303,6 +303,7 @@ public class GameInitSystem : IEcsInitSystem
             ref var labInventory = ref labEntity.Get<Inventory>();
             labInventory.inventory = new List<Product>();
             labInventory.inventory.Add(sceneData.researchList[staticData.researchLvl]);
+            labBuyer.tradePointData.buyProductSpriteRenderer.sprite = labInventory.inventory[staticData.researchLvl].icon;
             labInventory.maxMass = 50;
             labEntity.Get<BuyDataUpdateRequest>();
         }

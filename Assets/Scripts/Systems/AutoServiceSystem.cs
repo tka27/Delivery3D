@@ -19,8 +19,9 @@ sealed class AutoServiceSystem : IEcsRunSystem
 
                 ref var player = ref playerFilter.Get1(0);
                 ref var sellerStorage = ref sellerFilter.Get2(fSeller);
-                float playerAvailableMass = 0;
 
+
+                float playerAvailableMass = 0;
                 if (seller.product.type == ProductType.Fuel)
                 {
                     playerAvailableMass = (player.maxFuel - player.currentFuel);
@@ -29,6 +30,9 @@ sealed class AutoServiceSystem : IEcsRunSystem
                 {
                     playerAvailableMass = (player.maxDurability - player.currentDurability);
                 }
+
+
+
                 float dealMass = 0;
                 if (playerAvailableMass < seller.product.mass)
                 {
@@ -38,20 +42,27 @@ sealed class AutoServiceSystem : IEcsRunSystem
                 {
                     dealMass = seller.product.mass;
                 }
+
                 if (dealMass * seller.product.currentPrice > staticData.currentMoney)
                 {
                     dealMass = staticData.currentMoney / seller.product.currentPrice;
                 }
+
+
+
                 if (dealMass == 0)
                 {
                     return;
                 }
 
-                sellerFilter.GetEntity(fSeller).Get<SellDataUpdateRequest>();
-                seller.product.mass -= dealMass;
                 sellerStorage.inventory[0].mass -= dealMass;
                 staticData.currentMoney -= dealMass * seller.product.currentPrice;
                 uiData.moneyText.text = staticData.currentMoney.ToString("0");
+
+                sellerFilter.GetEntity(fSeller).Get<SellDataUpdateRequest>();
+
+
+
                 if (seller.product.type == ProductType.Fuel)
                 {
                     player.currentFuel += dealMass;

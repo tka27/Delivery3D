@@ -8,9 +8,9 @@ public class SaveData
     [System.NonSerialized] public StaticData staticData = (StaticData)Resources.Load("StaticData");
     public float totalMoney;
     public int researchLvl;
-    public List<bool> carsUnlockStatus;
-    public List<bool> carsBuyStatus;
-    public List<bool> buildingsUnlockStatus;
+    public bool[] carsUnlockStatus;
+    public bool[] carsBuyStatus;
+    public bool[] trailersBuyStatus;
     public int[][] carPerks;
     public SaveData()
     {
@@ -22,6 +22,6 @@ public class SaveData
 
         carsUnlockStatus = staticData.carsUnlockStatus;
         carsBuyStatus = staticData.carsBuyStatus;
-        buildingsUnlockStatus = staticData.buildingsUnlockStatus;
+        trailersBuyStatus = staticData.trailersBuyStatus;
     }
 }

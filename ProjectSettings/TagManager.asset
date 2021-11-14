@@ -43,6 +43,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: World
+    uniqueID: 3143206477
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: CarInfo
+    uniqueID: 3362889011
+    locked: 0
+  - name: Upgrade1
+    uniqueID: 3737608799
+    locked: 0
+  - name: Upgrade2
+    uniqueID: 2869752439
+    locked: 0
+  - name: Notification
+    uniqueID: 565094427
     locked: 0

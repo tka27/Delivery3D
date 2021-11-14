@@ -14,9 +14,9 @@ public class StaticData : ScriptableObject
     public bool trailerIsSelected;
     public List<CarData> allCars;
     public int researchLvl;
-    public List<bool> carsUnlockStatus;
-    public List<bool> carsBuyStatus;
-    public List<bool> buildingsUnlockStatus;
+    public bool[] carsUnlockStatus;
+    public bool[] carsBuyStatus;
+    public bool[] trailersBuyStatus;
     public int[][] carPerks;    //[carID[perkID]] = lvl     | 0 - fuel | 1 - speed | 2 - acceleration | 3 - suspension | 4 - storage |
 
 
@@ -24,6 +24,8 @@ public class StaticData : ScriptableObject
     {
         this.totalMoney = data.totalMoney;
         this.researchLvl = data.researchLvl;
+        this.carsBuyStatus = data.carsBuyStatus;
+        this.trailersBuyStatus = data.trailersBuyStatus;
         this.carsUnlockStatus = data.carsUnlockStatus;
         this.carPerks = data.carPerks;
     }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 [CreateAssetMenu]
 public class ProductData : ScriptableObject
 {
+    public Sprite question;
     public Sprite wheat;
     public Sprite bread;
     public Sprite fuel;

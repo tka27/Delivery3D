@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 130253778}
   - component: {fileID: 130253779}
   m_Layer: 7
-  m_Name: Trailer 0
+  m_Name: Trailer 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1285,7 +1285,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 0
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -6613,7 +6613,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 0
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -10952,7 +10952,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1151760819
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &1537343596385513054
@@ -17302,6 +17302,7 @@ MonoBehaviour:
   - {fileID: 2021559804}
   - {fileID: 979715268}
   carCollider: {fileID: 2701155851594372846}
+  trailer: {fileID: 0}
   playerCargo:
   - {fileID: 8381859682055725325}
   - {fileID: 8246074283367920241}
@@ -18291,7 +18292,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 0
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -23298,7 +23299,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 0
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -28361,7 +28362,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 0
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -33301,7 +33302,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 0
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -37404,7 +37405,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4446808528860846713}
-  m_Mesh: {fileID: -645269968813030094, guid: 5c04ecdb343148144a43582516b6499e, type: 3}
+  m_Mesh: {fileID: 1540178548843688688, guid: a7f296a7ae8ec4541bd10b88ac3d4baa, type: 3}
 --- !u!23 &8943656562292132428
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -40173,7 +40174,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 0
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -46618,7 +46619,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 0
       minScalar: 10
       maxCurve:
         serializedVersion: 2

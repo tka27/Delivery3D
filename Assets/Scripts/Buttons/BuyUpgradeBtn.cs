@@ -7,7 +7,7 @@ public class BuyUpgradeBtn : MonoBehaviour
 {
     [SerializeField] MainMenuSceneData mainMenuSceneData;
     [SerializeField] StaticData staticData;
-    [SerializeField] BuyUpgradeInfo buyUpgradeInfo;
+    [SerializeField] UpgradeInfo buyUpgradeInfo;
     [SerializeField] Text totalMoney;
     public void BuyUpgrade()
     {
@@ -17,7 +17,11 @@ public class BuyUpgradeBtn : MonoBehaviour
             staticData.carPerks[staticData.selectedCarID][mainMenuSceneData.selectedPerkID]++; //selected perk for current car
 
             totalMoney.text = staticData.totalMoney.ToString("0");
-            mainMenuSceneData.upgradesUpdateRequest = true;
+            buyUpgradeInfo.UpgradeUpdate();
+        }
+        else
+        {
+            MainMenu.Notification("Not enough money");
         }
     }
 

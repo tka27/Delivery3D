@@ -55,7 +55,7 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
                     foreach (var f3 in playerFilter)
                     {
                         playerPos = playerFilter.Get1(f3).playerGO.transform.position;
-                        playerPos.y = -1;
+                        playerPos.y = playerPos.y - 2;
                     }
                     distanceToNextPoint = (waypointPos - playerPos).magnitude;
                 }

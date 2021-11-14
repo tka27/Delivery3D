@@ -12,7 +12,7 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
     Camera camera;
     Transform buildCameraPos;
     float minCameraHeight = 10;
-    float maxCameraHeight = 250;
+    float maxCameraHeight = 700;
     Vector3 startPos = new Vector3();
     bool moveMode;
 
@@ -57,7 +57,7 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
                 Vector3 tgtPos = startPos - GetWorldPosition(0);
                 buildCameraPos.position += tgtPos;
             }
-            cameraHeight = Mathf.Clamp(cameraHeight - Input.mouseScrollDelta.y, minCameraHeight, maxCameraHeight);
+            cameraHeight = Mathf.Clamp(cameraHeight - (Input.mouseScrollDelta.y * cameraHeight/5), minCameraHeight, maxCameraHeight);
             buildCameraPos.position = new Vector3(Mathf.Clamp(buildCameraPos.position.x, -maxCameraHeight + cameraHeight, maxCameraHeight - cameraHeight),
             cameraHeight, Mathf.Clamp(buildCameraPos.position.z, -maxCameraHeight + cameraHeight, maxCameraHeight - cameraHeight));
         }
