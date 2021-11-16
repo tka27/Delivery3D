@@ -24,7 +24,6 @@ public struct PlayerComp
     public float currentDurability;
     public float maxFuel;
     public float currentFuel;
-    public float fuelConsumption;
     public float defaultRBMass;
 }
 public struct MovableComp

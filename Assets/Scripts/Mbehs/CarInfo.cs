@@ -22,14 +22,18 @@ public class CarInfo : MonoBehaviour
     public void InfoUpdate()
     {
         int carID = staticData.selectedCarID;
-
+        mainMenuSceneData.cars[carID].gameObject.SetActive(true);
+        
         staticData.availableProducts = new List<Product>(); // produtcs update
         switch (carID)
         {
             case 0:
                 staticData.availableProducts.Add(new Product(ProductType.Wheat, 0, productData.wheat, 0));
                 staticData.availableProducts.Add(new Product(ProductType.Bread, 0, productData.bread, 0));
-
+                if (staticData.trailerIsSelected && staticData.trailersBuyStatus[carID])
+                {
+                    staticData.availableProducts.Add(new Product(ProductType.Milk, 0, productData.milk, 0));
+                }
                 break;
 
             case 1:
@@ -39,6 +43,10 @@ public class CarInfo : MonoBehaviour
 
             default: return;
         }
+
+
+
+
 
         foreach (var icon in productIcons)
         {

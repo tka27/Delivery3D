@@ -48,11 +48,16 @@ public class GameInitSystem : IEcsInitSystem
         uiData.durabilityText.text = playerComp.currentDurability.ToString();
         playerComp.currentFuel = playerComp.maxFuel;
         uiData.fuelText.text = playerComp.currentFuel.ToString();
-        playerComp.fuelConsumption = playerComp.carData.fuelConsumption;
         ref var playerInventory = ref playerEntity.Get<Inventory>();
         playerInventory.inventory = new List<Product>();
         playerInventory.maxMass = playerComp.carData.maxStorageMass + playerComp.carData.maxStorageMass / 100 * 5 * staticData.carPerks[staticData.selectedCarID][4];
         playerEntity.Get<UpdateCargoRequest>();
+
+        foreach (var wheel in playerComp.carData.allWheelMeshes)
+        {
+            playerComp.carData.wheelDatas.Add(wheel.GetComponent<WheelData>());
+        }
+
         for (int i = 0; i < playerComp.carData.playerCargo.Count; i++)
         {
             playerComp.carData.playerCargoRB.Add(playerComp.carData.playerCargo[i].gameObject.GetComponent<Rigidbody>());
@@ -81,16 +86,17 @@ public class GameInitSystem : IEcsInitSystem
         #region Wheat
 
         var wheatFarmEntity = _world.NewEntity();
-        ref var wheatFarm = ref wheatFarmEntity.Get<ProductSeller>();
-        wheatFarm.sellerGO = sceneData.wheatFarmTradePoint;
-        wheatFarm.tradePointData = wheatFarm.sellerGO.GetComponent<TradePointData>();
-        wheatFarm.produceSpeed = 0.5f * 10;
-        wheatFarm.product = new Product(ProductType.Wheat, productData.wheat, 0.5f);
-        wheatFarm.repriceMultiplier = 1.2f;
+        ref var wheatFarmSeller = ref wheatFarmEntity.Get<ProductSeller>();
+        wheatFarmSeller.sellerGO = sceneData.wheatFarmTradePoint;
+        wheatFarmSeller.tradePointData = wheatFarmSeller.sellerGO.GetComponent<TradePointData>();
+        wheatFarmSeller.produceSpeed = 0.5f * 10;
+        wheatFarmSeller.product = new Product(ProductType.Wheat, productData.wheat, 0.5f);
+        wheatFarmSeller.repriceMultiplier = 1.2f;
         ref var wheatFarmInventory = ref wheatFarmEntity.Get<Inventory>();
         wheatFarmInventory.inventory = new List<Product>();
         wheatFarmInventory.maxMass = 200;
         wheatFarmEntity.Get<SellDataUpdateRequest>();
+        sceneData.finalPoints.Add(wheatFarmSeller.tradePointData.finalPoint);
 
         #endregion
 
@@ -108,6 +114,7 @@ public class GameInitSystem : IEcsInitSystem
         gasStationInventory.inventory = new List<Product>();
         gasStationInventory.maxMass = 200;
         gasStationEntity.Get<SellDataUpdateRequest>();
+        sceneData.finalPoints.Add(gasStation.tradePointData.finalPoint);
 
         #endregion
 
@@ -125,6 +132,7 @@ public class GameInitSystem : IEcsInitSystem
         autoServiceInventory.inventory = new List<Product>();
         autoServiceInventory.maxMass = 200;
         autoServiceEntity.Get<SellDataUpdateRequest>();
+        sceneData.finalPoints.Add(autoService.tradePointData.finalPoint);
 
         #endregion
 
@@ -156,6 +164,7 @@ public class GameInitSystem : IEcsInitSystem
         bakerySeller.tradePointData = bakeryBuyer.tradePointData;
         bakeryEntity.Get<BuyDataUpdateRequest>();
         bakeryEntity.Get<SellDataUpdateRequest>();
+        sceneData.finalPoints.Add(bakeryBuyer.tradePointData.finalPoint);
         #endregion
 
         #region MeatFactory
@@ -182,6 +191,7 @@ public class GameInitSystem : IEcsInitSystem
         meatSeller.tradePointData = meatBuyer.tradePointData;
         meatEntity.Get<BuyDataUpdateRequest>();
         meatEntity.Get<SellDataUpdateRequest>();
+        sceneData.finalPoints.Add(meatBuyer.tradePointData.finalPoint);
 
         #endregion
 
@@ -208,6 +218,7 @@ public class GameInitSystem : IEcsInitSystem
         milkSeller.tradePointData = milkBuyer.tradePointData;
         milkEntity.Get<BuyDataUpdateRequest>();
         milkEntity.Get<SellDataUpdateRequest>();
+        sceneData.finalPoints.Add(milkSeller.tradePointData.finalPoint);
 
         #endregion
 
@@ -239,6 +250,7 @@ public class GameInitSystem : IEcsInitSystem
         pizzaSeller.tradePointData = pizzaBuyer.tradePointData;
         pizzaEntity.Get<BuyDataUpdateRequest>();
         pizzaEntity.Get<SellDataUpdateRequest>();
+        sceneData.finalPoints.Add(pizzaBuyer.tradePointData.finalPoint);
 
         #endregion
 
@@ -266,6 +278,7 @@ public class GameInitSystem : IEcsInitSystem
         cheeseSeller.tradePointData = cheeseBuyer.tradePointData;
         cheeseEntity.Get<BuyDataUpdateRequest>();
         cheeseEntity.Get<SellDataUpdateRequest>();
+        sceneData.finalPoints.Add(cheeseBuyer.tradePointData.finalPoint);
 
         #endregion
 
@@ -286,6 +299,7 @@ public class GameInitSystem : IEcsInitSystem
         shopInventory.inventory = new List<Product>();
         shopInventory.maxMass = 50;
         shopEntity.Get<BuyDataUpdateRequest>();
+        sceneData.finalPoints.Add(shopBuyer.tradePointData.finalPoint);
 
         if (staticData.researchLvl < sceneData.researchList.Count)
         {
@@ -306,10 +320,10 @@ public class GameInitSystem : IEcsInitSystem
             labBuyer.tradePointData.buyProductSpriteRenderer.sprite = labInventory.inventory[staticData.researchLvl].icon;
             labInventory.maxMass = 50;
             labEntity.Get<BuyDataUpdateRequest>();
+            sceneData.finalPoints.Add(labBuyer.tradePointData.finalPoint);
         }
         else
         {
-
             sceneData.labTradePoint.SetActive(false);
         }
 

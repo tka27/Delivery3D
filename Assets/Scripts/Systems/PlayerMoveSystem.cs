@@ -91,8 +91,7 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
                             player.currentTorque = 0;
                             foreach (var brakingWheel in player.carData.brakingWheelColliders)
                             {
-                                brakingWheel.brakeTorque = player.maxTorque / 300;
-                                brakingWheel.motorTorque = 0;
+                                brakingWheel.brakeTorque = player.playerRB.velocity.magnitude * player.maxTorque / 100;
                             }
                         }
                         foreach (var drivingWheel in player.carData.drivingWheelColliders)
@@ -132,7 +131,7 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
                     for (int i = 0; i < player.carData.drivingWheelColliders.Count; i++)
                     {
                         player.carData.drivingWheelColliders[i].motorTorque = 0;
-                        player.carData.drivingWheelColliders[i].brakeTorque = player.carData.maxTorque;
+                        player.carData.drivingWheelColliders[i].brakeTorque = player.playerRB.velocity.magnitude * player.maxTorque;
                     }
                 }
             }

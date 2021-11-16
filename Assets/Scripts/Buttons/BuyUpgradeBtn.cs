@@ -9,11 +9,13 @@ public class BuyUpgradeBtn : MonoBehaviour
     [SerializeField] StaticData staticData;
     [SerializeField] UpgradeInfo buyUpgradeInfo;
     [SerializeField] Text totalMoney;
+    [SerializeField] FlowingText flowingText;
     public void BuyUpgrade()
     {
         if (staticData.totalMoney > buyUpgradeInfo.perksPrices[mainMenuSceneData.selectedPerkID])
         {
-            staticData.totalMoney -= buyUpgradeInfo.perksPrices[mainMenuSceneData.selectedPerkID];
+            float perkCost = buyUpgradeInfo.perksPrices[mainMenuSceneData.selectedPerkID];
+            staticData.totalMoney -= perkCost;
             staticData.carPerks[staticData.selectedCarID][mainMenuSceneData.selectedPerkID]++; //selected perk for current car
 
             totalMoney.text = staticData.totalMoney.ToString("0");

@@ -10,6 +10,7 @@ sealed class SellSystem : IEcsRunSystem
     EcsFilter<Inventory, PlayerComp> playerFilter;
     UIData uiData;
     StaticData staticData;
+    FlowingText flowingText;
 
     void IEcsRunSystem.Run()
     {
@@ -82,6 +83,7 @@ sealed class SellSystem : IEcsRunSystem
                         }
                     }
                     staticData.currentMoney += totalCost;
+                    flowingText.DisplayText("+" + totalCost.ToString("0.0"));
 
                     buyerFilter.GetEntity(fBuyer).Get<BuyDataUpdateRequest>();
                     playerFilter.GetEntity(0).Get<UpdateCargoRequest>();

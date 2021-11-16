@@ -18,7 +18,7 @@ public class CarData : MonoBehaviour
     public Transform wheelPos;
     public Transform centerOfMass;
     public Transform cameraLookPoint;
-    public List<WheelData> wheelDatas;
+    [HideInInspector] public List<WheelData> wheelDatas;
     public Collider carCollider;
     public GameObject trailer;
     public List<GameObject> playerCargo;
@@ -33,7 +33,6 @@ public class CarData : MonoBehaviour
     public float maxDurability;
     public float acceleration;
     public float maxFuel;
-    public float fuelConsumption;
     public float maxStorageMass;
 
 }

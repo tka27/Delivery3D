@@ -221,7 +221,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8226052676c66944c8c347ed75931d8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onRoad: 0
+  onRoad: 1
+  inWater: 0
   particles: {fileID: 602628221}
 --- !u!199 &602628222
 ParticleSystemRenderer:
@@ -5645,7 +5646,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8226052676c66944c8c347ed75931d8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onRoad: 0
+  onRoad: 1
+  inWater: 0
   particles: {fileID: 1955785402}
 --- !u!199 &1955785403
 ParticleSystemRenderer:
@@ -11041,7 +11043,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5890725838793529485}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.3, z: 0}
+  m_LocalPosition: {x: 0, y: -0.145, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4152531626050585450}
@@ -11136,11 +11138,7 @@ MonoBehaviour:
   wheelPos: {fileID: 741878016277291877}
   centerOfMass: {fileID: 6701750012755939524}
   cameraLookPoint: {fileID: 7055413026198221815}
-  wheelDatas:
-  - {fileID: 3918565226628802109}
-  - {fileID: 3918565225966389236}
-  - {fileID: 3918565225876008153}
-  - {fileID: 3918565225656980953}
+  wheelDatas: []
   carCollider: {fileID: 5890725838793529480}
   trailer: {fileID: 1247118099}
   playerCargo:
@@ -11182,7 +11180,6 @@ MonoBehaviour:
   maxDurability: 1000
   acceleration: 20
   maxFuel: 100
-  fuelConsumption: 0.01
   maxStorageMass: 50
 --- !u!1 &6701750012609400283
 GameObject:
@@ -11262,6 +11259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onRoad: 0
+  inWater: 0
   particles: {fileID: 6701750012609400282}
 --- !u!199 &6701750012609400285
 ParticleSystemRenderer:
@@ -16087,7 +16085,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6701750012678688372}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: -0.26, z: -0.99}
+  m_LocalPosition: {x: -0.575, y: -0.26, z: -0.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7055413026784621257}
@@ -16232,6 +16230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onRoad: 0
+  inWater: 0
   particles: {fileID: 6701750013020154898}
 --- !u!198 &6701750013020154898
 ParticleSystem:
@@ -21057,7 +21056,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6701750013396444302}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.5, y: -0.26, z: 0.985}
+  m_LocalPosition: {x: -0.575, y: -0.26, z: 0.985}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7055413025987396342}
@@ -21119,7 +21118,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6701750014127837484}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: -0.26, z: 0.985}
+  m_LocalPosition: {x: 0.575, y: -0.26, z: 0.985}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7055413026287457811}
@@ -21181,7 +21180,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6701750014345916188}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: -0.26, z: -0.99}
+  m_LocalPosition: {x: 0.575, y: -0.26, z: -0.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7055413025939645966}
@@ -21296,6 +21295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onRoad: 0
+  inWater: 0
   particles: {fileID: 6701750014376994559}
 --- !u!199 &6701750014376994558
 ParticleSystemRenderer:
@@ -26174,6 +26174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onRoad: 0
+  inWater: 0
   particles: {fileID: 6701750014464155647}
 --- !u!199 &6701750014464155646
 ParticleSystemRenderer:
@@ -31679,7 +31680,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7055413025939645967}
   m_LocalRotation: {x: -0.5, y: 0.5, z: -0.5, w: -0.5}
-  m_LocalPosition: {x: 0, y: -0.35000002, z: 0.018000007}
+  m_LocalPosition: {x: 0, y: -0.3, z: 0.018000007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6701750014345916190}
@@ -31729,7 +31730,7 @@ TrailRenderer:
   m_Time: 5
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.2
+    widthMultiplier: 0.25
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -31916,7 +31917,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7055413025987396343}
   m_LocalRotation: {x: -0.5, y: 0.5, z: -0.5, w: -0.5}
-  m_LocalPosition: {x: 0, y: -0.35, z: -0.018}
+  m_LocalPosition: {x: 0, y: -0.3, z: -0.018}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6701750013396444296}
@@ -31966,7 +31967,7 @@ TrailRenderer:
   m_Time: 5
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.2
+    widthMultiplier: 0.25
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -32435,7 +32436,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7055413026287457808}
   m_LocalRotation: {x: -0.5, y: 0.5, z: -0.5, w: -0.5}
-  m_LocalPosition: {x: 0, y: -0.35000002, z: 0.018000007}
+  m_LocalPosition: {x: 0, y: -0.3, z: 0.018000007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6701750014127837486}
@@ -32485,7 +32486,7 @@ TrailRenderer:
   m_Time: 5
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.2
+    widthMultiplier: 0.25
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -33131,7 +33132,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7055413026784621254}
   m_LocalRotation: {x: -0.5, y: 0.5, z: -0.5, w: -0.5}
-  m_LocalPosition: {x: 0, y: -0.35000002, z: 0.018000007}
+  m_LocalPosition: {x: 0, y: -0.3, z: 0.018000007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6701750012678688374}
@@ -33181,7 +33182,7 @@ TrailRenderer:
   m_Time: 5
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.2
+    widthMultiplier: 0.25
     widthCurve:
       serializedVersion: 2
       m_Curve:

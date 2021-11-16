@@ -9,6 +9,7 @@ sealed class BuySystem : IEcsRunSystem
     EcsFilter<Inventory, PlayerComp> playerFilter;
     UIData uiData;
     StaticData staticData;
+    FlowingText flowingText;
 
     void IEcsRunSystem.Run()
     {
@@ -74,7 +75,10 @@ sealed class BuySystem : IEcsRunSystem
                     playerFilter.GetEntity(0).Get<UpdateCargoRequest>();
 
                     seller.product.mass -= dealMass;
-                    staticData.currentMoney -= dealMass * seller.product.currentPrice;
+                    float dealCost = dealMass * seller.product.currentPrice;
+                    staticData.currentMoney -= dealCost;
+                    flowingText.DisplayText((-dealCost).ToString("0.0"));
+
 
                     foreach (var go in player.carData.playerCargo)
                     {

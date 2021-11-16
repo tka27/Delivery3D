@@ -5,17 +5,27 @@ using UnityEngine;
 public class WheelData : MonoBehaviour
 {
     public bool onRoad;
+    public bool inWater;
     bool firstCheck;
-    string tag1 = "Road";
+    string roadTag = "Road";
+    string waterTag = "Water";
     string function = "OnRoadCheck";
     public ParticleSystem particles;
     void Start()
     {
         particles = GetComponent<ParticleSystem>();
     }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.tag == waterTag)
+        {
+            inWater = true;
+        }
+    }
     void OnTriggerStay(Collider collider)
     {
-        if (collider.tag == tag1)
+        if (collider.tag == roadTag)
         {
             onRoad = true;
             firstCheck = true;
@@ -24,10 +34,14 @@ public class WheelData : MonoBehaviour
 
     void OnTriggerExit(Collider collider)
     {
-        if (collider.tag == tag1)
+        if (collider.tag == roadTag)
         {
             firstCheck = false;
             Invoke(function, 0.02f);
+        }
+        if (collider.tag == waterTag)
+        {
+            inWater = false;
         }
     }
     void OnRoadCheck()

@@ -40,7 +40,6 @@ public class CarSwitcher : MonoBehaviour
             {
                 staticData.selectedCarID = 0;
             }
-            mainMenuSceneData.cars[staticData.selectedCarID].gameObject.SetActive(true);
             carInfoUpdateEvent.Invoke();
         }
         else if (xDifference < -0.2)
@@ -51,7 +50,6 @@ public class CarSwitcher : MonoBehaviour
             {
                 staticData.selectedCarID = mainMenuSceneData.cars.Count - 1;
             }
-            mainMenuSceneData.cars[staticData.selectedCarID].gameObject.SetActive(true);
             carInfoUpdateEvent.Invoke();
         }
     }

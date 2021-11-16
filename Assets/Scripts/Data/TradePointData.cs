@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class TradePointData : MonoBehaviour
 {
+    public Transform finalPoint;
     public Text storageInfo;
     public bool ableToTrade;
     string playerTag = "Player";

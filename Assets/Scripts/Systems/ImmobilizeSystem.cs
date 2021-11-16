@@ -16,6 +16,11 @@ sealed class ImmobilizeSystem : IEcsRunSystem
             {
                 wheel.motorTorque = player.currentTorque;
             }
+            foreach (var brakingWheel in player.carData.brakingWheelColliders)
+            {
+
+                brakingWheel.brakeTorque = 1;
+            }
             foreach (var wheelData in player.carData.wheelDatas)
             {
                 wheelData.particles.Stop();
