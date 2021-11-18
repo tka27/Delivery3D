@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class CarData : MonoBehaviour
 {
-    public int carID;
     public float price;
-    public bool unlocked;
-    public bool bought;
-    public int fuelLvl;
-    public int suspensionLvl;
     public List<Transform> allWheelMeshes;
     public List<WheelCollider> allWheelColliders;
     public List<WheelCollider> steeringWheelColliders;
@@ -33,6 +28,8 @@ public class CarData : MonoBehaviour
     public float maxDurability;
     public float acceleration;
     public float maxFuel;
-    public float maxStorageMass;
+    public float defaultMass;
+    public float carStorage;
+    public float trailerStorage;
 
 }

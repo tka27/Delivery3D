@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StaticData
   m_EditorClassIdentifier: 
   carsPrefabs: []
-  totalMoney: 7094
+  totalMoney: 10000
   currentMoney: 5000
   moneyForGame: 5000
   selectedCarID: 0

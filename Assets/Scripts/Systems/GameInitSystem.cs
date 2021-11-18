@@ -37,7 +37,7 @@ public class GameInitSystem : IEcsInitSystem
         playerComp.playerGO = sceneData.cars[staticData.selectedCarID];
         playerComp.carData = playerComp.playerGO.GetComponent<CarData>();
         playerComp.playerRB = playerComp.playerGO.GetComponent<Rigidbody>();
-        playerComp.defaultRBMass = playerComp.playerRB.mass;
+        playerComp.playerRB.mass = playerComp.carData.defaultMass;
         playerComp.playerRB.centerOfMass = playerComp.carData.centerOfMass.transform.localPosition;
         playerComp.maxSteerAngle = playerComp.carData.maxSteerAngle;
         playerComp.maxFuel = playerComp.carData.maxFuel + playerComp.carData.maxFuel / 100 * 5 * staticData.carPerks[staticData.selectedCarID][0];
@@ -50,7 +50,15 @@ public class GameInitSystem : IEcsInitSystem
         uiData.fuelText.text = playerComp.currentFuel.ToString();
         ref var playerInventory = ref playerEntity.Get<Inventory>();
         playerInventory.inventory = new List<Product>();
-        playerInventory.maxMass = playerComp.carData.maxStorageMass + playerComp.carData.maxStorageMass / 100 * 5 * staticData.carPerks[staticData.selectedCarID][4];
+        if (!staticData.trailerIsSelected)
+        {
+            playerInventory.maxMass = playerComp.carData.carStorage + playerComp.carData.carStorage / 100 * 5 * staticData.carPerks[staticData.selectedCarID][4];
+        }
+        else
+        {
+            playerInventory.maxMass = playerComp.carData.carStorage + playerComp.carData.trailerStorage + playerComp.carData.carStorage / 100 * 5 * staticData.carPerks[staticData.selectedCarID][4];
+        }
+
         playerEntity.Get<UpdateCargoRequest>();
 
         foreach (var wheel in playerComp.carData.allWheelMeshes)
@@ -165,6 +173,32 @@ public class GameInitSystem : IEcsInitSystem
         bakeryEntity.Get<BuyDataUpdateRequest>();
         bakeryEntity.Get<SellDataUpdateRequest>();
         sceneData.finalPoints.Add(bakeryBuyer.tradePointData.finalPoint);
+        #endregion
+
+        #region Chicken
+        var chickenEntity = _world.NewEntity();
+        ref var chickenBuyer = ref chickenEntity.Get<ProductBuyer>();
+        chickenBuyer.buyerGO = sceneData.chickenTradePoint;
+        chickenBuyer.tradePointData = chickenBuyer.buyerGO.GetComponent<TradePointData>();
+        chickenBuyer.repriceMultiplier = 1.2f;
+        chickenBuyer.buyingProductTypes = new List<ProductType>();
+        chickenBuyer.buyingProductTypes.Add(ProductType.Wheat);
+
+        ref var chickenInventory = ref chickenEntity.Get<Inventory>();
+        chickenInventory.inventory = new List<Product>();
+        chickenInventory.inventory.Add(new Product(ProductType.Wheat, productData.wheat, 0.75f));
+        chickenInventory.maxMass = 20;
+
+        ref var chickenSeller = ref chickenEntity.Get<ProductSeller>();
+        chickenSeller.produceSpeed = 1;
+        chickenSeller.sellerGO = chickenBuyer.buyerGO;
+        chickenSeller.product = new Product(ProductType.Eggs, productData.eggs, 1.33f);
+        chickenInventory.inventory.Add(chickenSeller.product);
+        chickenSeller.repriceMultiplier = 1.2f;
+        chickenSeller.tradePointData = chickenBuyer.tradePointData;
+        chickenEntity.Get<BuyDataUpdateRequest>();
+        chickenEntity.Get<SellDataUpdateRequest>();
+        sceneData.finalPoints.Add(chickenBuyer.tradePointData.finalPoint);
         #endregion
 
         #region MeatFactory

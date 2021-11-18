@@ -12,6 +12,7 @@ public class CarSwitcher : MonoBehaviour
     [SerializeField] StaticData staticData;
     [SerializeField] MainMenuSceneData mainMenuSceneData;
     [SerializeField] UnityEvent carInfoUpdateEvent;
+    [SerializeField] GameObject upgradeCanvas;
 
     void Start()
     {
@@ -19,13 +20,14 @@ public class CarSwitcher : MonoBehaviour
     }
     void Update()
     {
-
+        if (upgradeCanvas.activeSelf) return;
+        
         float xDifference = 0;
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButtonDown(0))
         {
             startPos = camera.ScreenToViewportPoint(Input.mousePosition);
         }
-        else if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
+        else if (Input.GetMouseButtonUp(0))
         {
             tgtPos = camera.ScreenToViewportPoint(Input.mousePosition);
             xDifference = startPos.x - tgtPos.x;

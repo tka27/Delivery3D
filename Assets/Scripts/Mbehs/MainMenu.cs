@@ -10,8 +10,8 @@ public class MainMenu : MonoBehaviour
     [SerializeField] Text totalMoney;
     [SerializeField] GameObject demoCam;
     [SerializeField] MainMenuSceneData mainMenuSceneData;
-    static GameObject notificationStaticPanel;
-    static Text notificationStaticText;
+    static GameObject staticNotificationPanel;
+    static Text staticNotificationText;
     [SerializeField] GameObject notificationPanel;
     [SerializeField] Text notificationText;
     [SerializeField] UnityEvent carInfoUpdateEvent;
@@ -20,10 +20,16 @@ public class MainMenu : MonoBehaviour
         int carsCount = staticData.allCars.Count;
 
         staticData.carsUnlockStatus = new bool[carsCount];
+        staticData.carsUnlockStatus[0] = true;
         staticData.carsBuyStatus = new bool[carsCount];
+        staticData.carsBuyStatus[0] = true;
         staticData.trailersBuyStatus = new bool[carsCount];
-        notificationStaticPanel = notificationPanel;
-        notificationStaticText = notificationText;
+
+
+        staticNotificationPanel = notificationPanel;
+        staticNotificationText = notificationText;
+
+
         staticData.carPerks = new int[carsCount][];
 
         for (int i = 0; i < carsCount; i++)
@@ -54,7 +60,8 @@ public class MainMenu : MonoBehaviour
 
     public static void Notification(string notification)
     {
-        notificationStaticPanel.SetActive(true);
-        notificationStaticText.text = notification;
+        staticNotificationPanel.SetActive(true);
+        staticNotificationText.text = notification;
     }
+    
 }

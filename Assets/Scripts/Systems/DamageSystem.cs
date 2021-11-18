@@ -30,7 +30,7 @@ sealed class DamageSystem : IEcsRunSystem
 
 
                     //Handheld.Vibrate();
-                    player.currentDurability -= 0.02f * player.playerRB.velocity.magnitude * player.playerRB.mass / 1000;
+                    player.currentDurability -= 0.01f * player.playerRB.velocity.magnitude * player.playerRB.mass / 1000;
                     uiData.durabilityText.text = player.currentDurability.ToString("#");
                 }
                 else
@@ -39,14 +39,14 @@ sealed class DamageSystem : IEcsRunSystem
                 }
                 if (wheelData.inWater)
                 {
-                    player.currentDurability -= 0.02f;
+                    player.currentDurability -= 0.05f;
                     uiData.durabilityText.text = player.currentDurability.ToString("#");
                 }
             }
             if (player.currentDurability < 0)
             {
                 player.currentDurability = 0;
-                uiData.durabilityText.text = "Wheels are broken";
+                sceneData.Notification("Wheels are broken");
                 playerFilter.GetEntity(fPlayer).Get<ImmobilizeRequest>();
             }
         }

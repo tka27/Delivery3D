@@ -16,6 +16,8 @@ public class CarInfo : MonoBehaviour
     [SerializeField] Text priceText;
     [SerializeField] GameObject padlock;
     [SerializeField] Image trailerBackground;
+    [SerializeField] Text mass;
+    [SerializeField] Text storage;
 
     // Update is called once per frame
 
@@ -23,7 +25,7 @@ public class CarInfo : MonoBehaviour
     {
         int carID = staticData.selectedCarID;
         mainMenuSceneData.cars[carID].gameObject.SetActive(true);
-        
+
         staticData.availableProducts = new List<Product>(); // produtcs update
         switch (carID)
         {
@@ -43,8 +45,16 @@ public class CarInfo : MonoBehaviour
 
             default: return;
         }
-
-
+        if (!staticData.trailerIsSelected)
+        {
+            mass.text = "Mass: " + staticData.allCars[carID].defaultMass;
+            storage.text = "Storage: " + staticData.allCars[carID].carStorage;
+        }
+        else
+        {
+            mass.text = "Mass: " + (staticData.allCars[carID].defaultMass + staticData.allCars[carID].trailer.GetComponent<Rigidbody>().mass);
+            storage.text = "Storage: " + (staticData.allCars[carID].carStorage + staticData.allCars[carID].trailerStorage);
+        }
 
 
 
@@ -68,8 +78,6 @@ public class CarInfo : MonoBehaviour
                 productIcons[i].sprite = productData.question;
             }
         }
-
-
 
 
         //car status check
@@ -109,6 +117,7 @@ public class CarInfo : MonoBehaviour
                 if (staticData.carsBuyStatus[carID])
                 {
                     buyBtn.SetActive(true);
+                    price.SetActive(true);
                     priceText.text = (staticData.allCars[carID].price / 2).ToString();
                 }
             }
@@ -118,7 +127,5 @@ public class CarInfo : MonoBehaviour
             trailerBackground.color = new Color(1, 0, 0, 0.2352941f);
             mainMenuSceneData.trailers[carID].SetActive(false);
         }
-
-
     }
 }

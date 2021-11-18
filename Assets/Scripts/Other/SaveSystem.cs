@@ -27,7 +27,7 @@ public static class SaveSystem
         else
         {
             SaveSystem.Save();
-            Debug.LogError("Save file was create : " + path);
+            Debug.Log("Save file was create : " + path);
             return null;
         }
     }

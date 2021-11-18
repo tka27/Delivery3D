@@ -10,6 +10,7 @@ sealed class SellSystem : IEcsRunSystem
     EcsFilter<Inventory, PlayerComp> playerFilter;
     UIData uiData;
     StaticData staticData;
+    SceneData sceneData;
     FlowingText flowingText;
 
     void IEcsRunSystem.Run()
@@ -53,12 +54,19 @@ sealed class SellSystem : IEcsRunSystem
                     }
                     if (playerActualProductsMass == 0)
                     {
+                        sceneData.Notification("Nothing to sell");
                         return;
                     }
                     float totalCost = 0;
 
                     float buyerCurrentMass = buyerInventory.GetCurrentMass();
                     float buyerFreeSpace = buyerInventory.maxMass - buyerCurrentMass;
+
+                    if (buyerFreeSpace == 0)
+                    {
+                        sceneData.Notification("Buyer storage is full");
+                        return;
+                    }
 
                     if (playerActualProductsMass <= buyerFreeSpace) // sell all
                     {
@@ -88,9 +96,9 @@ sealed class SellSystem : IEcsRunSystem
                     buyerFilter.GetEntity(fBuyer).Get<BuyDataUpdateRequest>();
                     playerFilter.GetEntity(0).Get<UpdateCargoRequest>();
                     playerInventory.RemoveEmptySlots();
-                    foreach (var go in player.carData.playerCargo)
+                    foreach (var cargo in player.carData.playerCargo)
                     {
-                        go.SetActive(false);
+                        cargo.SetActive(false);
                     }
                 }
             }

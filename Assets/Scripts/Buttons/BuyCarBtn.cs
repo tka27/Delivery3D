@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuyCarBtn : MonoBehaviour
 {
     [SerializeField] StaticData staticData;
     [SerializeField] CarInfo carInfo;
+    [SerializeField] Text totalMoney;
 
 
     public void BuyCar()
@@ -37,5 +37,6 @@ public class BuyCarBtn : MonoBehaviour
                 MainMenu.Notification("Not enough coins");
             }
         }
+        totalMoney.text = staticData.totalMoney.ToString("0");
     }
 }

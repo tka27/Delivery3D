@@ -15,4 +15,5 @@ public class ProductData : ScriptableObject
     public Sprite milk;
     public Sprite pizza;
     public Sprite cheese;
+    public Sprite eggs;
 }

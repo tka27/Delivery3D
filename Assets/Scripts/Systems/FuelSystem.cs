@@ -21,7 +21,7 @@ sealed class FuelSystem : IEcsRunSystem
                 if (player.currentFuel < 0)
                 {
                     player.currentFuel = 0;
-                    uiData.fuelText.text = "No Fuel";
+                    sceneData.Notification("No Fuel");
                     playerFilter.GetEntity(fPlayer).Get<ImmobilizeRequest>();
                 }
             }

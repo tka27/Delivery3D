@@ -9,6 +9,7 @@ sealed class BuySystem : IEcsRunSystem
     EcsFilter<Inventory, PlayerComp> playerFilter;
     UIData uiData;
     StaticData staticData;
+    SceneData sceneData;
     FlowingText flowingText;
 
     void IEcsRunSystem.Run()
@@ -29,7 +30,12 @@ sealed class BuySystem : IEcsRunSystem
                         isProductAvailable = true;
                     }
                 }
-                if (!isProductAvailable) return;
+                if (!isProductAvailable)
+                {
+                    sceneData.Notification("You can't transport this product");
+                    return;
+                }
+
 
                 foreach (var fPlayer in playerFilter)
                 {
@@ -41,22 +47,28 @@ sealed class BuySystem : IEcsRunSystem
                     if (playerAvailableMass < seller.product.mass)
                     {
                         dealMass = playerAvailableMass;
+                        if (dealMass == 0)
+                        {
+                            sceneData.Notification("Inventory is full");
+                            return;
+                        }
                     }
                     else
                     {
                         dealMass = seller.product.mass;
+                        if (dealMass == 0)
+                        {
+                            sceneData.Notification("No products for sale");
+                            return;
+                        }
                     }
 
-
-                    if (dealMass == 0)
-                    {
-                        return;
-                    }
 
                     if (dealMass * seller.product.currentPrice > staticData.currentMoney)
                     {
                         dealMass = staticData.currentMoney / seller.product.currentPrice;
                     }
+
 
                     bool haveProduct = false;
                     foreach (var product in playerInventory.inventory)
@@ -67,6 +79,8 @@ sealed class BuySystem : IEcsRunSystem
                             haveProduct = true;
                         }
                     }
+
+
                     if (!haveProduct)
                     {
                         playerInventory.inventory.Add(new Product(seller.product.type, dealMass, seller.product.icon, seller.product.defaultPrice));

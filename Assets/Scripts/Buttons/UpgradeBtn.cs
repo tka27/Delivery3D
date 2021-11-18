@@ -9,6 +9,7 @@ public class UpgradeBtn : MonoBehaviour
     [SerializeField] Transform moneyUpgradePos;
     [SerializeField] Transform moneyNormalPos;
     [SerializeField] Transform moneyGO;
+    [SerializeField] GameObject playBtn;
     public void UpgradeBtnClick()
     {
         if (!upgradePanel.activeSelf)

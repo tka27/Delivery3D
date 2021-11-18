@@ -23,6 +23,7 @@ sealed class FactoryProduceSystem : IEcsRunSystem
 
             ref var producerInventory = ref producerFilter.Get2(fProd);
             ref var consumer = ref producerFilter.Get3(fProd);
+            bool isMassZero = false;
             if (producerInventory.GetCurrentMass() <= producerInventory.maxMass)// && consumer.product.mass != 0)
             {
                 foreach (var inventoryItem in producerInventory.inventory)
@@ -33,12 +34,13 @@ sealed class FactoryProduceSystem : IEcsRunSystem
                         {
                             if (inventoryItem.mass <= 0)
                             {
-                                return;
+                                isMassZero = true;
                             }
                         }
                     }
                 }
-
+                if (isMassZero) continue;
+                
                 foreach (var product in consumer.buyingProductTypes)
                 {
                     foreach (var inventoryItem in producerInventory.inventory)
