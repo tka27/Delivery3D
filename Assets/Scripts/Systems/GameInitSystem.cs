@@ -21,14 +21,20 @@ public class GameInitSystem : IEcsInitSystem
 
 
 
-        LoadGameProgress();
+        LoadGameProgress(); ////////////test
         staticData.currentMoney = staticData.moneyForGame;
         uiData.moneyText.text = staticData.currentMoney.ToString("0");
+
+
+
         var pathEntity = _world.NewEntity();
         ref var pathComp = ref pathEntity.Get<PathComp>();
         pathComp.wayPoints = new List<GameObject>();
         pathComp.lineRenderer = sceneData.lineRenderer;
         pathComp.waypointsPool = sceneData.waypointsPool;
+
+
+        #region Player
 
         var playerEntity = _world.NewEntity();
         ref var playerComp = ref playerEntity.Get<PlayerComp>();
@@ -81,6 +87,10 @@ public class GameInitSystem : IEcsInitSystem
             playerComp.carData.trailer.SetActive(false);
         }
 
+        playerComp.carData.engineSound.Play();
+
+        #endregion
+
 
         var virtualCam = sceneData.driveCam.GetComponent<CinemachineVirtualCamera>();
         virtualCam.Follow = playerComp.playerGO.transform;
@@ -105,6 +115,7 @@ public class GameInitSystem : IEcsInitSystem
         wheatFarmInventory.maxMass = 200;
         wheatFarmEntity.Get<SellDataUpdateRequest>();
         sceneData.finalPoints.Add(wheatFarmSeller.tradePointData.finalPoint);
+        sceneData.tradePointCanvases.Add(wheatFarmSeller.tradePointData.canvas);
 
         #endregion
 
@@ -123,6 +134,7 @@ public class GameInitSystem : IEcsInitSystem
         gasStationInventory.maxMass = 200;
         gasStationEntity.Get<SellDataUpdateRequest>();
         sceneData.finalPoints.Add(gasStation.tradePointData.finalPoint);
+        sceneData.tradePointCanvases.Add(gasStation.tradePointData.canvas);
 
         #endregion
 
@@ -141,6 +153,7 @@ public class GameInitSystem : IEcsInitSystem
         autoServiceInventory.maxMass = 200;
         autoServiceEntity.Get<SellDataUpdateRequest>();
         sceneData.finalPoints.Add(autoService.tradePointData.finalPoint);
+        sceneData.tradePointCanvases.Add(autoService.tradePointData.canvas);
 
         #endregion
 
@@ -173,6 +186,9 @@ public class GameInitSystem : IEcsInitSystem
         bakeryEntity.Get<BuyDataUpdateRequest>();
         bakeryEntity.Get<SellDataUpdateRequest>();
         sceneData.finalPoints.Add(bakeryBuyer.tradePointData.finalPoint);
+        sceneData.tradePointCanvases.Add(bakeryBuyer.tradePointData.canvas);
+
+
         #endregion
 
         #region Chicken
@@ -199,6 +215,9 @@ public class GameInitSystem : IEcsInitSystem
         chickenEntity.Get<BuyDataUpdateRequest>();
         chickenEntity.Get<SellDataUpdateRequest>();
         sceneData.finalPoints.Add(chickenBuyer.tradePointData.finalPoint);
+        sceneData.tradePointCanvases.Add(chickenBuyer.tradePointData.canvas);
+
+
         #endregion
 
         #region MeatFactory
@@ -226,6 +245,7 @@ public class GameInitSystem : IEcsInitSystem
         meatEntity.Get<BuyDataUpdateRequest>();
         meatEntity.Get<SellDataUpdateRequest>();
         sceneData.finalPoints.Add(meatBuyer.tradePointData.finalPoint);
+        sceneData.tradePointCanvases.Add(meatBuyer.tradePointData.canvas);
 
         #endregion
 
@@ -253,6 +273,8 @@ public class GameInitSystem : IEcsInitSystem
         milkEntity.Get<BuyDataUpdateRequest>();
         milkEntity.Get<SellDataUpdateRequest>();
         sceneData.finalPoints.Add(milkSeller.tradePointData.finalPoint);
+        sceneData.tradePointCanvases.Add(milkSeller.tradePointData.canvas);
+
 
         #endregion
 
@@ -285,6 +307,7 @@ public class GameInitSystem : IEcsInitSystem
         pizzaEntity.Get<BuyDataUpdateRequest>();
         pizzaEntity.Get<SellDataUpdateRequest>();
         sceneData.finalPoints.Add(pizzaBuyer.tradePointData.finalPoint);
+        sceneData.tradePointCanvases.Add(pizzaBuyer.tradePointData.canvas);
 
         #endregion
 
@@ -313,6 +336,7 @@ public class GameInitSystem : IEcsInitSystem
         cheeseEntity.Get<BuyDataUpdateRequest>();
         cheeseEntity.Get<SellDataUpdateRequest>();
         sceneData.finalPoints.Add(cheeseBuyer.tradePointData.finalPoint);
+        sceneData.tradePointCanvases.Add(cheeseBuyer.tradePointData.canvas);
 
         #endregion
 
@@ -334,6 +358,9 @@ public class GameInitSystem : IEcsInitSystem
         shopInventory.maxMass = 50;
         shopEntity.Get<BuyDataUpdateRequest>();
         sceneData.finalPoints.Add(shopBuyer.tradePointData.finalPoint);
+        sceneData.tradePointCanvases.Add(shopBuyer.tradePointData.canvas);
+
+
 
         if (staticData.researchLvl < sceneData.researchList.Count)
         {
@@ -355,6 +382,7 @@ public class GameInitSystem : IEcsInitSystem
             labInventory.maxMass = 50;
             labEntity.Get<BuyDataUpdateRequest>();
             sceneData.finalPoints.Add(labBuyer.tradePointData.finalPoint);
+            sceneData.tradePointCanvases.Add(labBuyer.tradePointData.canvas);
         }
         else
         {

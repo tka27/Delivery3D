@@ -9,12 +9,12 @@ public class MainMenu : MonoBehaviour
     [SerializeField] StaticData staticData;
     [SerializeField] Text totalMoney;
     [SerializeField] GameObject demoCam;
-    [SerializeField] MainMenuSceneData mainMenuSceneData;
     static GameObject staticNotificationPanel;
     static Text staticNotificationText;
     [SerializeField] GameObject notificationPanel;
     [SerializeField] Text notificationText;
     [SerializeField] UnityEvent carInfoUpdateEvent;
+    
     void Start()
     {
         int carsCount = staticData.allCars.Count;
@@ -63,5 +63,5 @@ public class MainMenu : MonoBehaviour
         staticNotificationPanel.SetActive(true);
         staticNotificationText.text = notification;
     }
-    
+
 }

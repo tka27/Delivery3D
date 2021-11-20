@@ -22,6 +22,8 @@ public class CarData : MonoBehaviour
     public List<Quaternion> playerCargoDefaultRot;
     public GameObject inventoryCanvas;
     public GameObject clearInventoryBtn;
+    public AudioSource engineSound;
+    public float enginePitchDefault;
 
     public float maxSteerAngle;
     public float maxTorque;

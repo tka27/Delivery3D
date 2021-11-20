@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class TradePointData : MonoBehaviour
 {
     public Transform finalPoint;
+    public GameObject canvas;
     public Text storageInfo;
     public bool ableToTrade;
-    string playerTag = "Player";
     public List<Text> buyPrice;
     public List<Text> buyCount;
     public Text sellCount;
@@ -17,6 +17,7 @@ public class TradePointData : MonoBehaviour
     public Text labProgress;
     public SpriteRenderer buyProductSpriteRenderer;
     public SpriteRenderer SellProductSpriteRenderer;
+    string playerTag = "Player";
 
 
     void OnTriggerEnter(Collider collider)

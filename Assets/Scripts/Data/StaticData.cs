@@ -24,10 +24,26 @@ public class StaticData : ScriptableObject
     {
         this.totalMoney = data.totalMoney;
         this.researchLvl = data.researchLvl;
-        this.carsBuyStatus = data.carsBuyStatus;
-        this.trailersBuyStatus = data.trailersBuyStatus;
-        this.carsUnlockStatus = data.carsUnlockStatus;
-        this.carPerks = data.carPerks;
+
+        for (int i = 0; i < this.carsBuyStatus.Length; i++)
+        {
+            this.carsBuyStatus[i] = data.carsBuyStatus[i];
+        }
+
+        for (int i = 0; i < this.trailersBuyStatus.Length; i++)
+        {
+            this.trailersBuyStatus[i] = data.trailersBuyStatus[i];
+        }
+
+        for (int i = 0; i < this.carsUnlockStatus.Length; i++)
+        {
+            this.carsUnlockStatus[i] = data.carsUnlockStatus[i];
+        }
+        
+        for (int i = 0; i < this.carPerks.Length; i++)
+        {
+            this.carPerks[i] = data.carPerks[i];
+        }
     }
 }
 

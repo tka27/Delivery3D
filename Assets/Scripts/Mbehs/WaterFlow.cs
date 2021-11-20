@@ -17,8 +17,8 @@ public class WaterFlow : MonoBehaviour
         if (collider.tag == playerTag)
         {
             Rigidbody rb = collider.attachedRigidbody;
-            rb?.AddForce(Vector3.up * rb.mass*5);
-            rb?.AddForce(-rb.velocity * rb.mass*2);
+            rb?.AddForce(Vector3.up * rb.mass * 3);
+            rb?.AddForce(-rb.velocity * rb.mass * 2);
         }
     }
 }

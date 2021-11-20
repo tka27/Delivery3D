@@ -16,7 +16,7 @@ sealed class DestroyRoadSystem : IEcsRunSystem
         foreach (var playerF in playerFilter)
         {
             playerPos = playerFilter.Get1(playerF).playerGO.transform.position;
-            playerPos.y = sceneData.groundHeight;
+            playerPos.y -= 1;
         }
         foreach (var fPath in pathFilter)
         {

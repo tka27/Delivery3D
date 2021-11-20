@@ -19,32 +19,15 @@ public class CarInfo : MonoBehaviour
     [SerializeField] Text mass;
     [SerializeField] Text storage;
 
-    // Update is called once per frame
 
     public void InfoUpdate()
     {
         int carID = staticData.selectedCarID;
         mainMenuSceneData.cars[carID].gameObject.SetActive(true);
 
-        staticData.availableProducts = new List<Product>(); // produtcs update
-        switch (carID)
-        {
-            case 0:
-                staticData.availableProducts.Add(new Product(ProductType.Wheat, 0, productData.wheat, 0));
-                staticData.availableProducts.Add(new Product(ProductType.Bread, 0, productData.bread, 0));
-                if (staticData.trailerIsSelected && staticData.trailersBuyStatus[carID])
-                {
-                    staticData.availableProducts.Add(new Product(ProductType.Milk, 0, productData.milk, 0));
-                }
-                break;
+        staticData.availableProducts = GetAvailableProducts(carID);
+        UpdateIcons(carID);
 
-            case 1:
-                staticData.availableProducts.Add(new Product(ProductType.Wheat, 0, productData.wheat, 0));
-                staticData.availableProducts.Add(new Product(ProductType.Meat, 0, productData.meat, 0));
-                break;
-
-            default: return;
-        }
         if (!staticData.trailerIsSelected)
         {
             mass.text = "Mass: " + staticData.allCars[carID].defaultMass;
@@ -55,30 +38,6 @@ public class CarInfo : MonoBehaviour
             mass.text = "Mass: " + (staticData.allCars[carID].defaultMass + staticData.allCars[carID].trailer.GetComponent<Rigidbody>().mass);
             storage.text = "Storage: " + (staticData.allCars[carID].carStorage + staticData.allCars[carID].trailerStorage);
         }
-
-
-
-        foreach (var icon in productIcons)
-        {
-            icon.gameObject.SetActive(false);
-        }
-        if (staticData.carsUnlockStatus[carID])
-        {
-            for (int i = 0; i < staticData.availableProducts.Count; i++)
-            {
-                productIcons[i].gameObject.SetActive(true);
-                productIcons[i].sprite = staticData.availableProducts[i].icon;
-            }
-        }
-        else
-        {
-            for (int i = 0; i < staticData.availableProducts.Count; i++)
-            {
-                productIcons[i].gameObject.SetActive(true);
-                productIcons[i].sprite = productData.question;
-            }
-        }
-
 
         //car status check
         if (staticData.carsUnlockStatus[carID] && staticData.carsBuyStatus[carID])
@@ -126,6 +85,55 @@ public class CarInfo : MonoBehaviour
         {
             trailerBackground.color = new Color(1, 0, 0, 0.2352941f);
             mainMenuSceneData.trailers[carID].SetActive(false);
+        }
+    }
+
+    List<Product> GetAvailableProducts(int carID)
+    {
+        List<Product> products = new List<Product>();
+        switch (carID)
+        {
+            case 0:
+                products.Add(new Product(ProductType.Wheat, 0, productData.wheat, 0));
+                products.Add(new Product(ProductType.Bread, 0, productData.bread, 0));
+                if (staticData.trailerIsSelected && staticData.trailersBuyStatus[carID])
+                {
+                    products.Add(new Product(ProductType.Milk, 0, productData.milk, 0));
+                }
+                break;
+            case 1:
+                products.Add(new Product(ProductType.Wheat, 0, productData.wheat, 0));
+                products.Add(new Product(ProductType.Bread, 0, productData.bread, 0));
+                if (staticData.trailerIsSelected && staticData.trailersBuyStatus[carID])
+                {
+                    products.Add(new Product(ProductType.Milk, 0, productData.milk, 0));
+                }
+                break;
+        }
+        return products;
+    }
+
+    void UpdateIcons(int carID)
+    {
+        foreach (var icon in productIcons)
+        {
+            icon.gameObject.SetActive(false);
+        }
+        if (staticData.carsUnlockStatus[carID])
+        {
+            for (int i = 0; i < staticData.availableProducts.Count; i++)
+            {
+                productIcons[i].gameObject.SetActive(true);
+                productIcons[i].sprite = staticData.availableProducts[i].icon;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < staticData.availableProducts.Count; i++)
+            {
+                productIcons[i].gameObject.SetActive(true);
+                productIcons[i].sprite = productData.question;
+            }
         }
     }
 }

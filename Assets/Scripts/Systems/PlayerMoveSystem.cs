@@ -133,15 +133,6 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
                         player.carData.drivingWheelColliders[i].brakeTorque = player.playerRB.velocity.magnitude * player.maxTorque;
                     }
                 }
-                float midRpm = 0;
-                foreach (var wheel in player.carData.allWheelColliders)
-                {
-                    midRpm += wheel.rpm;
-                }
-                midRpm = midRpm / player.carData.allWheelColliders.Count;
-
-                sceneData.engineSound.pitch = 0.5f + midRpm / player.maxTorque;
-                Debug.Log(midRpm);
             }
         }
     }
