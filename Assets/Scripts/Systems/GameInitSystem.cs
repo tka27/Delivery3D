@@ -17,14 +17,13 @@ public class GameInitSystem : IEcsInitSystem
     {
 
 
-        sceneData.researchList.Add(new Product(ProductType.Wheat, productData.wheat, -0.1f));
 
 
-
-        LoadGameProgress(); ////////////test
+        LoadForTests();
         staticData.currentMoney = staticData.moneyForGame;
-        uiData.moneyText.text = staticData.currentMoney.ToString("0");
 
+        PlayerInit();
+        LabInit();
 
 
         var pathEntity = _world.NewEntity();
@@ -32,69 +31,6 @@ public class GameInitSystem : IEcsInitSystem
         pathComp.wayPoints = new List<GameObject>();
         pathComp.lineRenderer = sceneData.lineRenderer;
         pathComp.waypointsPool = sceneData.waypointsPool;
-
-
-        #region Player
-
-        var playerEntity = _world.NewEntity();
-        ref var playerComp = ref playerEntity.Get<PlayerComp>();
-        playerEntity.Get<MovableComp>();
-        sceneData.cars[staticData.selectedCarID].SetActive(true);
-        playerComp.playerGO = sceneData.cars[staticData.selectedCarID];
-        playerComp.carData = playerComp.playerGO.GetComponent<CarData>();
-        playerComp.playerRB = playerComp.playerGO.GetComponent<Rigidbody>();
-        playerComp.playerRB.mass = playerComp.carData.defaultMass;
-        playerComp.playerRB.centerOfMass = playerComp.carData.centerOfMass.transform.localPosition;
-        playerComp.maxSteerAngle = playerComp.carData.maxSteerAngle;
-        playerComp.maxFuel = playerComp.carData.maxFuel + playerComp.carData.maxFuel / 100 * 5 * staticData.carPerks[staticData.selectedCarID][0];
-        playerComp.maxTorque = playerComp.carData.maxTorque + playerComp.carData.maxTorque / 100 * 5 * staticData.carPerks[staticData.selectedCarID][1];
-        playerComp.acceleration = playerComp.carData.acceleration + playerComp.carData.acceleration / 100 * 5 * staticData.carPerks[staticData.selectedCarID][2];
-        playerComp.maxDurability = playerComp.carData.maxDurability + playerComp.carData.maxDurability / 100 * 5 * staticData.carPerks[staticData.selectedCarID][3];
-        playerComp.currentDurability = playerComp.maxDurability;
-        uiData.durabilityText.text = playerComp.currentDurability.ToString();
-        playerComp.currentFuel = playerComp.maxFuel;
-        uiData.fuelText.text = playerComp.currentFuel.ToString();
-        ref var playerInventory = ref playerEntity.Get<Inventory>();
-        playerInventory.inventory = new List<Product>();
-        if (!staticData.trailerIsSelected)
-        {
-            playerInventory.maxMass = playerComp.carData.carStorage + playerComp.carData.carStorage / 100 * 5 * staticData.carPerks[staticData.selectedCarID][4];
-        }
-        else
-        {
-            playerInventory.maxMass = playerComp.carData.carStorage + playerComp.carData.trailerStorage + playerComp.carData.carStorage / 100 * 5 * staticData.carPerks[staticData.selectedCarID][4];
-        }
-
-        playerEntity.Get<UpdateCargoRequest>();
-
-        foreach (var wheel in playerComp.carData.allWheelMeshes)
-        {
-            playerComp.carData.wheelDatas.Add(wheel.GetComponent<WheelData>());
-        }
-
-        for (int i = 0; i < playerComp.carData.playerCargo.Count; i++)
-        {
-            playerComp.carData.playerCargoRB.Add(playerComp.carData.playerCargo[i].gameObject.GetComponent<Rigidbody>());
-            playerComp.carData.playerCargoDefaultPos.Add(playerComp.carData.playerCargo[i].transform.localPosition);
-            playerComp.carData.playerCargoDefaultRot.Add(playerComp.carData.playerCargo[i].transform.localRotation);
-        }
-        if (staticData.trailerIsSelected)
-        {
-            playerComp.carData.trailer.SetActive(true);
-        }
-        else
-        {
-            playerComp.carData.trailer.SetActive(false);
-        }
-
-        playerComp.carData.engineSound.Play();
-
-        #endregion
-
-
-        var virtualCam = sceneData.driveCam.GetComponent<CinemachineVirtualCamera>();
-        virtualCam.Follow = playerComp.playerGO.transform;
-        virtualCam.LookAt = playerComp.carData.cameraLookPoint;
 
 
 
@@ -347,7 +283,7 @@ public class GameInitSystem : IEcsInitSystem
 
 
         var shopEntity = _world.NewEntity();
-        shopEntity.Get<Quest>().maxQuestTime = 3;
+        shopEntity.Get<Quest>().maxQuestTime = 120;
         ref var shopBuyer = ref shopEntity.Get<ProductBuyer>();
         shopBuyer.buyingProductTypes = new List<ProductType>();
         shopBuyer.buyerGO = sceneData.shopTradePoint;
@@ -362,8 +298,77 @@ public class GameInitSystem : IEcsInitSystem
 
 
 
+
+
+    }
+
+    void PlayerInit()
+    {
+        var playerEntity = _world.NewEntity();
+        ref var playerComp = ref playerEntity.Get<PlayerComp>();
+        playerEntity.Get<MovableComp>();
+        sceneData.cars[staticData.selectedCarID].SetActive(true);
+        playerComp.playerGO = sceneData.cars[staticData.selectedCarID];
+        playerComp.carData = playerComp.playerGO.GetComponent<CarData>();
+        playerComp.playerRB = playerComp.playerGO.GetComponent<Rigidbody>();
+        playerComp.playerRB.mass = playerComp.carData.defaultMass;
+        playerComp.playerRB.centerOfMass = playerComp.carData.centerOfMass.transform.localPosition;
+        playerComp.maxSteerAngle = playerComp.carData.maxSteerAngle;
+        playerComp.maxFuel = playerComp.carData.maxFuel + playerComp.carData.maxFuel / 100 * 5 * staticData.carPerks[staticData.selectedCarID][0];
+        playerComp.maxTorque = playerComp.carData.maxTorque + playerComp.carData.maxTorque / 100 * 5 * staticData.carPerks[staticData.selectedCarID][1];
+        playerComp.acceleration = playerComp.carData.acceleration + playerComp.carData.acceleration / 100 * 5 * staticData.carPerks[staticData.selectedCarID][2];
+        playerComp.maxDurability = playerComp.carData.maxDurability + playerComp.carData.maxDurability / 100 * 5 * staticData.carPerks[staticData.selectedCarID][3];
+        playerComp.currentDurability = playerComp.maxDurability;
+        uiData.durabilityText.text = playerComp.currentDurability.ToString();
+        playerComp.currentFuel = playerComp.maxFuel;
+        uiData.fuelText.text = playerComp.currentFuel.ToString();
+        ref var playerInventory = ref playerEntity.Get<Inventory>();
+        playerInventory.inventory = new List<Product>();
+        if (!staticData.trailerIsSelected)
+        {
+            playerInventory.maxMass = playerComp.carData.carStorage + playerComp.carData.carStorage / 100 * 5 * staticData.carPerks[staticData.selectedCarID][4];
+        }
+        else
+        {
+            playerInventory.maxMass = playerComp.carData.carStorage + playerComp.carData.trailerStorage + playerComp.carData.carStorage / 100 * 5 * staticData.carPerks[staticData.selectedCarID][4];
+        }
+
+        playerEntity.Get<UpdateCargoRequest>();
+
+        foreach (var wheel in playerComp.carData.allWheelMeshes)
+        {
+            playerComp.carData.wheelDatas.Add(wheel.GetComponent<WheelData>());
+        }
+
+        for (int i = 0; i < playerComp.carData.playerCargo.Count; i++)
+        {
+            playerComp.carData.playerCargoRB.Add(playerComp.carData.playerCargo[i].gameObject.GetComponent<Rigidbody>());
+            playerComp.carData.playerCargoDefaultPos.Add(playerComp.carData.playerCargo[i].transform.localPosition);
+            playerComp.carData.playerCargoDefaultRot.Add(playerComp.carData.playerCargo[i].transform.localRotation);
+        }
+        if (staticData.trailerIsSelected)
+        {
+            playerComp.carData.trailer.SetActive(true);
+        }
+        else
+        {
+            playerComp.carData.trailer.SetActive(false);
+        }
+
+        playerComp.carData.engineSound.Play();
+
+        var virtualCam = sceneData.driveCam.GetComponent<CinemachineVirtualCamera>();
+        virtualCam.Follow = playerComp.playerGO.transform;
+        virtualCam.LookAt = playerComp.carData.cameraLookPoint;
+    }
+
+
+    void LabInit()
+    {
         if (staticData.researchLvl < sceneData.researchList.Count)
         {
+            UpdateResearchList();
+
             sceneData.labTradePoint.SetActive(true);
             var labEntity = _world.NewEntity();
             ref var labComp = ref labEntity.Get<ResearchLab>();
@@ -388,7 +393,27 @@ public class GameInitSystem : IEcsInitSystem
         {
             sceneData.labTradePoint.SetActive(false);
         }
+    }
 
+    void UpdateResearchList()
+    {
+        sceneData.researchList.Add(new Product(ProductType.Wheat, productData.wheat, -0.1f));
+    }
+
+
+
+
+
+
+    void LoadForTests()
+    {
+        staticData.UpdateAvailableProducts();
+        staticData.carPerks = new int[sceneData.cars.Count][];
+        for (int i = 0; i < sceneData.cars.Count; i++)
+        {
+            staticData.carPerks[i] = new int[5];
+        }
+        LoadGameProgress();
     }
     void LoadGameProgress() //copy SaveData to staticData
     {

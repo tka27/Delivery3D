@@ -5,6 +5,8 @@ using UnityEngine;
 public class CarData : MonoBehaviour
 {
     public float price;
+    public List<ProductType> carProductTypes;
+    public List<ProductType> trailerProductTypes;
     public List<Transform> allWheelMeshes;
     public List<WheelCollider> allWheelColliders;
     public List<WheelCollider> steeringWheelColliders;
@@ -20,8 +22,6 @@ public class CarData : MonoBehaviour
     public List<Rigidbody> playerCargoRB;
     public List<Vector3> playerCargoDefaultPos;
     public List<Quaternion> playerCargoDefaultRot;
-    public GameObject inventoryCanvas;
-    public GameObject clearInventoryBtn;
     public AudioSource engineSound;
     public float enginePitchDefault;
 

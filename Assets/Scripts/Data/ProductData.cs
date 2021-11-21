@@ -1,7 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
-using System.Collections.Generic;
 
 [CreateAssetMenu]
 public class ProductData : ScriptableObject
@@ -16,4 +13,36 @@ public class ProductData : ScriptableObject
     public Sprite pizza;
     public Sprite cheese;
     public Sprite eggs;
+
+    public Sprite FindProductIcon(ProductType type)
+    {
+        switch (type)
+        {
+            case ProductType.Wheat:
+                return wheat;
+
+            case ProductType.Bread:
+                return bread;
+
+            case ProductType.Cheese:
+                return cheese;
+
+            case ProductType.Eggs:
+                return eggs;
+
+            case ProductType.Meat:
+                return meat;
+
+            case ProductType.Milk:
+                return milk;
+
+            case ProductType.Pizza:
+                return pizza;
+
+
+            default: 
+            Debug.LogError("Sprite not found");
+            return null;
+        }
+    }
 }

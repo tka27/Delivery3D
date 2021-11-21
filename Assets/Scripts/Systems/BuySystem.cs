@@ -23,9 +23,9 @@ sealed class BuySystem : IEcsRunSystem
                 ref var sellerInventory = ref sellerFilter.Get2(fSeller);
 
                 bool isProductAvailable = false;
-                foreach (var playerProd in staticData.availableProducts)
+                foreach (var playerProdType in staticData.availableProductTypes)
                 {
-                    if (playerProd.type == seller.product.type)
+                    if (playerProdType == seller.product.type)
                     {
                         isProductAvailable = true;
                     }

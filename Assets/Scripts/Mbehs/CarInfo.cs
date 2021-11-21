@@ -25,7 +25,7 @@ public class CarInfo : MonoBehaviour
         int carID = staticData.selectedCarID;
         mainMenuSceneData.cars[carID].gameObject.SetActive(true);
 
-        staticData.availableProducts = GetAvailableProducts(carID);
+        staticData.UpdateAvailableProducts();
         UpdateIcons(carID);
 
         if (!staticData.trailerIsSelected)
@@ -88,30 +88,6 @@ public class CarInfo : MonoBehaviour
         }
     }
 
-    List<Product> GetAvailableProducts(int carID)
-    {
-        List<Product> products = new List<Product>();
-        switch (carID)
-        {
-            case 0:
-                products.Add(new Product(ProductType.Wheat, 0, productData.wheat, 0));
-                products.Add(new Product(ProductType.Bread, 0, productData.bread, 0));
-                if (staticData.trailerIsSelected && staticData.trailersBuyStatus[carID])
-                {
-                    products.Add(new Product(ProductType.Milk, 0, productData.milk, 0));
-                }
-                break;
-            case 1:
-                products.Add(new Product(ProductType.Wheat, 0, productData.wheat, 0));
-                products.Add(new Product(ProductType.Bread, 0, productData.bread, 0));
-                if (staticData.trailerIsSelected && staticData.trailersBuyStatus[carID])
-                {
-                    products.Add(new Product(ProductType.Milk, 0, productData.milk, 0));
-                }
-                break;
-        }
-        return products;
-    }
 
     void UpdateIcons(int carID)
     {
@@ -121,15 +97,15 @@ public class CarInfo : MonoBehaviour
         }
         if (staticData.carsUnlockStatus[carID])
         {
-            for (int i = 0; i < staticData.availableProducts.Count; i++)
+            for (int i = 0; i < staticData.availableProductTypes.Count; i++)
             {
                 productIcons[i].gameObject.SetActive(true);
-                productIcons[i].sprite = staticData.availableProducts[i].icon;
+                productIcons[i].sprite = productData.FindProductIcon(staticData.availableProductTypes[i]);
             }
         }
         else
         {
-            for (int i = 0; i < staticData.availableProducts.Count; i++)
+            for (int i = 0; i < staticData.availableProductTypes.Count; i++)
             {
                 productIcons[i].gameObject.SetActive(true);
                 productIcons[i].sprite = productData.question;

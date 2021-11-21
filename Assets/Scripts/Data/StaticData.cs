@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class StaticData : ScriptableObject
 {
     public List<GameObject> carsPrefabs;
-    public List<Product> availableProducts;
+    public List<ProductType> availableProductTypes;
     public float totalMoney;
     public float currentMoney;
     public float moneyForGame = 50;
@@ -39,10 +39,19 @@ public class StaticData : ScriptableObject
         {
             this.carsUnlockStatus[i] = data.carsUnlockStatus[i];
         }
-        
+
         for (int i = 0; i < this.carPerks.Length; i++)
         {
             this.carPerks[i] = data.carPerks[i];
+        }
+    }
+    public void UpdateAvailableProducts()
+    {
+        availableProductTypes.Clear();
+        availableProductTypes.AddRange(allCars[selectedCarID].carProductTypes);
+        if (trailerIsSelected)
+        {
+            availableProductTypes.AddRange(allCars[selectedCarID].trailerProductTypes);
         }
     }
 }

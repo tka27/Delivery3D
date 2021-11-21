@@ -20,6 +20,9 @@ public class UIData : MonoBehaviour
     public Text durabilityText;
     public Text moneyText;
     public Text cargoText;
+    public GameObject inventoryCanvas;
+    public List<Text> inventoryText;
+    public List<Image> inventoryIcons;
     public List<GameObject> playerInfoPanel;
     public List<GameObject> buttons;//for ui ignore
     public static bool IsMouseOverButton(List<GameObject> buttons)

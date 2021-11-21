@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: StaticData
   m_EditorClassIdentifier: 
   carsPrefabs: []
-  totalMoney: 38140
+  availableProductTypes: 0000000001000000
+  totalMoney: 37640
   currentMoney: 5000
   moneyForGame: 5000
-  selectedCarID: 2
-  trailerIsSelected: 1
+  selectedCarID: 0
+  trailerIsSelected: 0
   allCars:
   - {fileID: 4430766651677897550, guid: 4f4c804afdfe12d43ac411ad1b2ce925, type: 3}
   - {fileID: 8527134890977156259, guid: 6a671c85f37436e46ac4189a001dde59, type: 3}
@@ -26,4 +27,4 @@ MonoBehaviour:
   researchLvl: 1
   carsUnlockStatus: 01010000
   carsBuyStatus: 01010000
-  trailersBuyStatus: 00010000
+  trailersBuyStatus: 01010000

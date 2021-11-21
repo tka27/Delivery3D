@@ -108,3 +108,6 @@ public struct ResearchLab
     public float progress;
     public float requirement;
 }
+public struct WorldCoinsReplaceRequest
+{
+}

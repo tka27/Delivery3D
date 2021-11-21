@@ -31,7 +31,6 @@ public class MainMenu : MonoBehaviour
 
 
         staticData.carPerks = new int[carsCount][];
-
         for (int i = 0; i < carsCount; i++)
         {
             staticData.carPerks[i] = new int[5];
