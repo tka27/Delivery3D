@@ -14,6 +14,11 @@ public class SceneData : MonoBehaviour
     public LineRenderer lineRenderer;
     public List<GameObject> waypointsPool;
     public List<Transform> finalPoints;
+
+    public List<Transform> allCoinsPositions;
+    public List<Transform> emptyCoinsPositions;
+    public List<GameObject> coinsPool;
+
     [HideInInspector] public List<GameObject> tradePointCanvases;
     public GameObject wheatFarmTradePoint;
     public GameObject bakeryTradePoint;

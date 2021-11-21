@@ -4,10 +4,9 @@ using UnityEngine;
 
 sealed class DestroyRoadSystem : IEcsRunSystem
 {
-    EcsFilter<PathComp> monoRequestFilter;
-    EcsFilter<PathComp, DestroyRoadRequest> pathFilter;
+    EcsFilter<PathComp> pathFilter;
+    EcsFilter<PathComp, DestroyRoadRequest> pathRequestFilter;
     EcsFilter<PlayerComp> playerFilter;
-    SceneData sceneData;
     UIData uiData;
 
     void IEcsRunSystem.Run()
@@ -18,9 +17,9 @@ sealed class DestroyRoadSystem : IEcsRunSystem
             playerPos = playerFilter.Get1(playerF).playerGO.transform.position;
             playerPos.y -= 1;
         }
-        foreach (var fPath in pathFilter)
+        foreach (var fPath in pathRequestFilter)
         {
-            ref var path = ref pathFilter.Get1(fPath);
+            ref var path = ref pathRequestFilter.Get1(fPath);
             path.currentWaypointIndex = 0;
             path.currentPoolIndex = 0;
 
@@ -34,16 +33,12 @@ sealed class DestroyRoadSystem : IEcsRunSystem
             path.lineRenderer.SetPosition(0, playerPos);
             uiData.isPathComplete = false;
             uiData.isPathConfirmed = false;
-            pathFilter.GetEntity(fPath).Del<DestroyRoadRequest>();
+            pathRequestFilter.GetEntity(fPath).Del<DestroyRoadRequest>();
         }
-        if (!uiData.clearPathRequest)
-        {
-            return;
-        }
+        if (!uiData.clearPathRequest) return;
+
         uiData.clearPathRequest = false;
-        foreach (var fPath in monoRequestFilter)
-        {
-            monoRequestFilter.GetEntity(fPath).Get<DestroyRoadRequest>();
-        }
+        pathFilter.GetEntity(0).Get<DestroyRoadRequest>();
+
     }
 }

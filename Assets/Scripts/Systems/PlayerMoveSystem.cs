@@ -7,6 +7,7 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
     SceneData sceneData;
     EcsFilter<PlayerComp, MovableComp> playerFilter;
     EcsFilter<PathComp> pathFilter;
+    EcsFilter<WorldCoinsComp>.Exclude<WorldCoinsReplaceRequest> coinsFilter;
     UIData uiData;
     EcsWorld _world;
     Camera camera;
@@ -112,11 +113,11 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
                         {
                             path.currentWaypointIndex++;
                         }
-                        else
+                        else // reach final point
                         {
                             pathFilter.GetEntity(pathF).Get<DestroyRoadRequest>();
-                            float cameraHeight = buildCameraPos.position.y;
-                            Vector3 pos = new Vector3(player.playerGO.transform.position.x, cameraHeight, player.playerGO.transform.position.z);
+                            coinsFilter.GetEntity(0).Get<WorldCoinsReplaceRequest>();
+                            Vector3 pos = new Vector3(player.playerGO.transform.position.x, 20, player.playerGO.transform.position.z);
                             buildCameraPos.position = pos;
                             sceneData.gameMode = GameMode.View;
                             uiData.gameModeText.text = sceneData.gameMode.ToString();

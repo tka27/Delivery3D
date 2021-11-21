@@ -111,3 +111,6 @@ public struct ResearchLab
 public struct WorldCoinsReplaceRequest
 {
 }
+public struct WorldCoinsComp
+{
+}
