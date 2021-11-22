@@ -10,6 +10,7 @@ sealed class BuySystem : IEcsRunSystem
     UIData uiData;
     StaticData staticData;
     SceneData sceneData;
+    SoundData soundData;
     FlowingText flowingText;
 
     void IEcsRunSystem.Run()
@@ -92,6 +93,7 @@ sealed class BuySystem : IEcsRunSystem
                     float dealCost = dealMass * seller.product.currentPrice;
                     staticData.currentMoney -= dealCost;
                     flowingText.DisplayText((-dealCost).ToString("0.0"));
+                    soundData.PlayCoin();
 
 
                     foreach (var go in player.carData.playerCargo)

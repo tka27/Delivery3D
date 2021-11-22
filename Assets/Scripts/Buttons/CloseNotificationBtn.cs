@@ -5,10 +5,13 @@ using UnityEngine.UI;
 
 public class CloseNotificationBtn : MonoBehaviour
 {
-    [SerializeField] GameObject notificationFrame;
+    [SerializeField] GameObject notificationCanvas;
+    [SerializeField] GameObject prevCanvas;
+
 
     public void CloseNotification()
     {
-        notificationFrame.SetActive(false);
+        notificationCanvas.SetActive(false);
+        prevCanvas?.SetActive(true);
     }
 }

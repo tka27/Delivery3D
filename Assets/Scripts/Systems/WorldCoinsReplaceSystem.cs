@@ -21,7 +21,8 @@ sealed class WorldCoinsReplaceSystem : IEcsRunSystem, IEcsInitSystem
         {
             coinsFilter.GetEntity(entity).Del<WorldCoinsReplaceRequest>();
             int coinsCount = sceneData.coinsPool.Count;
-            sceneData.emptyCoinsPositions = sceneData.allCoinsPositions;
+            sceneData.emptyCoinsPositions.Clear();
+            sceneData.emptyCoinsPositions.AddRange(sceneData.allCoinsPositions);
             foreach (var coin in sceneData.coinsPool)
             {
                 coin.SetActive(true);

@@ -12,8 +12,8 @@ public class CarSwitcher : MonoBehaviour
     [SerializeField] StaticData staticData;
     [SerializeField] MainMenuSceneData mainMenuSceneData;
     [SerializeField] UnityEvent carInfoUpdateEvent;
-    [SerializeField] GameObject upgradeCanvas;
-    bool tryToSwitch;
+    [SerializeField] GameObject carInfoCanvas;
+    bool ableToSwitch;
 
     void Start()
     {
@@ -21,24 +21,27 @@ public class CarSwitcher : MonoBehaviour
     }
     void Update()
     {
-        if (upgradeCanvas.activeSelf) return;
+        if (!carInfoCanvas.activeInHierarchy)
+        {
+            ableToSwitch = false;
+            return;
+        }
 
         float xDifference = 0;
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButtonDown(0))
         {
             startPos = camera.ScreenToViewportPoint(Input.mousePosition);
-            tryToSwitch = true;
+            ableToSwitch = true;
         }
-        else if (Input.GetMouseButtonUp(0) && tryToSwitch)
+        else if (Input.GetMouseButtonUp(0) && ableToSwitch)
         {
             tgtPos = camera.ScreenToViewportPoint(Input.mousePosition);
             xDifference = startPos.x - tgtPos.x;
         }
 
 
-        if (xDifference > 0.2 && tryToSwitch)
+        if (xDifference > 0.2 )
         {
-            tryToSwitch = false;
             mainMenuSceneData.cars[staticData.selectedCarID].gameObject.SetActive(false);
             staticData.selectedCarID++;
             if (staticData.selectedCarID > mainMenuSceneData.cars.Count - 1)
@@ -47,9 +50,8 @@ public class CarSwitcher : MonoBehaviour
             }
             carInfoUpdateEvent.Invoke();
         }
-        else if (xDifference < -0.2 && tryToSwitch)
+        else if (xDifference < -0.2 )
         {
-            tryToSwitch = false;
             mainMenuSceneData.cars[staticData.selectedCarID].gameObject.SetActive(false);
             staticData.selectedCarID--;
             if (staticData.selectedCarID < 0)

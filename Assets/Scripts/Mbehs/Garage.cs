@@ -7,7 +7,8 @@ public class Garage : MonoBehaviour
     string playerTag = "Player";
     bool isLeaveFromGarage;
     [SerializeField] StaticData staticData;
-    [SerializeField] GameObject toGarageCanvas;
+    [SerializeField] GameObject garageCanvas;
+    [SerializeField] GameObject prevCanvas;
     void OnTriggerEnter(Collider collider)
     {
         if (collider.tag == playerTag && isLeaveFromGarage)
@@ -25,7 +26,8 @@ public class Garage : MonoBehaviour
     }
     public void ActivateGarageCanvas()
     {
-        toGarageCanvas.SetActive(true);
+        garageCanvas.SetActive(true);
+        prevCanvas.SetActive(false);
     }
 
     public void ToGarageConfirm()

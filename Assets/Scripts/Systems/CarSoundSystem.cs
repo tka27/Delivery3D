@@ -7,9 +7,12 @@ sealed class CarSoundSystem : IEcsRunSystem
 
     EcsFilter<PlayerComp> filter;
     SceneData sceneData;
+    GameSettings settings;
 
     void IEcsRunSystem.Run()
     {
+        if (!settings.sound) return;
+        
         var player = filter.Get1(0);
         if (player.playerRB.velocity.magnitude < 10)
         {

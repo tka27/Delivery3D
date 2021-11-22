@@ -10,6 +10,7 @@ sealed class DamageSystem : IEcsRunSystem
     EcsFilter<PlayerComp, MovableComp> playerFilter;
     SceneData sceneData;
     UIData uiData;
+    GameSettings settings;
     ParticleSystem.EmissionModule emissionModule;
     ParticleSystem.MainModule mainModule;
 
@@ -29,7 +30,8 @@ sealed class DamageSystem : IEcsRunSystem
                     wheelData.particles.Play();
 
 
-                    //Handheld.Vibrate();
+                    if (settings.vibration) Handheld.Vibrate();
+
                     player.currentDurability -= 0.01f * player.playerRB.velocity.magnitude * player.playerRB.mass / 1000;
                     uiData.durabilityText.text = player.currentDurability.ToString("#");
                 }

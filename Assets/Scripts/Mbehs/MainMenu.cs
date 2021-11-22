@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] StaticData staticData;
+    [SerializeField] GameSettings settings;
     [SerializeField] Text totalMoney;
     [SerializeField] GameObject demoCam;
     static GameObject staticNotificationPanel;
@@ -39,6 +40,7 @@ public class MainMenu : MonoBehaviour
 
 
         demoCam.SetActive(false);
+        settings.LoadPrefs();
         LoadGameProgress();
         carInfoUpdateEvent.Invoke();
         totalMoney.text = staticData.totalMoney.ToString("0.0");

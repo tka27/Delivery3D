@@ -11,6 +11,8 @@ public class GameInitSystem : IEcsInitSystem
     EcsWorld _world;
     SceneData sceneData;
     StaticData staticData;
+    SoundData soundData;
+    GameSettings settings;
     UIData uiData;
     ProductData productData;
     public void Init()
@@ -355,7 +357,8 @@ public class GameInitSystem : IEcsInitSystem
             playerComp.carData.trailer.SetActive(false);
         }
 
-        playerComp.carData.engineSound.Play();
+        soundData.loopSounds.Add(playerComp.carData.engineSound);
+        soundData.SwitchLoopSounds(settings.sound);
 
         var virtualCam = sceneData.driveCam.GetComponent<CinemachineVirtualCamera>();
         virtualCam.Follow = playerComp.playerGO.transform;

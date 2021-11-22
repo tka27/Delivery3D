@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CarInfo : MonoBehaviour
 {
-    [SerializeField] List<SpriteRenderer> productIcons;
+    [SerializeField] List<Image> productIcons;
     [SerializeField] StaticData staticData;
     [SerializeField] ProductData productData;
     [SerializeField] MainMenuSceneData mainMenuSceneData;

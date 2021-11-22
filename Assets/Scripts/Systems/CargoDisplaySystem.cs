@@ -10,6 +10,7 @@ sealed class CargoDisplaySystem : IEcsRunSystem
     UIData uiData;
     void IEcsRunSystem.Run()
     {
+
         if (sceneData.buildCam.transform.position.y <= 10 && sceneData.gameMode == GameMode.View && !uiData.inventoryCanvas.activeSelf)
         {
             var player = playerStorageFilter.Get2(0);
@@ -20,8 +21,6 @@ sealed class CargoDisplaySystem : IEcsRunSystem
         {
             uiData.inventoryCanvas.SetActive(false);
         }
-
-
 
     }
 }

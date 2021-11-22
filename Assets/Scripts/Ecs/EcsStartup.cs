@@ -10,6 +10,8 @@ sealed class EcsStartup : MonoBehaviour
     public StaticData staticData;
     public SceneData sceneData;
     public ProductData productData;
+    public SoundData soundData;
+    public GameSettings gameSettings;
     public FlowingText flowingText;
     public UIData uiData;
 
@@ -57,7 +59,9 @@ sealed class EcsStartup : MonoBehaviour
             .Inject(sceneData)
             .Inject(uiData)
             .Inject(productData)
+            .Inject(soundData)
             .Inject(flowingText)
+            .Inject(gameSettings)
             .Init();
         _fixedSystems
         .Add(new PlayerMoveSystem())
@@ -76,6 +80,7 @@ sealed class EcsStartup : MonoBehaviour
         .Inject(sceneData)
         .Inject(uiData)
         .Inject(productData)
+        .Inject(gameSettings)
         .Init();
     }
 
