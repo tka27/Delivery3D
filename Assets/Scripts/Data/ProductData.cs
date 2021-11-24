@@ -5,6 +5,7 @@ public class ProductData : ScriptableObject
 {
     public Sprite question;
     public Sprite wheat;
+    public Sprite water;
     public Sprite bread;
     public Sprite fuel;
     public Sprite autoParts;
@@ -39,10 +40,12 @@ public class ProductData : ScriptableObject
             case ProductType.Pizza:
                 return pizza;
 
+            case ProductType.Water:
+                return water;
 
-            default: 
-            Debug.LogError("Sprite not found");
-            return null;
+            default:
+                Debug.LogError("Sprite not found");
+                return null;
         }
     }
 }

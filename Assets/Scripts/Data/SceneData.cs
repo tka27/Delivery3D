@@ -15,12 +15,18 @@ public class SceneData : MonoBehaviour
     public List<GameObject> waypointsPool;
     public List<Transform> finalPoints;
 
+    public List<Transform> animalSpawnPoints;
+    public List<GameObject> animalsPool;
+    public List<GameObject> roadObstaclesPool;
+    public int roadObstaclesCurrentIndex;
+
     public List<Transform> allCoinsPositions;
     public List<Transform> emptyCoinsPositions;
     public List<GameObject> coinsPool;
 
     [HideInInspector] public List<GameObject> tradePointCanvases;
     public GameObject wheatFarmTradePoint;
+    public GameObject waterStationTradePoint;
     public GameObject bakeryTradePoint;
     public GameObject chickenTradePoint;
     public GameObject meatFactoryTradePoint;

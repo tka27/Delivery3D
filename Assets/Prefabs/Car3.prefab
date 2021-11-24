@@ -11226,6 +11226,7 @@ GameObject:
   - component: {fileID: 2701155851594372846}
   - component: {fileID: 54362875432017996}
   - component: {fileID: 4240993061888823204}
+  - component: {fileID: 1963201622091887237}
   m_Layer: 7
   m_Name: Car3
   m_TagString: Player
@@ -11308,6 +11309,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 5000
+  carProductTypes: 
+  trailerProductTypes: 
   allWheelMeshes:
   - {fileID: 3007568089161785975}
   - {fileID: 3007568089573049266}
@@ -11435,6 +11438,22 @@ CapsuleCollider:
   m_Height: 1.76
   m_Direction: 0
   m_Center: {x: 0, y: 0.73, z: 1.27}
+--- !u!208 &1963201622091887237
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2701155851594372843}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.5, y: 1, z: 3}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &3007568089161785974
 GameObject:
   m_ObjectHideFlags: 0

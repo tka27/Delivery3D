@@ -25,10 +25,10 @@ sealed class WorldCoinsReplaceSystem : IEcsRunSystem, IEcsInitSystem
             sceneData.emptyCoinsPositions.AddRange(sceneData.allCoinsPositions);
             foreach (var coin in sceneData.coinsPool)
             {
-                coin.SetActive(true);
                 int random = Random.Range(0, sceneData.emptyCoinsPositions.Count);
                 coin.transform.position = sceneData.emptyCoinsPositions[random].position;
                 sceneData.emptyCoinsPositions.RemoveAt(random);
+                coin.SetActive(true);
             }
         }
     }

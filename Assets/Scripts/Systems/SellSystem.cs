@@ -11,6 +11,7 @@ sealed class SellSystem : IEcsRunSystem
     UIData uiData;
     StaticData staticData;
     SceneData sceneData;
+    SoundData soundData;
     FlowingText flowingText;
 
     void IEcsRunSystem.Run()
@@ -96,6 +97,7 @@ sealed class SellSystem : IEcsRunSystem
                     buyerFilter.GetEntity(fBuyer).Get<BuyDataUpdateRequest>();
                     playerFilter.GetEntity(0).Get<UpdateCargoRequest>();
                     playerInventory.RemoveEmptySlots();
+                    soundData.PlayCoin();
                     foreach (var cargo in player.carData.playerCargo)
                     {
                         cargo.SetActive(false);

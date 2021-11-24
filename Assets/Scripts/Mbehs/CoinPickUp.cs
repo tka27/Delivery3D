@@ -8,12 +8,15 @@ public class CoinPickUp : MonoBehaviour
     [SerializeField] StaticData staticData;
     [SerializeField] UIData uiData;
     [SerializeField] SoundData soundData;
+    [SerializeField] ParticleSystem particles;
     string playerTag = "Player";
     void OnTriggerEnter(Collider collider)
     {
         if (collider.tag == playerTag)
         {
             soundData.PlayCoin();
+            particles.transform.position = transform.position;
+            particles.Play();
             gameObject.SetActive(false);
             staticData.currentMoney += 1 + staticData.researchLvl;
             flowingText.DisplayText("+" + (1 + staticData.researchLvl).ToString("0.0"));

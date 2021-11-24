@@ -5,7 +5,6 @@ using UnityEngine;
 public struct PathComp
 {
     public List<GameObject> wayPoints;
-    public List<Collider> wpColliders;
     public int currentWaypointIndex;
     public LineRenderer lineRenderer;
     public List<GameObject> waypointsPool;
@@ -113,4 +112,8 @@ public struct WorldCoinsReplaceRequest
 }
 public struct WorldCoinsComp
 {
+}
+public struct Animal
+{
+    public AnimalData animalData;
 }

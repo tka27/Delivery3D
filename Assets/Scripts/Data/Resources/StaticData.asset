@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carsPrefabs: []
   availableProductTypes: 
-  totalMoney: 39872
-  currentMoney: 4996
-  moneyForGame: 5000
+  totalMoney: 1296
+  currentMoney: 100
+  moneyForGame: 100
   selectedCarID: 2
-  trailerIsSelected: 1
+  trailerIsSelected: 0
   allCars:
   - {fileID: 4430766651677897550, guid: 4f4c804afdfe12d43ac411ad1b2ce925, type: 3}
   - {fileID: 8527134890977156259, guid: 6a671c85f37436e46ac4189a001dde59, type: 3}

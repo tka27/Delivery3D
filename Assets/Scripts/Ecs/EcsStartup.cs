@@ -47,6 +47,7 @@ sealed class EcsStartup : MonoBehaviour
             .Add(new QuestUpdateSystem())
             .Add(new CarSoundSystem())
             .Add(new WorldCoinsReplaceSystem())
+            .Add(new AnimalsSystem())
 
             // register one-frame components (order is important), for example:
             // .OneFrame<TestComponent1> ()

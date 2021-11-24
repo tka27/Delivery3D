@@ -18,13 +18,12 @@ public class GameInitSystem : IEcsInitSystem
     public void Init()
     {
 
-
-
-
         LoadForTests();
         staticData.currentMoney = staticData.moneyForGame;
+        staticData.UpdateAvailableProducts();
 
         PlayerInit();
+        AnimalsInit();
         LabInit();
 
 
@@ -45,15 +44,33 @@ public class GameInitSystem : IEcsInitSystem
         ref var wheatFarmSeller = ref wheatFarmEntity.Get<ProductSeller>();
         wheatFarmSeller.sellerGO = sceneData.wheatFarmTradePoint;
         wheatFarmSeller.tradePointData = wheatFarmSeller.sellerGO.GetComponent<TradePointData>();
-        wheatFarmSeller.produceSpeed = 0.5f * 10;
+        wheatFarmSeller.produceSpeed = 0.5f;
         wheatFarmSeller.product = new Product(ProductType.Wheat, productData.wheat, 0.5f);
         wheatFarmSeller.repriceMultiplier = 1.2f;
         ref var wheatFarmInventory = ref wheatFarmEntity.Get<Inventory>();
         wheatFarmInventory.inventory = new List<Product>();
-        wheatFarmInventory.maxMass = 200;
+        wheatFarmInventory.maxMass = 50;
         wheatFarmEntity.Get<SellDataUpdateRequest>();
         sceneData.finalPoints.Add(wheatFarmSeller.tradePointData.finalPoint);
         sceneData.tradePointCanvases.Add(wheatFarmSeller.tradePointData.canvas);
+
+        #endregion
+
+        #region Water
+
+        var waterStationEntity = _world.NewEntity();
+        ref var waterStationSeller = ref waterStationEntity.Get<ProductSeller>();
+        waterStationSeller.sellerGO = sceneData.waterStationTradePoint;
+        waterStationSeller.tradePointData = waterStationSeller.sellerGO.GetComponent<TradePointData>();
+        waterStationSeller.produceSpeed = 0.5f;
+        waterStationSeller.product = new Product(ProductType.Water, productData.water, 0.5f);
+        waterStationSeller.repriceMultiplier = 1.2f;
+        ref var waterStationInventory = ref waterStationEntity.Get<Inventory>();
+        waterStationInventory.inventory = new List<Product>();
+        waterStationInventory.maxMass = 50;
+        waterStationEntity.Get<SellDataUpdateRequest>();
+        sceneData.finalPoints.Add(waterStationSeller.tradePointData.finalPoint);
+        sceneData.tradePointCanvases.Add(waterStationSeller.tradePointData.canvas);
 
         #endregion
 
@@ -112,7 +129,7 @@ public class GameInitSystem : IEcsInitSystem
         ref var bakeryInventory = ref bakeryEntity.Get<Inventory>();
         bakeryInventory.inventory = new List<Product>();
         bakeryInventory.inventory.Add(new Product(ProductType.Wheat, productData.wheat, 0.75f));
-        bakeryInventory.maxMass = 20;
+        bakeryInventory.maxMass = 50;
 
         ref var bakerySeller = ref bakeryEntity.Get<ProductSeller>();
         bakerySeller.produceSpeed = 1;
@@ -141,7 +158,7 @@ public class GameInitSystem : IEcsInitSystem
         ref var chickenInventory = ref chickenEntity.Get<Inventory>();
         chickenInventory.inventory = new List<Product>();
         chickenInventory.inventory.Add(new Product(ProductType.Wheat, productData.wheat, 0.75f));
-        chickenInventory.maxMass = 20;
+        chickenInventory.maxMass = 50;
 
         ref var chickenSeller = ref chickenEntity.Get<ProductSeller>();
         chickenSeller.produceSpeed = 1;
@@ -171,7 +188,7 @@ public class GameInitSystem : IEcsInitSystem
         ref var meatInventory = ref meatEntity.Get<Inventory>();
         meatInventory.inventory = new List<Product>();
         meatInventory.inventory.Add(new Product(ProductType.Wheat, productData.wheat, 0.6f));
-        meatInventory.maxMass = 20;
+        meatInventory.maxMass = 50;
 
         ref var meatSeller = ref meatEntity.Get<ProductSeller>();
         meatSeller.product = new Product(ProductType.Meat, productData.meat, 1.33f);
@@ -199,7 +216,7 @@ public class GameInitSystem : IEcsInitSystem
         ref var milkInventory = ref milkEntity.Get<Inventory>();
         milkInventory.inventory = new List<Product>();
         milkInventory.inventory.Add(new Product(ProductType.Wheat, productData.milk, 0.6f));
-        milkInventory.maxMass = 20;
+        milkInventory.maxMass = 50;
 
         ref var milkSeller = ref milkEntity.Get<ProductSeller>();
         milkSeller.product = new Product(ProductType.Milk, productData.milk, 1.33f);
@@ -233,7 +250,7 @@ public class GameInitSystem : IEcsInitSystem
         pizzaInventory.inventory.Add(new Product(ProductType.Bread, productData.bread, 0.6f));
         pizzaInventory.inventory.Add(new Product(ProductType.Meat, productData.meat, 0.6f));
         pizzaInventory.inventory.Add(new Product(ProductType.Cheese, productData.cheese, 0.6f));
-        pizzaInventory.maxMass = 20;
+        pizzaInventory.maxMass = 50;
 
         ref var pizzaSeller = ref pizzaEntity.Get<ProductSeller>();
         pizzaSeller.product = new Product(ProductType.Pizza, productData.pizza, 1.33f);
@@ -262,7 +279,7 @@ public class GameInitSystem : IEcsInitSystem
         ref var cheeseInventory = ref cheeseEntity.Get<Inventory>();
         cheeseInventory.inventory = new List<Product>();
         cheeseInventory.inventory.Add(new Product(ProductType.Milk, productData.milk, 0.6f));
-        cheeseInventory.maxMass = 20;
+        cheeseInventory.maxMass = 50;
 
         ref var cheeseSeller = ref cheeseEntity.Get<ProductSeller>();
         cheeseSeller.product = new Product(ProductType.Cheese, productData.cheese, 1.33f);
@@ -404,13 +421,8 @@ public class GameInitSystem : IEcsInitSystem
     }
 
 
-
-
-
-
     void LoadForTests()
     {
-        staticData.UpdateAvailableProducts();
         staticData.carPerks = new int[sceneData.cars.Count][];
         for (int i = 0; i < sceneData.cars.Count; i++)
         {
@@ -418,12 +430,23 @@ public class GameInitSystem : IEcsInitSystem
         }
         LoadGameProgress();
     }
+
+
     void LoadGameProgress() //copy SaveData to staticData
     {
         SaveData data = SaveSystem.Load();
         if (data != null)
         {
             staticData.UpdateStaticData(data);
+        }
+    }
+
+
+    void AnimalsInit()
+    {
+        foreach (var animal in sceneData.animalsPool)
+        {
+            _world.NewEntity().Get<Animal>().animalData = animal.GetComponent<AnimalData>();
         }
     }
 }

@@ -12,6 +12,9 @@ public class CloseNotificationBtn : MonoBehaviour
     public void CloseNotification()
     {
         notificationCanvas.SetActive(false);
-        prevCanvas?.SetActive(true);
+        if (prevCanvas != null)
+        {
+            prevCanvas.SetActive(true);
+        }
     }
 }

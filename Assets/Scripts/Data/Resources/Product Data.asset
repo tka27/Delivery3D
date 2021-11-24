@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   question: {fileID: 21300000, guid: 3dd3bf529dac9c6479350d34bd6933c3, type: 3}
   wheat: {fileID: 21300000, guid: 853be5ee7eeff9a4b9d32b310a9cb2cf, type: 3}
+  water: {fileID: 21300000, guid: 32ffdc7bffe4e0d4a8781e509d2aa1e2, type: 3}
   bread: {fileID: 21300000, guid: 185d3fefb5650dc4988244edd55d4523, type: 3}
   fuel: {fileID: 21300000, guid: 6aa5149cef057b44083e5794e4c99cc9, type: 3}
   autoParts: {fileID: 21300000, guid: 46eb62f2c0f7b284da19a6b4f3c1474d, type: 3}
@@ -21,3 +22,4 @@ MonoBehaviour:
   milk: {fileID: 21300000, guid: d7c8fefd5a7969840b501496c994bfb9, type: 3}
   pizza: {fileID: 21300000, guid: 378466d530d7d4c41880440c12cc1975, type: 3}
   cheese: {fileID: 21300000, guid: 4cf1d89cebbeb7f468897741caecfd43, type: 3}
+  eggs: {fileID: 21300000, guid: c0362ded9b5d74e4a87d88b477d180c2, type: 3}

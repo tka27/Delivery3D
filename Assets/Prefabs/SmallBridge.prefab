@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8971924966709294029}
   - component: {fileID: 1338803169144720754}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Up1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 5884139141086551289}
   - component: {fileID: 9194442599579205939}
   - component: {fileID: 5421778301805572026}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SmallBridge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3283130349519649295}
   - component: {fileID: 3243478146461926589}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Up2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

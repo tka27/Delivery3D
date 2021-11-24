@@ -67,7 +67,7 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
                         path.lineRenderer.SetPosition(0, path.wayPoints[0].transform.position);
                         if (!uiData.isPathComplete)
                         {
-                            checkPath();
+                            CheckPathComplete();
                         }
                     }
                     else
@@ -100,19 +100,19 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
     }
     GameObject WPFromPool(Vector3 pos)
     {
-        foreach (var pathF in pathFilter)
+        ref var path = ref pathFilter.Get1(0);
+        if (path.currentPoolIndex >= path.waypointsPool.Count)
         {
-            ref var path = ref pathFilter.Get1(pathF);
-            GameObject waypoint = path.waypointsPool[path.currentPoolIndex];
-            waypoint.transform.position = pos;
-            waypoint.SetActive(true);
-            path.currentPoolIndex++;
-            return waypoint;
+            path.waypointsPool.Add(GameObject.Instantiate(path.waypointsPool[0]));
         }
-        return null;
+        GameObject waypoint = path.waypointsPool[path.currentPoolIndex];
+        waypoint.transform.position = pos;
+        waypoint.SetActive(true);
+        path.currentPoolIndex++;
+        return waypoint;
     }
 
-    void checkPath()
+    void CheckPathComplete()
     {
         foreach (var pathF in pathFilter)
         {

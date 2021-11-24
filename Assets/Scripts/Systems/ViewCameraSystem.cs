@@ -43,7 +43,7 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
 
             float lastDistance = (firstTouchLastPos - secondTouchLastPos).magnitude;
             float currentDistance = (firstTouch.position - secondTouch.position).magnitude;
-            cameraHeight -= (currentDistance - lastDistance) * cameraHeight / 100;
+            cameraHeight -= (currentDistance - lastDistance) * cameraHeight / 500;
         }
         cameraHeight = Mathf.Clamp(cameraHeight - (Input.mouseScrollDelta.y * cameraHeight / 5), minCameraHeight, maxCameraHeight);
         MoveCamera();
