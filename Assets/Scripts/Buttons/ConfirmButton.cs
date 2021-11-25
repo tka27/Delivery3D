@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ConfirmButton : MonoBehaviour
 {
     [SerializeField] UIData uiData;
     [SerializeField] SceneData sceneData;
+    
     public void ConfirmClick()
     {
         if (uiData.isPathComplete)
@@ -16,7 +15,7 @@ public class ConfirmButton : MonoBehaviour
         }
         else
         {
-            Debug.Log("Проложи путь полностью");
+            sceneData.Notification("Build a road to the building");
         }
     }
 }

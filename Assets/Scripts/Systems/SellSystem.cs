@@ -3,25 +3,26 @@ using UnityEngine;
 using System.Collections.Generic;
 
 
-sealed class SellSystem : IEcsRunSystem
+sealed class SellSystem : IEcsInitSystem
 {
 
     EcsFilter<ProductBuyer, Inventory> buyerFilter;
-    EcsFilter<Inventory, PlayerComp> playerFilter;
-    UIData uiData;
+    EcsFilter<Inventory, Player> playerFilter;
     StaticData staticData;
     SceneData sceneData;
     SoundData soundData;
     FlowingText flowingText;
-
-    void IEcsRunSystem.Run()
+    public void Init()
+    {
+    SellBtn.clickEvent += SellAction;
+    }
+    void SellAction()
     {
         foreach (var fBuyer in buyerFilter)
         {
             ref var buyer = ref buyerFilter.Get1(fBuyer);
-            if (buyer.tradePointData.ableToTrade && uiData.sellRequest)
+            if (buyer.tradePointData.ableToTrade)
             {
-                uiData.sellRequest = false;
                 ref var buyerInventory = ref buyerFilter.Get2(fBuyer);
                 foreach (var fPlayer in playerFilter)
                 {
@@ -45,8 +46,6 @@ sealed class SellSystem : IEcsRunSystem
                             }
                         }
                     }
-
-
 
                     float playerActualProductsMass = 0;
                     for (int i = 0; i < playerIndexes.Count; i++)

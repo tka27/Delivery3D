@@ -1,16 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 public class UIData : MonoBehaviour
 {
     public bool isPathComplete;
     public bool isPathConfirmed;
-    public bool clearPathRequest;
-    public bool buyRequest;
-    public bool sellRequest;
-    public bool dropRequest;
     public GameObject confirmButton;
     public GameObject clearButton;
     public GameObject buyButton;
@@ -25,6 +20,15 @@ public class UIData : MonoBehaviour
     public List<Image> inventoryIcons;
     public List<GameObject> playerInfoPanel;
     public List<GameObject> buttons;//for ui ignore
+
+
+
+
+    
+
+    
+
+
     public static bool IsMouseOverButton(List<GameObject> buttons)
     {
         PointerEventData pointerEventData = new PointerEventData(EventSystem.current);

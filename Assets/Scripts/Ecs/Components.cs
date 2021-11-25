@@ -10,7 +10,7 @@ public struct PathComp
     public List<GameObject> waypointsPool;
     public int currentPoolIndex;
 }
-public struct PlayerComp
+public struct Player
 {
     public Rigidbody playerRB;
     public GameObject playerGO;
@@ -116,4 +116,10 @@ public struct WorldCoinsComp
 public struct Animal
 {
     public AnimalData animalData;
+    void Revive()
+    {
+        animalData.isAlive = true;
+        animalData.agent.enabled = true;
+        animalData.rb.isKinematic = true;
+    }
 }

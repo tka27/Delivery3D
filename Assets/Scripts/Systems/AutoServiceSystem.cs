@@ -1,22 +1,24 @@
 using Leopotam.Ecs;
 
 
-sealed class AutoServiceSystem : IEcsRunSystem
+sealed class AutoServiceSystem : IEcsInitSystem
 {
     EcsFilter<ProductSeller, Inventory, AutoService> sellerFilter;
-    EcsFilter<PlayerComp> playerFilter;
+    EcsFilter<Player> playerFilter;
     UIData uiData;
     SceneData sceneData;
     StaticData staticData;
-    void IEcsRunSystem.Run()
+    public void Init()
+    {
+        BuyBtn.clickEvent += BuyAction;
+    }
+    void BuyAction()
     {
         foreach (var fSeller in sellerFilter)
         {
             ref var seller = ref sellerFilter.Get1(fSeller);
-            if (seller.tradePointData.ableToTrade && uiData.buyRequest)
+            if (seller.tradePointData.ableToTrade)
             {
-                uiData.buyRequest = false;
-
                 ref var player = ref playerFilter.Get1(0);
                 ref var sellerStorage = ref sellerFilter.Get2(fSeller);
 

@@ -5,8 +5,8 @@ using UnityEngine;
 sealed class EcsStartup : MonoBehaviour
 {
     EcsWorld _world;
-    EcsSystems _systems;
-    EcsSystems _fixedSystems;
+    EcsSystems systems;
+    EcsSystems fixedSystems;
     public StaticData staticData;
     public SceneData sceneData;
     public ProductData productData;
@@ -19,14 +19,14 @@ sealed class EcsStartup : MonoBehaviour
     {
         // void can be switched to IEnumerator for support coroutines.
         _world = new EcsWorld();
-        _systems = new EcsSystems(_world);
-        _fixedSystems = new EcsSystems(_world);
+        systems = new EcsSystems(_world);
+        fixedSystems = new EcsSystems(_world);
 #if UNITY_EDITOR
         Leopotam.Ecs.UnityIntegration.EcsWorldObserver.Create(_world);
-        Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(_systems);
-        Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(_fixedSystems);
+        Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(systems);
+        Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(fixedSystems);
 #endif
-        _systems
+        systems
             .Add(new GameInitSystem())
             .Add(new WheelsUpdateSystem())
             .Add(new CameraSwitchSystem())
@@ -49,13 +49,7 @@ sealed class EcsStartup : MonoBehaviour
             .Add(new WorldCoinsReplaceSystem())
             .Add(new AnimalsSystem())
 
-            // register one-frame components (order is important), for example:
-            // .OneFrame<TestComponent1> ()
-            // .OneFrame<TestComponent2> ()
-
-            // inject service instances here (order doesn't important), for example:
-            // .Inject (new CameraService ())
-            // .Inject (new NavMeshSupport ())
+           
             .Inject(staticData)
             .Inject(sceneData)
             .Inject(uiData)
@@ -64,7 +58,7 @@ sealed class EcsStartup : MonoBehaviour
             .Inject(flowingText)
             .Inject(gameSettings)
             .Init();
-        _fixedSystems
+        fixedSystems
         .Add(new PlayerMoveSystem())
         .Add(new DamageSystem())
         .Add(new FuelSystem())
@@ -84,22 +78,22 @@ sealed class EcsStartup : MonoBehaviour
         .Inject(gameSettings)
         .Init();
     }
-
+   
     void Update()
     {
-        _systems?.Run();
+        systems?.Run();
     }
     void FixedUpdate()
     {
-        _fixedSystems?.Run();
+        fixedSystems?.Run();
     }
 
     void OnDestroy()
     {
-        if (_systems != null)
+        if (systems != null)
         {
-            _systems.Destroy();
-            _systems = null;
+            systems.Destroy();
+            systems = null;
             _world.Destroy();
             _world = null;
         }

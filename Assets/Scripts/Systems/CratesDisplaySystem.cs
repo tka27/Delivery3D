@@ -4,7 +4,7 @@ using Leopotam.Ecs;
 sealed class CratesDisplaySystem : IEcsRunSystem
 {
 
-    EcsFilter<PlayerComp, Inventory, CratesDisplayRequest> playerFilter;
+    EcsFilter<Player, Inventory, CratesDisplayRequest> playerFilter;
 
     void IEcsRunSystem.Run()
     {

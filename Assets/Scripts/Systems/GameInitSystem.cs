@@ -1,7 +1,5 @@
 using Leopotam.Ecs;
 using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 
@@ -324,7 +322,7 @@ public class GameInitSystem : IEcsInitSystem
     void PlayerInit()
     {
         var playerEntity = _world.NewEntity();
-        ref var playerComp = ref playerEntity.Get<PlayerComp>();
+        ref var playerComp = ref playerEntity.Get<Player>();
         playerEntity.Get<MovableComp>();
         sceneData.cars[staticData.selectedCarID].SetActive(true);
         playerComp.playerGO = sceneData.cars[staticData.selectedCarID];
@@ -423,6 +421,7 @@ public class GameInitSystem : IEcsInitSystem
 
     void LoadForTests()
     {
+        settings.LoadPrefs();
         staticData.carPerks = new int[sceneData.cars.Count][];
         for (int i = 0; i < sceneData.cars.Count; i++)
         {
@@ -447,6 +446,8 @@ public class GameInitSystem : IEcsInitSystem
         foreach (var animal in sceneData.animalsPool)
         {
             _world.NewEntity().Get<Animal>().animalData = animal.GetComponent<AnimalData>();
+            int randomIndex = Random.Range(0,sceneData.animalSpawnPoints.Count);
+            animal.transform.position = sceneData.animalSpawnPoints[randomIndex].position;
         }
     }
 }

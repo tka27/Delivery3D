@@ -2,25 +2,28 @@ using Leopotam.Ecs;
 using UnityEngine;
 
 
-sealed class BuySystem : IEcsRunSystem
+sealed class BuySystem : IEcsInitSystem
 {
 
     EcsFilter<ProductSeller, Inventory>.Exclude<AutoService> sellerFilter;
-    EcsFilter<Inventory, PlayerComp> playerFilter;
-    UIData uiData;
+    EcsFilter<Inventory, Player> playerFilter;
     StaticData staticData;
     SceneData sceneData;
     SoundData soundData;
     FlowingText flowingText;
 
-    void IEcsRunSystem.Run()
+    public void Init()
+    {
+        BuyBtn.clickEvent += BuyAction;
+    }
+
+    void BuyAction()
     {
         foreach (var fSeller in sellerFilter)
         {
             ref var seller = ref sellerFilter.Get1(fSeller);
-            if (seller.tradePointData.ableToTrade && uiData.buyRequest)
+            if (seller.tradePointData.ableToTrade)
             {
-                uiData.buyRequest = false;
                 ref var sellerInventory = ref sellerFilter.Get2(fSeller);
 
                 bool isProductAvailable = false;

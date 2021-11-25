@@ -5,7 +5,7 @@ using UnityEngine;
 sealed class CargoDisplaySystem : IEcsRunSystem
 {
 
-    EcsFilter<Inventory, PlayerComp> playerStorageFilter;
+    EcsFilter<Inventory, Player> playerStorageFilter;
     SceneData sceneData;
     UIData uiData;
     void IEcsRunSystem.Run()

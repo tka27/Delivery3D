@@ -5,7 +5,7 @@ using UnityEngine;
 sealed class UpdateCargoSystem : IEcsRunSystem
 {
 
-    EcsFilter<Inventory, PlayerComp, UpdateCargoRequest> playerFilter;
+    EcsFilter<Inventory, Player, UpdateCargoRequest> playerFilter;
     StaticData staticData;
     UIData uiData;
     void IEcsRunSystem.Run()

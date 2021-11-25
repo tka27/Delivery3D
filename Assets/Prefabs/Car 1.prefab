@@ -402,6 +402,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
+  isDebuffed: 0
+  attachedWheelColider: {fileID: 3835495469765576369}
   particles: {fileID: 5298326238940682484}
 --- !u!199 &2478057649761973099
 ParticleSystemRenderer:
@@ -6759,6 +6761,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
+  isDebuffed: 0
+  attachedWheelColider: {fileID: 7972838434544177520}
   particles: {fileID: 2710541115233478906}
 --- !u!199 &7519417533848176174
 ParticleSystemRenderer:
@@ -12312,6 +12316,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
+  isDebuffed: 0
+  attachedWheelColider: {fileID: 6857396187748507028}
   particles: {fileID: 6857396187596221814}
 --- !u!199 &6857396187596221815
 ParticleSystemRenderer:
@@ -17191,6 +17197,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
+  isDebuffed: 0
+  attachedWheelColider: {fileID: 6857396188362996988}
   particles: {fileID: 6857396187636978806}
 --- !u!199 &6857396187636978807
 ParticleSystemRenderer:
@@ -22286,6 +22294,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
+  isDebuffed: 0
+  attachedWheelColider: {fileID: 6857396187933156260}
   particles: {fileID: 6857396188427927379}
 --- !u!199 &6857396188427927380
 ParticleSystemRenderer:
@@ -27227,6 +27237,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
+  isDebuffed: 0
+  attachedWheelColider: {fileID: 6857396188667598342}
   particles: {fileID: 6857396189107166875}
 --- !u!198 &6857396189107166875
 ParticleSystem:
@@ -32693,7 +32705,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7188562378335043965}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0.5, z: 1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6386356048573247678}

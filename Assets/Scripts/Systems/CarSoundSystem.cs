@@ -5,7 +5,7 @@ using UnityEngine;
 sealed class CarSoundSystem : IEcsRunSystem
 {
 
-    EcsFilter<PlayerComp> filter;
+    EcsFilter<Player> filter;
     SceneData sceneData;
     GameSettings settings;
 

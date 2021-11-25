@@ -4,7 +4,7 @@ using Leopotam.Ecs;
 sealed class ImmobilizeSystem : IEcsRunSystem
 {
 
-    EcsFilter<PlayerComp, MovableComp, ImmobilizeRequest> reqestFilter;
+    EcsFilter<Player, MovableComp, ImmobilizeRequest> reqestFilter;
 
     void IEcsRunSystem.Run()
     {

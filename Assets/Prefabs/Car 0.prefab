@@ -287,6 +287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
+  attachedWheelColider: {fileID: 2706224233460432541}
   particles: {fileID: 7977704539534198551}
 --- !u!199 &2553840752165480899
 ParticleSystemRenderer:
@@ -5371,6 +5372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
+  attachedWheelColider: {fileID: 1441463362167737417}
   particles: {fileID: 1441463360447910078}
 --- !u!199 &1441463360447910073
 ParticleSystemRenderer:
@@ -10280,6 +10282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
+  attachedWheelColider: {fileID: 1441463361295776235}
   particles: {fileID: 1441463361127166326}
 --- !u!198 &1441463361127166326
 ParticleSystem:
@@ -15283,6 +15286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
+  attachedWheelColider: {fileID: 1441463362486415993}
   particles: {fileID: 1441463362367668891}
 --- !u!199 &1441463362367668890
 ParticleSystemRenderer:
@@ -20162,6 +20166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
+  attachedWheelColider: {fileID: 1441463360378786577}
   particles: {fileID: 1441463362446195611}
 --- !u!199 &1441463362446195610
 ParticleSystemRenderer:
@@ -25198,8 +25203,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 1000
-  carProductTypes: 0000000001000000
-  trailerProductTypes: 0400000006000000
+  carProductTypes: 000000000100000002000000
+  trailerProductTypes: 0500000006000000
   allWheelMeshes:
   - {fileID: 1441463361127166325}
   - {fileID: 1441463360447910064}
@@ -25970,7 +25975,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2948065204837412496}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0.5, z: 1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1408397666513067859}
@@ -26669,8 +26674,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5260342264447966839}
-  m_LocalRotation: {x: 0.056116857, y: -0, z: -0, w: 0.9984242}
-  m_LocalPosition: {x: 0, y: 0.199, z: -3.287}
+  m_LocalRotation: {x: 0.095380835, y: -0, z: -0, w: 0.99544084}
+  m_LocalPosition: {x: 0, y: 0.286, z: -3.277}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4327225189287423656}
@@ -26681,7 +26686,7 @@ Transform:
   - {fileID: 8881279636758167067}
   m_Father: {fileID: 1408397666513067859}
   m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 6.434, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 10.946, y: 0, z: 0}
 --- !u!54 &5260342264447966844
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -26710,7 +26715,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: -0.25, z: 1.73}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: -0.2432838, z: -1.5959101}
+  m_ConnectedAnchor: {x: 0, y: -0.28796434, z: -1.6259503}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 2
@@ -27155,6 +27160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
+  attachedWheelColider: {fileID: 9084090321886734684}
   particles: {fileID: 192574440038528793}
 --- !u!199 &7586474684185599110
 ParticleSystemRenderer:

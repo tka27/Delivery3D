@@ -1,31 +1,46 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WheelData : MonoBehaviour
 {
     public bool onRoad;
     public bool inWater;
+    [SerializeField] WheelCollider attachedWheelColider;
+    WheelFrictionCurve defaultForvardFriction;
+    WheelFrictionCurve defaultSidewaysFriction;
+
+
+    float debuffTime = 2;
     bool firstCheck;
+    string buildingTag = "Building";
     string roadTag = "Road";
     string waterTag = "Water";
-    string function = "OnRoadCheck";
+    string obstacle = "Obstacle";
+    string timerCor = "DebuffTimer";
     public ParticleSystem particles;
+
+
     void Start()
     {
         particles = GetComponent<ParticleSystem>();
+        defaultForvardFriction = attachedWheelColider.forwardFriction;
+        defaultSidewaysFriction = attachedWheelColider.sidewaysFriction;
     }
 
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.tag == waterTag)
+        if (collider.tag == obstacle)
+        {
+            Debuff();
+        }
+        else if (collider.tag == waterTag)
         {
             inWater = true;
         }
     }
     void OnTriggerStay(Collider collider)
     {
-        if (collider.tag == roadTag)
+        if (collider.tag == roadTag || collider.tag == buildingTag)
         {
             onRoad = true;
             firstCheck = true;
@@ -37,18 +52,43 @@ public class WheelData : MonoBehaviour
         if (collider.tag == roadTag)
         {
             firstCheck = false;
-            Invoke(function, 0.02f);
+            StartCoroutine(OnRoadCheck());
         }
         if (collider.tag == waterTag)
         {
             inWater = false;
         }
     }
-    void OnRoadCheck()
+
+    IEnumerator OnRoadCheck()
     {
+
+        yield return new WaitForSeconds(0.02f);
         if (!firstCheck)
         {
             onRoad = false;
         }
+    }
+
+    IEnumerator DebuffTimer()
+    {
+        yield return new WaitForSeconds(debuffTime);
+
+        attachedWheelColider.forwardFriction = defaultForvardFriction;
+        attachedWheelColider.sidewaysFriction = defaultSidewaysFriction;
+
+    }
+
+    void Debuff()
+    {
+        StopCoroutine(timerCor);
+        WheelFrictionCurve forvardFriction = defaultForvardFriction;
+        forvardFriction.stiffness = defaultForvardFriction.stiffness / 5;
+        attachedWheelColider.forwardFriction = forvardFriction;
+
+        WheelFrictionCurve sidewaysFriction = defaultSidewaysFriction;
+        sidewaysFriction.stiffness = defaultSidewaysFriction.stiffness / 5;
+        attachedWheelColider.sidewaysFriction = sidewaysFriction;
+        StartCoroutine(timerCor);
     }
 }

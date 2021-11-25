@@ -1,31 +1,30 @@
 using Leopotam.Ecs;
 using UnityEngine;
 
-sealed class ClearInventorySystem : IEcsRunSystem
+sealed class ClearInventorySystem : IEcsInitSystem
 {
-    EcsFilter<PlayerComp, Inventory>.Exclude<UpdateCargoRequest> playerFilter;
+    EcsFilter<Player, Inventory>.Exclude<UpdateCargoRequest> playerFilter;
     UIData uiData;
-    void IEcsRunSystem.Run()
+
+    public void Init()
     {
-        foreach (var fPlayer in playerFilter)
-        {
-            if (!uiData.dropRequest)
-            {
-                return;
-            }
-            uiData.dropRequest = false;
-            var player = playerFilter.Get1(fPlayer);
-            var cargo = playerFilter.Get2(fPlayer);
-            player.playerRB.AddRelativeForce(new Vector3(0, -100000, 100000));
-            for (int i = 0; i < player.carData.playerCargo.Count; i++)
-            {
-
-
-                player.carData.playerCargoRB[i].isKinematic = false;
-                player.carData.playerCargoRB[i].AddExplosionForce(Random.Range(2000, 3000), player.carData.wheelPos.transform.position, 0);
-            }
-            cargo.inventory.Clear();
-            playerFilter.GetEntity(fPlayer).Get<UpdateCargoRequest>();
-        }
+        ClearInventoryBtn.clickEvent += ClearAction;
     }
+
+
+    void ClearAction()
+    {
+        var player = playerFilter.Get1(0);
+        var cargo = playerFilter.Get2(0);
+        if (cargo.GetCurrentMass() == 0) return;
+        player.playerRB.AddRelativeForce(new Vector3(0, -100000, 100000));
+        for (int i = 0; i < player.carData.playerCargo.Count; i++)
+        {
+            player.carData.playerCargoRB[i].isKinematic = false;
+            player.carData.playerCargoRB[i].AddExplosionForce(Random.Range(2000, 3000), player.carData.wheelPos.transform.position, 0);
+        }
+        cargo.inventory.Clear();
+        playerFilter.GetEntity(0).Get<UpdateCargoRequest>();
+    }
+
 }

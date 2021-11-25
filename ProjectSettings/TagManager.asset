@@ -10,6 +10,8 @@ TagManager:
   - Factory
   - Water
   - Environment
+  - Obstacle
+  - Building
   layers:
   - Default
   - TransparentFX

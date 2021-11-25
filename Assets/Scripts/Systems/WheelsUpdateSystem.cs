@@ -3,7 +3,7 @@ using UnityEngine;
 
 sealed class WheelsUpdateSystem : IEcsRunSystem
 {
-    EcsFilter<PlayerComp> playerFilter;
+    EcsFilter<Player> playerFilter;
     void IEcsRunSystem.Run()
     {
         foreach (var fPlayer in playerFilter)
