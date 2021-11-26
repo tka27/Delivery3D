@@ -5,7 +5,7 @@ using UnityEngine;
 sealed class FuelSystem : IEcsRunSystem
 {
 
-    EcsFilter<Player, MovableComp> playerFilter;
+    EcsFilter<Player, Movable> playerFilter;
     SceneData sceneData;
     UIData uiData;
 

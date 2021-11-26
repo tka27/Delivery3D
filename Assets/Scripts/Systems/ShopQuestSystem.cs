@@ -44,7 +44,7 @@ sealed class ShopQuestSystem : IEcsRunSystem
 
             shopInventory.inventory.Clear();
             shopInventory.inventory.Add(new Product(product.type, product.icon, product.defaultPrice * 2f));
-            buyer.tradePointData.buyProductSpriteRenderer.sprite = product.icon;
+            buyer.tradePointData.buyProductImage.sprite = product.icon;
             shopFilter.GetEntity(fShop).Get<BuyDataUpdateRequest>();
         }
     }

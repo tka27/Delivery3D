@@ -5,7 +5,7 @@ using UnityEngine;
 sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
 {
     SceneData sceneData;
-    EcsFilter<Player, MovableComp> playerFilter;
+    EcsFilter<Player, Movable> playerFilter;
     EcsFilter<PathComp> pathFilter;
     EcsFilter<WorldCoinsComp>.Exclude<WorldCoinsReplaceRequest> coinsFilter;
     UIData uiData;

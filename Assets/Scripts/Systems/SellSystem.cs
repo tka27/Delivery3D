@@ -14,7 +14,7 @@ sealed class SellSystem : IEcsInitSystem
     FlowingText flowingText;
     public void Init()
     {
-    SellBtn.clickEvent += SellAction;
+        SellBtn.clickEvent += SellAction;
     }
     void SellAction()
     {
@@ -91,7 +91,14 @@ sealed class SellSystem : IEcsInitSystem
                         }
                     }
                     staticData.currentMoney += totalCost;
-                    flowingText.DisplayText("+" + totalCost.ToString("0.0"));
+                    if (totalCost > 0)
+                    {
+                        flowingText.DisplayText("+" + totalCost.ToString("0.0"));
+                    }
+                    else
+                    {
+                        flowingText.DisplayText(totalCost.ToString("0.0"));
+                    }
 
                     buyerFilter.GetEntity(fBuyer).Get<BuyDataUpdateRequest>();
                     playerFilter.GetEntity(0).Get<UpdateCargoRequest>();

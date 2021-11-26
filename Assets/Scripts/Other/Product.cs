@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public class Product
 {
     public ProductType type { get; }
@@ -6,19 +7,19 @@ public class Product
     public Sprite icon { get; }
     public float defaultPrice { get; }
     public float currentPrice { get; set; }
-    public Product(ProductType productType, float productMass, Sprite sprite, float price)
+    public Product(ProductType productType, float productMass, Sprite icon, float price)
     {
         type = productType;
         mass = productMass;
-        icon = sprite;
+        this.icon = icon;
         defaultPrice = price;
         currentPrice = defaultPrice;
     }
-    public Product(ProductType productType, Sprite sprite, float price)
+    public Product(ProductType productType, Sprite icon, float price)
     {
         type = productType;
         mass = 0;
-        icon = sprite;
+        this.icon = icon;
         defaultPrice = price;
         currentPrice = defaultPrice;
     }

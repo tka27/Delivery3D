@@ -48,6 +48,7 @@ sealed class EcsStartup : MonoBehaviour
             .Add(new CarSoundSystem())
             .Add(new WorldCoinsReplaceSystem())
             .Add(new AnimalsSystem())
+            
 
            
             .Inject(staticData)
@@ -66,6 +67,7 @@ sealed class EcsStartup : MonoBehaviour
         .Add(new FarmProduceSystem())
         .Add(new ShopQuestSystem())
         .Add(new ResearchSystem())
+        .Add(new LabUpdateSystem())
         //.Add(new ProductConsumingSystem())
 
 

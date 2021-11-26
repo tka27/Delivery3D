@@ -50,7 +50,7 @@ sealed class RepriceSystem : IEcsRunSystem
                     }
                 }
             }
-            
+
             // text update
             for (int j = 0; j < buyer.buyingProductTypes.Count; j++)
             {
@@ -59,8 +59,11 @@ sealed class RepriceSystem : IEcsRunSystem
                     Product inventoryItem = buyerInventory.inventory[i];
                     if (buyer.buyingProductTypes[j] == inventoryItem.type)
                     {
-                        buyer.tradePointData.buyCount[j].text = inventoryItem.mass.ToString("0");//fixed
-                        buyer.tradePointData.buyPrice[j].text = inventoryItem.currentPrice.ToString("0.00");//fixed
+                        if (buyer.tradePointData.buyCount.Count != 0)
+                        {
+                            buyer.tradePointData.buyCount[j].text = inventoryItem.mass.ToString("0");
+                        }
+                        buyer.tradePointData.buyPrice[j].text = inventoryItem.currentPrice.ToString("0.00");
                     }
                 }
             }

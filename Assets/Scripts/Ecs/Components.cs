@@ -24,15 +24,9 @@ public struct Player
     public float maxFuel;
     public float currentFuel;
 }
-public struct MovableComp
-{
-}
-public struct DestroyRoadRequest
-{
-}
-public struct ImmobilizeRequest
-{
-}
+public struct Movable { }
+public struct DestroyRoadRequest { }
+public struct ImmobilizeRequest { }
 public struct ProductBuyer
 {
     public GameObject buyerGO;
@@ -81,32 +75,24 @@ public struct Inventory
     }
 }
 
-public struct AutoService
-{
-}
-public struct SellDataUpdateRequest
-{
-}
-public struct BuyDataUpdateRequest
-{
-}
+public struct AutoService { }
+public struct SellDataUpdateRequest { }
+public struct BuyDataUpdateRequest { }
 public struct Quest
 {
     public float currentQuestTime;
     public float maxQuestTime;
     public float timer;
 }
-public struct UpdateCargoRequest
-{
-}
-public struct CratesDisplayRequest
-{
-}
+public struct UpdateCargoRequest { }
+public struct CratesDisplayRequest { }
 public struct ResearchLab
 {
     public float progress;
+    public float defaultRequirement;
     public float requirement;
 }
+public struct LabUpdateRequest { }
 public struct WorldCoinsReplaceRequest
 {
 }

@@ -323,7 +323,7 @@ public class GameInitSystem : IEcsInitSystem
     {
         var playerEntity = _world.NewEntity();
         ref var playerComp = ref playerEntity.Get<Player>();
-        playerEntity.Get<MovableComp>();
+        playerEntity.Get<Movable>();
         sceneData.cars[staticData.selectedCarID].SetActive(true);
         playerComp.playerGO = sceneData.cars[staticData.selectedCarID];
         playerComp.carData = playerComp.playerGO.GetComponent<CarData>();
@@ -383,26 +383,23 @@ public class GameInitSystem : IEcsInitSystem
 
     void LabInit()
     {
+
+        UpdateResearchList();
         if (staticData.researchLvl < sceneData.researchList.Count)
         {
-            UpdateResearchList();
-
             sceneData.labTradePoint.SetActive(true);
             var labEntity = _world.NewEntity();
             ref var labComp = ref labEntity.Get<ResearchLab>();
-            labComp.requirement = 50;
+            labComp.defaultRequirement = 50;
             ref var labBuyer = ref labEntity.Get<ProductBuyer>();
             labBuyer.buyingProductTypes = new List<ProductType>();
-            labBuyer.buyingProductTypes.Add(sceneData.researchList[staticData.researchLvl].type);
             labBuyer.buyerGO = sceneData.labTradePoint;
             labBuyer.tradePointData = labBuyer.buyerGO.GetComponent<TradePointData>();
             labBuyer.repriceMultiplier = 1.2f;
-            labBuyer.tradePointData.labProgress.text = labComp.progress.ToString() + "/" + labComp.requirement.ToString();
             ref var labInventory = ref labEntity.Get<Inventory>();
             labInventory.inventory = new List<Product>();
-            labInventory.inventory.Add(sceneData.researchList[staticData.researchLvl]);
-            labBuyer.tradePointData.buyProductSpriteRenderer.sprite = labInventory.inventory[staticData.researchLvl].icon;
             labInventory.maxMass = 50;
+            labEntity.Get<LabUpdateRequest>();
             labEntity.Get<BuyDataUpdateRequest>();
             sceneData.finalPoints.Add(labBuyer.tradePointData.finalPoint);
             sceneData.tradePointCanvases.Add(labBuyer.tradePointData.canvas);
@@ -416,6 +413,8 @@ public class GameInitSystem : IEcsInitSystem
     void UpdateResearchList()
     {
         sceneData.researchList.Add(new Product(ProductType.Wheat, productData.wheat, -0.1f));
+        sceneData.researchList.Add(new Product(ProductType.Water, productData.water, -0.1f));
+        sceneData.researchList.Add(new Product(ProductType.Meat, productData.meat, -0.1f));
     }
 
 
@@ -446,7 +445,7 @@ public class GameInitSystem : IEcsInitSystem
         foreach (var animal in sceneData.animalsPool)
         {
             _world.NewEntity().Get<Animal>().animalData = animal.GetComponent<AnimalData>();
-            int randomIndex = Random.Range(0,sceneData.animalSpawnPoints.Count);
+            int randomIndex = Random.Range(0, sceneData.animalSpawnPoints.Count);
             animal.transform.position = sceneData.animalSpawnPoints[randomIndex].position;
         }
     }

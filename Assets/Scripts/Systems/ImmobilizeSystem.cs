@@ -4,7 +4,7 @@ using Leopotam.Ecs;
 sealed class ImmobilizeSystem : IEcsRunSystem
 {
 
-    EcsFilter<Player, MovableComp, ImmobilizeRequest> reqestFilter;
+    EcsFilter<Player, Movable, ImmobilizeRequest> reqestFilter;
 
     void IEcsRunSystem.Run()
     {
@@ -25,7 +25,7 @@ sealed class ImmobilizeSystem : IEcsRunSystem
             {
                 wheelData.particles.Stop();
             }
-            reqestFilter.GetEntity(fPlayer).Del<MovableComp>();
+            reqestFilter.GetEntity(fPlayer).Del<Movable>();
         }
     }
 }

@@ -15,8 +15,8 @@ public class TradePointData : MonoBehaviour
     public Text sellPrice;
     public Text currentQuestTime;
     public Text labProgress;
-    public SpriteRenderer buyProductSpriteRenderer;
-    public SpriteRenderer SellProductSpriteRenderer;
+    public Image buyProductImage;
+    public Image SellProductImage;
     string playerTag = "Player";
 
 

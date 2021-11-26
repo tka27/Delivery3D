@@ -5,7 +5,7 @@ using UnityEngine;
 sealed class DamageSystem : IEcsRunSystem
 {
 
-    EcsFilter<Player, MovableComp> playerFilter;
+    EcsFilter<Player, Movable> playerFilter;
     SceneData sceneData;
     UIData uiData;
     GameSettings settings;
