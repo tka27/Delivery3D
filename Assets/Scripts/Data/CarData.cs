@@ -5,6 +5,7 @@ using UnityEngine;
 public class CarData : MonoBehaviour
 {
     public float price;
+    public Rigidbody trailerRB;
     public List<ProductType> carProductTypes;
     public List<ProductType> trailerProductTypes;
     public List<Transform> allWheelMeshes;

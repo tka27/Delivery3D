@@ -58,10 +58,28 @@ sealed class ResearchSystem : IEcsRunSystem
                     return;
                 }
                 labFilter.GetEntity(labEntity).Get<LabUpdateRequest>();
+
             }
 
             labBuyer.tradePointData.labProgress.text = lab.progress.ToString() + "/" + lab.requirement.ToString();
             labFilter.GetEntity(labEntity).Get<BuyDataUpdateRequest>();
         }
     }
+
+    void DispayReward()
+    {
+        switch (staticData.researchLvl)
+        {
+            case 3:
+                staticData.carsUnlockStatus[3] = true;
+                sceneData.Notification("Unlocked new car");
+                break;
+
+            default: return;
+        }
+
+
+
+    }
+
 }

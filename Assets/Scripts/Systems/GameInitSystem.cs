@@ -22,17 +22,112 @@ public class GameInitSystem : IEcsInitSystem
 
         PlayerInit();
         AnimalsInit();
+        BuildingsInit();
         LabInit();
 
 
         var pathEntity = _world.NewEntity();
         ref var pathComp = ref pathEntity.Get<PathComp>();
-        pathComp.wayPoints = new List<GameObject>();
+        pathComp.wayPoints = new List<Transform>();
         pathComp.lineRenderer = sceneData.lineRenderer;
         pathComp.waypointsPool = sceneData.waypointsPool;
 
 
 
+    }
+
+    void PlayerInit()
+    {
+        var playerEntity = _world.NewEntity();
+        ref var playerComp = ref playerEntity.Get<Player>();
+        playerEntity.Get<Movable>();
+        sceneData.cars[staticData.selectedCarID].SetActive(true);
+        playerComp.playerGO = sceneData.cars[staticData.selectedCarID];
+        playerComp.carData = playerComp.playerGO.GetComponent<CarData>();
+        playerComp.playerRB = playerComp.playerGO.GetComponent<Rigidbody>();
+        playerComp.playerRB.mass = playerComp.carData.defaultMass;
+        playerComp.playerRB.centerOfMass = playerComp.carData.centerOfMass.transform.localPosition;
+        playerComp.maxSteerAngle = playerComp.carData.maxSteerAngle;
+        playerComp.maxFuel = playerComp.carData.maxFuel + playerComp.carData.maxFuel / 100 * 5 * staticData.carPerks[staticData.selectedCarID][0];
+        playerComp.maxTorque = playerComp.carData.maxTorque + playerComp.carData.maxTorque / 100 * 5 * staticData.carPerks[staticData.selectedCarID][1];
+        playerComp.acceleration = playerComp.carData.acceleration + playerComp.carData.acceleration / 100 * 5 * staticData.carPerks[staticData.selectedCarID][2];
+        playerComp.maxDurability = playerComp.carData.maxDurability + playerComp.carData.maxDurability / 100 * 5 * staticData.carPerks[staticData.selectedCarID][3];
+        playerComp.currentDurability = playerComp.maxDurability;
+        uiData.durabilityText.text = playerComp.currentDurability.ToString();
+        playerComp.currentFuel = playerComp.maxFuel;
+        uiData.fuelText.text = playerComp.currentFuel.ToString();
+        ref var playerInventory = ref playerEntity.Get<Inventory>();
+        playerInventory.inventory = new List<Product>();
+        if (!staticData.trailerIsSelected)
+        {
+            playerInventory.maxMass = playerComp.carData.carStorage + playerComp.carData.carStorage / 100 * 5 * staticData.carPerks[staticData.selectedCarID][4];
+        }
+        else
+        {
+            playerInventory.maxMass = playerComp.carData.carStorage + playerComp.carData.trailerStorage + playerComp.carData.carStorage / 100 * 5 * staticData.carPerks[staticData.selectedCarID][4];
+        }
+
+        playerEntity.Get<UpdateCargoRequest>();
+
+        foreach (var wheel in playerComp.carData.allWheelMeshes)
+        {
+            playerComp.carData.wheelDatas.Add(wheel.GetComponent<WheelData>());
+        }
+
+        for (int i = 0; i < playerComp.carData.playerCargo.Count; i++)
+        {
+            playerComp.carData.playerCargoRB.Add(playerComp.carData.playerCargo[i].gameObject.GetComponent<Rigidbody>());
+            playerComp.carData.playerCargoDefaultPos.Add(playerComp.carData.playerCargo[i].transform.localPosition);
+            playerComp.carData.playerCargoDefaultRot.Add(playerComp.carData.playerCargo[i].transform.localRotation);
+        }
+        if (staticData.trailerIsSelected)
+        {
+            playerComp.carData.trailer.SetActive(true);
+        }
+        else
+        {
+            playerComp.carData.trailer.SetActive(false);
+        }
+
+        soundData.loopSounds.Add(playerComp.carData.engineSound);
+        soundData.SwitchLoopSounds(settings.sound);
+
+
+        var virtualCam = sceneData.driveCam.GetComponent<CinemachineVirtualCamera>();
+        virtualCam.Follow = playerComp.playerGO.transform;
+        virtualCam.LookAt = playerComp.carData.cameraLookPoint;
+    }
+
+    void LabInit()
+    {
+        UpdateResearchList();
+        if (staticData.researchLvl < sceneData.researchList.Count)
+        {
+            sceneData.labTradePoint.SetActive(true);
+            var labEntity = _world.NewEntity();
+            ref var labComp = ref labEntity.Get<ResearchLab>();
+            labComp.defaultRequirement = 50;
+            ref var labBuyer = ref labEntity.Get<ProductBuyer>();
+            labBuyer.buyingProductTypes = new List<ProductType>();
+            labBuyer.buyerGO = sceneData.labTradePoint;
+            labBuyer.tradePointData = labBuyer.buyerGO.GetComponent<TradePointData>();
+            labBuyer.repriceMultiplier = 1.2f;
+            ref var labInventory = ref labEntity.Get<Inventory>();
+            labInventory.inventory = new List<Product>();
+            labInventory.maxMass = 50;
+            labEntity.Get<LabUpdateRequest>();
+            labEntity.Get<BuyDataUpdateRequest>();
+            sceneData.finalPoints.Add(labBuyer.tradePointData.finalPoint);
+            sceneData.tradePointCanvases.Add(labBuyer.tradePointData.canvas);
+        }
+        else
+        {
+            sceneData.labTradePoint.SetActive(false);
+        }
+    }
+
+    void BuildingsInit()
+    {
 
         #region Farms
 
@@ -40,17 +135,71 @@ public class GameInitSystem : IEcsInitSystem
 
         var wheatFarmEntity = _world.NewEntity();
         ref var wheatFarmSeller = ref wheatFarmEntity.Get<ProductSeller>();
-        wheatFarmSeller.sellerGO = sceneData.wheatFarmTradePoint;
+        wheatFarmSeller.sellerGO = sceneData.wheatTradePoint;
         wheatFarmSeller.tradePointData = wheatFarmSeller.sellerGO.GetComponent<TradePointData>();
-        wheatFarmSeller.produceSpeed = 0.5f;
-        wheatFarmSeller.product = new Product(ProductType.Wheat, productData.wheat, 0.5f);
+        wheatFarmSeller.produceSpeed = 0.5f*100;
+        wheatFarmSeller.product = new Product(ProductType.Wheat, productData.wheat, 0.1f);
         wheatFarmSeller.repriceMultiplier = 1.2f;
         ref var wheatFarmInventory = ref wheatFarmEntity.Get<Inventory>();
         wheatFarmInventory.inventory = new List<Product>();
-        wheatFarmInventory.maxMass = 50;
+        wheatFarmInventory.maxMass = 1000;
         wheatFarmEntity.Get<SellDataUpdateRequest>();
         sceneData.finalPoints.Add(wheatFarmSeller.tradePointData.finalPoint);
         sceneData.tradePointCanvases.Add(wheatFarmSeller.tradePointData.canvas);
+
+        #endregion
+
+        #region Fish
+
+        var fishFarmEntity = _world.NewEntity();
+        ref var fishFarmSeller = ref fishFarmEntity.Get<ProductSeller>();
+        fishFarmSeller.sellerGO = sceneData.fishTradePoint;
+        fishFarmSeller.tradePointData = fishFarmSeller.sellerGO.GetComponent<TradePointData>();
+        fishFarmSeller.produceSpeed = 0.5f;
+        fishFarmSeller.product = new Product(ProductType.Fish, productData.fish, 0.5f);
+        fishFarmSeller.repriceMultiplier = 1.2f;
+        ref var fishFarmInventory = ref fishFarmEntity.Get<Inventory>();
+        fishFarmInventory.inventory = new List<Product>();
+        fishFarmInventory.maxMass = 50;
+        fishFarmEntity.Get<SellDataUpdateRequest>();
+        sceneData.finalPoints.Add(fishFarmSeller.tradePointData.finalPoint);
+        sceneData.tradePointCanvases.Add(fishFarmSeller.tradePointData.canvas);
+
+        #endregion
+
+        #region Fruit
+
+        var fruitFarmEntity = _world.NewEntity();
+        ref var fruitFarmSeller = ref fruitFarmEntity.Get<ProductSeller>();
+        fruitFarmSeller.sellerGO = sceneData.fruitTradePoint;
+        fruitFarmSeller.tradePointData = fruitFarmSeller.sellerGO.GetComponent<TradePointData>();
+        fruitFarmSeller.produceSpeed = 0.5f;
+        fruitFarmSeller.product = new Product(ProductType.Fruits, productData.fruits, 0.5f);
+        fruitFarmSeller.repriceMultiplier = 1.2f;
+        ref var fruitFarmInventory = ref fruitFarmEntity.Get<Inventory>();
+        fruitFarmInventory.inventory = new List<Product>();
+        fruitFarmInventory.maxMass = 50;
+        fruitFarmEntity.Get<SellDataUpdateRequest>();
+        sceneData.finalPoints.Add(fruitFarmSeller.tradePointData.finalPoint);
+        sceneData.tradePointCanvases.Add(fruitFarmSeller.tradePointData.canvas);
+
+        #endregion
+
+        #region Vegetables
+
+        var vegetableFarmEntity = _world.NewEntity();
+        ref var vegetableFarmSeller = ref vegetableFarmEntity.Get<ProductSeller>();
+        vegetableFarmSeller.sellerGO = sceneData.vegetableTradePoint;
+        vegetableFarmSeller.tradePointData = vegetableFarmSeller.sellerGO.GetComponent<TradePointData>();
+        vegetableFarmSeller.produceSpeed = 0.5f;
+        vegetableFarmSeller.product = new Product(ProductType.Vegetables, productData.vegetables, 0.5f);
+        vegetableFarmSeller.repriceMultiplier = 1.2f;
+        ref var vegetableFarmInventory = ref vegetableFarmEntity.Get<Inventory>();
+        vegetableFarmInventory.inventory = new List<Product>();
+        vegetableFarmInventory.maxMass = 50;
+        vegetableFarmEntity.Get<SellDataUpdateRequest>();
+        sceneData.finalPoints.Add(vegetableFarmSeller.tradePointData.finalPoint);
+        sceneData.tradePointCanvases.Add(vegetableFarmSeller.tradePointData.canvas);
 
         #endregion
 
@@ -58,7 +207,7 @@ public class GameInitSystem : IEcsInitSystem
 
         var waterStationEntity = _world.NewEntity();
         ref var waterStationSeller = ref waterStationEntity.Get<ProductSeller>();
-        waterStationSeller.sellerGO = sceneData.waterStationTradePoint;
+        waterStationSeller.sellerGO = sceneData.waterTradePoint;
         waterStationSeller.tradePointData = waterStationSeller.sellerGO.GetComponent<TradePointData>();
         waterStationSeller.produceSpeed = 0.5f;
         waterStationSeller.product = new Product(ProductType.Water, productData.water, 0.5f);
@@ -116,6 +265,7 @@ public class GameInitSystem : IEcsInitSystem
         #region Factories
 
         #region Bakery
+
         var bakeryEntity = _world.NewEntity();
         ref var bakeryBuyer = ref bakeryEntity.Get<ProductBuyer>();
         bakeryBuyer.buyerGO = sceneData.bakeryTradePoint;
@@ -293,7 +443,96 @@ public class GameInitSystem : IEcsInitSystem
 
         #endregion
 
+        #region CanFish
 
+        var canFishEntity = _world.NewEntity();
+        ref var canFishBuyer = ref canFishEntity.Get<ProductBuyer>();
+        canFishBuyer.buyerGO = sceneData.canFishTradePoint;
+        canFishBuyer.tradePointData = canFishBuyer.buyerGO.GetComponent<TradePointData>();
+        canFishBuyer.repriceMultiplier = 1.2f;
+        canFishBuyer.buyingProductTypes = new List<ProductType>();
+        canFishBuyer.buyingProductTypes.Add(ProductType.Fish);
+
+        ref var canFishInventory = ref canFishEntity.Get<Inventory>();
+        canFishInventory.inventory = new List<Product>();
+        canFishInventory.inventory.Add(new Product(ProductType.Fish, productData.fish, 0.75f));
+        canFishInventory.maxMass = 50;
+
+        ref var canFishSeller = ref canFishEntity.Get<ProductSeller>();
+        canFishSeller.produceSpeed = 1;
+        canFishSeller.sellerGO = canFishBuyer.buyerGO;
+        canFishSeller.product = new Product(ProductType.CannedFish, productData.cannedFish, 1.33f);
+        canFishInventory.inventory.Add(canFishSeller.product);
+        canFishSeller.repriceMultiplier = 1.2f;
+        canFishSeller.tradePointData = canFishBuyer.tradePointData;
+        canFishEntity.Get<BuyDataUpdateRequest>();
+        canFishEntity.Get<SellDataUpdateRequest>();
+        sceneData.finalPoints.Add(canFishBuyer.tradePointData.finalPoint);
+        sceneData.tradePointCanvases.Add(canFishBuyer.tradePointData.canvas);
+
+        #endregion
+
+        #region Juice
+
+        var juiceEntity = _world.NewEntity();
+        ref var juiceBuyer = ref juiceEntity.Get<ProductBuyer>();
+        juiceBuyer.buyerGO = sceneData.juiceTradePoint;
+        juiceBuyer.tradePointData = juiceBuyer.buyerGO.GetComponent<TradePointData>();
+        juiceBuyer.repriceMultiplier = 1.2f;
+        juiceBuyer.buyingProductTypes = new List<ProductType>();
+        juiceBuyer.buyingProductTypes.Add(ProductType.Water);
+        juiceBuyer.buyingProductTypes.Add(ProductType.Fruits);
+
+        ref var juiceInventory = ref juiceEntity.Get<Inventory>();
+        juiceInventory.inventory = new List<Product>();
+        juiceInventory.inventory.Add(new Product(ProductType.Water, productData.water, 0.6f));
+        juiceInventory.inventory.Add(new Product(ProductType.Fruits, productData.fruits, 0.6f));
+        juiceInventory.maxMass = 100;
+
+        ref var juiceSeller = ref juiceEntity.Get<ProductSeller>();
+        juiceSeller.product = new Product(ProductType.Juice, productData.juice, 1.33f);
+        juiceInventory.inventory.Add(juiceSeller.product);
+        juiceSeller.produceSpeed = 1;
+        juiceSeller.sellerGO = juiceBuyer.buyerGO;
+        juiceSeller.repriceMultiplier = 1.2f;
+        juiceSeller.tradePointData = juiceBuyer.tradePointData;
+        juiceEntity.Get<BuyDataUpdateRequest>();
+        juiceEntity.Get<SellDataUpdateRequest>();
+        sceneData.finalPoints.Add(juiceBuyer.tradePointData.finalPoint);
+        sceneData.tradePointCanvases.Add(juiceBuyer.tradePointData.canvas);
+
+        #endregion
+
+        #region IceCream
+
+        var iceEntity = _world.NewEntity();
+        ref var iceBuyer = ref iceEntity.Get<ProductBuyer>();
+        iceBuyer.buyerGO = sceneData.iceTradePoint;
+        iceBuyer.tradePointData = iceBuyer.buyerGO.GetComponent<TradePointData>();
+        iceBuyer.repriceMultiplier = 1.2f;
+        iceBuyer.buyingProductTypes = new List<ProductType>();
+        iceBuyer.buyingProductTypes.Add(ProductType.Water);
+        iceBuyer.buyingProductTypes.Add(ProductType.Fruits);
+
+        ref var iceInventory = ref iceEntity.Get<Inventory>();
+        iceInventory.inventory = new List<Product>();
+        iceInventory.inventory.Add(new Product(ProductType.Milk, productData.milk, 0.6f));
+        iceInventory.inventory.Add(new Product(ProductType.Fruits, productData.fruits, 0.6f));
+        iceInventory.maxMass = 100;
+
+        ref var iceSeller = ref iceEntity.Get<ProductSeller>();
+        iceSeller.product = new Product(ProductType.Juice, productData.iceCream, 1.33f);
+        iceInventory.inventory.Add(iceSeller.product);
+        iceSeller.produceSpeed = 1;
+        iceSeller.sellerGO = iceBuyer.buyerGO;
+        iceSeller.repriceMultiplier = 1.2f;
+        iceSeller.tradePointData = iceBuyer.tradePointData;
+        iceEntity.Get<BuyDataUpdateRequest>();
+        iceEntity.Get<SellDataUpdateRequest>();
+        sceneData.finalPoints.Add(iceBuyer.tradePointData.finalPoint);
+        sceneData.tradePointCanvases.Add(iceBuyer.tradePointData.canvas);
+
+        #endregion
 
         //factories end
         #endregion
@@ -312,103 +551,9 @@ public class GameInitSystem : IEcsInitSystem
         shopEntity.Get<BuyDataUpdateRequest>();
         sceneData.finalPoints.Add(shopBuyer.tradePointData.finalPoint);
         sceneData.tradePointCanvases.Add(shopBuyer.tradePointData.canvas);
-
-
-
-
-
-    }
-
-    void PlayerInit()
-    {
-        var playerEntity = _world.NewEntity();
-        ref var playerComp = ref playerEntity.Get<Player>();
-        playerEntity.Get<Movable>();
-        sceneData.cars[staticData.selectedCarID].SetActive(true);
-        playerComp.playerGO = sceneData.cars[staticData.selectedCarID];
-        playerComp.carData = playerComp.playerGO.GetComponent<CarData>();
-        playerComp.playerRB = playerComp.playerGO.GetComponent<Rigidbody>();
-        playerComp.playerRB.mass = playerComp.carData.defaultMass;
-        playerComp.playerRB.centerOfMass = playerComp.carData.centerOfMass.transform.localPosition;
-        playerComp.maxSteerAngle = playerComp.carData.maxSteerAngle;
-        playerComp.maxFuel = playerComp.carData.maxFuel + playerComp.carData.maxFuel / 100 * 5 * staticData.carPerks[staticData.selectedCarID][0];
-        playerComp.maxTorque = playerComp.carData.maxTorque + playerComp.carData.maxTorque / 100 * 5 * staticData.carPerks[staticData.selectedCarID][1];
-        playerComp.acceleration = playerComp.carData.acceleration + playerComp.carData.acceleration / 100 * 5 * staticData.carPerks[staticData.selectedCarID][2];
-        playerComp.maxDurability = playerComp.carData.maxDurability + playerComp.carData.maxDurability / 100 * 5 * staticData.carPerks[staticData.selectedCarID][3];
-        playerComp.currentDurability = playerComp.maxDurability;
-        uiData.durabilityText.text = playerComp.currentDurability.ToString();
-        playerComp.currentFuel = playerComp.maxFuel;
-        uiData.fuelText.text = playerComp.currentFuel.ToString();
-        ref var playerInventory = ref playerEntity.Get<Inventory>();
-        playerInventory.inventory = new List<Product>();
-        if (!staticData.trailerIsSelected)
-        {
-            playerInventory.maxMass = playerComp.carData.carStorage + playerComp.carData.carStorage / 100 * 5 * staticData.carPerks[staticData.selectedCarID][4];
-        }
-        else
-        {
-            playerInventory.maxMass = playerComp.carData.carStorage + playerComp.carData.trailerStorage + playerComp.carData.carStorage / 100 * 5 * staticData.carPerks[staticData.selectedCarID][4];
-        }
-
-        playerEntity.Get<UpdateCargoRequest>();
-
-        foreach (var wheel in playerComp.carData.allWheelMeshes)
-        {
-            playerComp.carData.wheelDatas.Add(wheel.GetComponent<WheelData>());
-        }
-
-        for (int i = 0; i < playerComp.carData.playerCargo.Count; i++)
-        {
-            playerComp.carData.playerCargoRB.Add(playerComp.carData.playerCargo[i].gameObject.GetComponent<Rigidbody>());
-            playerComp.carData.playerCargoDefaultPos.Add(playerComp.carData.playerCargo[i].transform.localPosition);
-            playerComp.carData.playerCargoDefaultRot.Add(playerComp.carData.playerCargo[i].transform.localRotation);
-        }
-        if (staticData.trailerIsSelected)
-        {
-            playerComp.carData.trailer.SetActive(true);
-        }
-        else
-        {
-            playerComp.carData.trailer.SetActive(false);
-        }
-
-        soundData.loopSounds.Add(playerComp.carData.engineSound);
-        soundData.SwitchLoopSounds(settings.sound);
-
-        var virtualCam = sceneData.driveCam.GetComponent<CinemachineVirtualCamera>();
-        virtualCam.Follow = playerComp.playerGO.transform;
-        virtualCam.LookAt = playerComp.carData.cameraLookPoint;
     }
 
 
-    void LabInit()
-    {
-
-        UpdateResearchList();
-        if (staticData.researchLvl < sceneData.researchList.Count)
-        {
-            sceneData.labTradePoint.SetActive(true);
-            var labEntity = _world.NewEntity();
-            ref var labComp = ref labEntity.Get<ResearchLab>();
-            labComp.defaultRequirement = 50;
-            ref var labBuyer = ref labEntity.Get<ProductBuyer>();
-            labBuyer.buyingProductTypes = new List<ProductType>();
-            labBuyer.buyerGO = sceneData.labTradePoint;
-            labBuyer.tradePointData = labBuyer.buyerGO.GetComponent<TradePointData>();
-            labBuyer.repriceMultiplier = 1.2f;
-            ref var labInventory = ref labEntity.Get<Inventory>();
-            labInventory.inventory = new List<Product>();
-            labInventory.maxMass = 50;
-            labEntity.Get<LabUpdateRequest>();
-            labEntity.Get<BuyDataUpdateRequest>();
-            sceneData.finalPoints.Add(labBuyer.tradePointData.finalPoint);
-            sceneData.tradePointCanvases.Add(labBuyer.tradePointData.canvas);
-        }
-        else
-        {
-            sceneData.labTradePoint.SetActive(false);
-        }
-    }
 
     void UpdateResearchList()
     {

@@ -19,10 +19,7 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
 
     void IEcsRunSystem.Run()
     {
-        if (uiData.isPathComplete)
-        {
-            return;
-        }
+        if (uiData.isPathComplete) return;
 
         var playerPos = new Vector3();
         RaycastHit hit;
@@ -41,7 +38,7 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
             if (path.wayPoints.Count != 0)
             {
                 Vector3 waypointPos0 = new Vector3(waypointPos.x, 0, waypointPos.z);
-                Vector3 nextPoint0 = new Vector3(path.wayPoints[path.wayPoints.Count - 1].transform.position.x, 0, path.wayPoints[path.wayPoints.Count - 1].transform.position.z);
+                Vector3 nextPoint0 = new Vector3(path.wayPoints[path.wayPoints.Count - 1].position.x, 0, path.wayPoints[path.wayPoints.Count - 1].position.z);
 
                 distanceToNextPoint = (waypointPos0 - nextPoint0).magnitude;
             }
@@ -56,15 +53,15 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
             }
 
 
-            if (distanceToNextPoint >= 0.2 && distanceToNextPoint <= 10) //distance btw points
+            if (distanceToNextPoint >= 2 && distanceToNextPoint <= 20) //distance btw points
             {
                 if (path.wayPoints.Count != 0)
                 {
-                    SetWaypoints(path.wayPoints[path.wayPoints.Count - 1].transform.position, waypointPos);
-                    path.lineRenderer.SetPosition(0, path.wayPoints[0].transform.position);
+                    SetWaypoints(path.wayPoints[path.wayPoints.Count - 1].position, waypointPos);
+                    path.lineRenderer.SetPosition(0, path.wayPoints[0].position);
                     if (!uiData.isPathComplete)
                     {
-                        CheckPathComplete();
+                        CheckPathComplete(path);
                     }
                 }
                 else
@@ -75,46 +72,43 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
         }
     }
 
-    void SetWaypoints(Vector3 first, Vector3 last)
+    void SetWaypoints(Vector3 first, in Vector3 last)
     {
         ref var path = ref pathFilter.Get1(0);
-        int iterations = (int)(last - first).magnitude;
+        int pathStep = 2;
+        int iterations = (int)(last - first).magnitude / pathStep;
         for (int i = 0; i < iterations; i++)
         {
-            Vector3 waypointPos = (last - first).normalized + first;
+            Vector3 waypointPos = (last - first).normalized * pathStep + first;
             first = waypointPos;
-            path.wayPoints.Add(WPFromPool(waypointPos));
-            if (path.lineRenderer.positionCount <= path.wayPoints.Count)
-            {
-                path.lineRenderer.positionCount++;
-            }
-            path.lineRenderer.SetPosition(path.wayPoints.Count, path.wayPoints[path.wayPoints.Count - 1].transform.position);
+            path.wayPoints.Add(WPFromPool(waypointPos, ref path));
+
+            path.lineRenderer.positionCount++;
+            path.lineRenderer.SetPosition(path.wayPoints.Count, path.wayPoints[path.wayPoints.Count - 1].position);
         }
     }
-    GameObject WPFromPool(Vector3 pos)
+    Transform WPFromPool(in Vector3 pos, ref PathComp path)
     {
-        ref var path = ref pathFilter.Get1(0);
         if (path.currentPoolIndex >= path.waypointsPool.Count)
         {
             path.waypointsPool.Add(GameObject.Instantiate(path.waypointsPool[0]));
         }
-        GameObject waypoint = path.waypointsPool[path.currentPoolIndex];
-        waypoint.transform.position = pos;
-        waypoint.SetActive(true);
+        Transform waypoint = path.waypointsPool[path.currentPoolIndex];
+        waypoint.position = pos;
+        waypoint.gameObject.SetActive(true);
         path.currentPoolIndex++;
         return waypoint;
     }
 
-    void CheckPathComplete()
+    void CheckPathComplete(in PathComp path)
     {
-        ref var path = ref pathFilter.Get1(0);
         foreach (var finalPoint in sceneData.finalPoints)
         {
-            float distanceToNextPoint = (finalPoint.position - path.wayPoints[path.wayPoints.Count - 1].transform.position).magnitude;
-            float distanceToCurrentPoint = (finalPoint.position - path.wayPoints[0].transform.position).magnitude;
+            float distanceToNextPoint = (finalPoint.position - path.wayPoints[path.wayPoints.Count - 1].position).magnitude;
+            float distanceToCurrentPoint = (finalPoint.position - path.wayPoints[0].position).magnitude;
             if (distanceToNextPoint < 5 && distanceToCurrentPoint > 5)
             {
-                SetWaypoints(path.wayPoints[path.wayPoints.Count - 1].transform.position, finalPoint.position);
+                SetWaypoints(path.wayPoints[path.wayPoints.Count - 1].position, finalPoint.position);
                 uiData.isPathComplete = true;
             }
         }

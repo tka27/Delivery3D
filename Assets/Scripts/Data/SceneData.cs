@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
 public class SceneData : MonoBehaviour
 {
@@ -12,7 +11,7 @@ public class SceneData : MonoBehaviour
     public GameObject buildCam;
     public GameObject driveCam;
     public LineRenderer lineRenderer;
-    public List<GameObject> waypointsPool;
+    public List<Transform> waypointsPool;
     public List<Transform> finalPoints;
 
     public List<Transform> animalSpawnPoints;
@@ -25,8 +24,8 @@ public class SceneData : MonoBehaviour
     public List<GameObject> coinsPool;
 
     [HideInInspector] public List<GameObject> tradePointCanvases;
-    public GameObject wheatFarmTradePoint;
-    public GameObject waterStationTradePoint;
+    public GameObject wheatTradePoint;
+    public GameObject waterTradePoint;
     public GameObject bakeryTradePoint;
     public GameObject chickenTradePoint;
     public GameObject meatFactoryTradePoint;
@@ -37,6 +36,12 @@ public class SceneData : MonoBehaviour
     public GameObject autoServiceTradePoint;
     public GameObject shopTradePoint;
     public GameObject labTradePoint;
+    public GameObject fishTradePoint;
+    public GameObject canFishTradePoint;
+    public GameObject fruitTradePoint;
+    public GameObject vegetableTradePoint;
+    public GameObject juiceTradePoint;
+    public GameObject iceTradePoint;
 
 
 

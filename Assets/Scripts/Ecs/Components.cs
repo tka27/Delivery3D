@@ -4,10 +4,10 @@ using UnityEngine;
 
 public struct PathComp
 {
-    public List<GameObject> wayPoints;
+    public List<Transform> wayPoints;
     public int currentWaypointIndex;
     public LineRenderer lineRenderer;
-    public List<GameObject> waypointsPool;
+    public List<Transform> waypointsPool;
     public int currentPoolIndex;
 }
 public struct Player

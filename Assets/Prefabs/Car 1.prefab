@@ -402,7 +402,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
-  isDebuffed: 0
   attachedWheelColider: {fileID: 3835495469765576369}
   particles: {fileID: 5298326238940682484}
 --- !u!199 &2478057649761973099
@@ -6761,7 +6760,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
-  isDebuffed: 0
   attachedWheelColider: {fileID: 7972838434544177520}
   particles: {fileID: 2710541115233478906}
 --- !u!199 &7519417533848176174
@@ -12037,8 +12035,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 1000
-  carProductTypes: 
-  trailerProductTypes: 
+  trailerRB: {fileID: 156284175119626641}
+  carProductTypes: 05000000060000000700000008000000
+  trailerProductTypes: 000000000200000001000000
   allWheelMeshes:
   - {fileID: 6857396189107166872}
   - {fileID: 6857396188427927389}
@@ -12316,7 +12315,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
-  isDebuffed: 0
   attachedWheelColider: {fileID: 6857396187748507028}
   particles: {fileID: 6857396187596221814}
 --- !u!199 &6857396187596221815
@@ -17197,7 +17195,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
-  isDebuffed: 0
   attachedWheelColider: {fileID: 6857396188362996988}
   particles: {fileID: 6857396187636978806}
 --- !u!199 &6857396187636978807
@@ -22294,7 +22291,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
-  isDebuffed: 0
   attachedWheelColider: {fileID: 6857396187933156260}
   particles: {fileID: 6857396188427927379}
 --- !u!199 &6857396188427927380
@@ -27237,7 +27233,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
-  isDebuffed: 0
   attachedWheelColider: {fileID: 6857396188667598342}
   particles: {fileID: 6857396189107166875}
 --- !u!198 &6857396189107166875

@@ -25203,8 +25203,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 1000
+  trailerRB: {fileID: 5260342264447966844}
   carProductTypes: 000000000100000002000000
-  trailerProductTypes: 0500000006000000
+  trailerProductTypes: 0400000003000000
   allWheelMeshes:
   - {fileID: 1441463361127166325}
   - {fileID: 1441463360447910064}
@@ -25264,8 +25265,8 @@ MonoBehaviour:
   acceleration: 20
   maxFuel: 100
   defaultMass: 1000
-  carStorage: 50
-  trailerStorage: 50
+  carStorage: 400
+  trailerStorage: 500
 --- !u!136 &7304551665868831455
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -26662,7 +26663,7 @@ GameObject:
   - component: {fileID: 5260342264447966833}
   m_Layer: 7
   m_Name: Trailer 0
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26715,7 +26716,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: -0.25, z: 1.73}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: -0.28796434, z: -1.6259503}
+  m_ConnectedAnchor: {x: 0, y: -0.24328381, z: -1.5959101}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 2

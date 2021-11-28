@@ -14,6 +14,12 @@ public class ProductData : ScriptableObject
     public Sprite pizza;
     public Sprite cheese;
     public Sprite eggs;
+    public Sprite fish;
+    public Sprite fruits;
+    public Sprite cannedFish;
+    public Sprite juice;
+    public Sprite vegetables;
+    public Sprite iceCream;
 
     public Sprite FindProductIcon(ProductType type)
     {
@@ -42,6 +48,24 @@ public class ProductData : ScriptableObject
 
             case ProductType.Water:
                 return water;
+
+            case ProductType.Fish:
+                return fish;
+
+            case ProductType.Fruits:
+                return fruits;
+
+            case ProductType.CannedFish:
+                return cannedFish;
+
+            case ProductType.Juice:
+                return juice;
+
+            case ProductType.Vegetables:
+                return vegetables;
+
+            case ProductType.IceCream:
+                return iceCream;
 
             default:
                 Debug.LogError("Sprite not found");

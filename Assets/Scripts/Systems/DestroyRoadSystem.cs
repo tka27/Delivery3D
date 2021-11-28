@@ -29,7 +29,7 @@ sealed class DestroyRoadSystem : IEcsRunSystem, IEcsInitSystem
 
             foreach (var wp in path.wayPoints)
             {
-                wp.SetActive(false);
+                wp.gameObject.SetActive(false);
             }
             path.wayPoints.Clear();
 

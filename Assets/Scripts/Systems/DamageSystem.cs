@@ -20,15 +20,15 @@ sealed class DamageSystem : IEcsRunSystem
             if (!wheelData.onRoad && player.playerRB.velocity.magnitude > 1.5f)
             {
                 emissionModule = wheelData.particles.emission;
-                emissionModule.rateOverTime = player.playerRB.velocity.magnitude * 20;
+                emissionModule.rateOverTime = player.carData.trailerRB.velocity.magnitude * 20;
                 mainModule = wheelData.particles.main;
-                mainModule.startSpeed = player.playerRB.velocity.magnitude / 5;
+                mainModule.startSpeed = player.carData.trailerRB.velocity.magnitude / 5;
                 wheelData.particles.Play();
 
 
                 if (settings.vibration) Handheld.Vibrate();
 
-                player.currentDurability -= 0.005f * player.playerRB.velocity.magnitude * player.playerRB.mass / 1000;
+                player.currentDurability -= 0.005f * player.carData.trailerRB.velocity.magnitude * player.playerRB.mass / 1000;
                 uiData.durabilityText.text = player.currentDurability.ToString("#");
             }
             else

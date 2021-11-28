@@ -5,7 +5,6 @@ using System.Collections.Generic;
 [CreateAssetMenu]
 public class StaticData : ScriptableObject
 {
-    public List<GameObject> carsPrefabs;
     public List<ProductType> availableProductTypes;
     public float totalMoney;
     public float currentMoney;

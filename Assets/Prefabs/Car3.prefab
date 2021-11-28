@@ -386,7 +386,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
-  isDebuffed: 0
   attachedWheelColider: {fileID: 1773633609}
   particles: {fileID: 979715266}
 --- !u!199 &979715267
@@ -5715,7 +5714,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
-  isDebuffed: 0
   attachedWheelColider: {fileID: 2133768620}
   particles: {fileID: 2021559802}
 --- !u!199 &2021559803
@@ -11313,6 +11311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 5000
+  trailerRB: {fileID: 130253776}
   carProductTypes: 
   trailerProductTypes: 
   allWheelMeshes:
@@ -11537,7 +11536,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
-  isDebuffed: 0
   attachedWheelColider: {fileID: 3007568089328265961}
   particles: {fileID: 3007568089161785972}
 --- !u!198 &3007568089161785972
@@ -16480,7 +16478,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
-  isDebuffed: 0
   attachedWheelColider: {fileID: 3007568090336583499}
   particles: {fileID: 3007568089573049276}
 --- !u!199 &3007568089573049275
@@ -21546,7 +21543,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
-  isDebuffed: 0
   attachedWheelColider: {fileID: 3007568090521035131}
   particles: {fileID: 3007568090404360601}
 --- !u!199 &3007568090404360600
@@ -26489,7 +26485,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
-  isDebuffed: 0
   attachedWheelColider: {fileID: 3007568089642303507}
   particles: {fileID: 3007568090627582105}
 --- !u!199 &3007568090627582104
@@ -33487,7 +33482,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
-  isDebuffed: 0
   attachedWheelColider: {fileID: 8246074285010719341}
   particles: {fileID: 8246074284285160647}
 --- !u!199 &8246074284285160646
@@ -39934,7 +39928,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRoad: 1
   inWater: 0
-  isDebuffed: 0
   attachedWheelColider: {fileID: 8246074284717829830}
   particles: {fileID: 8246074285037792980}
 --- !u!199 &8246074285037792979

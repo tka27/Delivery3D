@@ -23,3 +23,9 @@ MonoBehaviour:
   pizza: {fileID: 21300000, guid: 378466d530d7d4c41880440c12cc1975, type: 3}
   cheese: {fileID: 21300000, guid: 4cf1d89cebbeb7f468897741caecfd43, type: 3}
   eggs: {fileID: 21300000, guid: c0362ded9b5d74e4a87d88b477d180c2, type: 3}
+  fish: {fileID: 21300000, guid: fb05b61a65c2b394bae5031caebb3230, type: 3}
+  fruits: {fileID: 21300000, guid: f8ef059a014e6eb468792145c899fc46, type: 3}
+  cannedFish: {fileID: 21300000, guid: 3b38b4263ab7de644911a6e0038bacf9, type: 3}
+  juice: {fileID: 21300000, guid: d3bac60992c235b4a828f235e8a3f116, type: 3}
+  vegetables: {fileID: 21300000, guid: 131d0e9016a99b541839126d43e16501, type: 3}
+  iceCream: {fileID: 21300000, guid: 604040e1f091ebf4e98f3025a117158f, type: 3}
