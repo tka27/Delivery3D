@@ -7,14 +7,10 @@ public class SceneData : MonoBehaviour
     [SerializeField] GameObject notificationPanel;
     [SerializeField] Text notificationText;
     public List<GameObject> cars;
+    public List<TrailRenderer> trails;
     public GameMode gameMode;
     public GameObject buildCam;
     public GameObject driveCam;
-    public LineRenderer lineRenderer;
-    public List<Transform> waypointsPool;
-    public List<Transform> finalPoints;
-    [HideInInspector] public List<Bridge> allBridges;
-    [HideInInspector] public List<Bridge> freeBridges;
 
     public List<Transform> animalSpawnPoints;
     public List<GameObject> animalsPool;

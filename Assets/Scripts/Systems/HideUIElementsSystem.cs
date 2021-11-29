@@ -1,37 +1,33 @@
 using Leopotam.Ecs;
+using UnityEngine;
 
 
-sealed class HideUIElementsSystem : IEcsRunSystem
+sealed class HideUIElementsSystem : IEcsInitSystem
 {
     UIData uiData;
     SceneData sceneData;
+    PathData pathData;
 
 
     EcsFilter<ProductSeller> sellerFilter;
     EcsFilter<ProductBuyer> buyerFilter;
 
-
-    void IEcsRunSystem.Run()
+    public void Init()
     {
+        TradePointData.tradeEvent += SwitchTradeBtns;
+        UIData.updateUIEvent += UpdateUI;
+    }
 
-        if (sceneData.gameMode == GameMode.Build && !uiData.clearButton.activeSelf)
-        {
-            uiData.clearButton.SetActive(true);
-            uiData.confirmButton.SetActive(true);
-        }
-        else if (sceneData.gameMode != GameMode.Build && uiData.clearButton.activeSelf)
-        {
-            uiData.clearButton.SetActive(false);
-            uiData.confirmButton.SetActive(false);
-        }
 
+    void SwitchTradeBtns()
+    {
         //buyButton
         bool buyCheck = false;
-        foreach (var fSeller in sellerFilter)
+        foreach (var entitySeller in sellerFilter)
         {
-            ref var seller = ref sellerFilter.Get1(fSeller);
+            ref var seller = ref sellerFilter.Get1(entitySeller);
 
-            if (seller.tradePointData.ableToTrade && sceneData.gameMode == GameMode.View)
+            if (seller.tradePointData.ableToTrade)
             {
                 if (!uiData.buyButton.activeSelf)
                 {
@@ -48,11 +44,11 @@ sealed class HideUIElementsSystem : IEcsRunSystem
 
         //sellButton
         bool sellCheck = false;
-        foreach (var fBuyer in buyerFilter)
+        foreach (var entityBuyer in buyerFilter)
         {
-            ref var seller = ref buyerFilter.Get1(fBuyer);
+            ref var seller = ref buyerFilter.Get1(entityBuyer);
 
-            if (seller.tradePointData.ableToTrade && sceneData.gameMode == GameMode.View)
+            if (seller.tradePointData.ableToTrade)
             {
                 if (!uiData.sellButton.activeSelf)
                 {
@@ -66,21 +62,29 @@ sealed class HideUIElementsSystem : IEcsRunSystem
         {
             uiData.sellButton.SetActive(false);
         }
+    }
 
-        //playerInfoPanel
-        /*if ((sceneData.gameMode == GameMode.View) && !uiData.playerInfoPanel[0].activeSelf)
+    void UpdateUI()
+    {
+        if (sceneData.gameMode == GameMode.Build)
         {
-            foreach (var uiElement in uiData.playerInfoPanel)
-            {
-                uiElement.SetActive(true);
-            }
+            uiData.buildBtns.SetActive(true);
+            pathData.buildSphere.gameObject.SetActive(true);
         }
-        else if (sceneData.gameMode != GameMode.View)
+        else
         {
-            foreach (var uiElement in uiData.playerInfoPanel)
-            {
-                uiElement.SetActive(false);
-            }
-        }*/
+            uiData.buildBtns.SetActive(false);
+            pathData.buildSphere.gameObject.SetActive(false);
+        }
+
+        if (sceneData.gameMode == GameMode.View)
+        {
+            uiData.tradeBtns.SetActive(true);
+        }
+        else
+        {
+            uiData.tradeBtns.SetActive(false);
+        }
+        uiData.gameModeText.text = sceneData.gameMode.ToString();
     }
 }

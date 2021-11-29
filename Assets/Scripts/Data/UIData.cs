@@ -6,10 +6,10 @@ public class UIData : MonoBehaviour
 {
     public bool isPathComplete;
     public bool isPathConfirmed;
-    public GameObject confirmButton;
-    public GameObject clearButton;
     public GameObject buyButton;
     public GameObject sellButton;
+    public GameObject tradeBtns;
+    public GameObject buildBtns;
     public Text gameModeText;
     public Text fuelText;
     public Text durabilityText;
@@ -20,13 +20,17 @@ public class UIData : MonoBehaviour
     public List<Image> inventoryIcons;
     public List<GameObject> playerInfoPanel;
     public List<GameObject> buttons;//for ui ignore
-
-
-
-
     
+    public delegate void UpdateUIHandler();
+    public static event UpdateUIHandler updateUIEvent;
+    public static void UpdateUI()
+    {
+        updateUIEvent.Invoke();
+    }
 
-    
+
+
+
 
 
     public static bool IsMouseOverButton(List<GameObject> buttons)

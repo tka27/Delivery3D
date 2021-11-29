@@ -20,11 +20,15 @@ public class TradePointData : MonoBehaviour
     string playerTag = "Player";
 
 
+    public delegate void TradeHandler();
+    public static event TradeHandler tradeEvent;
+
     void OnTriggerEnter(Collider collider)
     {
         if (collider.tag == playerTag)
         {
             ableToTrade = true;
+            tradeEvent.Invoke();
         }
     }
     void OnTriggerExit(Collider collider)
@@ -32,6 +36,7 @@ public class TradePointData : MonoBehaviour
         if (collider.tag == playerTag)
         {
             ableToTrade = false;
+            tradeEvent.Invoke();
         }
     }
 }

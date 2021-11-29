@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameModeButton : MonoBehaviour
@@ -36,6 +34,6 @@ public class GameModeButton : MonoBehaviour
                 sceneData.gameMode = GameMode.View;
                 break;
         }
-        uiData.gameModeText.text = sceneData.gameMode.ToString();
+        UIData.UpdateUI();
     }
 }

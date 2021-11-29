@@ -2,14 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public struct PathComp
-{
-    public List<Transform> wayPoints;
-    public int currentWaypointIndex;
-    public LineRenderer lineRenderer;
-    public List<Transform> waypointsPool;
-    public int currentPoolIndex;
-}
+
 public struct Player
 {
     public Rigidbody playerRB;
@@ -93,12 +86,8 @@ public struct ResearchLab
     public float requirement;
 }
 public struct LabUpdateRequest { }
-public struct WorldCoinsReplaceRequest
-{
-}
-public struct WorldCoinsComp
-{
-}
+public struct WorldCoinsReplaceRequest { }
+public struct WorldCoinsComp { }
 public struct Animal
 {
     public AnimalData animalData;
@@ -109,3 +98,4 @@ public struct Animal
         animalData.rb.isKinematic = true;
     }
 }
+public struct UpdateBtnsRequest { }

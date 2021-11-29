@@ -9,6 +9,7 @@ sealed class EcsStartup : MonoBehaviour
     EcsSystems fixedSystems;
     public StaticData staticData;
     public SceneData sceneData;
+    public PathData pathData;
     public ProductData productData;
     public SoundData soundData;
     public GameSettings gameSettings;
@@ -48,9 +49,10 @@ sealed class EcsStartup : MonoBehaviour
             .Add(new CarSoundSystem())
             .Add(new WorldCoinsReplaceSystem())
             .Add(new AnimalsSystem())
-            
+            .Add(new TrailFollowSystem())
 
-           
+
+
             .Inject(staticData)
             .Inject(sceneData)
             .Inject(uiData)
@@ -58,6 +60,7 @@ sealed class EcsStartup : MonoBehaviour
             .Inject(soundData)
             .Inject(flowingText)
             .Inject(gameSettings)
+            .Inject(pathData)
             .Init();
         fixedSystems
         .Add(new PlayerMoveSystem())
@@ -78,9 +81,10 @@ sealed class EcsStartup : MonoBehaviour
         .Inject(uiData)
         .Inject(productData)
         .Inject(gameSettings)
+        .Inject(pathData)
         .Init();
     }
-   
+
     void Update()
     {
         systems?.Run();

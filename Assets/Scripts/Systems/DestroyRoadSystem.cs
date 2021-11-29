@@ -4,11 +4,12 @@ using UnityEngine;
 
 sealed class DestroyRoadSystem : IEcsRunSystem, IEcsInitSystem
 {
-    EcsFilter<PathComp> pathFilter;
-    EcsFilter<PathComp, DestroyRoadRequest> pathRequestFilter;
+    EcsFilter<DestroyRoadRequest> pathRequestFilter;
     EcsFilter<Player> playerFilter;
+    EcsWorld _world;
     UIData uiData;
     SceneData sceneData;
+    PathData pathData;
     public void Init()
     {
         ClearPathBtn.clickEvent += AddRequest;
@@ -16,31 +17,29 @@ sealed class DestroyRoadSystem : IEcsRunSystem, IEcsInitSystem
 
     void IEcsRunSystem.Run()
     {
-
-
         foreach (var pathEntity in pathRequestFilter)
         {
             Vector3 playerPos = playerFilter.Get1(0).playerGO.transform.position;
             playerPos.y -= 1;
+            pathData.buildSphere.position = playerPos;
 
-            ref var path = ref pathRequestFilter.Get1(0);
-            path.currentWaypointIndex = 0;
-            path.currentPoolIndex = 0;
+            pathData.currentWaypointIndex = 0;
+            pathData.currentPoolIndex = 0;
 
-            foreach (var wp in path.wayPoints)
+            foreach (var wp in pathData.wayPoints)
             {
                 wp.gameObject.SetActive(false);
             }
-            path.wayPoints.Clear();
+            pathData.wayPoints.Clear();
 
-            path.lineRenderer.positionCount = 1;
-            path.lineRenderer.SetPosition(0, playerPos);
+            pathData.lineRenderer.positionCount = 1;
+            pathData.lineRenderer.SetPosition(0, playerPos);
             uiData.isPathComplete = false;
             uiData.isPathConfirmed = false;
 
             ResetObstacles();
             ResetBridges();
-            pathRequestFilter.GetEntity(pathEntity).Del<DestroyRoadRequest>();
+            pathRequestFilter.GetEntity(pathEntity).Destroy();
         }
     }
 
@@ -55,16 +54,16 @@ sealed class DestroyRoadSystem : IEcsRunSystem, IEcsInitSystem
 
     void ResetBridges()
     {
-        sceneData.freeBridges.Clear();
-        foreach (var bridge in sceneData.allBridges)
+        pathData.freeBridges.Clear();
+        foreach (var bridge in pathData.allBridges)
         {
-            sceneData.freeBridges.Add(bridge);
+            pathData.freeBridges.Add(bridge);
         }
     }
 
     void AddRequest()
     {
-        pathFilter.GetEntity(0).Get<DestroyRoadRequest>();
+        _world.NewEntity().Get<DestroyRoadRequest>();
     }
 
 }

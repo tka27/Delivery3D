@@ -4,11 +4,11 @@ public class Bridge : MonoBehaviour
 {
     public Transform point1;
     public Transform point2;
-    [SerializeField] SceneData sceneData;
+    [SerializeField] PathData pathData;
 
     void Start()
     {
-        sceneData.allBridges.Add(this);
-        sceneData.freeBridges.Add(this);
+        pathData.allBridges.Add(this);
+        pathData.freeBridges.Add(this);
     }
 }
