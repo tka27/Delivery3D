@@ -13,6 +13,8 @@ public class SceneData : MonoBehaviour
     public LineRenderer lineRenderer;
     public List<Transform> waypointsPool;
     public List<Transform> finalPoints;
+    [HideInInspector] public List<Bridge> allBridges;
+    [HideInInspector] public List<Bridge> freeBridges;
 
     public List<Transform> animalSpawnPoints;
     public List<GameObject> animalsPool;

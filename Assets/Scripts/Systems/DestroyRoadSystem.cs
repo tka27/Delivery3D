@@ -39,6 +39,7 @@ sealed class DestroyRoadSystem : IEcsRunSystem, IEcsInitSystem
             uiData.isPathConfirmed = false;
 
             ResetObstacles();
+            ResetBridges();
             pathRequestFilter.GetEntity(pathEntity).Del<DestroyRoadRequest>();
         }
     }
@@ -49,6 +50,15 @@ sealed class DestroyRoadSystem : IEcsRunSystem, IEcsInitSystem
         foreach (var obstacle in sceneData.roadObstaclesPool)
         {
             obstacle.SetActive(false);
+        }
+    }
+
+    void ResetBridges()
+    {
+        sceneData.freeBridges.Clear();
+        foreach (var bridge in sceneData.allBridges)
+        {
+            sceneData.freeBridges.Add(bridge);
         }
     }
 

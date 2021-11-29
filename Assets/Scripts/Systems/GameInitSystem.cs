@@ -26,8 +26,7 @@ public class GameInitSystem : IEcsInitSystem
         LabInit();
 
 
-        var pathEntity = _world.NewEntity();
-        ref var pathComp = ref pathEntity.Get<PathComp>();
+        ref var pathComp = ref _world.NewEntity().Get<PathComp>();
         pathComp.wayPoints = new List<Transform>();
         pathComp.lineRenderer = sceneData.lineRenderer;
         pathComp.waypointsPool = sceneData.waypointsPool;
@@ -106,7 +105,7 @@ public class GameInitSystem : IEcsInitSystem
             sceneData.labTradePoint.SetActive(true);
             var labEntity = _world.NewEntity();
             ref var labComp = ref labEntity.Get<ResearchLab>();
-            labComp.defaultRequirement = 50;
+            labComp.defaultRequirement = 10;
             ref var labBuyer = ref labEntity.Get<ProductBuyer>();
             labBuyer.buyingProductTypes = new List<ProductType>();
             labBuyer.buyerGO = sceneData.labTradePoint;
@@ -137,7 +136,7 @@ public class GameInitSystem : IEcsInitSystem
         ref var wheatFarmSeller = ref wheatFarmEntity.Get<ProductSeller>();
         wheatFarmSeller.sellerGO = sceneData.wheatTradePoint;
         wheatFarmSeller.tradePointData = wheatFarmSeller.sellerGO.GetComponent<TradePointData>();
-        wheatFarmSeller.produceSpeed = 0.5f*100;
+        wheatFarmSeller.produceSpeed = 0.5f * 100;
         wheatFarmSeller.product = new Product(ProductType.Wheat, productData.wheat, 0.1f);
         wheatFarmSeller.repriceMultiplier = 1.2f;
         ref var wheatFarmInventory = ref wheatFarmEntity.Get<Inventory>();

@@ -5,11 +5,12 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
 {
     EcsFilter<PathComp> pathFilter;
     EcsFilter<Player> playerFilter;
-    StaticData staticData;
     SceneData sceneData;
     UIData uiData;
     LayerMask layer;
     Camera camera;
+    const int PATH_STEP = 1;
+    const int BRIDGE_POINT_RADIUS = 15;
 
     public void Init()
     {
@@ -31,7 +32,7 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
         Physics.Raycast(mouseRay, out hit, 1000, layer) &&
         !UIData.IsMouseOverButton(uiData.buttons))
         {
-            waypointPos = new Vector3(hit.point.x, hit.point.y + 0.05f, hit.point.z);
+            waypointPos = new Vector3(hit.point.x, hit.point.y + 0.1f, hit.point.z);
             float distanceToNextPoint = 0;
 
             ref var path = ref pathFilter.Get1(0);
@@ -52,13 +53,12 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
                 distanceToNextPoint = (waypointPos - playerPos).magnitude;
             }
 
-
-            if (distanceToNextPoint >= 2 && distanceToNextPoint <= 20) //distance btw points
+            if (distanceToNextPoint >= PATH_STEP && distanceToNextPoint <= 15) //distance btw points
             {
                 if (path.wayPoints.Count != 0)
                 {
                     SetWaypoints(path.wayPoints[path.wayPoints.Count - 1].position, waypointPos);
-                    path.lineRenderer.SetPosition(0, path.wayPoints[0].position);
+                    CheckBridges(path);
                     if (!uiData.isPathComplete)
                     {
                         CheckPathComplete(path);
@@ -67,6 +67,7 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
                 else
                 {
                     SetWaypoints(playerPos, waypointPos);
+                    path.lineRenderer.SetPosition(0, path.wayPoints[0].position);
                 }
             }
         }
@@ -75,11 +76,10 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
     void SetWaypoints(Vector3 first, in Vector3 last)
     {
         ref var path = ref pathFilter.Get1(0);
-        int pathStep = 2;
-        int iterations = (int)(last - first).magnitude / pathStep;
+        int iterations = (int)(last - first).magnitude / PATH_STEP;
         for (int i = 0; i < iterations; i++)
         {
-            Vector3 waypointPos = (last - first).normalized * pathStep + first;
+            Vector3 waypointPos = (last - first).normalized * PATH_STEP + first;
             first = waypointPos;
             path.wayPoints.Add(WPFromPool(waypointPos, ref path));
 
@@ -112,5 +112,34 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
                 uiData.isPathComplete = true;
             }
         }
+    }
+
+    void CheckBridges(in PathComp path)
+    {
+        for (int i = 0; i < sceneData.freeBridges.Count; i++)
+        {
+            Bridge bridge = sceneData.freeBridges[i];
+            float distanceToBridge = (bridge.point1.position - path.wayPoints[path.wayPoints.Count - 1].position).magnitude;
+            if (distanceToBridge < BRIDGE_POINT_RADIUS)
+            {
+                SetWaypoints(path.wayPoints[path.wayPoints.Count - 1].position, bridge.point1.position);
+                SetWaypoints(path.wayPoints[path.wayPoints.Count - 1].position, bridge.point2.position);
+                sceneData.freeBridges.Remove(bridge);
+                return;
+            }
+            distanceToBridge = (bridge.point2.position - path.wayPoints[path.wayPoints.Count - 1].position).magnitude;
+            if (distanceToBridge < BRIDGE_POINT_RADIUS)
+            {
+                SetWaypoints(path.wayPoints[path.wayPoints.Count - 1].position, bridge.point2.position);
+                SetWaypoints(path.wayPoints[path.wayPoints.Count - 1].position, bridge.point1.position);
+                sceneData.freeBridges.Remove(bridge);
+                return;
+            }
+        }
+    }
+
+    void DisplayBuildSphere()
+    {
+
     }
 }

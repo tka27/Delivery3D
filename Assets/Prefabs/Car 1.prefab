@@ -12036,8 +12036,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   price: 1000
   trailerRB: {fileID: 156284175119626641}
-  carProductTypes: 05000000060000000700000008000000
-  trailerProductTypes: 000000000200000001000000
+  carProductTypes: 0a000000020000000e0000000c000000
+  trailerProductTypes: 0f0000000700000001000000
   allWheelMeshes:
   - {fileID: 6857396189107166872}
   - {fileID: 6857396188427927389}
