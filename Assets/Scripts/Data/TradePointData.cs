@@ -29,6 +29,7 @@ public class TradePointData : MonoBehaviour
         {
             ableToTrade = true;
             tradeEvent.Invoke();
+            SceneData.lastVisit = this.transform;
         }
     }
     void OnTriggerExit(Collider collider)

@@ -6,12 +6,23 @@ using System.Collections.Generic;
 public class StaticData : ScriptableObject
 {
     public List<ProductType> availableProductTypes;
-    public float totalMoney;
+    public GameObject trailPrefab;
     public float currentMoney;
     public float moneyForGame = 50;
     public int selectedCarID;
     public bool trailerIsSelected;
     public List<CarData> allCars;
+    [HideInInspector] public int adProgress;
+
+
+
+
+
+
+
+
+    //for save data
+    public float totalMoney;
     public int researchLvl;
     public bool[] carsUnlockStatus;
     public bool[] carsBuyStatus;

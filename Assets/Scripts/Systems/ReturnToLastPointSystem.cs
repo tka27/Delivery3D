@@ -1,0 +1,34 @@
+using Leopotam.Ecs;
+using UnityEngine;
+
+
+sealed class ReturnToLastPointSystem : IEcsInitSystem
+{
+    EcsWorld _world;
+    SceneData sceneData;
+    StaticData staticData;
+    EcsFilter<Player> playerFilter;
+    EcsFilter<WorldCoinsComp> coinsFilter;
+
+    public void Init()
+    {
+        CarReturnBtns.returnEvent += ReturnToTP;
+    }
+
+    void ReturnToTP()
+    {
+        ref var player = ref playerFilter.Get1(0);
+        player.currentDurability -= player.maxDurability / 5;
+        sceneData.cars[staticData.selectedCarID].transform.position = SceneData.lastVisit.position;
+
+        _world.NewEntity().Get<DestroyRoadRequest>();
+        coinsFilter.GetEntity(0).Get<WorldCoinsReplaceRequest>();
+        Vector3 pos = new Vector3(player.playerGO.transform.position.x, 20, player.playerGO.transform.position.z);
+        sceneData.buildCam.transform.position = pos;
+        sceneData.gameMode = GameMode.View;
+        UIData.UpdateUI();
+    }
+}
+
+
+

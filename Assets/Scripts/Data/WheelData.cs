@@ -3,12 +3,15 @@ using UnityEngine;
 
 public class WheelData : MonoBehaviour
 {
-    public bool onRoad;
-    public bool inWater;
     [SerializeField] WheelCollider attachedWheelColider;
     WheelFrictionCurve defaultForvardFriction;
     WheelFrictionCurve defaultSidewaysFriction;
 
+
+    public bool onRoad;
+    public bool inWater;
+    public ParticleSystem particles;
+    public Transform trailTF;
 
     float debuffTime = 2;
     bool firstCheck;
@@ -17,7 +20,6 @@ public class WheelData : MonoBehaviour
     string waterTag = "Water";
     string obstacle = "Obstacle";
     string timerCor = "DebuffTimer";
-    public ParticleSystem particles;
 
 
     void Start()

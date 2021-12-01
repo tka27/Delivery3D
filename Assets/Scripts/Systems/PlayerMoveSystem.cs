@@ -79,7 +79,7 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
                         {
                             player.currentTorque += player.acceleration;
                         }
-                        foreach (var wheel in player.carData.allWheelColliders)
+                        foreach (var wheel in player.activeWheelColliders)
                         {
                             wheel.brakeTorque = 0;
                         }

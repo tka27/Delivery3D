@@ -63,7 +63,10 @@ public class GameInitSystem : IEcsInitSystem
 
         foreach (var wheel in playerComp.carData.allWheelMeshes)
         {
-            playerComp.carData.wheelDatas.Add(wheel.GetComponent<WheelData>());
+            if (wheel.gameObject.activeInHierarchy)
+            {
+                playerComp.carData.wheelDatas.Add(wheel.GetComponent<WheelData>());
+            }
         }
 
         for (int i = 0; i < playerComp.carData.playerCargo.Count; i++)
@@ -79,6 +82,14 @@ public class GameInitSystem : IEcsInitSystem
         else
         {
             playerComp.carData.trailer.SetActive(false);
+        }
+        playerComp.activeWheelColliders = new List<WheelCollider>();
+        foreach (var wc in playerComp.carData.allWheelColliders)
+        {
+            if (wc.gameObject.activeInHierarchy)
+            {
+                playerComp.activeWheelColliders.Add(wc);
+            }
         }
 
         soundData.loopSounds.Add(playerComp.carData.engineSound);

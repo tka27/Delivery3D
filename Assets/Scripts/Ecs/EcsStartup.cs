@@ -50,7 +50,7 @@ sealed class EcsStartup : MonoBehaviour
             .Add(new WorldCoinsReplaceSystem())
             .Add(new AnimalsSystem())
             .Add(new TrailFollowSystem())
-
+            .Add(new ReturnToLastPointSystem())
 
 
             .Inject(staticData)

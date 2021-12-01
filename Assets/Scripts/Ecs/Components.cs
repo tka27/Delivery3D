@@ -16,6 +16,7 @@ public struct Player
     public float currentDurability;
     public float maxFuel;
     public float currentFuel;
+    public List<WheelCollider> activeWheelColliders;
 }
 public struct Movable { }
 public struct DestroyRoadRequest { }

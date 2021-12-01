@@ -6,6 +6,7 @@ public class SceneData : MonoBehaviour
     [SerializeField] ProductData productData;
     [SerializeField] GameObject notificationPanel;
     [SerializeField] Text notificationText;
+    public static Transform lastVisit;
     public List<GameObject> cars;
     public List<TrailRenderer> trails;
     public GameMode gameMode;

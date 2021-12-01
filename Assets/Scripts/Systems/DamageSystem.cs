@@ -12,7 +12,7 @@ sealed class DamageSystem : IEcsRunSystem
     GameSettings settings;
     ParticleSystem.EmissionModule emissionModule;
     ParticleSystem.MainModule mainModule;
-
+    
     void IEcsRunSystem.Run()
     {
         ref var player = ref playerFilter.Get1(0);
@@ -59,4 +59,8 @@ sealed class DamageSystem : IEcsRunSystem
             playerFilter.GetEntity(0).Get<ImmobilizeRequest>();
         }
     }
+
+    
+
+
 }
