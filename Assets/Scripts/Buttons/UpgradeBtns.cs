@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UpgradeBtns : MonoBehaviour
@@ -11,6 +9,7 @@ public class UpgradeBtns : MonoBehaviour
     [SerializeField] Transform moneyGO;
     public void UpgradeBtnClick()
     {
+        SoundData.PlayBtn();
         if (!upgradeCanvas.activeSelf)
         {
             upgradeCanvas.SetActive(true);
@@ -24,6 +23,7 @@ public class UpgradeBtns : MonoBehaviour
     }
     public void CloseBtnClick()
     {
+        SoundData.PlayBtn();
         upgradeCanvas.SetActive(false);
         carInfoCanvas.SetActive(true);
         moneyGO.position = moneyNormalPos.position;

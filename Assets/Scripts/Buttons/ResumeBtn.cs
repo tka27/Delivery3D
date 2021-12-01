@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ResumeBtn : MonoBehaviour
@@ -12,6 +10,7 @@ public class ResumeBtn : MonoBehaviour
 
     public void PlayClick()
     {
+        SoundData.PlayBtn();
         gameCanvas.SetActive(true);
         pauseCanvas.SetActive(false);
         soundData.SwitchLoopSounds(settings.sound);

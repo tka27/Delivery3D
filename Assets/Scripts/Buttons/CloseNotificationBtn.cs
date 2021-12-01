@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CloseNotificationBtn : MonoBehaviour
 {
@@ -14,6 +11,7 @@ public class CloseNotificationBtn : MonoBehaviour
         notificationCanvas.SetActive(false);
         if (prevCanvas != null)
         {
+            SoundData.PlayBtn();
             prevCanvas.SetActive(true);
         }
     }

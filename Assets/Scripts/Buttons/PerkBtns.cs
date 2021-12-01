@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +14,7 @@ public class PerkBtns : MonoBehaviour
 
     public void Perk0()
     {
+        SoundData.PlayBtn();
         foreach (var btn in perkBtns)
         {
             btn.localScale = normalScale;
@@ -24,6 +24,7 @@ public class PerkBtns : MonoBehaviour
     }
     public void Perk1()
     {
+        SoundData.PlayBtn();
         foreach (var btn in perkBtns)
         {
             btn.localScale = normalScale;
@@ -33,6 +34,7 @@ public class PerkBtns : MonoBehaviour
     }
     public void Perk2()
     {
+        SoundData.PlayBtn();
         foreach (var btn in perkBtns)
         {
             btn.localScale = normalScale;
@@ -42,6 +44,7 @@ public class PerkBtns : MonoBehaviour
     }
     public void Perk3()
     {
+        SoundData.PlayBtn();
         foreach (var btn in perkBtns)
         {
             btn.localScale = normalScale;
@@ -51,6 +54,7 @@ public class PerkBtns : MonoBehaviour
     }
     public void Perk4()
     {
+        SoundData.PlayBtn();
         foreach (var btn in perkBtns)
         {
             btn.localScale = normalScale;

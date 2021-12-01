@@ -10,6 +10,7 @@ public class BuyCarBtn : MonoBehaviour
 
     public void BuyCar()
     {
+        SoundData.PlayBtn();
         int carID = staticData.selectedCarID;
         if (!staticData.carsBuyStatus[carID])
         {
@@ -18,6 +19,7 @@ public class BuyCarBtn : MonoBehaviour
                 staticData.totalMoney -= staticData.allCars[carID].price;
                 staticData.carsBuyStatus[carID] = true;
                 carInfo.InfoUpdate();
+                SoundData.PlayCoin();
             }
             else
             {
@@ -31,6 +33,7 @@ public class BuyCarBtn : MonoBehaviour
                 staticData.totalMoney -= staticData.allCars[carID].price / 2;
                 staticData.trailersBuyStatus[carID] = true;
                 carInfo.InfoUpdate();
+                SoundData.PlayCoin();
             }
             else
             {

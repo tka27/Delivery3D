@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +10,7 @@ public class BuyUpgradeBtn : MonoBehaviour
     [SerializeField] FlowingText flowingText;
     public void BuyUpgrade()
     {
+        SoundData.PlayBtn();
         if (staticData.totalMoney > buyUpgradeInfo.perksPrices[mainMenuSceneData.selectedPerkID])
         {
             float perkCost = buyUpgradeInfo.perksPrices[mainMenuSceneData.selectedPerkID];
@@ -20,6 +19,7 @@ public class BuyUpgradeBtn : MonoBehaviour
 
             totalMoney.text = staticData.totalMoney.ToString("0");
             buyUpgradeInfo.UpgradeUpdate();
+            SoundData.PlayCoin();
         }
         else
         {

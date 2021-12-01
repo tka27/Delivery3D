@@ -103,7 +103,7 @@ sealed class SellSystem : IEcsInitSystem
                     buyerFilter.GetEntity(fBuyer).Get<BuyDataUpdateRequest>();
                     playerFilter.GetEntity(0).Get<UpdateCargoRequest>();
                     playerInventory.RemoveEmptySlots();
-                    soundData.PlayCoin();
+                    SoundData.PlayCoin();
                     foreach (var cargo in player.carData.playerCargo)
                     {
                         cargo.SetActive(false);

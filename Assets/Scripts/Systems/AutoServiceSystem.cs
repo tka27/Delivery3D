@@ -75,6 +75,7 @@ sealed class AutoServiceSystem : IEcsInitSystem
                     player.currentDurability += dealMass;
                     uiData.durabilityText.text = player.currentDurability.ToString("0");
                 }
+                SoundData.PlayCoin();
             }
         }
     }

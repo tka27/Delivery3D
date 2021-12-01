@@ -6,6 +6,7 @@ public class SellBtn : MonoBehaviour
     public static event ClickAction clickEvent;
     public void EventInvoke()
     {
+        SoundData.PlayBtn();
         clickEvent.Invoke();
     }
 }

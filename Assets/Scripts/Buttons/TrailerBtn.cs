@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TrailerBtn : MonoBehaviour
 {
@@ -10,6 +7,7 @@ public class TrailerBtn : MonoBehaviour
 
     public void TrailerSwitch()
     {
+        SoundData.PlayBtn();
         staticData.trailerIsSelected = !staticData.trailerIsSelected;
         carInfo.InfoUpdate();
     }

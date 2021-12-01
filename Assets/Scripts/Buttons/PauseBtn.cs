@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PauseBtn : MonoBehaviour
@@ -10,6 +8,7 @@ public class PauseBtn : MonoBehaviour
 
     public void PauseClick()
     {
+        SoundData.PlayBtn();
         gameCanvas.SetActive(false);
         pauseCanvas.SetActive(true);
         soundData.SwitchLoopSounds(false);

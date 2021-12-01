@@ -4,9 +4,10 @@ public class ConfirmButton : MonoBehaviour
 {
     [SerializeField] UIData uiData;
     [SerializeField] SceneData sceneData;
-    
+
     public void ConfirmClick()
     {
+        SoundData.PlayBtn();
         if (uiData.isPathComplete)
         {
             uiData.isPathConfirmed = true;

@@ -96,7 +96,7 @@ sealed class BuySystem : IEcsInitSystem
                     float dealCost = dealMass * seller.product.currentPrice;
                     staticData.currentMoney -= dealCost;
                     flowingText.DisplayText((-dealCost).ToString("0.0"));
-                    soundData.PlayCoin();
+                    SoundData.PlayCoin();
 
 
                     foreach (var go in player.carData.playerCargo)

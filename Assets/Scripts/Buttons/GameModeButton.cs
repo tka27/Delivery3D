@@ -6,6 +6,7 @@ public class GameModeButton : MonoBehaviour
     [SerializeField] UIData uiData;
     public void GameModeClick()
     {
+        SoundData.PlayBtn();
         switch (sceneData.gameMode)
         {
             case GameMode.View:
