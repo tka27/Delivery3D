@@ -61,13 +61,7 @@ public class GameInitSystem : IEcsInitSystem
 
         playerEntity.Get<UpdateCargoRequest>();
 
-        foreach (var wheel in playerComp.carData.allWheelMeshes)
-        {
-            if (wheel.gameObject.activeInHierarchy)
-            {
-                playerComp.carData.wheelDatas.Add(wheel.GetComponent<WheelData>());
-            }
-        }
+
 
         for (int i = 0; i < playerComp.carData.playerCargo.Count; i++)
         {
@@ -89,6 +83,13 @@ public class GameInitSystem : IEcsInitSystem
             if (wc.gameObject.activeInHierarchy)
             {
                 playerComp.activeWheelColliders.Add(wc);
+            }
+        }
+        foreach (var wheel in playerComp.carData.allWheelMeshes)
+        {
+            if (wheel.gameObject.activeInHierarchy)
+            {
+                playerComp.carData.wheelDatas.Add(wheel.GetComponent<WheelData>());
             }
         }
 

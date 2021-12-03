@@ -1,14 +1,22 @@
 using Leopotam.Ecs;
 using UnityEngine;
 
-sealed class ClearInventorySystem : IEcsInitSystem
+sealed class ClearInventorySystem : IEcsInitSystem, IEcsDestroySystem
 {
     EcsFilter<Player, Inventory>.Exclude<UpdateCargoRequest> playerFilter;
     UIData uiData;
 
+    
+
     public void Init()
     {
         ClearInventoryBtn.clickEvent += ClearAction;
+    }
+    
+    
+    public void Destroy()
+    {
+        ClearInventoryBtn.clickEvent -= ClearAction;
     }
 
 

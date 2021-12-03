@@ -20,14 +20,19 @@ public class SoundData : MonoBehaviour
         playCoinEvent += CoinSound;
         playBtnEvent += BtnSound;
     }
+    void OnDestroy()
+    {
+        playCoinEvent -= CoinSound;
+        playBtnEvent -= BtnSound;
+    }
 
     void CoinSound()
     {
         if (!settings.sound) return;
         int randomIndex = UnityEngine.Random.Range(0, coinsClips.Count);
         coinSource.clip = coinsClips[randomIndex];
-        coinSource.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
         coinSource.Play();
+        coinSource.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
     }
 
     public void SwitchLoopSounds(bool status)
@@ -48,8 +53,8 @@ public class SoundData : MonoBehaviour
     void BtnSound()
     {
         if (!settings.sound) return;
-        btnSource.pitch = UnityEngine.Random.Range(0.95f, 1.05f);
         btnSource.Play();
+        btnSource.pitch = UnityEngine.Random.Range(0.95f, 1.05f);
     }
     public static void PlayCoin()
     {

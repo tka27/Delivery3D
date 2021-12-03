@@ -1,6 +1,4 @@
 using Leopotam.Ecs;
-using System.Collections.Generic;
-using UnityEngine;
 
 
 sealed class ResearchSystem : IEcsRunSystem

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-sealed class TrailFollowSystem : IEcsRunSystem, IEcsInitSystem
+sealed class TrailFollowSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
 {
 
     EcsFilter<Player> playerFilter;
@@ -15,8 +15,14 @@ sealed class TrailFollowSystem : IEcsRunSystem, IEcsInitSystem
         foreach (var wc in playerFilter.Get1(0).activeWheelColliders)
         {
             activeWeelsTFs.Add(wc.transform);
-            CarReturnBtns.returnEvent += ClearTrails;
         }
+        CarReturnBtns.returnEvent += ClearTrails;
+    }
+
+
+    public void Destroy()
+    {
+        CarReturnBtns.returnEvent -= ClearTrails;
     }
 
     void IEcsRunSystem.Run()
@@ -56,6 +62,8 @@ sealed class TrailFollowSystem : IEcsRunSystem, IEcsInitSystem
             player.carData.wheelDatas[i].trailTF = null;
         }
     }
+
+
 }
 
 

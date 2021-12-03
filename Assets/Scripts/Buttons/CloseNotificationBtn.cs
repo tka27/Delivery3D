@@ -9,9 +9,9 @@ public class CloseNotificationBtn : MonoBehaviour
     public void CloseNotification()
     {
         notificationCanvas.SetActive(false);
+        SoundData.PlayBtn();
         if (prevCanvas != null)
         {
-            SoundData.PlayBtn();
             prevCanvas.SetActive(true);
         }
     }

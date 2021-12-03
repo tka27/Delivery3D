@@ -1,9 +1,8 @@
 using Leopotam.Ecs;
-using UnityEngine;
 using System.Collections.Generic;
 
 
-sealed class SellSystem : IEcsInitSystem
+sealed class SellSystem : IEcsInitSystem, IEcsDestroySystem
 {
 
     EcsFilter<ProductBuyer, Inventory> buyerFilter;
@@ -12,9 +11,18 @@ sealed class SellSystem : IEcsInitSystem
     SceneData sceneData;
     SoundData soundData;
     FlowingText flowingText;
+
+    
+
     public void Init()
     {
         SellBtn.clickEvent += SellAction;
+    }
+
+
+    public void Destroy()
+    {
+        SellBtn.clickEvent -= SellAction;
     }
     void SellAction()
     {

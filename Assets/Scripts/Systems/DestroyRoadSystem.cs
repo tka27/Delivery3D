@@ -2,7 +2,7 @@ using Leopotam.Ecs;
 using UnityEngine;
 
 
-sealed class DestroyRoadSystem : IEcsRunSystem, IEcsInitSystem
+sealed class DestroyRoadSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
 {
     EcsFilter<DestroyRoadRequest> pathRequestFilter;
     EcsFilter<Player> playerFilter;
@@ -14,7 +14,10 @@ sealed class DestroyRoadSystem : IEcsRunSystem, IEcsInitSystem
     {
         ClearPathBtn.clickEvent += AddRequest;
     }
-
+    public void Destroy()
+    {
+        ClearPathBtn.clickEvent -= AddRequest;
+    }
     void IEcsRunSystem.Run()
     {
         foreach (var pathEntity in pathRequestFilter)
@@ -65,5 +68,6 @@ sealed class DestroyRoadSystem : IEcsRunSystem, IEcsInitSystem
     {
         _world.NewEntity().Get<DestroyRoadRequest>();
     }
+
 
 }

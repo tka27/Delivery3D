@@ -2,7 +2,7 @@ using Leopotam.Ecs;
 using UnityEngine;
 
 
-sealed class BuySystem : IEcsInitSystem
+sealed class BuySystem : IEcsInitSystem,IEcsPostDestroySystem
 {
 
     EcsFilter<ProductSeller, Inventory>.Exclude<AutoService> sellerFilter;
@@ -15,6 +15,10 @@ sealed class BuySystem : IEcsInitSystem
     public void Init()
     {
         BuyBtn.clickEvent += BuyAction;
+    }
+
+    public void PostDestroy()
+    {
     }
 
     void BuyAction()

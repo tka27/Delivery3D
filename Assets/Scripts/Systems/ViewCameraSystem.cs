@@ -1,7 +1,5 @@
 using Leopotam.Ecs;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using System.Collections.Generic;
 
 
 sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
