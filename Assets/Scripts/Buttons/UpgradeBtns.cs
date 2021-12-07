@@ -3,29 +3,24 @@ using UnityEngine;
 public class UpgradeBtns : MonoBehaviour
 {
     [SerializeField] GameObject upgradeCanvas;
-    [SerializeField] GameObject carInfoCanvas;
+    [SerializeField] GameObject prevCanvas;
     [SerializeField] Transform moneyUpgradePos;
     [SerializeField] Transform moneyNormalPos;
     [SerializeField] Transform moneyGO;
     public void UpgradeBtnClick()
     {
         SoundData.PlayBtn();
-        if (!upgradeCanvas.activeSelf)
-        {
-            upgradeCanvas.SetActive(true);
-            carInfoCanvas.SetActive(false);
-            moneyGO.position = moneyUpgradePos.position;
-        }
-        else
-        {
-            CloseBtnClick();
-        }
+
+        upgradeCanvas.SetActive(true);
+        prevCanvas.SetActive(false);
+        moneyGO.position = moneyUpgradePos.position;
+
     }
     public void CloseBtnClick()
     {
         SoundData.PlayBtn();
         upgradeCanvas.SetActive(false);
-        carInfoCanvas.SetActive(true);
+        prevCanvas.SetActive(true);
         moneyGO.position = moneyNormalPos.position;
     }
 }

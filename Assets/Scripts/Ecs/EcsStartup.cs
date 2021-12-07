@@ -30,6 +30,7 @@ sealed class EcsStartup : MonoBehaviour
 #endif
         systems
             .Add(new GameInitSystem())
+            .Add(new BuildingsInitSystem())
             .Add(new WheelsUpdateSystem())
             .Add(new CameraSwitchSystem())
             .Add(new DrawPathSystem())

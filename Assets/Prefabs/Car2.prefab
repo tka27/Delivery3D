@@ -11710,38 +11710,39 @@ MonoBehaviour:
   centerOfMass: {fileID: 6701750012755939524}
   cameraLookPoint: {fileID: 7055413026198221815}
   wheelDatas: []
-  carCollider: {fileID: 5890725838793529480}
   trailer: {fileID: 1247118099}
   playerCargo:
   - {fileID: 67054712546488171}
   - {fileID: 7055413026812051879}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2205488515456150534}
+  - {fileID: 998410193827029482}
+  - {fileID: 8751253943294469310}
+  - {fileID: 9096797049443128288}
+  - {fileID: 5581444779725883184}
+  - {fileID: 2674482631071097107}
+  - {fileID: 744198969200246439}
+  - {fileID: 3044329851418561280}
+  - {fileID: 2446212610235374357}
+  - {fileID: 5581832886557556110}
+  - {fileID: 3072601864253717301}
+  - {fileID: 6153690627316386881}
+  - {fileID: 6197683169353787434}
   playerCargoRB:
   - {fileID: 67054712546488173}
   - {fileID: 7055413026812051882}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 5211996174606768384}
+  - {fileID: 2788356117981137662}
+  - {fileID: 3961544171706314967}
+  - {fileID: 933802604547673521}
+  - {fileID: 8899470523070374289}
+  - {fileID: 3953778761328004829}
+  - {fileID: 7031436420832023179}
+  - {fileID: 3114401483767153161}
+  - {fileID: 7599552853212323188}
+  - {fileID: 35318786915970895}
+  - {fileID: 318139949958543938}
+  - {fileID: 2554878334873952769}
+  - {fileID: 2639075491650704808}
   playerCargoDefaultPos: []
   playerCargoDefaultRot: []
   engineSound: {fileID: 8079227877522844757}

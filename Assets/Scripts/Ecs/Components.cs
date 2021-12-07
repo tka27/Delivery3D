@@ -72,7 +72,7 @@ public struct Inventory
 public struct AutoService { }
 public struct SellDataUpdateRequest { }
 public struct BuyDataUpdateRequest { }
-public struct Quest
+public struct Shop
 {
     public float currentQuestTime;
     public float maxQuestTime;

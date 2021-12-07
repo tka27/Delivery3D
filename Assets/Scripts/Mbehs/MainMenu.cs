@@ -17,6 +17,7 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         int carsCount = staticData.allCars.Count;
+        int mapsCount = 1;
 
         staticData.carsUnlockStatus = new bool[carsCount];
         staticData.carsUnlockStatus[0] = true;
@@ -33,6 +34,12 @@ public class MainMenu : MonoBehaviour
         for (int i = 0; i < carsCount; i++)
         {
             staticData.carPerks[i] = new int[5];
+        }
+
+        staticData.mapPerks = new int[mapsCount][];
+        for (int i = 0; i < mapsCount; i++)
+        {
+            staticData.mapPerks[i] = new int[5];
         }
 
 

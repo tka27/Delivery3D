@@ -8,7 +8,7 @@ public class CarInfo : MonoBehaviour
     [SerializeField] StaticData staticData;
     [SerializeField] ProductData productData;
     [SerializeField] MainMenuSceneData mainMenuSceneData;
-    [SerializeField] GameObject playBtn;
+    [SerializeField] GameObject mapBtn;
     [SerializeField] GameObject buyBtn;
     [SerializeField] GameObject upgradeBtn;
     [SerializeField] GameObject price;
@@ -43,14 +43,14 @@ public class CarInfo : MonoBehaviour
         {
             upgradeBtn.SetActive(true);
             buyBtn.SetActive(false);
-            playBtn.SetActive(true);
+            mapBtn.SetActive(true);
             padlock.SetActive(false);
             price.SetActive(false);
         }
         else if (staticData.carsUnlockStatus[carID] && !staticData.carsBuyStatus[carID])
         {
             upgradeBtn.SetActive(false);
-            playBtn.SetActive(false);
+            mapBtn.SetActive(false);
             buyBtn.SetActive(true);
             padlock.SetActive(true);
             price.SetActive(true);
@@ -59,7 +59,7 @@ public class CarInfo : MonoBehaviour
         else if (!staticData.carsUnlockStatus[carID])
         {
             upgradeBtn.SetActive(false);
-            playBtn.SetActive(false);
+            mapBtn.SetActive(false);
             buyBtn.SetActive(false);
             padlock.SetActive(true);
             price.SetActive(false);
@@ -71,7 +71,7 @@ public class CarInfo : MonoBehaviour
             mainMenuSceneData.trailers[carID].SetActive(true);
             if (!staticData.trailersBuyStatus[carID])
             {
-                playBtn.SetActive(false);
+                mapBtn.SetActive(false);
                 if (staticData.carsBuyStatus[carID])
                 {
                     buyBtn.SetActive(true);

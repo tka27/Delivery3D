@@ -761,7 +761,7 @@ PlayerSettings:
   cloudServicesEnabled:
     Analytics: 0
     Build: 0
-    Collab: 1
+    Collab: 0
     Game Performance: 0
     Purchasing: 0
     UDP: 0
@@ -780,7 +780,7 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: ff7b9be8-62fc-4261-981f-efa5091b23a4
+  cloudProjectId: cd0464c9-d0ea-400f-bb9c-2cf93f272265
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: Delivery3D

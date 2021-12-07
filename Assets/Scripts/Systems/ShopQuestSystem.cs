@@ -6,7 +6,7 @@ using System;
 sealed class ShopQuestSystem : IEcsRunSystem
 {
 
-    EcsFilter<ProductBuyer, Quest, Inventory> shopFilter;
+    EcsFilter<ProductBuyer, Shop, Inventory> shopFilter;
     EcsFilter<ProductSeller>.Exclude<AutoService> sellerFilter;
 
     void IEcsRunSystem.Run()

@@ -10,7 +10,7 @@ sealed class AdSystem : IEcsInitSystem, IEcsDestroySystem
     public void Init()
     {
         CarReturnBtns.returnEvent += AdCheck;
-        Advertisement.Initialize("4484073");
+        Advertisement.Initialize("4492089");
     }
     public void Destroy()
     {

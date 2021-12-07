@@ -4,7 +4,7 @@ using Leopotam.Ecs;
 sealed class QuestUpdateSystem : IEcsRunSystem
 {
 
-    EcsFilter<Inventory, Quest> shopFilter;
+    EcsFilter<Inventory, Shop> shopFilter;
 
     void IEcsRunSystem.Run()
     {

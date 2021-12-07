@@ -7,8 +7,7 @@ public class BuyUpgradeBtn : MonoBehaviour
     [SerializeField] StaticData staticData;
     [SerializeField] UpgradeInfo buyUpgradeInfo;
     [SerializeField] Text totalMoney;
-    [SerializeField] FlowingText flowingText;
-    public void BuyUpgrade()
+    public void BuyCarUpgrade()
     {
         SoundData.PlayBtn();
         if (staticData.totalMoney > buyUpgradeInfo.perksPrices[mainMenuSceneData.selectedPerkID])
@@ -18,7 +17,26 @@ public class BuyUpgradeBtn : MonoBehaviour
             staticData.carPerks[staticData.selectedCarID][mainMenuSceneData.selectedPerkID]++; //selected perk for current car
 
             totalMoney.text = staticData.totalMoney.ToString("0");
-            buyUpgradeInfo.UpgradeUpdate();
+            buyUpgradeInfo.CarUpgradeUpdate();
+            SoundData.PlayCoin();
+        }
+        else
+        {
+            MainMenu.Notification("Not enough money");
+        }
+    }
+
+    public void BuyMapUpgrade()
+    {
+        SoundData.PlayBtn();
+        if (staticData.totalMoney > buyUpgradeInfo.perksPrices[mainMenuSceneData.selectedPerkID])
+        {
+            float perkCost = buyUpgradeInfo.perksPrices[mainMenuSceneData.selectedPerkID];
+            staticData.totalMoney -= perkCost;
+            staticData.mapPerks[staticData.selectedMapID][mainMenuSceneData.selectedPerkID]++; //selected perk for current car
+
+            totalMoney.text = staticData.totalMoney.ToString("0");
+            buyUpgradeInfo.MapUpgradeUpdate();
             SoundData.PlayCoin();
         }
         else

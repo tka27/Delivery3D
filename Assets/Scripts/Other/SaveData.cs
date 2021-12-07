@@ -10,10 +10,12 @@ public class SaveData
     public bool[] carsBuyStatus;
     public bool[] trailersBuyStatus;
     public int[][] carPerks;
+    public int[][] mapPerks; 
     public SaveData()
     {
         totalMoney = staticData.totalMoney;
         carPerks = staticData.carPerks;
+        mapPerks = staticData.mapPerks;
         researchLvl = staticData.researchLvl;
 
 

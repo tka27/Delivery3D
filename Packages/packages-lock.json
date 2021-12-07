@@ -5,7 +5,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "97a605bc57543b3b89a7462d78c149e8b03943da"
+      "hash": "389f8b32b3a3e222c4a50eda3541d7d5e2e2d5a3"
     },
     "com.leopotam.ecs-unityintegration": {
       "version": "https://github.com/Leopotam/ecs-unityintegration.git",
@@ -24,11 +24,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.cinemachine": {
-      "version": "2.6.10",
+      "version": "https://github.com/Unity-Technologies/com.unity.cinemachine.git",
       "depth": 0,
-      "source": "registry",
+      "source": "git",
       "dependencies": {},
-      "url": "https://packages.unity.com"
+      "hash": "3f223a4130e98f69600c8edc3103c1c86ea7a4ff"
     },
     "com.unity.collab-proxy": {
       "version": "1.9.0",
