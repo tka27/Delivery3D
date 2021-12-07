@@ -6,6 +6,7 @@ public class SoundData : MonoBehaviour
 {
     [SerializeField] GameSettings settings;
     [SerializeField] AudioSource coinSource;
+    [SerializeField] AudioSource ost;
     [SerializeField] List<AudioClip> coinsClips;
     [SerializeField] AudioSource btnSource;
     public List<AudioSource> loopSounds;
@@ -19,6 +20,8 @@ public class SoundData : MonoBehaviour
     {
         playCoinEvent += CoinSound;
         playBtnEvent += BtnSound;
+        SwitchLoopSounds(settings.sound);
+        SwitchMusic(settings.music);
     }
     void OnDestroy()
     {
@@ -45,8 +48,20 @@ public class SoundData : MonoBehaviour
             }
             else if (!status)
             {
-                sound.Stop();
+                sound.Pause();
             }
+        }
+    }
+
+    public void SwitchMusic(bool status)
+    {
+        if (status && !ost.isPlaying)
+        {
+            ost.Play();
+        }
+        else if (!status)
+        {
+            ost.Pause();
         }
     }
 

@@ -9,6 +9,7 @@ sealed class EcsStartup : MonoBehaviour
     EcsSystems fixedSystems;
     public StaticData staticData;
     public SceneData sceneData;
+    public BuildingsData buildingsData;
     public PathData pathData;
     public ProductData productData;
     public SoundData soundData;
@@ -56,6 +57,7 @@ sealed class EcsStartup : MonoBehaviour
 
             .Inject(staticData)
             .Inject(sceneData)
+            .Inject(buildingsData)
             .Inject(uiData)
             .Inject(productData)
             .Inject(soundData)
@@ -79,6 +81,7 @@ sealed class EcsStartup : MonoBehaviour
 
         .Inject(staticData)
         .Inject(sceneData)
+        .Inject(buildingsData)
         .Inject(uiData)
         .Inject(productData)
         .Inject(gameSettings)

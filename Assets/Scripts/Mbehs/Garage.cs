@@ -16,6 +16,10 @@ public class Garage : MonoBehaviour, IUnityAdsListener
     {
         Advertisement.AddListener(this);
     }
+    void OnDestroy()
+    {
+        Advertisement.RemoveListener(this);
+    }
     void OnTriggerEnter(Collider collider)
     {
         if (collider.tag == PLAYER_TAG && isLeaveFromGarage)

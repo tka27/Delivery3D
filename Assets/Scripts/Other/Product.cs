@@ -7,20 +7,17 @@ public class Product
     public Sprite icon { get; }
     public float defaultPrice { get; }
     public float currentPrice { get; set; }
-    public Product(ProductType productType, float productMass, Sprite icon, float price)
+
+    public Product(ProductType type, Sprite icon, float defaultPrice)
     {
-        type = productType;
-        mass = productMass;
-        this.icon = icon;
-        defaultPrice = price;
-        currentPrice = defaultPrice;
-    }
-    public Product(ProductType productType, Sprite icon, float price)
-    {
-        type = productType;
+        this.type = type;
         mass = 0;
         this.icon = icon;
-        defaultPrice = price;
-        currentPrice = defaultPrice;
+        this.defaultPrice = defaultPrice;
+        currentPrice = this.defaultPrice;
+    }
+    public Product(ProductType type, float mass, Sprite icon, float defaultPrice) : this(type, icon, defaultPrice)
+    {
+        this.mass = mass;
     }
 }

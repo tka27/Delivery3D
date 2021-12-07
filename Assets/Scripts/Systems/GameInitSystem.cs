@@ -8,12 +8,14 @@ public class GameInitSystem : IEcsInitSystem
 {
     EcsWorld _world;
     SceneData sceneData;
+    BuildingsData buildingsData;
     StaticData staticData;
     SoundData soundData;
     PathData pathData;
     GameSettings settings;
     UIData uiData;
     ProductData productData;
+
     public void Init()
     {
 
@@ -22,9 +24,10 @@ public class GameInitSystem : IEcsInitSystem
         staticData.UpdateAvailableProducts();
 
         PlayerInit();
-        AnimalsInit();
         BuildingsInit();
         LabInit();
+        sceneData.navMeshSurface.BuildNavMesh();
+        AnimalsInit();
 
     }
 
@@ -107,13 +110,13 @@ public class GameInitSystem : IEcsInitSystem
         UpdateResearchList();
         if (staticData.researchLvl < sceneData.researchList.Count)
         {
-            sceneData.labTradePoint.SetActive(true);
+            buildingsData.labTradePoint.SetActive(true);
             var labEntity = _world.NewEntity();
             ref var labComp = ref labEntity.Get<ResearchLab>();
             labComp.defaultRequirement = 10;
             ref var labBuyer = ref labEntity.Get<ProductBuyer>();
             labBuyer.buyingProductTypes = new List<ProductType>();
-            labBuyer.buyerGO = sceneData.labTradePoint;
+            labBuyer.buyerGO = buildingsData.labTradePoint;
             labBuyer.tradePointData = labBuyer.buyerGO.GetComponent<TradePointData>();
             labBuyer.repriceMultiplier = 1.2f;
             ref var labInventory = ref labEntity.Get<Inventory>();
@@ -122,11 +125,11 @@ public class GameInitSystem : IEcsInitSystem
             labEntity.Get<LabUpdateRequest>();
             labEntity.Get<BuyDataUpdateRequest>();
             pathData.finalPoints.Add(labBuyer.tradePointData.finalPoint);
-            sceneData.tradePointCanvases.Add(labBuyer.tradePointData.canvas);
+            buildingsData.tradePointCanvases.Add(labBuyer.tradePointData.canvas);
         }
         else
         {
-            sceneData.labTradePoint.SetActive(false);
+            buildingsData.labTradePoint.SetActive(false);
         }
     }
 
@@ -139,7 +142,7 @@ public class GameInitSystem : IEcsInitSystem
 
         var wheatFarmEntity = _world.NewEntity();
         ref var wheatFarmSeller = ref wheatFarmEntity.Get<ProductSeller>();
-        wheatFarmSeller.sellerGO = sceneData.wheatTradePoint;
+        wheatFarmSeller.sellerGO = buildingsData.wheatTradePoint;
         wheatFarmSeller.tradePointData = wheatFarmSeller.sellerGO.GetComponent<TradePointData>();
         wheatFarmSeller.produceSpeed = 0.5f * 100;
         wheatFarmSeller.product = new Product(ProductType.Wheat, productData.wheat, 0.1f);
@@ -149,7 +152,7 @@ public class GameInitSystem : IEcsInitSystem
         wheatFarmInventory.maxMass = 1000;
         wheatFarmEntity.Get<SellDataUpdateRequest>();
         pathData.finalPoints.Add(wheatFarmSeller.tradePointData.finalPoint);
-        sceneData.tradePointCanvases.Add(wheatFarmSeller.tradePointData.canvas);
+        buildingsData.tradePointCanvases.Add(wheatFarmSeller.tradePointData.canvas);
 
         #endregion
 
@@ -157,7 +160,7 @@ public class GameInitSystem : IEcsInitSystem
 
         var fishFarmEntity = _world.NewEntity();
         ref var fishFarmSeller = ref fishFarmEntity.Get<ProductSeller>();
-        fishFarmSeller.sellerGO = sceneData.fishTradePoint;
+        fishFarmSeller.sellerGO = buildingsData.fishTradePoint;
         fishFarmSeller.tradePointData = fishFarmSeller.sellerGO.GetComponent<TradePointData>();
         fishFarmSeller.produceSpeed = 0.5f;
         fishFarmSeller.product = new Product(ProductType.Fish, productData.fish, 0.5f);
@@ -167,7 +170,7 @@ public class GameInitSystem : IEcsInitSystem
         fishFarmInventory.maxMass = 50;
         fishFarmEntity.Get<SellDataUpdateRequest>();
         pathData.finalPoints.Add(fishFarmSeller.tradePointData.finalPoint);
-        sceneData.tradePointCanvases.Add(fishFarmSeller.tradePointData.canvas);
+        buildingsData.tradePointCanvases.Add(fishFarmSeller.tradePointData.canvas);
 
         #endregion
 
@@ -175,7 +178,7 @@ public class GameInitSystem : IEcsInitSystem
 
         var fruitFarmEntity = _world.NewEntity();
         ref var fruitFarmSeller = ref fruitFarmEntity.Get<ProductSeller>();
-        fruitFarmSeller.sellerGO = sceneData.fruitTradePoint;
+        fruitFarmSeller.sellerGO = buildingsData.fruitTradePoint;
         fruitFarmSeller.tradePointData = fruitFarmSeller.sellerGO.GetComponent<TradePointData>();
         fruitFarmSeller.produceSpeed = 0.5f;
         fruitFarmSeller.product = new Product(ProductType.Fruits, productData.fruits, 0.5f);
@@ -185,7 +188,7 @@ public class GameInitSystem : IEcsInitSystem
         fruitFarmInventory.maxMass = 50;
         fruitFarmEntity.Get<SellDataUpdateRequest>();
         pathData.finalPoints.Add(fruitFarmSeller.tradePointData.finalPoint);
-        sceneData.tradePointCanvases.Add(fruitFarmSeller.tradePointData.canvas);
+        buildingsData.tradePointCanvases.Add(fruitFarmSeller.tradePointData.canvas);
 
         #endregion
 
@@ -193,7 +196,7 @@ public class GameInitSystem : IEcsInitSystem
 
         var vegetableFarmEntity = _world.NewEntity();
         ref var vegetableFarmSeller = ref vegetableFarmEntity.Get<ProductSeller>();
-        vegetableFarmSeller.sellerGO = sceneData.vegetableTradePoint;
+        vegetableFarmSeller.sellerGO = buildingsData.vegetableTradePoint;
         vegetableFarmSeller.tradePointData = vegetableFarmSeller.sellerGO.GetComponent<TradePointData>();
         vegetableFarmSeller.produceSpeed = 0.5f;
         vegetableFarmSeller.product = new Product(ProductType.Vegetables, productData.vegetables, 0.5f);
@@ -203,7 +206,7 @@ public class GameInitSystem : IEcsInitSystem
         vegetableFarmInventory.maxMass = 50;
         vegetableFarmEntity.Get<SellDataUpdateRequest>();
         pathData.finalPoints.Add(vegetableFarmSeller.tradePointData.finalPoint);
-        sceneData.tradePointCanvases.Add(vegetableFarmSeller.tradePointData.canvas);
+        buildingsData.tradePointCanvases.Add(vegetableFarmSeller.tradePointData.canvas);
 
         #endregion
 
@@ -211,7 +214,7 @@ public class GameInitSystem : IEcsInitSystem
 
         var waterStationEntity = _world.NewEntity();
         ref var waterStationSeller = ref waterStationEntity.Get<ProductSeller>();
-        waterStationSeller.sellerGO = sceneData.waterTradePoint;
+        waterStationSeller.sellerGO = buildingsData.waterTradePoint;
         waterStationSeller.tradePointData = waterStationSeller.sellerGO.GetComponent<TradePointData>();
         waterStationSeller.produceSpeed = 0.5f;
         waterStationSeller.product = new Product(ProductType.Water, productData.water, 0.5f);
@@ -221,7 +224,7 @@ public class GameInitSystem : IEcsInitSystem
         waterStationInventory.maxMass = 50;
         waterStationEntity.Get<SellDataUpdateRequest>();
         pathData.finalPoints.Add(waterStationSeller.tradePointData.finalPoint);
-        sceneData.tradePointCanvases.Add(waterStationSeller.tradePointData.canvas);
+        buildingsData.tradePointCanvases.Add(waterStationSeller.tradePointData.canvas);
 
         #endregion
 
@@ -230,7 +233,7 @@ public class GameInitSystem : IEcsInitSystem
         var gasStationEntity = _world.NewEntity();
         gasStationEntity.Get<AutoService>();
         ref var gasStation = ref gasStationEntity.Get<ProductSeller>();
-        gasStation.sellerGO = sceneData.gasStationTradePoint;
+        gasStation.sellerGO = buildingsData.gasStationTradePoint;
         gasStation.tradePointData = gasStation.sellerGO.GetComponent<TradePointData>();
         gasStation.produceSpeed = 0.3f;
         gasStation.repriceMultiplier = 1.1f;
@@ -240,7 +243,7 @@ public class GameInitSystem : IEcsInitSystem
         gasStationInventory.maxMass = 200;
         gasStationEntity.Get<SellDataUpdateRequest>();
         pathData.finalPoints.Add(gasStation.tradePointData.finalPoint);
-        sceneData.tradePointCanvases.Add(gasStation.tradePointData.canvas);
+        buildingsData.tradePointCanvases.Add(gasStation.tradePointData.canvas);
 
         #endregion
 
@@ -249,7 +252,7 @@ public class GameInitSystem : IEcsInitSystem
         var autoServiceEntity = _world.NewEntity();
         autoServiceEntity.Get<AutoService>();
         ref var autoService = ref autoServiceEntity.Get<ProductSeller>();
-        autoService.sellerGO = sceneData.autoServiceTradePoint;
+        autoService.sellerGO = buildingsData.autoServiceTradePoint;
         autoService.tradePointData = autoService.sellerGO.GetComponent<TradePointData>();
         autoService.produceSpeed = 0.2f;
         autoService.repriceMultiplier = 1.1f;
@@ -259,7 +262,7 @@ public class GameInitSystem : IEcsInitSystem
         autoServiceInventory.maxMass = 200;
         autoServiceEntity.Get<SellDataUpdateRequest>();
         pathData.finalPoints.Add(autoService.tradePointData.finalPoint);
-        sceneData.tradePointCanvases.Add(autoService.tradePointData.canvas);
+        buildingsData.tradePointCanvases.Add(autoService.tradePointData.canvas);
 
         #endregion
 
@@ -272,7 +275,7 @@ public class GameInitSystem : IEcsInitSystem
 
         var bakeryEntity = _world.NewEntity();
         ref var bakeryBuyer = ref bakeryEntity.Get<ProductBuyer>();
-        bakeryBuyer.buyerGO = sceneData.bakeryTradePoint;
+        bakeryBuyer.buyerGO = buildingsData.bakeryTradePoint;
         bakeryBuyer.tradePointData = bakeryBuyer.buyerGO.GetComponent<TradePointData>();
         bakeryBuyer.repriceMultiplier = 1.2f;
         bakeryBuyer.buyingProductTypes = new List<ProductType>();
@@ -293,7 +296,7 @@ public class GameInitSystem : IEcsInitSystem
         bakeryEntity.Get<BuyDataUpdateRequest>();
         bakeryEntity.Get<SellDataUpdateRequest>();
         pathData.finalPoints.Add(bakeryBuyer.tradePointData.finalPoint);
-        sceneData.tradePointCanvases.Add(bakeryBuyer.tradePointData.canvas);
+        buildingsData.tradePointCanvases.Add(bakeryBuyer.tradePointData.canvas);
 
 
         #endregion
@@ -301,7 +304,7 @@ public class GameInitSystem : IEcsInitSystem
         #region Chicken
         var chickenEntity = _world.NewEntity();
         ref var chickenBuyer = ref chickenEntity.Get<ProductBuyer>();
-        chickenBuyer.buyerGO = sceneData.chickenTradePoint;
+        chickenBuyer.buyerGO = buildingsData.chickenTradePoint;
         chickenBuyer.tradePointData = chickenBuyer.buyerGO.GetComponent<TradePointData>();
         chickenBuyer.repriceMultiplier = 1.2f;
         chickenBuyer.buyingProductTypes = new List<ProductType>();
@@ -322,7 +325,7 @@ public class GameInitSystem : IEcsInitSystem
         chickenEntity.Get<BuyDataUpdateRequest>();
         chickenEntity.Get<SellDataUpdateRequest>();
         pathData.finalPoints.Add(chickenBuyer.tradePointData.finalPoint);
-        sceneData.tradePointCanvases.Add(chickenBuyer.tradePointData.canvas);
+        buildingsData.tradePointCanvases.Add(chickenBuyer.tradePointData.canvas);
 
 
         #endregion
@@ -331,7 +334,7 @@ public class GameInitSystem : IEcsInitSystem
 
         var meatEntity = _world.NewEntity();
         ref var meatBuyer = ref meatEntity.Get<ProductBuyer>();
-        meatBuyer.buyerGO = sceneData.meatFactoryTradePoint;
+        meatBuyer.buyerGO = buildingsData.meatFactoryTradePoint;
         meatBuyer.tradePointData = meatBuyer.buyerGO.GetComponent<TradePointData>();
         meatBuyer.repriceMultiplier = 1.2f;
         meatBuyer.buyingProductTypes = new List<ProductType>();
@@ -352,14 +355,14 @@ public class GameInitSystem : IEcsInitSystem
         meatEntity.Get<BuyDataUpdateRequest>();
         meatEntity.Get<SellDataUpdateRequest>();
         pathData.finalPoints.Add(meatBuyer.tradePointData.finalPoint);
-        sceneData.tradePointCanvases.Add(meatBuyer.tradePointData.canvas);
+        buildingsData.tradePointCanvases.Add(meatBuyer.tradePointData.canvas);
 
         #endregion
 
         #region MilkFactory
         var milkEntity = _world.NewEntity();
         ref var milkBuyer = ref milkEntity.Get<ProductBuyer>();
-        milkBuyer.buyerGO = sceneData.milkFactoryTradePoint;
+        milkBuyer.buyerGO = buildingsData.milkFactoryTradePoint;
         milkBuyer.tradePointData = milkBuyer.buyerGO.GetComponent<TradePointData>();
         milkBuyer.repriceMultiplier = 1.2f;
         milkBuyer.buyingProductTypes = new List<ProductType>();
@@ -380,7 +383,7 @@ public class GameInitSystem : IEcsInitSystem
         milkEntity.Get<BuyDataUpdateRequest>();
         milkEntity.Get<SellDataUpdateRequest>();
         pathData.finalPoints.Add(milkSeller.tradePointData.finalPoint);
-        sceneData.tradePointCanvases.Add(milkSeller.tradePointData.canvas);
+        buildingsData.tradePointCanvases.Add(milkSeller.tradePointData.canvas);
 
 
         #endregion
@@ -389,7 +392,7 @@ public class GameInitSystem : IEcsInitSystem
 
         var pizzaEntity = _world.NewEntity();
         ref var pizzaBuyer = ref pizzaEntity.Get<ProductBuyer>();
-        pizzaBuyer.buyerGO = sceneData.pizzaTradePoint;
+        pizzaBuyer.buyerGO = buildingsData.pizzaTradePoint;
         pizzaBuyer.tradePointData = pizzaBuyer.buyerGO.GetComponent<TradePointData>();
         pizzaBuyer.repriceMultiplier = 1.2f;
         pizzaBuyer.buyingProductTypes = new List<ProductType>();
@@ -414,7 +417,7 @@ public class GameInitSystem : IEcsInitSystem
         pizzaEntity.Get<BuyDataUpdateRequest>();
         pizzaEntity.Get<SellDataUpdateRequest>();
         pathData.finalPoints.Add(pizzaBuyer.tradePointData.finalPoint);
-        sceneData.tradePointCanvases.Add(pizzaBuyer.tradePointData.canvas);
+        buildingsData.tradePointCanvases.Add(pizzaBuyer.tradePointData.canvas);
 
         #endregion
 
@@ -422,7 +425,7 @@ public class GameInitSystem : IEcsInitSystem
 
         var cheeseEntity = _world.NewEntity();
         ref var cheeseBuyer = ref cheeseEntity.Get<ProductBuyer>();
-        cheeseBuyer.buyerGO = sceneData.cheeseTradePoint;
+        cheeseBuyer.buyerGO = buildingsData.cheeseTradePoint;
         cheeseBuyer.tradePointData = cheeseBuyer.buyerGO.GetComponent<TradePointData>();
         cheeseBuyer.repriceMultiplier = 1.2f;
         cheeseBuyer.buyingProductTypes = new List<ProductType>();
@@ -443,7 +446,7 @@ public class GameInitSystem : IEcsInitSystem
         cheeseEntity.Get<BuyDataUpdateRequest>();
         cheeseEntity.Get<SellDataUpdateRequest>();
         pathData.finalPoints.Add(cheeseBuyer.tradePointData.finalPoint);
-        sceneData.tradePointCanvases.Add(cheeseBuyer.tradePointData.canvas);
+        buildingsData.tradePointCanvases.Add(cheeseBuyer.tradePointData.canvas);
 
         #endregion
 
@@ -451,7 +454,7 @@ public class GameInitSystem : IEcsInitSystem
 
         var canFishEntity = _world.NewEntity();
         ref var canFishBuyer = ref canFishEntity.Get<ProductBuyer>();
-        canFishBuyer.buyerGO = sceneData.canFishTradePoint;
+        canFishBuyer.buyerGO = buildingsData.canFishTradePoint;
         canFishBuyer.tradePointData = canFishBuyer.buyerGO.GetComponent<TradePointData>();
         canFishBuyer.repriceMultiplier = 1.2f;
         canFishBuyer.buyingProductTypes = new List<ProductType>();
@@ -472,7 +475,7 @@ public class GameInitSystem : IEcsInitSystem
         canFishEntity.Get<BuyDataUpdateRequest>();
         canFishEntity.Get<SellDataUpdateRequest>();
         pathData.finalPoints.Add(canFishBuyer.tradePointData.finalPoint);
-        sceneData.tradePointCanvases.Add(canFishBuyer.tradePointData.canvas);
+        buildingsData.tradePointCanvases.Add(canFishBuyer.tradePointData.canvas);
 
         #endregion
 
@@ -480,7 +483,7 @@ public class GameInitSystem : IEcsInitSystem
 
         var juiceEntity = _world.NewEntity();
         ref var juiceBuyer = ref juiceEntity.Get<ProductBuyer>();
-        juiceBuyer.buyerGO = sceneData.juiceTradePoint;
+        juiceBuyer.buyerGO = buildingsData.juiceTradePoint;
         juiceBuyer.tradePointData = juiceBuyer.buyerGO.GetComponent<TradePointData>();
         juiceBuyer.repriceMultiplier = 1.2f;
         juiceBuyer.buyingProductTypes = new List<ProductType>();
@@ -503,7 +506,7 @@ public class GameInitSystem : IEcsInitSystem
         juiceEntity.Get<BuyDataUpdateRequest>();
         juiceEntity.Get<SellDataUpdateRequest>();
         pathData.finalPoints.Add(juiceBuyer.tradePointData.finalPoint);
-        sceneData.tradePointCanvases.Add(juiceBuyer.tradePointData.canvas);
+        buildingsData.tradePointCanvases.Add(juiceBuyer.tradePointData.canvas);
 
         #endregion
 
@@ -511,7 +514,7 @@ public class GameInitSystem : IEcsInitSystem
 
         var iceEntity = _world.NewEntity();
         ref var iceBuyer = ref iceEntity.Get<ProductBuyer>();
-        iceBuyer.buyerGO = sceneData.iceTradePoint;
+        iceBuyer.buyerGO = buildingsData.iceTradePoint;
         iceBuyer.tradePointData = iceBuyer.buyerGO.GetComponent<TradePointData>();
         iceBuyer.repriceMultiplier = 1.2f;
         iceBuyer.buyingProductTypes = new List<ProductType>();
@@ -534,7 +537,7 @@ public class GameInitSystem : IEcsInitSystem
         iceEntity.Get<BuyDataUpdateRequest>();
         iceEntity.Get<SellDataUpdateRequest>();
         pathData.finalPoints.Add(iceBuyer.tradePointData.finalPoint);
-        sceneData.tradePointCanvases.Add(iceBuyer.tradePointData.canvas);
+        buildingsData.tradePointCanvases.Add(iceBuyer.tradePointData.canvas);
 
         #endregion
 
@@ -546,7 +549,7 @@ public class GameInitSystem : IEcsInitSystem
         shopEntity.Get<Quest>().maxQuestTime = 120;
         ref var shopBuyer = ref shopEntity.Get<ProductBuyer>();
         shopBuyer.buyingProductTypes = new List<ProductType>();
-        shopBuyer.buyerGO = sceneData.shopTradePoint;
+        shopBuyer.buyerGO = buildingsData.shopTradePoint;
         shopBuyer.tradePointData = shopBuyer.buyerGO.GetComponent<TradePointData>();
         shopBuyer.repriceMultiplier = 1.2f;
         ref var shopInventory = ref shopEntity.Get<Inventory>();
@@ -554,7 +557,7 @@ public class GameInitSystem : IEcsInitSystem
         shopInventory.maxMass = 50;
         shopEntity.Get<BuyDataUpdateRequest>();
         pathData.finalPoints.Add(shopBuyer.tradePointData.finalPoint);
-        sceneData.tradePointCanvases.Add(shopBuyer.tradePointData.canvas);
+        buildingsData.tradePointCanvases.Add(shopBuyer.tradePointData.canvas);
     }
 
 

@@ -14,6 +14,7 @@ public class ResumeBtn : MonoBehaviour
         gameCanvas.SetActive(true);
         pauseCanvas.SetActive(false);
         soundData.SwitchLoopSounds(settings.sound);
+        soundData.SwitchMusic(settings.music);
         Time.timeScale = 1;
     }
 }

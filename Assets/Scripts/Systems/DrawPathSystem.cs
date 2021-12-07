@@ -23,7 +23,7 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
     {
         if (uiData.isPathComplete) return;
 
-        var playerPos = new Vector3();
+        // var playerPos = new Vector3();
         RaycastHit hit;
         Ray mouseRay = camera.ScreenPointToRay(Input.mousePosition);
         Vector3 waypointPos;
@@ -45,12 +45,11 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
             }
             else
             {
-                foreach (var f3 in playerFilter)
-                {
-                    playerPos = playerFilter.Get1(f3).playerGO.transform.position;
-                    playerPos.y = playerPos.y - 0.8f;
-                }
-                distanceToNextPoint = (waypointPos - playerPos).magnitude;
+
+                Transform playerTR = playerFilter.Get1(0).playerGO.transform;
+                Physics.Raycast(playerTR.position, -playerTR.up, out hit, 10, layer);
+
+                distanceToNextPoint = (waypointPos - hit.point).magnitude;
             }
 
             if (distanceToNextPoint >= PATH_STEP && distanceToNextPoint <= PathData.BUILD_SPHERE_RADIUS) //distance btw points
@@ -66,7 +65,7 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
                 }
                 else
                 {
-                    SetWaypoints(playerPos, waypointPos);
+                    SetWaypoints(hit.point, waypointPos);
                     pathData.lineRenderer.SetPosition(0, pathData.wayPoints[0].position);
                 }
             }

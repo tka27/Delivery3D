@@ -16,12 +16,11 @@ public class CarData : MonoBehaviour
     public Transform centerOfMass;
     public Transform cameraLookPoint;
     [HideInInspector] public List<WheelData> wheelDatas;
-    public Collider carCollider;
     public GameObject trailer;
     public List<GameObject> playerCargo;
     public List<Rigidbody> playerCargoRB;
-    public List<Vector3> playerCargoDefaultPos;
-    public List<Quaternion> playerCargoDefaultRot;
+    [HideInInspector] public List<Vector3> playerCargoDefaultPos;
+    [HideInInspector] public List<Quaternion> playerCargoDefaultRot;
     public AudioSource engineSound;
     public float enginePitchDefault;
 

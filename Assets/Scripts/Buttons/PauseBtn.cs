@@ -12,6 +12,7 @@ public class PauseBtn : MonoBehaviour
         gameCanvas.SetActive(false);
         pauseCanvas.SetActive(true);
         soundData.SwitchLoopSounds(false);
+        soundData.SwitchMusic(false);
         Time.timeScale = 0;
     }
 

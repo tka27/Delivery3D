@@ -18,7 +18,7 @@ public class CarReturnBtns : MonoBehaviour
     public void ReturnConfirm()
     {
         SoundData.PlayBtn();
-        if (SceneData.lastVisit) returnEvent.Invoke();
+        if (BuildingsData.lastVisit) returnEvent.Invoke();
         
         carReturnCanvas.SetActive(false);
         prevCanvas.SetActive(true);

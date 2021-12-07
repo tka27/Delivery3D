@@ -16,7 +16,6 @@ public class TradePointData : MonoBehaviour
     public Text currentQuestTime;
     public Text labProgress;
     public Image buyProductImage;
-    public Image SellProductImage;
     string playerTag = "Player";
 
 
@@ -29,7 +28,7 @@ public class TradePointData : MonoBehaviour
         {
             ableToTrade = true;
             tradeEvent.Invoke();
-            SceneData.lastVisit = this.transform;
+            BuildingsData.lastVisit = this.transform;
         }
     }
     void OnTriggerExit(Collider collider)

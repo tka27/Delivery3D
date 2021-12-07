@@ -20615,6 +20615,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8079227877522844757, guid: 25d6379ebe7720b4ebe5d5c52d900f69, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b6d49f19749e6e14c9675212b72df341, type: 3}
     - target: {fileID: 8393939636788457002, guid: 25d6379ebe7720b4ebe5d5c52d900f69, type: 3}
       propertyPath: carStorage
       value: 50
@@ -20719,18 +20723,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 54362875432017996, guid: f5ca115ed4634574291a1ee157f29022, type: 3}
-      propertyPath: carStorage
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 54362875432017996, guid: f5ca115ed4634574291a1ee157f29022, type: 3}
-      propertyPath: defaultMass
-      value: 3000
-      objectReference: {fileID: 0}
-    - target: {fileID: 54362875432017996, guid: f5ca115ed4634574291a1ee157f29022, type: 3}
-      propertyPath: trailerStorage
-      value: 200
-      objectReference: {fileID: 0}
     - target: {fileID: 2701155851594372843, guid: f5ca115ed4634574291a1ee157f29022, type: 3}
       propertyPath: m_Name
       value: Car 3
@@ -20749,11 +20741,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3330339644770372689, guid: f5ca115ed4634574291a1ee157f29022, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.695
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 3330339644770372689, guid: f5ca115ed4634574291a1ee157f29022, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.5
+      value: -5.19
       objectReference: {fileID: 0}
     - target: {fileID: 3330339644770372689, guid: f5ca115ed4634574291a1ee157f29022, type: 3}
       propertyPath: m_LocalRotation.w

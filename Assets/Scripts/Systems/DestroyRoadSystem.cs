@@ -10,8 +10,10 @@ sealed class DestroyRoadSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySyste
     UIData uiData;
     SceneData sceneData;
     PathData pathData;
+    LayerMask layer;
     public void Init()
     {
+        layer = LayerMask.GetMask("Ground");
         ClearPathBtn.clickEvent += AddRequest;
     }
     public void Destroy()
@@ -22,9 +24,11 @@ sealed class DestroyRoadSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySyste
     {
         foreach (var pathEntity in pathRequestFilter)
         {
-            Vector3 playerPos = playerFilter.Get1(0).playerGO.transform.position;
-            playerPos.y -= 1;
-            pathData.buildSphere.position = playerPos;
+            Transform playerTR = playerFilter.Get1(0).playerGO.transform;
+
+            RaycastHit hit;
+            Physics.Raycast(playerTR.position, -playerTR.up, out hit, 10, layer);
+            pathData.buildSphere.position = hit.point;
 
             pathData.currentWaypointIndex = 0;
             pathData.currentPoolIndex = 0;
@@ -36,7 +40,7 @@ sealed class DestroyRoadSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySyste
             pathData.wayPoints.Clear();
 
             pathData.lineRenderer.positionCount = 1;
-            pathData.lineRenderer.SetPosition(0, playerPos);
+            pathData.lineRenderer.SetPosition(0, hit.point);
             uiData.isPathComplete = false;
             uiData.isPathConfirmed = false;
 

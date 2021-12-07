@@ -29,7 +29,7 @@ sealed class ReturnToLastPointSystem : IEcsInitSystem, IEcsDestroySystem
 
         ref var player = ref playerFilter.Get1(0);
         player.currentDurability -= player.maxDurability / 10;
-        sceneData.cars[staticData.selectedCarID].transform.position = SceneData.lastVisit.position;
+        sceneData.cars[staticData.selectedCarID].transform.position = BuildingsData.lastVisit.position;
 
         _world.NewEntity().Get<DestroyRoadRequest>();
         coinsFilter.GetEntity(0).Get<WorldCoinsReplaceRequest>();
