@@ -10,7 +10,6 @@ public class Garage : MonoBehaviour, IUnityAdsListener
     [SerializeField] StaticData staticData;
     [SerializeField] SceneData sceneData;
     [SerializeField] GameObject garageCanvas;
-    [SerializeField] GameObject prevCanvas;
     [SerializeField] GameObject adCanvas;
     void Start()
     {
@@ -36,12 +35,6 @@ public class Garage : MonoBehaviour, IUnityAdsListener
         }
     }
 
-
-    public void ShowGarageCanvas()
-    {
-        garageCanvas.SetActive(true);
-        prevCanvas.SetActive(false);
-    }
 
 
     public void ToGarageConfirm()

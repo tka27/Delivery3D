@@ -25222,7 +25222,6 @@ MonoBehaviour:
   centerOfMass: {fileID: 1441463360862883232}
   cameraLookPoint: {fileID: 2948065204837412499}
   wheelDatas: []
-  carCollider: {fileID: 0}
   trailer: {fileID: 5260342264447966839}
   playerCargo:
   - {fileID: 5327270781320294927}

@@ -4,13 +4,12 @@ using UnityEngine.UI;
 public class SettingsBtns : MonoBehaviour
 {
     [SerializeField] GameSettings settings;
-    [SerializeField] GameObject prevCanvas;
-    [SerializeField] GameObject settingsCanvas;
     [SerializeField] Sprite cross;
     [SerializeField] Sprite check;
     [SerializeField] Image vibrationImage;
     [SerializeField] Image soundImage;
     [SerializeField] Image musicImage;
+    [SerializeField] SoundData soundData;
 
 
 
@@ -23,14 +22,15 @@ public class SettingsBtns : MonoBehaviour
     }
     public void SoundSwitch()
     {
-        SoundData.PlayBtn();
         settings.sound = !settings.sound;
+        SoundData.PlayBtn();
         DisplayUpdate();
     }
     public void MusicSwitch()
     {
         SoundData.PlayBtn();
         settings.music = !settings.music;
+        soundData.SwitchMusic(settings.music);
         DisplayUpdate();
     }
 
@@ -64,17 +64,5 @@ public class SettingsBtns : MonoBehaviour
         {
             musicImage.sprite = cross;
         }
-    }
-    public void ShowSettingsCanvas()
-    {
-        SoundData.PlayBtn();
-        prevCanvas.SetActive(false);
-        settingsCanvas.SetActive(true);
-    }
-    public void HideSettingsCanvas()
-    {
-        SoundData.PlayBtn();
-        prevCanvas.SetActive(true);
-        settingsCanvas.SetActive(false);
     }
 }

@@ -13,7 +13,7 @@ public class AnimalData : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.impulse.magnitude > 2000)
+        if (collision.impulse.magnitude > 1000)
         {
             isAlive = false;
             agent.enabled = false;

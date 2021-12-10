@@ -29,7 +29,7 @@ public class StaticData : ScriptableObject
     public bool[] carsBuyStatus;
     public bool[] trailersBuyStatus;
     public int[][] carPerks;    //[carID[perkID]] = lvl     | 0 - fuel | 1 - speed | 2 - acceleration | 3 - suspension | 4 - storage |
-    public int[][] mapPerks;    //[mapID[perkID]] = lvl     | 0 - fuel | 1 - speed | 2 - acceleration | 3 - suspension | 4 - storage |
+    public int[][] mapPerks;    //[mapID[perkID]] = lvl   
 
 
     public void UpdateStaticData(SaveData data)

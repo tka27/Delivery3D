@@ -2,7 +2,7 @@ using Leopotam.Ecs;
 using UnityEngine;
 using System.Collections.Generic;
 using Cinemachine;
-
+using UnityEngine.AI;
 
 public class GameInitSystem : IEcsInitSystem
 {
@@ -161,7 +161,7 @@ public class GameInitSystem : IEcsInitSystem
         {
             staticData.mapPerks[i] = new int[5];
         }
-        
+
         LoadGameProgress();
     }
 
@@ -180,9 +180,10 @@ public class GameInitSystem : IEcsInitSystem
     {
         foreach (var animal in sceneData.animalsPool)
         {
-            _world.NewEntity().Get<Animal>().animalData = animal.GetComponent<AnimalData>();
             int randomIndex = Random.Range(0, sceneData.animalSpawnPoints.Count);
             animal.transform.position = sceneData.animalSpawnPoints[randomIndex].position;
+            animal.gameObject.GetComponent<NavMeshAgent>().enabled = true;
+            _world.NewEntity().Get<Animal>().animalData = animal.GetComponent<AnimalData>();
         }
     }
 }

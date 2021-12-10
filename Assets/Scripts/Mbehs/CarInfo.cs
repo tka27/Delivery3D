@@ -67,7 +67,7 @@ public class CarInfo : MonoBehaviour
 
         if (staticData.trailerIsSelected)
         {
-            trailerBackground.color = new Color(0, 1, 0, 0.2352941f);
+            trailerBackground.color = new Color(.7f, 1, .45f, 1);
             mainMenuSceneData.trailers[carID].SetActive(true);
             if (!staticData.trailersBuyStatus[carID])
             {
@@ -82,7 +82,7 @@ public class CarInfo : MonoBehaviour
         }
         else
         {
-            trailerBackground.color = new Color(1, 0, 0, 0.2352941f);
+            trailerBackground.color = new Color(1, .55f, .35f, 1);
             mainMenuSceneData.trailers[carID].SetActive(false);
         }
     }
