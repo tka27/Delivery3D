@@ -12,7 +12,7 @@ sealed class SellSystem : IEcsInitSystem, IEcsDestroySystem
     SoundData soundData;
     FlowingText flowingText;
 
-    
+
 
     public void Init()
     {
@@ -32,6 +32,16 @@ sealed class SellSystem : IEcsInitSystem, IEcsDestroySystem
             if (buyer.tradePointData.ableToTrade)
             {
                 ref var buyerInventory = ref buyerFilter.Get2(fBuyer);
+
+
+                float buyerFreeSpace = buyerInventory.maxMass - buyerInventory.GetCurrentMass();
+                if (buyerFreeSpace == 0)
+                {
+                    sceneData.Notification("Buyer storage is full");
+                    return;
+                }
+
+
                 foreach (var fPlayer in playerFilter)
                 {
                     ref var playerInventory = ref playerFilter.Get1(fPlayer);
@@ -39,7 +49,7 @@ sealed class SellSystem : IEcsInitSystem, IEcsDestroySystem
 
                     List<int> playerIndexes = new List<int>();
                     List<int> buyerIndexes = new List<int>();
-
+                    float minProductMass = 0;
                     foreach (var buyingProductType in buyer.buyingProductTypes)
                     {
                         for (int i = 0; i < playerInventory.inventory.Count; i++) // check all player products & buyer required products
@@ -50,42 +60,40 @@ sealed class SellSystem : IEcsInitSystem, IEcsDestroySystem
                                 {
                                     playerIndexes.Add(i);
                                     buyerIndexes.Add(j);// add indexes of same products
+                                    if (minProductMass == 0 || minProductMass > playerInventory.inventory[i].mass)
+                                    {
+                                        minProductMass = playerInventory.inventory[i].mass;
+                                    }
                                 }
                             }
                         }
                     }
 
-                    float playerActualProductsMass = 0;
-                    for (int i = 0; i < playerIndexes.Count; i++)
+                    float playerActualProductsMass = playerIndexes.Count * minProductMass;
+                    /*for (int i = 0; i < playerIndexes.Count; i++)
                     {
                         playerActualProductsMass += playerInventory.inventory[playerIndexes[i]].mass;
-                    }
+                    }*/
                     if (playerActualProductsMass == 0)
                     {
                         sceneData.Notification("Nothing to sell");
                         return;
                     }
+
+
+
+
                     float totalCost = 0;
-
-                    float buyerCurrentMass = buyerInventory.GetCurrentMass();
-                    float buyerFreeSpace = buyerInventory.maxMass - buyerCurrentMass;
-
-                    if (buyerFreeSpace == 0)
-                    {
-                        sceneData.Notification("Buyer storage is full");
-                        return;
-                    }
-
                     if (playerActualProductsMass <= buyerFreeSpace) // sell all
                     {
                         for (int i = 0; i < playerIndexes.Count; i++)
                         {
 
-                            float productMass = playerInventory.inventory[playerIndexes[i]].mass / buyer.buyingProductTypes.Count;//fixed
+                            //float productMass = playerInventory.inventory[playerIndexes[i]].mass / buyer.buyingProductTypes.Count;//fixed
 
-                            buyerInventory.inventory[buyerIndexes[i]].mass += productMass;
-                            playerInventory.inventory[playerIndexes[i]].mass -= productMass;
-                            totalCost += productMass * buyerInventory.inventory[buyerIndexes[i]].currentPrice;
+                            buyerInventory.inventory[buyerIndexes[i]].mass += minProductMass;
+                            playerInventory.inventory[playerIndexes[i]].mass -= minProductMass;
+                            totalCost += minProductMass * buyerInventory.inventory[buyerIndexes[i]].currentPrice;
                         }
                     }
                     else if (playerActualProductsMass > buyerFreeSpace)
@@ -99,17 +107,13 @@ sealed class SellSystem : IEcsInitSystem, IEcsDestroySystem
                         }
                     }
                     staticData.currentMoney += totalCost;
-                    if (totalCost > 0)
-                    {
-                        flowingText.DisplayText("+" + totalCost.ToString("0.0"));
-                    }
-                    else
-                    {
-                        flowingText.DisplayText(totalCost.ToString("0.0"));
-                    }
+
+                    flowingText.DisplayText("+" + totalCost.ToString("0.0"));
 
                     buyerFilter.GetEntity(fBuyer).Get<BuyDataUpdateRequest>();
+                    buyerFilter.GetEntity(fBuyer).Get<OverflowCheckRequest>();
                     playerFilter.GetEntity(0).Get<UpdateCargoRequest>();
+
                     playerInventory.RemoveEmptySlots();
                     SoundData.PlayCoin();
                     foreach (var cargo in player.carData.playerCargo)

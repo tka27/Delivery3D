@@ -4,6 +4,7 @@ using UnityEngine;
 public class CarData : MonoBehaviour
 {
     public float price;
+    public GameObject trailer;
     public Rigidbody trailerRB;
     public List<ProductType> carProductTypes;
     public List<ProductType> trailerProductTypes;
@@ -16,7 +17,6 @@ public class CarData : MonoBehaviour
     public Transform centerOfMass;
     public Transform cameraLookPoint;
     [HideInInspector] public List<WheelData> wheelDatas;
-    public GameObject trailer;
     public List<GameObject> playerCargo;
     public List<Rigidbody> playerCargoRB;
     [HideInInspector] public List<Vector3> playerCargoDefaultPos;

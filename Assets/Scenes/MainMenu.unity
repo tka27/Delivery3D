@@ -6017,7 +6017,7 @@ MonoBehaviour:
   - {fileID: 4604442349632641855}
   - {fileID: 803538237}
   - {fileID: 1648605728}
-  - {fileID: 1886154338}
+  - {fileID: 1085167437}
   selectedPerkID: 0
 --- !u!114 &380551758
 MonoBehaviour:
@@ -7186,7 +7186,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 2.1666667, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -16605,6 +16605,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5552f7c5f62ebe14cae6a4ad3e6cf200, type: 3}
+--- !u!1 &1085167437 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1707254039344968945, guid: e97ed880e0a70db49ae880d45e7291cc, type: 3}
+  m_PrefabInstance: {fileID: 1886154336}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1089743685
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29455,11 +29460,6 @@ PrefabInstance:
 --- !u!4 &1886154337 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3117553586203131769, guid: e97ed880e0a70db49ae880d45e7291cc, type: 3}
-  m_PrefabInstance: {fileID: 1886154336}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1886154338 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8198830765841383005, guid: e97ed880e0a70db49ae880d45e7291cc, type: 3}
   m_PrefabInstance: {fileID: 1886154336}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1886154339 stripped

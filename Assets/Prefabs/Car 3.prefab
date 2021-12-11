@@ -853,9 +853,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 5000
+  trailer: {fileID: 130253774}
   trailerRB: {fileID: 130253776}
-  carProductTypes: 000000000400000003000000070000000f000000
-  trailerProductTypes: 0a000000
+  carProductTypes: 00000000070000000400000003000000
+  trailerProductTypes: 000000000c00000009000000
   allWheelMeshes:
   - {fileID: 3007568089573049266}
   - {fileID: 2560239697641348563}
@@ -879,8 +880,6 @@ MonoBehaviour:
   centerOfMass: {fileID: 3007568089962864290}
   cameraLookPoint: {fileID: 1537343596279479697}
   wheelDatas: []
-  carCollider: {fileID: 0}
-  trailer: {fileID: 130253774}
   playerCargo:
   - {fileID: 8381859682055725325}
   - {fileID: 6612014194541831266}

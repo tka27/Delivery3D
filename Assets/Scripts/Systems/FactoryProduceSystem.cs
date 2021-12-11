@@ -21,46 +21,49 @@ sealed class FactoryProduceSystem : IEcsRunSystem
             producer.productionTimer = 50 / producer.produceSpeed;
 
             ref var producerInventory = ref producerFilter.Get2(fProd);
+            if (producerInventory.GetCurrentMass() < 1) continue;
+
+
             ref var consumer = ref producerFilter.Get3(fProd);
-            bool isMassZero = false;
-            if (producerInventory.GetCurrentMass() <= producerInventory.maxMass)// && consumer.product.mass != 0)
+            bool anyBuyingProductMassIsZero = false;
+
+
+            foreach (var inventoryItem in producerInventory.inventory)
+            {
+                foreach (var productType in consumer.buyingProductTypes)
+                {
+                    if (productType == inventoryItem.type)
+                    {
+                        if (inventoryItem.mass < 1)
+                        {
+                            anyBuyingProductMassIsZero = true;
+                        }
+                    }
+                }
+            }
+            if (anyBuyingProductMassIsZero) continue;
+
+            foreach (var product in consumer.buyingProductTypes)
             {
                 foreach (var inventoryItem in producerInventory.inventory)
                 {
-                    foreach (var productType in consumer.buyingProductTypes)
+                    if (product == inventoryItem.type)
                     {
-                        if (productType == inventoryItem.type)
-                        {
-                            if (inventoryItem.mass <= 0)
-                            {
-                                isMassZero = true;
-                            }
-                        }
+                        inventoryItem.mass--;
                     }
                 }
-                if (isMassZero) continue;
-                
-                foreach (var product in consumer.buyingProductTypes)
+                foreach (var inventoryItem in producerInventory.inventory)
                 {
-                    foreach (var inventoryItem in producerInventory.inventory)
+                    if (producer.product.type == inventoryItem.type)
                     {
-                        if (product == inventoryItem.type)
-                        {
-                            inventoryItem.mass--;
-                        }
-                    }
-                    foreach (var inventoryItem in producerInventory.inventory)
-                    {
-                        if (producer.product.type == inventoryItem.type)
-                        {
-                            inventoryItem.mass++;
-                        }
+                        inventoryItem.mass++;
                     }
                 }
-
-                producerFilter.GetEntity(fProd).Get<BuyDataUpdateRequest>();
-                producerFilter.GetEntity(fProd).Get<SellDataUpdateRequest>();
             }
+
+            producerFilter.GetEntity(fProd).Get<BuyDataUpdateRequest>();
+            producerFilter.GetEntity(fProd).Get<SellDataUpdateRequest>();
+
         }
     }
 }

@@ -100,3 +100,8 @@ public struct Animal
     }
 }
 public struct UpdateBtnsRequest { }
+
+public struct OverflowCheckRequest
+{
+    public float timer;
+}

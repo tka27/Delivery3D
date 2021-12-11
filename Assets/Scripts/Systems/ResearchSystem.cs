@@ -49,7 +49,7 @@ sealed class ResearchSystem : IEcsRunSystem
             if (lab.progress >= lab.requirement)
             {
                 staticData.researchLvl++;
-                if (staticData.researchLvl >= sceneData.researchList.Count)
+                if (staticData.researchLvl >= sceneData.researchList.Length)
                 {
                     labFilter.GetEntity(labEntity).Del<ResearchLab>();
                     labBuyer.tradePointData.labProgress.text = "Max lvl";

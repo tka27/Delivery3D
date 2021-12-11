@@ -25,7 +25,7 @@ public class SceneData : MonoBehaviour
 
 
 
-    public List<Product> researchList = new List<Product>();
+    public Product[] researchList;
 
 
     public void Notification(string notification)

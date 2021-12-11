@@ -75,7 +75,7 @@ sealed class EcsStartup : MonoBehaviour
         .Add(new ShopQuestSystem())
         .Add(new ResearchSystem())
         .Add(new UpdateLabSystem())
-        //.Add(new ProductConsumingSystem())
+        .Add(new ProductDestroyingSystem())
 
 
 

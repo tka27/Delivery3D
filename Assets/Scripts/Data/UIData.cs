@@ -18,7 +18,6 @@ public class UIData : MonoBehaviour
     public GameObject inventoryCanvas;
     public List<Text> inventoryText;
     public List<Image> inventoryIcons;
-    public List<GameObject> playerInfoPanel;
     public List<GameObject> buttons;//for ui ignore
     
     public delegate void UpdateUIHandler();

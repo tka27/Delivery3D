@@ -126,10 +126,12 @@ sealed class BuildingsInitSystem : IEcsInitSystem
         bakeryBuyer.repriceMultiplier = 1.2f;
         bakeryBuyer.buyingProductTypes = new List<ProductType>();
         bakeryBuyer.buyingProductTypes.Add(ProductType.Wheat);
+        bakeryBuyer.buyingProductTypes.Add(ProductType.Water);
 
         ref var bakeryInventory = ref bakeryEntity.Get<Inventory>();
         bakeryInventory.inventory = new List<Product>();
         bakeryInventory.inventory.Add(new Product(ProductType.Wheat, productData.wheat, 0.75f));
+        bakeryInventory.inventory.Add(new Product(ProductType.Water, productData.water, 0.75f));
         bakeryInventory.maxMass = 50;
 
         ref var bakerySeller = ref bakeryEntity.Get<ProductSeller>();

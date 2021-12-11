@@ -25171,7 +25171,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1783551465398224361}
   serializedVersion: 2
-  m_Mass: 1000
+  m_Mass: 1200
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -25192,9 +25192,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 1000
+  trailer: {fileID: 5260342264447966839}
   trailerRB: {fileID: 5260342264447966844}
-  carProductTypes: 000000000100000002000000
-  trailerProductTypes: 0400000003000000
+  carProductTypes: 000000000100000007000000
+  trailerProductTypes: 0c0000000d000000
   allWheelMeshes:
   - {fileID: 1441463361127166325}
   - {fileID: 1441463360447910064}
@@ -25222,7 +25223,6 @@ MonoBehaviour:
   centerOfMass: {fileID: 1441463360862883232}
   cameraLookPoint: {fileID: 2948065204837412499}
   wheelDatas: []
-  trailer: {fileID: 5260342264447966839}
   playerCargo:
   - {fileID: 5327270781320294927}
   - {fileID: 2948065205323259075}
@@ -25246,13 +25246,13 @@ MonoBehaviour:
   playerCargoDefaultPos: []
   playerCargoDefaultRot: []
   engineSound: {fileID: 1921179193}
-  enginePitchDefault: 1.3
+  enginePitchDefault: 1.1
   maxSteerAngle: 45
-  maxTorque: 500
-  maxDurability: 500
-  acceleration: 20
+  maxTorque: 300
+  maxDurability: 100
+  acceleration: 2
   maxFuel: 100
-  defaultMass: 1000
+  defaultMass: 1200
   carStorage: 400
   trailerStorage: 500
 --- !u!136 &7304551665868831455
@@ -26321,7 +26321,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5260342264447966839}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 9bdf7c4c667ba244bab2ee0fb40e836f, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.21766266
@@ -26335,7 +26335,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5260342264447966839}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 9bdf7c4c667ba244bab2ee0fb40e836f, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.67105365

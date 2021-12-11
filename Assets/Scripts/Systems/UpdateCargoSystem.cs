@@ -27,7 +27,7 @@ sealed class UpdateCargoSystem : IEcsRunSystem
             {
                 uiData.inventoryIcons[i].color = Color.white;
                 uiData.inventoryIcons[i].sprite = playerInventory.inventory[i].icon;
-                uiData.inventoryText[i].text = playerInventory.inventory[i].mass.ToString();
+                uiData.inventoryText[i].text = playerInventory.inventory[i].mass.ToString("0.0");
             }
 
             playerFilter.GetEntity(fPlayer).Del<UpdateCargoRequest>();

@@ -106,8 +106,8 @@ public class GameInitSystem : IEcsInitSystem
 
     void LabInit()
     {
-        UpdateResearchList();
-        if (staticData.researchLvl < sceneData.researchList.Count)
+        CreateResearchList();
+        if (staticData.researchLvl < sceneData.researchList.Length)
         {
             buildingsData.labTradePoint.SetActive(true);
             var labEntity = _world.NewEntity();
@@ -135,13 +135,44 @@ public class GameInitSystem : IEcsInitSystem
     }
 
 
-
-
-    void UpdateResearchList()
+    void CreateResearchList()
     {
-        sceneData.researchList.Add(new Product(ProductType.Wheat, productData.wheat, -0.1f));
-        sceneData.researchList.Add(new Product(ProductType.Water, productData.water, -0.1f));
-        sceneData.researchList.Add(new Product(ProductType.Meat, productData.meat, -0.1f));
+        sceneData.researchList = new Product[]{
+        new Product(ProductType.Wheat, productData.wheat, 0),
+        new Product(ProductType.Water, productData.water, 0),
+        new Product(ProductType.Wheat, productData.wheat, 0),
+        new Product(ProductType.Meat, productData.meat, 0),
+        new Product(ProductType.Bread, productData.bread, 0),
+        new Product(ProductType.Wheat, productData.wheat, 0),
+        new Product(ProductType.Milk, productData.milk, 0),
+        new Product(ProductType.Meat, productData.meat, 0),
+        new Product(ProductType.Fish, productData.fish, 0),
+        new Product(ProductType.Water, productData.water, 0),
+        new Product(ProductType.Wheat, productData.wheat, 0),
+        new Product(ProductType.Bread, productData.bread, 0),
+        new Product(ProductType.Water, productData.water, 0),
+        new Product(ProductType.Meat, productData.meat, 0),
+        new Product(ProductType.Eggs, productData.eggs, 0),
+        new Product(ProductType.Water, productData.water, 0),
+        new Product(ProductType.Fruits, productData.fruits, 0),
+        new Product(ProductType.Vegetables, productData.vegetables, 0),
+        new Product(ProductType.Fruits, productData.fruits, 0),
+        new Product(ProductType.Water, productData.water, 0),
+        new Product(ProductType.Wheat, productData.wheat, 0),
+        new Product(ProductType.Water, productData.water, 0),
+        new Product(ProductType.Fruits, productData.fruits, 0),
+        new Product(ProductType.Juice, productData.juice, 0),
+        new Product(ProductType.Milk, productData.milk, 0),
+        new Product(ProductType.Wheat, productData.wheat, 0),
+        new Product(ProductType.Water, productData.water, 0),
+        new Product(ProductType.Milk, productData.milk, 0),
+        new Product(ProductType.Bread, productData.bread, 0),
+        new Product(ProductType.Meat, productData.meat, 0),
+        new Product(ProductType.Cheese, productData.cheese, 0),
+        };
+
+      
+
     }
 
 

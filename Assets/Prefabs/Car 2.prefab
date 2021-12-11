@@ -158,7 +158,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1247118099}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 9bdf7c4c667ba244bab2ee0fb40e836f, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.23288852
@@ -172,7 +172,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1247118099}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 9bdf7c4c667ba244bab2ee0fb40e836f, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.6840585
@@ -11646,7 +11646,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5890725838793529485}
   serializedVersion: 2
-  m_Mass: 2000
+  m_Mass: 1900
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -11680,9 +11680,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 1000
+  trailer: {fileID: 1247118099}
   trailerRB: {fileID: 1247118104}
-  carProductTypes: 000000000900000007000000
-  trailerProductTypes: 010000000c000000
+  carProductTypes: 000000000f0000000300000004000000
+  trailerProductTypes: 0100000009000000
   allWheelMeshes:
   - {fileID: 6701750013020154897}
   - {fileID: 6701750012609400276}
@@ -11710,7 +11711,6 @@ MonoBehaviour:
   centerOfMass: {fileID: 6701750012755939524}
   cameraLookPoint: {fileID: 7055413026198221815}
   wheelDatas: []
-  trailer: {fileID: 1247118099}
   playerCargo:
   - {fileID: 67054712546488171}
   - {fileID: 7055413026812051879}
@@ -11746,7 +11746,7 @@ MonoBehaviour:
   playerCargoDefaultPos: []
   playerCargoDefaultRot: []
   engineSound: {fileID: 8079227877522844757}
-  enginePitchDefault: 1
+  enginePitchDefault: 1.2
   maxSteerAngle: 45
   maxTorque: 1000
   maxDurability: 1000
