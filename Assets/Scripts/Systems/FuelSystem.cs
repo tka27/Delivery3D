@@ -16,7 +16,7 @@ sealed class FuelSystem : IEcsRunSystem
             foreach (var fPlayer in playerFilter)
             {
                 ref var player = ref playerFilter.Get1(fPlayer);
-                player.currentFuel -= player.carData.acceleration / 2000;
+                player.currentFuel -= player.fuelConsumption;
                 uiData.fuelText.text = player.currentFuel.ToString("#");
                 if (player.currentFuel < 0)
                 {

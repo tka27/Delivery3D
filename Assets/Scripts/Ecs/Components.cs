@@ -16,6 +16,7 @@ public struct Player
     public float currentDurability;
     public float maxFuel;
     public float currentFuel;
+    public float fuelConsumption;
     public List<WheelCollider> activeWheelColliders;
 }
 public struct Movable { }
@@ -83,7 +84,7 @@ public struct CratesDisplayRequest { }
 public struct ResearchLab
 {
     public float progress;
-    public float defaultRequirement;
+    public const float DEFAULT_REQUIREMENT = 200;
     public float requirement;
 }
 public struct LabUpdateRequest { }

@@ -24,6 +24,7 @@ public class Garage : MonoBehaviour, IUnityAdsListener
         if (collider.tag == PLAYER_TAG && isLeaveFromGarage)
         {
             staticData.totalMoney += staticData.currentMoney;
+            isLeaveFromGarage = false;
             ShowAdCanvas();
         }
     }

@@ -4,6 +4,7 @@ public class CoinPickUp : MonoBehaviour
 {
     [SerializeField] FlowingText flowingText;
     [SerializeField] StaticData staticData;
+    [SerializeField] SceneData sceneData;
     [SerializeField] UIData uiData;
     [SerializeField] ParticleSystem particles;
     string playerTag = "Player";
@@ -15,8 +16,9 @@ public class CoinPickUp : MonoBehaviour
             particles.transform.position = transform.position;
             particles.Play();
             gameObject.SetActive(false);
-            staticData.currentMoney += 1 + staticData.researchLvl;
-            flowingText.DisplayText("+" + (1 + staticData.researchLvl).ToString("0.0"));
+            float revardValue = 1 + 1 * sceneData.researchCurve.Evaluate(staticData.researchLvl);
+            staticData.currentMoney += revardValue;
+            flowingText.DisplayText("+" + (revardValue).ToString("0.0"));
             uiData.moneyText.text = staticData.currentMoney.ToString("0.0");
         }
     }

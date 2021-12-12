@@ -19,7 +19,7 @@ public class GameInitSystem : IEcsInitSystem
     public void Init()
     {
 
-        LoadForTests();
+        //LoadForTests();
         staticData.currentMoney = staticData.moneyForGame;
         staticData.UpdateAvailableProducts();
 
@@ -50,6 +50,7 @@ public class GameInitSystem : IEcsInitSystem
         uiData.durabilityText.text = playerComp.currentDurability.ToString();
         playerComp.currentFuel = playerComp.maxFuel;
         uiData.fuelText.text = playerComp.currentFuel.ToString();
+        playerComp.fuelConsumption = playerComp.carData.drivingWheelColliders.Count * playerComp.acceleration / 500;
         ref var playerInventory = ref playerEntity.Get<Inventory>();
         playerInventory.inventory = new List<Product>();
         if (!staticData.trailerIsSelected)
@@ -112,15 +113,13 @@ public class GameInitSystem : IEcsInitSystem
             buildingsData.labTradePoint.SetActive(true);
             var labEntity = _world.NewEntity();
             ref var labComp = ref labEntity.Get<ResearchLab>();
-            labComp.defaultRequirement = 10;
             ref var labBuyer = ref labEntity.Get<ProductBuyer>();
             labBuyer.buyingProductTypes = new List<ProductType>();
             labBuyer.buyerGO = buildingsData.labTradePoint;
             labBuyer.tradePointData = labBuyer.buyerGO.GetComponent<TradePointData>();
-            labBuyer.repriceMultiplier = 1.2f;
+            labBuyer.repriceMultiplier = 1;
             ref var labInventory = ref labEntity.Get<Inventory>();
             labInventory.inventory = new List<Product>();
-            labInventory.maxMass = 50;
             labEntity.Get<LabUpdateRequest>();
             labEntity.Get<BuyDataUpdateRequest>();
             pathData.finalPoints.Add(labBuyer.tradePointData.finalPoint);
@@ -171,7 +170,7 @@ public class GameInitSystem : IEcsInitSystem
         new Product(ProductType.Cheese, productData.cheese, 0),
         };
 
-      
+
 
     }
 

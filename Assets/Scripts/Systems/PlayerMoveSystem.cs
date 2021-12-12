@@ -77,6 +77,11 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
                     {
                         if (player.currentTorque < player.maxTorque - player.acceleration)
                         {
+                            if (player.currentTorque == 0)
+                            {
+                                player.currentTorque = player.activeWheelColliders[0].rpm;
+                            }
+
                             player.currentTorque += player.acceleration;
                         }
                         foreach (var wheel in player.activeWheelColliders)

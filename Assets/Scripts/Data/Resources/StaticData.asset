@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   availableProductTypes: 000000000100000007000000
   trailPrefab: {fileID: 4358420240384892957, guid: dfb17e74df2964048829f3bc067ebecb, type: 3}
-  currentMoney: 120.833336
+  currentMoney: 83.333336
   moneyForGame: 100
   selectedCarID: 0
   selectedMapID: 0
@@ -26,8 +26,8 @@ MonoBehaviour:
   - {fileID: 54362875432017996, guid: f5ca115ed4634574291a1ee157f29022, type: 3}
   - {fileID: 411334465248924516, guid: e97ed880e0a70db49ae880d45e7291cc, type: 3}
   adProgress: 0
-  totalMoney: 50789
-  researchLvl: 0
-  carsUnlockStatus: 0100000001
-  carsBuyStatus: 0100000001
+  totalMoney: 68.46734
+  researchLvl: 1
+  carsUnlockStatus: 0100000000
+  carsBuyStatus: 0100000000
   trailersBuyStatus: 0000000000

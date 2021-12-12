@@ -11779,7 +11779,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 863c8cea7c18ccf418799d3eaa5b89ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  price: 1000
+  price: 3000
   trailer: {fileID: 156284175119626650}
   trailerRB: {fileID: 156284175119626641}
   carProductTypes: 0c00000002000000080000000a000000

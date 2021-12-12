@@ -9,7 +9,7 @@ public class UpgradeInfo : MonoBehaviour
     [SerializeField] StaticData staticData;
     [SerializeField] List<Text> lvls;
     [SerializeField] List<Text> prices;
-    const float LVL_MULTIPLIER = 1.2f;
+    [SerializeField] AnimationCurve multiplierCurve;
 
 
 
@@ -19,7 +19,7 @@ public class UpgradeInfo : MonoBehaviour
         {
             int perkLvl = staticData.carPerks[staticData.selectedCarID][i];
             float carPrice = staticData.allCars[staticData.selectedCarID].price;
-            perksPrices[i] = perksPricesMultiplier[i] * carPrice / 10 + perksPricesMultiplier[i] * carPrice / 10 * perkLvl * LVL_MULTIPLIER;
+            perksPrices[i] = perksPricesMultiplier[i] * carPrice / 20 + perksPricesMultiplier[i] * carPrice / 20 * multiplierCurve.Evaluate(perkLvl);
             lvls[i].text = "lvl : " + perkLvl.ToString();
             prices[i].text = perksPrices[i].ToString("0.0");
         }
@@ -31,7 +31,7 @@ public class UpgradeInfo : MonoBehaviour
         for (int i = 0; i < perksPrices.Length; i++)
         {
             int perkLvl = staticData.mapPerks[staticData.selectedMapID][i];
-            perksPrices[i] = perksPricesMultiplier[i] * defaultPrice + perksPricesMultiplier[i] * defaultPrice * perkLvl * LVL_MULTIPLIER;
+            perksPrices[i] = perksPricesMultiplier[i] * defaultPrice + perksPricesMultiplier[i] * defaultPrice * multiplierCurve.Evaluate(perkLvl);
             lvls[i].text = "lvl : " + perkLvl.ToString();
             prices[i].text = perksPrices[i].ToString("0.0");
         }

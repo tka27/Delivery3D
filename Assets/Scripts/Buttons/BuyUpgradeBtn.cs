@@ -10,9 +10,9 @@ public class BuyUpgradeBtn : MonoBehaviour
     public void BuyCarUpgrade()
     {
         SoundData.PlayBtn();
-        if (staticData.totalMoney > buyUpgradeInfo.perksPrices[mainMenuSceneData.selectedPerkID])
+        float perkCost = buyUpgradeInfo.perksPrices[mainMenuSceneData.selectedPerkID];
+        if (staticData.totalMoney > perkCost)
         {
-            float perkCost = buyUpgradeInfo.perksPrices[mainMenuSceneData.selectedPerkID];
             staticData.totalMoney -= perkCost;
             staticData.carPerks[staticData.selectedCarID][mainMenuSceneData.selectedPerkID]++; //selected perk for current car
 
@@ -29,9 +29,9 @@ public class BuyUpgradeBtn : MonoBehaviour
     public void BuyMapUpgrade()
     {
         SoundData.PlayBtn();
-        if (staticData.totalMoney > buyUpgradeInfo.perksPrices[mainMenuSceneData.selectedPerkID])
+        float perkCost = buyUpgradeInfo.perksPrices[mainMenuSceneData.selectedPerkID];
+        if (staticData.totalMoney > perkCost)
         {
-            float perkCost = buyUpgradeInfo.perksPrices[mainMenuSceneData.selectedPerkID];
             staticData.totalMoney -= perkCost;
             staticData.mapPerks[staticData.selectedMapID][mainMenuSceneData.selectedPerkID]++; //selected perk for current car
 

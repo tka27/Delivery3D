@@ -5290,7 +5290,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.4
     m_AsymptoteValue: 0.75
-    m_Stiffness: 0.8
+    m_Stiffness: 0.9
   m_Enabled: 1
 --- !u!1 &1441463360447910079
 GameObject:
@@ -25027,7 +25027,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.4
     m_AsymptoteValue: 0.75
-    m_Stiffness: 0.8
+    m_Stiffness: 0.9
   m_Enabled: 1
 --- !u!1 &1703758209367977555
 GameObject:
@@ -25195,7 +25195,7 @@ MonoBehaviour:
   trailer: {fileID: 5260342264447966839}
   trailerRB: {fileID: 5260342264447966844}
   carProductTypes: 000000000100000007000000
-  trailerProductTypes: 0c0000000d000000
+  trailerProductTypes: 0c0000000d0000000b000000
   allWheelMeshes:
   - {fileID: 1441463361127166325}
   - {fileID: 1441463360447910064}
@@ -25214,8 +25214,8 @@ MonoBehaviour:
   - {fileID: 1441463361295776235}
   - {fileID: 1441463362167737417}
   drivingWheelColliders:
-  - {fileID: 1441463361295776235}
-  - {fileID: 1441463362167737417}
+  - {fileID: 1441463360378786577}
+  - {fileID: 1441463362486415993}
   brakingWheelColliders:
   - {fileID: 1441463360378786577}
   - {fileID: 1441463362486415993}
@@ -25248,9 +25248,9 @@ MonoBehaviour:
   engineSound: {fileID: 1921179193}
   enginePitchDefault: 1.1
   maxSteerAngle: 45
-  maxTorque: 300
+  maxTorque: 200
   maxDurability: 100
-  acceleration: 2
+  acceleration: 1
   maxFuel: 100
   defaultMass: 1200
   carStorage: 400

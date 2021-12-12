@@ -7,7 +7,7 @@ public class SceneData : MonoBehaviour
     [SerializeField] GameObject notificationPanel;
     [SerializeField] Text notificationText;
     public List<GameObject> cars;
-    public GameMode gameMode;
+    [HideInInspector] public GameMode gameMode;
     public GameObject buildCam;
     public GameObject driveCam;
 
@@ -15,7 +15,7 @@ public class SceneData : MonoBehaviour
     public NavMeshSurface navMeshSurface;
     public List<GameObject> animalsPool;
     public List<GameObject> roadObstaclesPool;
-    public int roadObstaclesCurrentIndex;
+    [HideInInspector] public int roadObstaclesCurrentIndex;
 
     public List<Transform> allCoinsPositions;
     [HideInInspector] public List<Transform> emptyCoinsPositions;
@@ -25,7 +25,9 @@ public class SceneData : MonoBehaviour
 
 
 
-    public Product[] researchList;
+    [HideInInspector] public Product[] researchList;
+    public AnimationCurve researchCurve;
+    [HideInInspector] public float researchSpeed = 1;
 
 
     public void Notification(string notification)

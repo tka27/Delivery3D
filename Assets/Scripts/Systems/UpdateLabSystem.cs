@@ -5,7 +5,6 @@ sealed class UpdateLabSystem : IEcsRunSystem
 {
     StaticData staticData;
     SceneData sceneData;
-    ProductData productData;
     EcsFilter<LabUpdateRequest, ResearchLab, ProductBuyer, Inventory> labFilter;
 
     void IEcsRunSystem.Run()
@@ -18,9 +17,14 @@ sealed class UpdateLabSystem : IEcsRunSystem
 
 
             lab.progress = 0;
-            lab.requirement = lab.defaultRequirement + lab.defaultRequirement / 2 * staticData.researchLvl;
+            lab.requirement = ResearchLab.DEFAULT_REQUIREMENT + ResearchLab.DEFAULT_REQUIREMENT * sceneData.researchCurve.Evaluate(staticData.researchLvl);
+            labInventory.maxMass = ResearchLab.DEFAULT_REQUIREMENT + ResearchLab.DEFAULT_REQUIREMENT * 0.5f * sceneData.researchCurve.Evaluate(staticData.researchLvl);
+
+
             labBuyer.buyingProductTypes.Clear();
             labBuyer.buyingProductTypes.Add(sceneData.researchList[staticData.researchLvl].type);
+
+
             labInventory.inventory.Clear();
             labInventory.inventory.Add(sceneData.researchList[staticData.researchLvl]);
             labBuyer.tradePointData.buyProductImage.sprite = labInventory.inventory[0].icon;

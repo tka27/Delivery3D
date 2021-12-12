@@ -5500,7 +5500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 863c8cea7c18ccf418799d3eaa5b89ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  price: 1000
+  price: 45000
   trailer: {fileID: 1707254039344968945}
   trailerRB: {fileID: 2308119911019423169}
   carProductTypes: 070000000e000000

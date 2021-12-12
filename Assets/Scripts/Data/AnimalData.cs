@@ -13,6 +13,7 @@ public class AnimalData : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        Debug.Log(collision.impulse.magnitude);
         if (collision.impulse.magnitude > 1000)
         {
             isAlive = false;
