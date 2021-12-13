@@ -5,6 +5,7 @@ public class WaterFlow : MonoBehaviour
     [SerializeField] Material material;
     float offset;
     string playerTag = "Player";
+    string animalTag = "Animal";
     void FixedUpdate()
     {
         offset += 0.001f;
@@ -16,7 +17,13 @@ public class WaterFlow : MonoBehaviour
         {
             Rigidbody rb = collider.attachedRigidbody;
             rb?.AddForce(Vector3.up * rb.mass * 3);
-            rb?.AddForce(-rb.velocity * rb.mass * 2);
+            rb?.AddForce(-rb.velocity * rb.mass * 10);
+        }
+        else if (collider.tag == animalTag)
+        {
+            Rigidbody rb = collider.attachedRigidbody;
+            rb?.AddForce(Vector3.up * rb.mass * 55);
+            rb?.AddForce(-rb.velocity * rb.mass * 40);
         }
     }
 }

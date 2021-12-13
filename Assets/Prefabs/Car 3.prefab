@@ -788,6 +788,7 @@ GameObject:
   - component: {fileID: 4890033652791141678}
   - component: {fileID: 901926888392073042}
   - component: {fileID: 6930622966782948976}
+  - component: {fileID: 3271505408289464940}
   m_Layer: 7
   m_Name: Car 3
   m_TagString: Player
@@ -919,7 +920,7 @@ MonoBehaviour:
   maxSteerAngle: 45
   maxTorque: 2000
   maxDurability: 2000
-  acceleration: 30
+  acceleration: 5
   maxFuel: 150
   defaultMass: 3000
   carStorage: 1500
@@ -948,11 +949,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 1.5, y: 1, z: 3}
+  m_Extents: {x: 0.5, y: 1, z: 2.35}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 0.36}
   m_TimeToStationary: 0.5
 --- !u!136 &4890033652791141678
 CapsuleCollider:
@@ -996,6 +997,19 @@ CapsuleCollider:
   m_Height: 3.8220587
   m_Direction: 2
   m_Center: {x: -0.33, y: 0, z: 0.08470614}
+--- !u!65 &3271505408289464940
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2701155851594372843}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1, z: 4.5}
+  m_Center: {x: 0, y: 0, z: 0.33}
 --- !u!1 &2746143468369739118
 GameObject:
   m_ObjectHideFlags: 0

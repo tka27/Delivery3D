@@ -4,22 +4,21 @@ using UnityEngine;
 
 public static class SaveSystem
 {
+    static string savePath = Application.persistentDataPath + "/Save.save";
     public static void Save()
     {
         SaveData saveData = new SaveData();
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/Save.save";
-        FileStream stream = new FileStream(path, FileMode.Create);
+        FileStream stream = new FileStream(savePath, FileMode.Create);
         formatter.Serialize(stream, saveData);
         stream.Close();
     }
     public static SaveData Load()
     {
-        string path = Application.persistentDataPath + "/Save.save";
-        if (File.Exists(path))
+        if (File.Exists(savePath))
         {
             BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(path, FileMode.Open);
+            FileStream stream = new FileStream(savePath, FileMode.Open);
             SaveData data = (SaveData)formatter.Deserialize(stream);
             stream.Close();
             return data;
@@ -27,8 +26,12 @@ public static class SaveSystem
         else
         {
             SaveSystem.Save();
-            Debug.Log("Save file was create : " + path);
+            Debug.Log("Save file was create : " + savePath);
             return null;
         }
+    }
+    public static void ClearSaveData()
+    {
+        File.Delete(savePath);
     }
 }

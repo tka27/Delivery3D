@@ -580,6 +580,8 @@ public class BuildingsInitSystem : IEcsInitSystem
         {
             buildingsData.pizzaTradePoint.SetActive(true);
         }
+        
+        sceneData.navMeshSurface.BuildNavMesh();
     }
 }
 

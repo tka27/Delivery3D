@@ -12,6 +12,7 @@ TagManager:
   - Environment
   - Obstacle
   - Building
+  - Animal
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - Cargo
   - Water(ForCam)
   - Obstacle
-  - 
+  - AnimalBody
   - 
   - 
   - 

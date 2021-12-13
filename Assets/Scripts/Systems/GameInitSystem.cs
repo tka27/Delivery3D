@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class GameInitSystem : IEcsInitSystem
 {
@@ -18,14 +19,14 @@ public class GameInitSystem : IEcsInitSystem
 
     public void Init()
     {
+        if (Application.isEditor) LoadForTests();
 
-        //LoadForTests();
+
         staticData.currentMoney = staticData.moneyForGame;
         staticData.UpdateAvailableProducts();
 
         PlayerInit();
         LabInit();
-        sceneData.navMeshSurface.BuildNavMesh();
         AnimalsInit();
 
     }
@@ -210,10 +211,8 @@ public class GameInitSystem : IEcsInitSystem
     {
         foreach (var animal in sceneData.animalsPool)
         {
-            int randomIndex = Random.Range(0, sceneData.animalSpawnPoints.Count);
-            animal.transform.position = sceneData.animalSpawnPoints[randomIndex].position;
-            animal.gameObject.GetComponent<NavMeshAgent>().enabled = true;
             _world.NewEntity().Get<Animal>().animalData = animal.GetComponent<AnimalData>();
         }
     }
+    
 }

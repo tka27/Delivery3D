@@ -11,9 +11,9 @@ public class SceneData : MonoBehaviour
     public GameObject buildCam;
     public GameObject driveCam;
 
-    public List<Transform> animalSpawnPoints;
+    public List<Transform> animalPoints;
     public NavMeshSurface navMeshSurface;
-    public List<GameObject> animalsPool;
+    public List<AnimalData> animalsPool;
     public List<GameObject> roadObstaclesPool;
     [HideInInspector] public int roadObstaclesCurrentIndex;
 

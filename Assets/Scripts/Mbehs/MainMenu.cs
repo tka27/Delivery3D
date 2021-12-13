@@ -13,38 +13,14 @@ public class MainMenu : MonoBehaviour
     [SerializeField] GameObject notificationPanel;
     [SerializeField] Text notificationText;
     [SerializeField] UnityEvent carInfoUpdateEvent;
-    
+
     void Start()
     {
-        int carsCount = staticData.allCars.Count;
-        int mapsCount = 1;
-
-        staticData.carsUnlockStatus = new bool[carsCount];
-        staticData.carsUnlockStatus[0] = true;
-        staticData.carsBuyStatus = new bool[carsCount];
-        staticData.carsBuyStatus[0] = true;
-        staticData.trailersBuyStatus = new bool[carsCount];
-
-
         staticNotificationPanel = notificationPanel;
         staticNotificationText = notificationText;
-
-
-        staticData.carPerks = new int[carsCount][];
-        for (int i = 0; i < carsCount; i++)
-        {
-            staticData.carPerks[i] = new int[5];
-        }
-
-        staticData.mapPerks = new int[mapsCount][];
-        for (int i = 0; i < mapsCount; i++)
-        {
-            staticData.mapPerks[i] = new int[5];
-        }
-
-
-
         demoCam.SetActive(false);
+
+        staticData.SetDefaultData();
         settings.LoadPrefs();
         LoadGameProgress();
         carInfoUpdateEvent.Invoke();

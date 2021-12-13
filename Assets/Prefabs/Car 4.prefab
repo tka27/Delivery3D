@@ -5081,6 +5081,8 @@ GameObject:
   - component: {fileID: 1379101114567488407}
   - component: {fileID: 4686665501569114157}
   - component: {fileID: 6764245613016285932}
+  - component: {fileID: 5076194572631028465}
+  - component: {fileID: 738420205479164617}
   m_Layer: 7
   m_Name: Trailer 0
   m_TagString: Player
@@ -5248,6 +5250,35 @@ CapsuleCollider:
   m_Height: 2.224552
   m_Direction: 2
   m_Center: {x: 0.0038303137, y: 0.16234481, z: -0.112701654}
+--- !u!65 &5076194572631028465
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707254039344968945}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8, y: 1.7, z: 2.8}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &738420205479164617
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707254039344968945}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.875, z: 1.45}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &1854159570264737851
 GameObject:
   m_ObjectHideFlags: 0
@@ -5436,6 +5467,7 @@ GameObject:
   - component: {fileID: 7425203655688415013}
   - component: {fileID: 8294582328843920068}
   - component: {fileID: 9009583957918226993}
+  - component: {fileID: 2956909378569714798}
   m_Layer: 7
   m_Name: Car 4
   m_TagString: Player
@@ -5543,7 +5575,7 @@ MonoBehaviour:
   maxSteerAngle: 45
   maxTorque: 600
   maxDurability: 1000
-  acceleration: 20
+  acceleration: 5
   maxFuel: 100
   defaultMass: 2000
   carStorage: 600
@@ -5572,11 +5604,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 1, y: 1, z: 2}
+  m_Extents: {x: 0.5, y: 1, z: 2.25}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 0.25}
   m_TimeToStationary: 0.5
 --- !u!136 &7425203655688415013
 CapsuleCollider:
@@ -5620,6 +5652,19 @@ CapsuleCollider:
   m_Height: 2.524172
   m_Direction: 2
   m_Center: {x: 0, y: 0.07159978, z: -0.42782557}
+--- !u!65 &2956909378569714798
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2308119911019423171}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.9, y: 1, z: 4.3}
+  m_Center: {x: 0, y: 0, z: 0.21}
 --- !u!1 &3227250267478577502
 GameObject:
   m_ObjectHideFlags: 0

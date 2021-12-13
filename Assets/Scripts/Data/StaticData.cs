@@ -62,6 +62,33 @@ public class StaticData : ScriptableObject
             this.mapPerks[i] = data.mapPerks[i];
         }
     }
+
+    public void SetDefaultData()
+    {
+        this.totalMoney = 1000;
+        this.researchLvl = 0;
+
+        int carsCount = this.allCars.Count;
+        int mapsCount = 1;
+
+        this.carsUnlockStatus = new bool[carsCount];
+        this.carsUnlockStatus[0] = true;
+        this.carsBuyStatus = new bool[carsCount];
+        this.carsBuyStatus[0] = true;
+        this.trailersBuyStatus = new bool[carsCount];
+
+        this.carPerks = new int[carsCount][];
+        for (int i = 0; i < carsCount; i++)
+        {
+            this.carPerks[i] = new int[5];
+        }
+
+        this.mapPerks = new int[mapsCount][];
+        for (int i = 0; i < mapsCount; i++)
+        {
+            this.mapPerks[i] = new int[5];
+        }
+    }
     public void UpdateAvailableProducts()
     {
         availableProductTypes.Clear();

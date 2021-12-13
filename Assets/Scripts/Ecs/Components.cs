@@ -93,12 +93,7 @@ public struct WorldCoinsComp { }
 public struct Animal
 {
     public AnimalData animalData;
-    void Revive()
-    {
-        animalData.isAlive = true;
-        animalData.agent.enabled = true;
-        animalData.rb.isKinematic = true;
-    }
+
 }
 public struct UpdateBtnsRequest { }
 
