@@ -8,6 +8,8 @@ public class StaticData : ScriptableObject
     public List<ProductType> availableProductTypes;
     public GameObject trailPrefab;
     public GameObject tutorialPrefab;
+    public GameObject deerMaleRD;
+    public GameObject deerFemRD;
     public float currentMoney;
     public float moneyForGame = 100;
     public int selectedCarID;

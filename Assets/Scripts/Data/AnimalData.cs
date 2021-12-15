@@ -6,11 +6,11 @@ using UnityEngine.AI;
 public class AnimalData : MonoBehaviour
 {
     public NavMeshAgent agent;
-    public List<Rigidbody> allRB;
     [SerializeField] SceneData sceneData;
+    [SerializeField] StaticData staticData;
     [SerializeField] Animator animator;
     [SerializeField] Collider bodyCollider;
-    [SerializeField] List<Collider> ragdollColliders;
+    [SerializeField] bool isMale;
     bool obstacleCD;
     public bool isAlive;
     const string ROAD_TAG = "Road";
@@ -51,8 +51,16 @@ public class AnimalData : MonoBehaviour
 
     void Kill()
     {
-        SwitchComponents(false);
         Debug.Log("Death");
+        if (isMale)
+        {
+            GameObject.Instantiate(staticData.deerMaleRD, transform.position, transform.rotation);
+        }
+        else
+        {
+            GameObject.Instantiate(staticData.deerFemRD, transform.position, transform.rotation);
+        }
+        gameObject.SetActive(false);
     }
 
     void SwitchComponents(bool value)
@@ -61,16 +69,6 @@ public class AnimalData : MonoBehaviour
         bodyCollider.enabled = value;
         agent.enabled = value;
         animator.enabled = value;
-        foreach (var rb in allRB)
-        {
-            rb.isKinematic = value;
-            rb.useGravity = !value;
-        }
-        foreach (var collider in ragdollColliders)
-        {
-            collider.enabled = !value;
-        }
-
     }
     IEnumerator OnRoadCrossing(Collider collider)
     {

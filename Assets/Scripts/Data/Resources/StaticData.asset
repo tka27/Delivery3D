@@ -15,6 +15,8 @@ MonoBehaviour:
   availableProductTypes: 000000000f0000000300000004000000
   trailPrefab: {fileID: 4358420240384892957, guid: dfb17e74df2964048829f3bc067ebecb, type: 3}
   tutorialPrefab: {fileID: 1555078184416014041, guid: 9a382c26981a9b141b54e4f0cd153b9d, type: 3}
+  deerMaleRD: {fileID: 3360702704581171551, guid: 3ee0938a59699a04e8d794b73a3e9677, type: 3}
+  deerFemRD: {fileID: 3360702704581171551, guid: a325a972af7e66a43a4096f661949b58, type: 3}
   currentMoney: 100
   moneyForGame: 100
   selectedCarID: 2
