@@ -19,7 +19,7 @@ public class UIData : MonoBehaviour
     public List<Text> inventoryText;
     public List<Image> inventoryIcons;
     public List<GameObject> buttons;//for ui ignore
-    
+
     public delegate void UpdateUIHandler();
     public static event UpdateUIHandler updateUIEvent;
     public static void UpdateUI()
@@ -32,7 +32,7 @@ public class UIData : MonoBehaviour
 
 
 
-    public static bool IsMouseOverButton(List<GameObject> buttons)
+    /*public static bool IsMouseOverButton(List<GameObject> buttons)
     {
         PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
         pointerEventData.position = Input.mousePosition;
@@ -49,9 +49,11 @@ public class UIData : MonoBehaviour
             }
         }
         return false;
+    }*/
+
+    public static bool IsMouseOverUI()
+    {
+        return EventSystem.current.IsPointerOverGameObject();
     }
-
-
-
 
 }

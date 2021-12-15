@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class AnimalData : MonoBehaviour
 {
     public NavMeshAgent agent;
-    [SerializeField] List<Rigidbody> allRB;
+    public List<Rigidbody> allRB;
     [SerializeField] SceneData sceneData;
     [SerializeField] Animator animator;
     [SerializeField] Collider bodyCollider;
@@ -64,6 +64,7 @@ public class AnimalData : MonoBehaviour
         foreach (var rb in allRB)
         {
             rb.isKinematic = value;
+            rb.useGravity = !value;
         }
         foreach (var collider in ragdollColliders)
         {

@@ -16,10 +16,10 @@ sealed class EcsStartup : MonoBehaviour
     public GameSettings gameSettings;
     public FlowingText flowingText;
     public UIData uiData;
+    public TutorialData tutorialData;
 
     void Start()
     {
-        // void can be switched to IEnumerator for support coroutines.
         _world = new EcsWorld();
         systems = new EcsSystems(_world);
         fixedSystems = new EcsSystems(_world);
@@ -28,6 +28,7 @@ sealed class EcsStartup : MonoBehaviour
         Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(systems);
         Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(fixedSystems);
 #endif
+        SystemsDataInject();
         systems
             .Add(new GameInitSystem())
             .Add(new BuildingsInitSystem())
@@ -42,7 +43,6 @@ sealed class EcsStartup : MonoBehaviour
             .Add(new SellSystem())
             .Add(new UpdateCargoSystem())
             .Add(new FactoryProduceSystem())
-            .Add(new InfoPanelSwitchSystem())
             .Add(new RepriceSystem())
             .Add(new ClearInventorySystem())
             .Add(new CratesDisplaySystem())
@@ -53,42 +53,68 @@ sealed class EcsStartup : MonoBehaviour
             .Add(new AnimalsSystem())
             .Add(new TrailFollowSystem())
             .Add(new ReturnToLastPointSystem())
-            .Add(new AdSystem())
+            .Add(new AdSystem());
 
 
-            .Inject(staticData)
-            .Inject(sceneData)
-            .Inject(buildingsData)
-            .Inject(uiData)
-            .Inject(productData)
-            .Inject(soundData)
-            .Inject(flowingText)
-            .Inject(gameSettings)
-            .Inject(pathData)
-            .Init();
+        AddTutorialSystem();
+        systems.Init();
+
+        FixedSystemsDataInject();
         fixedSystems
-        .Add(new PlayerMoveSystem())
-        .Add(new DamageSystem())
-        .Add(new FuelSystem())
-        .Add(new ImmobilizeSystem())
-        .Add(new FarmProduceSystem())
-        .Add(new ShopQuestSystem())
-        .Add(new ResearchSystem())
-        .Add(new UpdateLabSystem())
-        .Add(new ProductDestroyingSystem())
+            .Add(new PlayerMoveSystem())
+            .Add(new DamageSystem())
+            .Add(new FuelSystem())
+            .Add(new ImmobilizeSystem())
+            .Add(new FarmProduceSystem())
+            .Add(new ShopQuestSystem())
+            .Add(new ResearchSystem())
+            .Add(new UpdateLabSystem())
+            .Add(new ProductDestroyingSystem())
 
 
 
 
+
+            .Init();
+    }
+    void SystemsDataInject()
+    {
+        systems
+        .Inject(staticData)
+        .Inject(sceneData)
+        .Inject(buildingsData)
+        .Inject(uiData)
+        .Inject(productData)
+        .Inject(soundData)
+        .Inject(flowingText)
+        .Inject(gameSettings)
+        .Inject(pathData);
+    }
+    void FixedSystemsDataInject()
+    {
+        fixedSystems
         .Inject(staticData)
         .Inject(sceneData)
         .Inject(buildingsData)
         .Inject(uiData)
         .Inject(productData)
         .Inject(gameSettings)
-        .Inject(pathData)
-        .Init();
+        .Inject(pathData);
     }
+
+    void AddTutorialSystem()
+    {
+        if (gameSettings.tutorialLvl < 0) return;
+
+        systems.Add(new TutorialSystem());
+    }
+
+
+
+
+
+
+
 
     void Update()
     {

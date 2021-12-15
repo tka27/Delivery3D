@@ -23,7 +23,6 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
     {
         if (uiData.isPathComplete) return;
 
-        // var playerPos = new Vector3();
         RaycastHit hit;
         Ray mouseRay = camera.ScreenPointToRay(Input.mousePosition);
         Vector3 waypointPos;
@@ -31,7 +30,7 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
         if (sceneData.gameMode == GameMode.Build &&
         Input.GetMouseButton(0) &&
         Physics.Raycast(mouseRay, out hit, 1000, layer) &&
-        !UIData.IsMouseOverButton(uiData.buttons))
+        !UIData.IsMouseOverUI())//IsMouseOverButton(uiData.buttons))
         {
             waypointPos = new Vector3(hit.point.x, hit.point.y + ROAD_Y_OFFSET, hit.point.z);
             float distanceToNextPoint = 0;

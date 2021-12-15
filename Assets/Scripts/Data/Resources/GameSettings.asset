@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d4124cd9bc3cc4bac01318a12dd2ee, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
-  sound: 0
-  music: 0
   vibration: 0
+  sound: 1
+  music: 1
+  tutorialLvl: 2

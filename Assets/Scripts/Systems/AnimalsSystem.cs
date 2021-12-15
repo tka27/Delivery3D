@@ -3,9 +3,7 @@ using UnityEngine;
 
 sealed class AnimalsSystem : IEcsRunSystem
 {
-
     EcsFilter<Animal> animalFilter;
-    SceneData sceneData;
 
     void IEcsRunSystem.Run()
     {

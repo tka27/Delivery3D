@@ -4,6 +4,6 @@ public class RateBtn : MonoBehaviour
 {
     public void OpenUrl()
     {
-        Application.OpenURL("https://en.wikipedia.org/wiki/Cock_and_ball_torture");
+        Application.OpenURL("https://www.youtube.com/watch?v=nOPIu7isD3s");
     }
 }

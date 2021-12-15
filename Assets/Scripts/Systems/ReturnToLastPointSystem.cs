@@ -34,7 +34,7 @@ sealed class ReturnToLastPointSystem : IEcsInitSystem, IEcsDestroySystem
         _world.NewEntity().Get<DestroyRoadRequest>();
         coinsFilter.GetEntity(0).Get<WorldCoinsReplaceRequest>();
         Vector3 pos = new Vector3(player.playerGO.transform.position.x, 20, player.playerGO.transform.position.z);
-        sceneData.buildCam.transform.position = pos;
+        sceneData.buildCam.position = pos;
         sceneData.gameMode = GameMode.View;
         UIData.UpdateUI();
     }

@@ -68,6 +68,18 @@ public struct Inventory
             inventory.RemoveAt(indexesForRemove[i]);
         }
     }
+
+    public bool HasItem(ProductType type, float desiredCount)
+    {
+        foreach (var item in inventory)
+        {
+            if (item.type == type && item.mass == desiredCount)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 public struct AutoService { }
@@ -93,11 +105,12 @@ public struct WorldCoinsComp { }
 public struct Animal
 {
     public AnimalData animalData;
-
 }
-public struct UpdateBtnsRequest { }
 
 public struct OverflowCheckRequest
 {
     public float timer;
 }
+
+
+

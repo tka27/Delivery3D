@@ -6,8 +6,9 @@ public class GameSettings : ScriptableObject
     [HideInInspector] public bool vibration;
     [HideInInspector] public bool sound;
     [HideInInspector] public bool music;
+    public int tutorialLvl;
 
-    public void LoadPrefs() 
+    public void LoadPrefs()
     {
         vibration = PlayerPrefs.GetInt("vibration") == 1;
         sound = PlayerPrefs.GetInt("sound") == 1;

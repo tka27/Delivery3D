@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using UnityEngine.AI;
 public class SceneData : MonoBehaviour
 {
+    public GameObject tutorial;
     [SerializeField] GameObject notificationPanel;
     [SerializeField] Text notificationText;
     public List<GameObject> cars;
     [HideInInspector] public GameMode gameMode;
-    public GameObject buildCam;
+    public Transform buildCam;
     public GameObject driveCam;
 
     public List<Transform> animalPoints;
@@ -20,7 +21,6 @@ public class SceneData : MonoBehaviour
     public List<Transform> allCoinsPositions;
     [HideInInspector] public List<Transform> emptyCoinsPositions;
     public List<GameObject> coinsPool;
-
 
 
 

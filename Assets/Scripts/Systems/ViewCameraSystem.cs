@@ -8,7 +8,6 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
     UIData uiData;
     float cameraHeight;
     Camera camera;
-    Transform buildCameraPos;
     float minCameraHeight = 10;
     float maxCameraHeight = 388;
     Vector3 startPos = new Vector3();
@@ -17,20 +16,19 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
     public void Init()
     {
         camera = Camera.main;
-        buildCameraPos = sceneData.buildCam.transform;
     }
 
     void IEcsRunSystem.Run()
     {
         if (sceneData.gameMode == GameMode.Drive) return;
-        cameraHeight = buildCameraPos.position.y;
-        if (buildCameraPos.position != camera.transform.position)
+        cameraHeight = sceneData.buildCam.position.y;
+        if (sceneData.buildCam.position != camera.transform.position)
         {
             BorderCheck();
             return;
         }
         if (Input.touchCount == 2 &&
-        !UIData.IsMouseOverButton(uiData.buttons))
+        !UIData.IsMouseOverUI())//IsMouseOverButton(uiData.buttons))
         {
             moveMode = false;
             Touch firstTouch = Input.GetTouch(0);
@@ -56,23 +54,23 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
     }
     void BorderCheck()
     {
-        float xPos = Mathf.Clamp(buildCameraPos.position.x, -maxCameraHeight + cameraHeight, maxCameraHeight - cameraHeight);
-        float zPos = Mathf.Clamp(buildCameraPos.position.z, -maxCameraHeight + cameraHeight * .55f, maxCameraHeight - cameraHeight * .55f);
-        buildCameraPos.position = new Vector3(xPos, cameraHeight, zPos);
+        float xPos = Mathf.Clamp(sceneData.buildCam.position.x, -maxCameraHeight + cameraHeight, maxCameraHeight - cameraHeight);
+        float zPos = Mathf.Clamp(sceneData.buildCam.position.z, -maxCameraHeight + cameraHeight * .55f, maxCameraHeight - cameraHeight * .55f);
+        sceneData.buildCam.position = new Vector3(xPos, cameraHeight, zPos);
     }
     void MoveCamera()
     {
         if (sceneData.gameMode == GameMode.View)
         {
-            if (Input.GetMouseButtonDown(0) && !UIData.IsMouseOverButton(uiData.buttons))
+            if (Input.GetMouseButtonDown(0) && !UIData.IsMouseOverUI())//IsMouseOverButton(uiData.buttons))
             {
                 startPos = GetWorldPosition(0);
                 moveMode = true;
             }
-            else if (Input.GetMouseButton(0) && moveMode && !UIData.IsMouseOverButton(uiData.buttons))
+            else if (Input.GetMouseButton(0) && moveMode && !UIData.IsMouseOverUI())//IsMouseOverButton(uiData.buttons))
             {
                 Vector3 tgtPos = startPos - GetWorldPosition(0);
-                buildCameraPos.position += tgtPos;
+                sceneData.buildCam.position += tgtPos;
             }
 
             BorderCheck();
@@ -84,10 +82,10 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
                 startPos = new Vector3(camera.ScreenToViewportPoint(Input.mousePosition).x, 0, camera.ScreenToViewportPoint(Input.mousePosition).y);
             }
             else if (Input.GetMouseButton(0) &&
-            !UIData.IsMouseOverButton(uiData.buttons))
+            !UIData.IsMouseOverUI())//IsMouseOverButton(uiData.buttons))
             {
                 Vector3 tgtPos = new Vector3(camera.ScreenToViewportPoint(Input.mousePosition).x, 0, camera.ScreenToViewportPoint(Input.mousePosition).y);
-                buildCameraPos.position += (tgtPos - startPos) * cameraHeight / 50;
+                sceneData.buildCam.position += (tgtPos - startPos) * cameraHeight / 50;
             }
 
             BorderCheck();

@@ -11,12 +11,10 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
     UIData uiData;
     EcsWorld _world;
     Camera camera;
-    Transform buildCameraPos;
 
     public void Init()
     {
         camera = Camera.main;
-        buildCameraPos = sceneData.buildCam.transform;
     }
 
     void IEcsRunSystem.Run()
@@ -121,7 +119,7 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
                         _world.NewEntity().Get<DestroyRoadRequest>();
                         coinsFilter.GetEntity(0).Get<WorldCoinsReplaceRequest>();
                         Vector3 pos = new Vector3(player.playerGO.transform.position.x, 20, player.playerGO.transform.position.z);
-                        buildCameraPos.position = pos;
+                        sceneData.buildCam.position = pos;
                         sceneData.gameMode = GameMode.View;
                         UIData.UpdateUI();
                     }

@@ -8,13 +8,13 @@ sealed class CameraSwitchSystem : IEcsRunSystem
 
     void IEcsRunSystem.Run()
     {
-        if (sceneData.gameMode == GameMode.View && !sceneData.buildCam.activeSelf || sceneData.gameMode == GameMode.Build && !sceneData.buildCam.activeSelf) //camera view build
+        if (sceneData.gameMode == GameMode.View && !sceneData.buildCam.gameObject.activeSelf || sceneData.gameMode == GameMode.Build && !sceneData.buildCam.gameObject.activeSelf) //camera view build
         {
-            sceneData.buildCam.SetActive(true);
+            sceneData.buildCam.gameObject.SetActive(true);
         }
-        else if (sceneData.gameMode == GameMode.Drive && sceneData.buildCam.activeSelf) //camera drive
+        else if (sceneData.gameMode == GameMode.Drive && sceneData.buildCam.gameObject.activeSelf) //camera drive
         {
-            sceneData.buildCam.SetActive(false);
+            sceneData.buildCam.gameObject.SetActive(false);
         }
     }
 }
