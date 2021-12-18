@@ -7,16 +7,31 @@ sealed class TrailFollowSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySyste
 {
 
     EcsFilter<Player> playerFilter;
-    SceneData sceneData;
     StaticData staticData;
-    List<Transform> activeWeelsTFs = new List<Transform>();
+    //List<Transform> activeWeelsTFs = new List<Transform>();
+    float trailYOffset;
     public void Init()
     {
-        foreach (var wc in playerFilter.Get1(0).activeWheelColliders)
+        /*foreach (var wc in playerFilter.Get1(0).activeWheelColliders)
         {
             activeWeelsTFs.Add(wc.transform);
-        }
+        }*/
         CarReturnBtns.returnEvent += ClearTrails;
+
+
+        ref var player = ref playerFilter.Get1(0);
+
+        float smallestWheelRadius = player.activeWheelColliders[0].radius * player.activeWheelColliders[0].transform.localScale.y;
+
+        foreach (var wc in player.activeWheelColliders)
+        {
+            if (wc.radius * wc.transform.lossyScale.y < smallestWheelRadius)
+            {
+                smallestWheelRadius = wc.radius * wc.transform.lossyScale.y;
+            }
+        }
+        trailYOffset = smallestWheelRadius - SceneData.ROAD_Y_OFFSET * 1.1f;
+
     }
 
 
@@ -31,11 +46,10 @@ sealed class TrailFollowSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySyste
 
         for (int i = 0; i < player.carData.wheelDatas.Count; i++)
         {
-            float offset = player.activeWheelColliders[i].radius * activeWeelsTFs[i].localScale.y * .8f;
             Vector3 wheelPos;
             Quaternion quaternion;
             player.activeWheelColliders[i].GetWorldPose(out wheelPos, out quaternion);
-            wheelPos.y -= offset;
+            wheelPos.y -= trailYOffset;
 
             if (!player.activeWheelColliders[i].isGrounded)
             {
@@ -62,8 +76,6 @@ sealed class TrailFollowSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySyste
             player.carData.wheelDatas[i].trailTF = null;
         }
     }
-
-
 }
 
 

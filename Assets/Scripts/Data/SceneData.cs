@@ -28,6 +28,7 @@ public class SceneData : MonoBehaviour
     [HideInInspector] public Product[] researchList;
     public AnimationCurve researchCurve;
     [HideInInspector] public float researchSpeed = 1;
+    public const float ROAD_Y_OFFSET = 0.08f;
 
 
     public void Notification(string notification)

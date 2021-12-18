@@ -34,7 +34,6 @@ public class AnimalData : MonoBehaviour
         }
         else if (collider.tag == PLAYER_TAG && collider.attachedRigidbody.velocity.magnitude > DEADLY_SPEED)
         {
-            Debug.Log(collider.attachedRigidbody.velocity.magnitude);
             Kill();
         }
 
@@ -42,11 +41,13 @@ public class AnimalData : MonoBehaviour
 
     public void Revive()
     {
-        /*int randomIndex = Random.Range(0, sceneData.animalPoints.Count);
-        transform.position = sceneData.animalPoints[randomIndex].position;*/
+
 
         //animator.gameObject.SetActive(true);
         SwitchComponents(true);
+
+        int randomIndex = Random.Range(0, sceneData.animalPoints.Count);
+        agent.Warp(sceneData.animalPoints[randomIndex].position);
     }
 
     void Kill()
@@ -60,7 +61,8 @@ public class AnimalData : MonoBehaviour
         {
             GameObject.Instantiate(staticData.deerFemRD, transform.position, transform.rotation);
         }
-        gameObject.SetActive(false);
+        animator.gameObject.SetActive(false);
+        SwitchComponents(false);
     }
 
     void SwitchComponents(bool value)
@@ -109,7 +111,7 @@ public class AnimalData : MonoBehaviour
             SetPath();
             return;
         }
-        agent.SetDestination(availablePoints[randomIndex].position);
+        agent.destination = availablePoints[randomIndex].position;
     }
 
 }

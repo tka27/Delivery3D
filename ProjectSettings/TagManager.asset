@@ -62,9 +62,9 @@ TagManager:
   - name: Upgrade2
     uniqueID: 2869752439
     locked: 0
-  - name: Notification
-    uniqueID: 565094427
-    locked: 0
   - name: Tutorial
     uniqueID: 1663118713
+    locked: 0
+  - name: Notification
+    uniqueID: 565094427
     locked: 0

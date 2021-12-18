@@ -28,7 +28,7 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
             return;
         }
         if (Input.touchCount == 2 &&
-        !UIData.IsMouseOverUI())//IsMouseOverButton(uiData.buttons))
+        !UIData.IsMouseOverUI() && sceneData.gameMode == GameMode.View)//IsMouseOverButton(uiData.buttons))
         {
             moveMode = false;
             Touch firstTouch = Input.GetTouch(0);
@@ -72,7 +72,6 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
                 Vector3 tgtPos = startPos - GetWorldPosition(0);
                 sceneData.buildCam.position += tgtPos;
             }
-
             BorderCheck();
         }
         else if (sceneData.gameMode == GameMode.Build)
@@ -87,7 +86,6 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
                 Vector3 tgtPos = new Vector3(camera.ScreenToViewportPoint(Input.mousePosition).x, 0, camera.ScreenToViewportPoint(Input.mousePosition).y);
                 sceneData.buildCam.position += (tgtPos - startPos) * cameraHeight / 50;
             }
-
             BorderCheck();
         }
     }

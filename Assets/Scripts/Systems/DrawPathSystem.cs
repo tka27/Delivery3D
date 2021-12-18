@@ -9,7 +9,6 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
     LayerMask layer;
     Camera camera;
     PathData pathData;
-    const float ROAD_Y_OFFSET = 0.08f;
     const int PATH_STEP = 1;
     const int BRIDGE_POINT_RADIUS = 15;
 
@@ -32,7 +31,7 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
         Physics.Raycast(mouseRay, out hit, 1000, layer) &&
         !UIData.IsMouseOverUI())//IsMouseOverButton(uiData.buttons))
         {
-            waypointPos = new Vector3(hit.point.x, hit.point.y + ROAD_Y_OFFSET, hit.point.z);
+            waypointPos = new Vector3(hit.point.x, hit.point.y + SceneData.ROAD_Y_OFFSET, hit.point.z);
             float distanceToNextPoint = 0;
 
             if (pathData.wayPoints.Count != 0)
@@ -135,10 +134,5 @@ sealed class DrawPathSystem : IEcsRunSystem, IEcsInitSystem
                 return;
             }
         }
-    }
-
-    void DisplayBuildSphere()
-    {
-
     }
 }

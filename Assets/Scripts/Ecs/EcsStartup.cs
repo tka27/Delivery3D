@@ -16,7 +16,6 @@ sealed class EcsStartup : MonoBehaviour
     public GameSettings gameSettings;
     public FlowingText flowingText;
     public UIData uiData;
-    public TutorialData tutorialData;
 
     void Start()
     {
@@ -119,6 +118,7 @@ sealed class EcsStartup : MonoBehaviour
     void Update()
     {
         systems?.Run();
+
     }
     void FixedUpdate()
     {

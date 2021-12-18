@@ -69,71 +69,74 @@ sealed class ResearchSystem : IEcsRunSystem
     {
         switch (staticData.researchLvl)
         {
-            case 2:
+            case 1:
                 sceneData.Notification("Unlocked new building.");
                 buildingsData.buildingsInitSystem.BakeryInit();
                 buildingsData.buildingsInitSystem.NewProductionBuilding();
+                buildingsData.buildingsInitSystem.WaterInit();
+                buildingsData.buildingsInitSystem.NewProductionBuilding();
                 break;
 
-            case 3:
+            case 2:
                 sceneData.Notification("Unlocked new building.");
                 buildingsData.buildingsInitSystem.MeatInit();
+                buildingsData.buildingsInitSystem.NewProductionBuilding();
                 buildingsData.buildingsInitSystem.MilkInit();
                 buildingsData.buildingsInitSystem.NewProductionBuilding();
                 break;
 
-            case 5:
+            case 4:
                 sceneData.Notification("Unlocked new building. \nUnlocked new car.");
                 buildingsData.buildingsInitSystem.FishInit();
                 buildingsData.buildingsInitSystem.NewProductionBuilding();
                 staticData.carsUnlockStatus[1] = true;
                 break;
 
-            case 7:
+            case 6:
                 sceneData.Notification("Unlocked new building.");
                 buildingsData.buildingsInitSystem.CheeseInit();
                 buildingsData.buildingsInitSystem.NewProductionBuilding();
                 break;
 
-            case 9:
+            case 8:
                 sceneData.Notification("Unlocked new building.");
                 buildingsData.buildingsInitSystem.CanFishInit();
                 buildingsData.buildingsInitSystem.NewProductionBuilding();
                 break;
 
-            case 11:
+            case 10:
                 sceneData.Notification("Unlocked new building. \nUnlocked new car.");
                 buildingsData.buildingsInitSystem.ChickenInit();
                 buildingsData.buildingsInitSystem.NewProductionBuilding();
                 staticData.carsUnlockStatus[2] = true;
                 break;
 
-            case 14:
+            case 13:
                 sceneData.Notification("Unlocked new building.");
                 buildingsData.buildingsInitSystem.FruitInit();
                 buildingsData.buildingsInitSystem.NewProductionBuilding();
                 break;
 
-            case 17:
+            case 16:
                 sceneData.Notification("Unlocked new building.");
                 buildingsData.buildingsInitSystem.VegetablesInit();
                 buildingsData.buildingsInitSystem.NewProductionBuilding();
                 break;
 
-            case 20:
+            case 19:
                 sceneData.Notification("Unlocked new building. \nUnlocked new car.");
                 buildingsData.buildingsInitSystem.JuiceInit();
                 buildingsData.buildingsInitSystem.NewProductionBuilding();
                 staticData.carsUnlockStatus[3] = true;
                 break;
 
-            case 25:
+            case 24:
                 sceneData.Notification("Unlocked new building.");
                 buildingsData.buildingsInitSystem.IceInit();
                 buildingsData.buildingsInitSystem.NewProductionBuilding();
                 break;
 
-            case 31:
+            case 30:
                 sceneData.Notification("Unlocked new building.");
                 buildingsData.buildingsInitSystem.PizzaInit();
                 buildingsData.buildingsInitSystem.NewProductionBuilding();

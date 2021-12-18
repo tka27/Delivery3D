@@ -22,63 +22,60 @@ public class BuildingsInitSystem : IEcsInitSystem
     {
         buildingsData.buildingsInitSystem = this;
         float productPrice;
+
         if (staticData.researchLvl >= 1)
         {
+            BakeryInit();
             WaterInit();
         }
 
         if (staticData.researchLvl >= 2)
         {
-            BakeryInit();
-        }
-
-        if (staticData.researchLvl >= 3)
-        {
             MilkInit();
             MeatInit();
         }
 
-        if (staticData.researchLvl >= 5)
+        if (staticData.researchLvl >= 4)
         {
             FishInit();
         }
 
-        if (staticData.researchLvl >= 7)
+        if (staticData.researchLvl >= 6)
         {
             CheeseInit();
         }
 
-        if (staticData.researchLvl >= 9)
+        if (staticData.researchLvl >= 8)
         {
             CanFishInit();
         }
 
-        if (staticData.researchLvl >= 11)
+        if (staticData.researchLvl >= 10)
         {
             ChickenInit();
         }
 
-        if (staticData.researchLvl >= 14)
+        if (staticData.researchLvl >= 15)
         {
             FruitInit();
         }
 
-        if (staticData.researchLvl >= 17)
+        if (staticData.researchLvl >= 18)
         {
             VegetablesInit();
         }
 
-        if (staticData.researchLvl >= 20)
+        if (staticData.researchLvl >= 19)
         {
             JuiceInit();
         }
 
-        if (staticData.researchLvl >= 25)
+        if (staticData.researchLvl >= 24)
         {
             IceInit();
         }
 
-        if (staticData.researchLvl >= 31)
+        if (staticData.researchLvl >= 30)
         {
             PizzaInit();
         }
@@ -139,24 +136,14 @@ public class BuildingsInitSystem : IEcsInitSystem
         BuildingsUpdate();
     }
 
-    public void VegetablesInit()
-    {
-        var vegetableFarmEntity = _world.NewEntity();
-        ref var vegetableFarmSeller = ref vegetableFarmEntity.Get<ProductSeller>();
-        vegetableFarmSeller.sellerGO = buildingsData.vegetableTradePoint;
-        vegetableFarmSeller.produceSpeed = 0.5f;
-        vegetableFarmSeller.product = new Product(ProductType.Vegetables, productData.vegetables, 0.5f);
-        vegetableFarmSeller.repriceMultiplier = 1.2f;
-        ref var vegetableFarmInventory = ref vegetableFarmEntity.Get<Inventory>();
-        vegetableFarmInventory.maxMass = 50;
-    }
+
 
     public void WaterInit()
     {
         var waterStationEntity = _world.NewEntity();
         ref var waterStationSeller = ref waterStationEntity.Get<ProductSeller>();
         waterStationSeller.sellerGO = buildingsData.waterTradePoint;
-        waterStationSeller.produceSpeed = 5f;
+        waterStationSeller.produceSpeed = 5;
         waterStationSeller.product = new Product(ProductType.Water, productData.water, 0.1f);
         waterStationSeller.repriceMultiplier = 1.2f;
         ref var waterStationInventory = ref waterStationEntity.Get<Inventory>();
@@ -175,14 +162,14 @@ public class BuildingsInitSystem : IEcsInitSystem
 
         ref var bakeryInventory = ref bakeryEntity.Get<Inventory>();
         bakeryInventory.inventory = new List<Product>();
-        bakeryInventory.inventory.Add(new Product(ProductType.Wheat, productData.wheat, 0.75f));
-        bakeryInventory.inventory.Add(new Product(ProductType.Water, productData.water, 0.75f));
-        bakeryInventory.maxMass = 50;
+        bakeryInventory.inventory.Add(new Product(ProductType.Wheat, productData.wheat, 0.16f));
+        bakeryInventory.inventory.Add(new Product(ProductType.Water, productData.water, 0.13f));
+        bakeryInventory.maxMass = 400;
 
         ref var bakerySeller = ref bakeryEntity.Get<ProductSeller>();
-        bakerySeller.produceSpeed = 1;
+        bakerySeller.produceSpeed = 3;
         bakerySeller.sellerGO = bakeryBuyer.buyerGO;
-        bakerySeller.product = new Product(ProductType.Bread, productData.bread, 1.33f);
+        bakerySeller.product = new Product(ProductType.Bread, productData.bread, 0.22f);
         bakeryInventory.inventory.Add(bakerySeller.product);
         bakerySeller.repriceMultiplier = 1.2f;
     }
@@ -198,13 +185,13 @@ public class BuildingsInitSystem : IEcsInitSystem
 
         ref var chickenInventory = ref chickenEntity.Get<Inventory>();
         chickenInventory.inventory = new List<Product>();
-        chickenInventory.inventory.Add(new Product(ProductType.Wheat, productData.wheat, 0.75f));
-        chickenInventory.maxMass = 50;
+        chickenInventory.inventory.Add(new Product(ProductType.Wheat, productData.wheat, 0.16f));
+        chickenInventory.maxMass = 200;
 
         ref var chickenSeller = ref chickenEntity.Get<ProductSeller>();
-        chickenSeller.produceSpeed = 1;
+        chickenSeller.produceSpeed = 5;
         chickenSeller.sellerGO = chickenBuyer.buyerGO;
-        chickenSeller.product = new Product(ProductType.Eggs, productData.eggs, 1.33f);
+        chickenSeller.product = new Product(ProductType.Eggs, productData.eggs, 0.26f);
         chickenInventory.inventory.Add(chickenSeller.product);
         chickenSeller.repriceMultiplier = 1.2f;
     }
@@ -220,15 +207,36 @@ public class BuildingsInitSystem : IEcsInitSystem
 
         ref var milkInventory = ref milkEntity.Get<Inventory>();
         milkInventory.inventory = new List<Product>();
-        milkInventory.inventory.Add(new Product(ProductType.Wheat, productData.milk, 0.6f));
-        milkInventory.maxMass = 50;
+        milkInventory.inventory.Add(new Product(ProductType.Wheat, productData.milk, 0.16f));
+        milkInventory.maxMass = 200;
 
         ref var milkSeller = ref milkEntity.Get<ProductSeller>();
-        milkSeller.product = new Product(ProductType.Milk, productData.milk, 1.33f);
+        milkSeller.product = new Product(ProductType.Milk, productData.milk, 0.24f);
         milkInventory.inventory.Add(milkSeller.product);
-        milkSeller.produceSpeed = 1;
+        milkSeller.produceSpeed = 4;
         milkSeller.sellerGO = milkBuyer.buyerGO;
         milkSeller.repriceMultiplier = 1.2f;
+    }
+    public void CheeseInit()
+    {
+        var cheeseEntity = _world.NewEntity();
+        ref var cheeseBuyer = ref cheeseEntity.Get<ProductBuyer>();
+        cheeseBuyer.buyerGO = buildingsData.cheeseTradePoint;
+        cheeseBuyer.repriceMultiplier = 1.2f;
+        cheeseBuyer.buyingProductTypes = new List<ProductType>();
+        cheeseBuyer.buyingProductTypes.Add(ProductType.Milk);
+
+        ref var cheeseInventory = ref cheeseEntity.Get<Inventory>();
+        cheeseInventory.inventory = new List<Product>();
+        cheeseInventory.inventory.Add(new Product(ProductType.Milk, productData.milk, 0.31f));
+        cheeseInventory.maxMass = 200;
+
+        ref var cheeseSeller = ref cheeseEntity.Get<ProductSeller>();
+        cheeseSeller.product = new Product(ProductType.Cheese, productData.cheese, 0.47f);
+        cheeseInventory.inventory.Add(cheeseSeller.product);
+        cheeseSeller.produceSpeed = 3;
+        cheeseSeller.sellerGO = cheeseBuyer.buyerGO;
+        cheeseSeller.repriceMultiplier = 1.2f;
     }
 
     public void MeatInit()
@@ -242,13 +250,13 @@ public class BuildingsInitSystem : IEcsInitSystem
 
         ref var meatInventory = ref meatEntity.Get<Inventory>();
         meatInventory.inventory = new List<Product>();
-        meatInventory.inventory.Add(new Product(ProductType.Wheat, productData.wheat, 0.6f));
-        meatInventory.maxMass = 50;
+        meatInventory.inventory.Add(new Product(ProductType.Wheat, productData.wheat, 0.16f));
+        meatInventory.maxMass = 200;
 
         ref var meatSeller = ref meatEntity.Get<ProductSeller>();
-        meatSeller.product = new Product(ProductType.Meat, productData.meat, 1.33f);
+        meatSeller.product = new Product(ProductType.Meat, productData.meat, 0.28f);
         meatInventory.inventory.Add(meatSeller.product);
-        meatSeller.produceSpeed = 1;
+        meatSeller.produceSpeed = 3;
         meatSeller.sellerGO = meatBuyer.buyerGO;
         meatSeller.repriceMultiplier = 1.2f;
     }
@@ -266,39 +274,29 @@ public class BuildingsInitSystem : IEcsInitSystem
 
         ref var pizzaInventory = ref pizzaEntity.Get<Inventory>();
         pizzaInventory.inventory = new List<Product>();
-        pizzaInventory.inventory.Add(new Product(ProductType.Bread, productData.bread, 0.6f));
-        pizzaInventory.inventory.Add(new Product(ProductType.Meat, productData.meat, 0.6f));
-        pizzaInventory.inventory.Add(new Product(ProductType.Cheese, productData.cheese, 0.6f));
-        pizzaInventory.maxMass = 50;
+        pizzaInventory.inventory.Add(new Product(ProductType.Bread, productData.bread, 0.29f));
+        pizzaInventory.inventory.Add(new Product(ProductType.Meat, productData.meat, 0.36f));
+        pizzaInventory.inventory.Add(new Product(ProductType.Cheese, productData.cheese, 0.61f));
+        pizzaInventory.maxMass = 600;
 
         ref var pizzaSeller = ref pizzaEntity.Get<ProductSeller>();
-        pizzaSeller.product = new Product(ProductType.Pizza, productData.pizza, 1.33f);
+        pizzaSeller.product = new Product(ProductType.Pizza, productData.pizza, 0.63f);
         pizzaInventory.inventory.Add(pizzaSeller.product);
-        pizzaSeller.produceSpeed = 1;
+        pizzaSeller.produceSpeed = 2;
         pizzaSeller.sellerGO = pizzaBuyer.buyerGO;
         pizzaSeller.repriceMultiplier = 1.2f;
     }
 
-    public void CheeseInit()
+    public void FishInit()
     {
-        var cheeseEntity = _world.NewEntity();
-        ref var cheeseBuyer = ref cheeseEntity.Get<ProductBuyer>();
-        cheeseBuyer.buyerGO = buildingsData.cheeseTradePoint;
-        cheeseBuyer.repriceMultiplier = 1.2f;
-        cheeseBuyer.buyingProductTypes = new List<ProductType>();
-        cheeseBuyer.buyingProductTypes.Add(ProductType.Milk);
-
-        ref var cheeseInventory = ref cheeseEntity.Get<Inventory>();
-        cheeseInventory.inventory = new List<Product>();
-        cheeseInventory.inventory.Add(new Product(ProductType.Milk, productData.milk, 0.6f));
-        cheeseInventory.maxMass = 50;
-
-        ref var cheeseSeller = ref cheeseEntity.Get<ProductSeller>();
-        cheeseSeller.product = new Product(ProductType.Cheese, productData.cheese, 1.33f);
-        cheeseInventory.inventory.Add(cheeseSeller.product);
-        cheeseSeller.produceSpeed = 1;
-        cheeseSeller.sellerGO = cheeseBuyer.buyerGO;
-        cheeseSeller.repriceMultiplier = 1.2f;
+        var fishFarmEntity = _world.NewEntity();
+        ref var fishFarmSeller = ref fishFarmEntity.Get<ProductSeller>();
+        fishFarmSeller.sellerGO = buildingsData.fishTradePoint;
+        fishFarmSeller.produceSpeed = 5;
+        fishFarmSeller.product = new Product(ProductType.Fish, productData.fish, 0.2f);
+        fishFarmSeller.repriceMultiplier = 1.2f;
+        ref var fishFarmInventory = ref fishFarmEntity.Get<Inventory>();
+        fishFarmInventory.maxMass = 200;
     }
 
     public void CanFishInit()
@@ -312,15 +310,39 @@ public class BuildingsInitSystem : IEcsInitSystem
 
         ref var canFishInventory = ref canFishEntity.Get<Inventory>();
         canFishInventory.inventory = new List<Product>();
-        canFishInventory.inventory.Add(new Product(ProductType.Fish, productData.fish, 0.75f));
-        canFishInventory.maxMass = 50;
+        canFishInventory.inventory.Add(new Product(ProductType.Fish, productData.fish, 0.26f));
+        canFishInventory.maxMass = 200;
 
         ref var canFishSeller = ref canFishEntity.Get<ProductSeller>();
-        canFishSeller.produceSpeed = 1;
+        canFishSeller.produceSpeed = 4;
         canFishSeller.sellerGO = canFishBuyer.buyerGO;
-        canFishSeller.product = new Product(ProductType.CannedFish, productData.cannedFish, 1.33f);
+        canFishSeller.product = new Product(ProductType.CannedFish, productData.cannedFish, 0.39f);
         canFishInventory.inventory.Add(canFishSeller.product);
         canFishSeller.repriceMultiplier = 1.2f;
+    }
+
+    public void FruitInit()
+    {
+        var fruitFarmEntity = _world.NewEntity();
+        ref var fruitFarmSeller = ref fruitFarmEntity.Get<ProductSeller>();
+        fruitFarmSeller.sellerGO = buildingsData.fruitTradePoint;
+        fruitFarmSeller.produceSpeed = 4;
+        fruitFarmSeller.product = new Product(ProductType.Fruits, productData.fruits, 0.2f);
+        fruitFarmSeller.repriceMultiplier = 1.2f;
+        ref var fruitFarmInventory = ref fruitFarmEntity.Get<Inventory>();
+        fruitFarmInventory.maxMass = 300;
+    }
+
+    public void VegetablesInit()
+    {
+        var vegetableFarmEntity = _world.NewEntity();
+        ref var vegetableFarmSeller = ref vegetableFarmEntity.Get<ProductSeller>();
+        vegetableFarmSeller.sellerGO = buildingsData.vegetableTradePoint;
+        vegetableFarmSeller.produceSpeed = 3;
+        vegetableFarmSeller.product = new Product(ProductType.Vegetables, productData.vegetables, 0.3f);
+        vegetableFarmSeller.repriceMultiplier = 1.2f;
+        ref var vegetableFarmInventory = ref vegetableFarmEntity.Get<Inventory>();
+        vegetableFarmInventory.maxMass = 300;
     }
 
     public void JuiceInit()
@@ -335,14 +357,14 @@ public class BuildingsInitSystem : IEcsInitSystem
 
         ref var juiceInventory = ref juiceEntity.Get<Inventory>();
         juiceInventory.inventory = new List<Product>();
-        juiceInventory.inventory.Add(new Product(ProductType.Water, productData.water, 0.6f));
-        juiceInventory.inventory.Add(new Product(ProductType.Fruits, productData.fruits, 0.6f));
-        juiceInventory.maxMass = 100;
+        juiceInventory.inventory.Add(new Product(ProductType.Water, productData.water, 0.15f));
+        juiceInventory.inventory.Add(new Product(ProductType.Fruits, productData.fruits, 0.33f));
+        juiceInventory.maxMass = 200;
 
         ref var juiceSeller = ref juiceEntity.Get<ProductSeller>();
-        juiceSeller.product = new Product(ProductType.Juice, productData.juice, 1.33f);
+        juiceSeller.product = new Product(ProductType.Juice, productData.juice, 0.36f);
         juiceInventory.inventory.Add(juiceSeller.product);
-        juiceSeller.produceSpeed = 1;
+        juiceSeller.produceSpeed = 3;
         juiceSeller.sellerGO = juiceBuyer.buyerGO;
         juiceSeller.repriceMultiplier = 1.2f;
     }
@@ -359,41 +381,21 @@ public class BuildingsInitSystem : IEcsInitSystem
 
         ref var iceInventory = ref iceEntity.Get<Inventory>();
         iceInventory.inventory = new List<Product>();
-        iceInventory.inventory.Add(new Product(ProductType.Milk, productData.milk, 0.6f));
-        iceInventory.inventory.Add(new Product(ProductType.Fruits, productData.fruits, 0.6f));
-        iceInventory.maxMass = 100;
+        iceInventory.inventory.Add(new Product(ProductType.Milk, productData.milk, 0.36f));
+        iceInventory.inventory.Add(new Product(ProductType.Fruits, productData.fruits, 0.42f));
+        iceInventory.maxMass = 400;
 
         ref var iceSeller = ref iceEntity.Get<ProductSeller>();
-        iceSeller.product = new Product(ProductType.Juice, productData.iceCream, 1.33f);
+        iceSeller.product = new Product(ProductType.Juice, productData.iceCream, 0.57f);
         iceInventory.inventory.Add(iceSeller.product);
-        iceSeller.produceSpeed = 1;
+        iceSeller.produceSpeed = 2;
         iceSeller.sellerGO = iceBuyer.buyerGO;
         iceSeller.repriceMultiplier = 1.2f;
     }
 
-    public void FruitInit()
-    {
-        var fruitFarmEntity = _world.NewEntity();
-        ref var fruitFarmSeller = ref fruitFarmEntity.Get<ProductSeller>();
-        fruitFarmSeller.sellerGO = buildingsData.fruitTradePoint;
-        fruitFarmSeller.produceSpeed = 0.5f;
-        fruitFarmSeller.product = new Product(ProductType.Fruits, productData.fruits, 0.5f);
-        fruitFarmSeller.repriceMultiplier = 1.2f;
-        ref var fruitFarmInventory = ref fruitFarmEntity.Get<Inventory>();
-        fruitFarmInventory.maxMass = 50;
-    }
 
-    public void FishInit()
-    {
-        var fishFarmEntity = _world.NewEntity();
-        ref var fishFarmSeller = ref fishFarmEntity.Get<ProductSeller>();
-        fishFarmSeller.sellerGO = buildingsData.fishTradePoint;
-        fishFarmSeller.produceSpeed = 0.5f;
-        fishFarmSeller.product = new Product(ProductType.Fish, productData.fish, 0.5f);
-        fishFarmSeller.repriceMultiplier = 1.2f;
-        ref var fishFarmInventory = ref fishFarmEntity.Get<Inventory>();
-        fishFarmInventory.maxMass = 50;
-    }
+
+
 
 
 
@@ -510,78 +512,47 @@ public class BuildingsInitSystem : IEcsInitSystem
 
     void UnlockBuildings()
     {
-        if (staticData.researchLvl >= 1)
-        {
-            buildingsData.waterTradePoint.SetActive(true);
-            buildingsData.bakeryGO.SetActive(true);
-        }
+        SwitchBuildings(1, buildingsData.bakeryTradePoint, buildingsData.waterTradePoint, buildingsData.cowFarmGO);
 
-        if (staticData.researchLvl >= 2)
-        {
-            buildingsData.bakeryTradePoint.SetActive(true);
-            buildingsData.cowFarmGO.SetActive(true);
-        }
+        SwitchBuildings(2, buildingsData.milkFactoryTradePoint, buildingsData.meatFactoryTradePoint, buildingsData.fishGO);
 
-        if (staticData.researchLvl >= 3)
-        {
-            buildingsData.milkFactoryTradePoint.SetActive(true);
-            buildingsData.meatFactoryTradePoint.SetActive(true);
-            buildingsData.fishGO.SetActive(true);
-        }
+        SwitchBuildings(4, buildingsData.fishTradePoint, buildingsData.cheeseGO);
 
-        if (staticData.researchLvl >= 5)
-        {
-            buildingsData.fishTradePoint.SetActive(true);
-            buildingsData.cheeseGO.SetActive(true);
-        }
+        SwitchBuildings(6, buildingsData.cheeseTradePoint, buildingsData.canFishGO);
 
-        if (staticData.researchLvl >= 7)
-        {
-            buildingsData.cheeseTradePoint.SetActive(true);
-            buildingsData.canFishGO.SetActive(true);
-        }
-
-        if (staticData.researchLvl >= 9)
-        {
-            buildingsData.canFishTradePoint.SetActive(true);
-            buildingsData.chickenGO.SetActive(true);
-        }
-
-        if (staticData.researchLvl >= 11)
-        {
-            buildingsData.chickenTradePoint.SetActive(true);
-            buildingsData.fruitGO.SetActive(true);
-        }
-
-        if (staticData.researchLvl >= 14)
-        {
-            buildingsData.fruitTradePoint.SetActive(true);
-            buildingsData.vegetableGO.SetActive(true);
-        }
-
-        if (staticData.researchLvl >= 17)
-        {
-            buildingsData.vegetableTradePoint.SetActive(true);
-            buildingsData.juiceGO.SetActive(true);
-        }
-
-        if (staticData.researchLvl >= 20)
-        {
-            buildingsData.juiceTradePoint.SetActive(true);
-            buildingsData.iceGO.SetActive(true);
-        }
-
-        if (staticData.researchLvl >= 25)
-        {
-            buildingsData.iceTradePoint.SetActive(true);
-        }
-
-        if (staticData.researchLvl >= 31)
-        {
-            buildingsData.pizzaTradePoint.SetActive(true);
-        }
+        SwitchBuildings(8, buildingsData.canFishTradePoint, buildingsData.chickenGO);
+    
+        SwitchBuildings(10, buildingsData.chickenTradePoint, buildingsData.fruitGO);
         
+        SwitchBuildings(13, buildingsData.fruitTradePoint, buildingsData.vegetableGO);
+        
+        SwitchBuildings(16, buildingsData.vegetableTradePoint, buildingsData.juiceGO);
+
+        SwitchBuildings(19, buildingsData.juiceTradePoint, buildingsData.iceGO);
+
+        SwitchBuildings(24, buildingsData.iceTradePoint);
+
+        SwitchBuildings(30, buildingsData.pizzaTradePoint);
+
         sceneData.navMeshSurface.BuildNavMesh();
+    }
+
+    void SwitchBuildings(int requiredLvl, params GameObject[] gameObjects)
+    {
+        if (staticData.researchLvl >= requiredLvl)
+        {
+            foreach (var go in gameObjects)
+            {
+                go.SetActive(true);
+            }
+        }
+        else
+        {
+            foreach (var go in gameObjects)
+            {
+                go.SetActive(false);
+            }
+        }
     }
 }
 

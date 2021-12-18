@@ -15,4 +15,4 @@ MonoBehaviour:
   vibration: 0
   sound: 1
   music: 1
-  tutorialLvl: 2
+  tutorialLvl: -1

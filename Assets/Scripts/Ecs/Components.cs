@@ -69,11 +69,11 @@ public struct Inventory
         }
     }
 
-    public bool HasItem(ProductType type, float desiredCount)
+    public bool HasItem(ProductType type, float minCount)
     {
         foreach (var item in inventory)
         {
-            if (item.type == type && item.mass == desiredCount)
+            if (item.type == type && item.mass >= minCount)
             {
                 return true;
             }
