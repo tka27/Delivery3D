@@ -10,6 +10,7 @@ public class UIData : MonoBehaviour
     public GameObject sellButton;
     public GameObject tradeBtns;
     public GameObject buildBtns;
+    public GameObject carReturnBtn;
     public Text gameModeText;
     public Text fuelText;
     public Text durabilityText;
@@ -18,7 +19,6 @@ public class UIData : MonoBehaviour
     public GameObject inventoryCanvas;
     public List<Text> inventoryText;
     public List<Image> inventoryIcons;
-    public List<GameObject> buttons;//for ui ignore
 
     public delegate void UpdateUIHandler();
     public static event UpdateUIHandler updateUIEvent;

@@ -52,9 +52,12 @@ sealed class EcsStartup : MonoBehaviour
             .Add(new AnimalsSystem())
             .Add(new TrailFollowSystem())
             .Add(new ReturnToLastPointSystem())
-            .Add(new AdSystem());
+            .Add(new AdSystem())
+            .Add(new CarReturnBtnSwitchSystem())
 
 
+
+            ;
         AddTutorialSystem();
         systems.Init();
 

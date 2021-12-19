@@ -10,7 +10,7 @@ public class SceneData : MonoBehaviour
     [HideInInspector] public GameMode gameMode;
     public Transform buildCam;
     public GameObject driveCam;
-
+    
     public List<Transform> animalPoints;
     public NavMeshSurface navMeshSurface;
     public List<AnimalData> animalsPool;
