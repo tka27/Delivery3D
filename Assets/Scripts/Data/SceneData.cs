@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine.AI;
 public class SceneData : MonoBehaviour
 {
-    public GameObject tutorial;
     [SerializeField] GameObject notificationPanel;
     [SerializeField] Text notificationText;
     public List<GameObject> cars;
@@ -29,6 +28,7 @@ public class SceneData : MonoBehaviour
     public AnimationCurve researchCurve;
     [HideInInspector] public float researchSpeed = 1;
     public const float ROAD_Y_OFFSET = 0.08f;
+    public const float BUILDCAM_Y_THRESHOLD = 13;
 
 
     public void Notification(string notification)

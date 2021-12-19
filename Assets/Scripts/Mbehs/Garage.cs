@@ -76,7 +76,7 @@ public class Garage : MonoBehaviour, IUnityAdsListener
 
     public void OnUnityAdsDidError(string message)
     {
-        sceneData.Notification("Ad error");
+        //sceneData.Notification("Ad error");
     }
 
     public void OnUnityAdsDidStart(string placementId)

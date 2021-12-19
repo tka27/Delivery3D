@@ -10,9 +10,34 @@ public class GameSettings : ScriptableObject
 
     public void LoadPrefs()
     {
-        vibration = PlayerPrefs.GetInt("vibration") == 1;
-        sound = PlayerPrefs.GetInt("sound") == 1;
-        music = PlayerPrefs.GetInt("music") == 1;
+        if (!PlayerPrefs.HasKey("vibration"))
+        {
+            vibration = true;
+        }
+        else
+        {
+            vibration = PlayerPrefs.GetInt("vibration") == 1;
+        }
+
+        if (!PlayerPrefs.HasKey("sound"))
+        {
+            sound = true;
+        }
+        else
+        {
+            sound = PlayerPrefs.GetInt("sound") == 1;
+        }
+
+        if (!PlayerPrefs.HasKey("music"))
+        {
+            music = true;
+        }
+        else
+        {
+            music = PlayerPrefs.GetInt("music") == 1;
+        }
+
+        tutorialLvl = PlayerPrefs.GetInt("tutorialLvl");
     }
 
     public void SavePrefs()
@@ -43,6 +68,9 @@ public class GameSettings : ScriptableObject
         {
             PlayerPrefs.SetInt("music", 0);
         }
+
+        PlayerPrefs.SetInt("tutorialLvl", tutorialLvl);
+
         PlayerPrefs.Save();
     }
 }

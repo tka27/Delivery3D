@@ -8,6 +8,7 @@ sealed class ShopQuestSystem : IEcsRunSystem
 
     EcsFilter<ProductBuyer, Shop, Inventory> shopFilter;
     EcsFilter<ProductSeller>.Exclude<AutoService> sellerFilter;
+    StaticData staticData;
 
     void IEcsRunSystem.Run()
     {
@@ -37,7 +38,7 @@ sealed class ShopQuestSystem : IEcsRunSystem
             time = TimeSpan.FromSeconds(quest.currentQuestTime);
             buyer.tradePointData.currentQuestTime.text = time.ToString("mm':'ss");
 
-            Product product = SelectRandomProducedProduct();
+            Product product = SelectRandomSimilarProduct();
             buyer.buyingProductTypes.Clear();
             buyer.buyingProductTypes.Add(product.type);
 
@@ -48,6 +49,32 @@ sealed class ShopQuestSystem : IEcsRunSystem
         }
     }
 
+    Product SelectRandomSimilarProduct()
+    {
+        List<Product> similarProducts = new List<Product>();
+        foreach (var fSeller in sellerFilter)
+        {
+            ref var seller = ref sellerFilter.Get1(fSeller);
+            foreach (var prodType in staticData.availableProductTypes)
+            {
+                if (prodType == seller.product.type)
+                {
+                    similarProducts.Add(seller.product);
+                }
+            }
+        }
+
+
+
+
+        int randomIndex = UnityEngine.Random.Range(0, similarProducts.Count);
+        if (similarProducts.Count > 0)
+        {
+            return similarProducts[randomIndex];
+        }
+        return SelectRandomProducedProduct();
+    }
+    
     Product SelectRandomProducedProduct()
     {
         List<Product> products = new List<Product>();

@@ -7,5 +7,6 @@ public class ResetBtn : MonoBehaviour
     {
         SaveSystem.ClearSaveData();
         SceneManager.LoadScene(0);
+        PlayerPrefs.DeleteAll();
     }
 }

@@ -8,7 +8,7 @@ sealed class UpdateUISystem : IEcsInitSystem, IEcsDestroySystem
     SceneData sceneData;
     PathData pathData;
     StaticData staticData;
-
+    BuildingsData buildingsData;
 
     EcsFilter<ProductSeller> sellerFilter;
     EcsFilter<ProductBuyer> buyerFilter;
@@ -99,8 +99,31 @@ sealed class UpdateUISystem : IEcsInitSystem, IEcsDestroySystem
 
         uiData.gameModeText.text = sceneData.gameMode.ToString();
         uiData.fuelText.text = player.currentFuel.ToString("0") + "/" + player.maxFuel.ToString("0");
-        uiData.durabilityText.text = player.currentDurability.ToString("0");
+        uiData.durabilityText.text = player.currentDurability.ToString("0") + "/" + player.maxDurability.ToString("0");
         uiData.cargoText.text = playerInventory.GetCurrentMass().ToString("0") + "/" + playerInventory.maxMass.ToString("0");
         uiData.moneyText.text = staticData.currentMoney.ToString("0.0");
+
+
+        SwitchTPCanvases();
+    }
+
+    void SwitchTPCanvases()
+    {
+        Debug.Log(123);
+        if (sceneData.gameMode == GameMode.View && sceneData.buildCam.position.y > SceneData.BUILDCAM_Y_THRESHOLD)
+        {
+            foreach (var canvas in buildingsData.tradePointCanvases)
+            {
+                canvas.SetActive(true);
+            }
+        }
+        else
+        {
+            foreach (var canvas in buildingsData.tradePointCanvases)
+            {
+                canvas.SetActive(false);
+            }
+        }
+
     }
 }

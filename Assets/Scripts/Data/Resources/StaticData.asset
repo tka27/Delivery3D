@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 895008262b089ae4ea78fcb6be845414, type: 3}
   m_Name: StaticData
   m_EditorClassIdentifier: 
-  availableProductTypes: 0000000001000000070000000c0000000d0000000b000000
+  availableProductTypes: 0c00000002000000080000000a000000
   trailPrefab: {fileID: 4358420240384892957, guid: dfb17e74df2964048829f3bc067ebecb, type: 3}
   tutorialPrefab: {fileID: 1555078184416014041, guid: 9a382c26981a9b141b54e4f0cd153b9d, type: 3}
   deerMaleRD: {fileID: 3360702704581171551, guid: 3ee0938a59699a04e8d794b73a3e9677, type: 3}
   deerFemRD: {fileID: 3360702704581171551, guid: a325a972af7e66a43a4096f661949b58, type: 3}
-  currentMoney: 0
+  currentMoney: 100
   moneyForGame: 100
-  selectedCarID: 0
+  selectedCarID: 3
   selectedMapID: 0
-  trailerIsSelected: 1
+  trailerIsSelected: 0
   allCars:
   - {fileID: 4430766651677897550, guid: 4f4c804afdfe12d43ac411ad1b2ce925, type: 3}
   - {fileID: 8527134890977156259, guid: 6a671c85f37436e46ac4189a001dde59, type: 3}

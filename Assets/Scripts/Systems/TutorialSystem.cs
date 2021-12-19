@@ -20,7 +20,7 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
         TradePointData.tradeEvent += OnTradeEvent;
 
         tutorialData = GameObject.Instantiate(staticData.tutorialPrefab).GetComponent<TutorialData>();
-        
+
         settings.tutorialLvl = 0;
         sceneData.researchSpeed *= RESEARCH_SPEED_MULTIPLIER;
 
@@ -248,6 +248,7 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
                 GameObject.Destroy(tutorialData.gameObject, 5);
                 settings.tutorialLvl = -1;
                 sceneData.researchSpeed /= RESEARCH_SPEED_MULTIPLIER;
+                settings.SavePrefs();
                 break;
 
             default: return;

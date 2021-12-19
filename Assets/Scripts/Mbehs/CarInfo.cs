@@ -9,7 +9,7 @@ public class CarInfo : MonoBehaviour
     [SerializeField] ProductData productData;
     [SerializeField] MainMenuSceneData mainMenuSceneData;
     [SerializeField] GameObject mapBtn;
-    [SerializeField] GameObject buyBtn;
+    [SerializeField] GameObject buyCarBtn;
     [SerializeField] GameObject upgradeBtn;
     [SerializeField] GameObject price;
     [SerializeField] Text priceText;
@@ -42,7 +42,7 @@ public class CarInfo : MonoBehaviour
         if (staticData.carsUnlockStatus[carID] && staticData.carsBuyStatus[carID])
         {
             upgradeBtn.SetActive(true);
-            buyBtn.SetActive(false);
+            buyCarBtn.SetActive(false);
             mapBtn.SetActive(true);
             padlock.SetActive(false);
             price.SetActive(false);
@@ -51,7 +51,7 @@ public class CarInfo : MonoBehaviour
         {
             upgradeBtn.SetActive(false);
             mapBtn.SetActive(false);
-            buyBtn.SetActive(true);
+            buyCarBtn.SetActive(true);
             padlock.SetActive(true);
             price.SetActive(true);
             priceText.text = staticData.allCars[carID].price.ToString();
@@ -60,7 +60,7 @@ public class CarInfo : MonoBehaviour
         {
             upgradeBtn.SetActive(false);
             mapBtn.SetActive(false);
-            buyBtn.SetActive(false);
+            buyCarBtn.SetActive(false);
             padlock.SetActive(true);
             price.SetActive(false);
         }
@@ -74,7 +74,7 @@ public class CarInfo : MonoBehaviour
                 mapBtn.SetActive(false);
                 if (staticData.carsBuyStatus[carID])
                 {
-                    buyBtn.SetActive(true);
+                    buyCarBtn.SetActive(true);
                     price.SetActive(true);
                     priceText.text = (staticData.allCars[carID].price / 2).ToString();
                 }

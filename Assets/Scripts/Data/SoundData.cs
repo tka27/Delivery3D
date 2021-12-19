@@ -55,6 +55,8 @@ public class SoundData : MonoBehaviour
 
     public void SwitchMusic(bool status)
     {
+        if (ost == null) return;
+        
         if (status && !ost.isPlaying)
         {
             ost.Play();
