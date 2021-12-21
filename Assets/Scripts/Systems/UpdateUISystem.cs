@@ -109,8 +109,7 @@ sealed class UpdateUISystem : IEcsInitSystem, IEcsDestroySystem
 
     void SwitchTPCanvases()
     {
-        Debug.Log(123);
-        if (sceneData.gameMode == GameMode.View && sceneData.buildCam.position.y > SceneData.BUILDCAM_Y_THRESHOLD)
+        if (sceneData.gameMode != GameMode.Drive && sceneData.buildCam.position.y > SceneData.BUILDCAM_Y_THRESHOLD)
         {
             foreach (var canvas in buildingsData.tradePointCanvases)
             {

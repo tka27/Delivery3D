@@ -7,6 +7,7 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
     StaticData staticData;
     SceneData sceneData;
     PathData pathData;
+    FlowingText flowingText;
     BuildingsData buildingsData;
     UIData uiData;
     GameSettings settings;
@@ -31,10 +32,6 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
 
         tutorialData.blackText.text = "In build mode you can build road.\nTap inside yellow sphere for building";
         tutorialData.blackText.gameObject.SetActive(false);
-        if (staticData.researchLvl == 0)
-        {
-            staticData.currentMoney += 400;
-        }
     }
 
     public void Destroy()
@@ -44,6 +41,11 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
 
     void IEcsRunSystem.Run()
     {
+        if (staticData.currentMoney < 10)
+        {
+            staticData.currentMoney = staticData.moneyForGame;
+        }
+
         switch (settings.tutorialLvl)
         {
             case 0:
@@ -249,6 +251,10 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
                 settings.tutorialLvl = -1;
                 sceneData.researchSpeed /= RESEARCH_SPEED_MULTIPLIER;
                 settings.SavePrefs();
+                
+                staticData.currentMoney += 500;
+                flowingText.DisplayText("+500");
+                SoundData.PlayCoin();
                 break;
 
             default: return;

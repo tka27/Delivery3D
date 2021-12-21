@@ -20,7 +20,7 @@ public class AnimalData : MonoBehaviour
     const int SEARCH_RADIUS = 150;
 
 
-    void Start()
+    void Awake()
     {
         sceneData.animalsPool.Add(this);
         Revive();
@@ -111,7 +111,6 @@ public class AnimalData : MonoBehaviour
             SetPath();
             return;
         }
-        agent.destination = availablePoints[randomIndex].position;
+        agent.SetDestination(availablePoints[randomIndex].position);
     }
-
 }
