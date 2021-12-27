@@ -9,7 +9,7 @@ public class BuildingsData : MonoBehaviour
     public GameObject wheatTradePoint;
     public GameObject waterTradePoint;
     public GameObject bakeryTradePoint;
-    public GameObject bakeryGO;
+    //public GameObject bakeryGO;
     public GameObject chickenTradePoint;
     public GameObject chickenGO;
     public GameObject meatFactoryTradePoint;
@@ -20,8 +20,6 @@ public class BuildingsData : MonoBehaviour
     public GameObject cheeseGO;
     public GameObject gasStationTradePoint;
     public GameObject autoServiceTradePoint;
-    public GameObject shopTradePoint;
-    public GameObject labTradePoint;
     public GameObject fishTradePoint;
     public GameObject fishGO;
     public GameObject canFishTradePoint;
@@ -34,4 +32,9 @@ public class BuildingsData : MonoBehaviour
     public GameObject juiceGO;
     public GameObject iceTradePoint;
     public GameObject iceGO;
+
+
+    public GameObject shop1TradePoint;
+    public GameObject shop2TradePoint;
+    public GameObject labTradePoint;
 }

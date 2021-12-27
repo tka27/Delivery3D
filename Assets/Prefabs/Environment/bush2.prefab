@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5976162785744905406}
   - component: {fileID: 5935176031600900184}
   - component: {fileID: 5944468535968355412}
+  - component: {fileID: 5968924246736344938}
   m_Layer: 13
   m_Name: bush2
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4722267518169398807}
   m_LocalRotation: {x: -0.7069834, y: 0, z: 0, w: 0.7072302}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -81,3 +82,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!205 &5968924246736344938
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4722267518169398807}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: -0.0013690237, y: 0.000012777746, z: 0.001021767}
+  m_Size: 0.043480966
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.013236828
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 5944468535968355412}
+  m_Enabled: 1

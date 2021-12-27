@@ -13,6 +13,7 @@ public class PauseBtn : MonoBehaviour
     public void ResumeClick()
     {
         soundData.SwitchLoopSounds(settings.sound);
+        soundData.SwitchMusic(settings.music);
         Time.timeScale = 1;
     }
 }

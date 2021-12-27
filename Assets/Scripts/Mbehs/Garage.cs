@@ -1,24 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Advertisements;
 
-public class Garage : MonoBehaviour, IUnityAdsListener
+public class Garage : MonoBehaviour
 {
     const string PLAYER_TAG = "Player";
     bool isLeaveFromGarage;
-    const string REWARDED_AD = "Rewarded_Android";
     [SerializeField] StaticData staticData;
-    [SerializeField] SceneData sceneData;
     [SerializeField] GameObject garageCanvas;
     [SerializeField] GameObject adCanvas;
-    void Start()
-    {
-        Advertisement.AddListener(this);
-    }
-    void OnDestroy()
-    {
-        Advertisement.RemoveListener(this);
-    }
+   
     void OnTriggerEnter(Collider collider)
     {
         if (collider.tag == PLAYER_TAG && isLeaveFromGarage)
@@ -28,6 +18,7 @@ public class Garage : MonoBehaviour, IUnityAdsListener
             ShowAdCanvas();
         }
     }
+    
     void OnTriggerExit(Collider collider)
     {
         if (collider.tag == PLAYER_TAG)
@@ -35,8 +26,6 @@ public class Garage : MonoBehaviour, IUnityAdsListener
             isLeaveFromGarage = true;
         }
     }
-
-
 
     public void ToGarageConfirm()
     {
@@ -46,16 +35,9 @@ public class Garage : MonoBehaviour, IUnityAdsListener
         ShowAdCanvas();
     }
 
-
-    public void ShowAd()
-    {
-        Advertisement.Show(REWARDED_AD);
-    }
-
-
     void ShowAdCanvas()
     {
-        if (Advertisement.IsReady())
+        if (RewardedAD.singleton.isLoaded)
         {
             if (garageCanvas != null)
             {
@@ -70,7 +52,7 @@ public class Garage : MonoBehaviour, IUnityAdsListener
     }
 
 
-    public void OnUnityAdsReady(string placementId)
+    /*public void OnUnityAdsReady(string placementId)
     {
     }
 
@@ -103,7 +85,7 @@ public class Garage : MonoBehaviour, IUnityAdsListener
 
             default: return;
         }
-    }
+    }*/
 
 
     public void GarageEnterProcess()

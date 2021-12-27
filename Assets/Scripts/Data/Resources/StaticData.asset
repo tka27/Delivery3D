@@ -29,8 +29,8 @@ MonoBehaviour:
   - {fileID: 54362875432017996, guid: f5ca115ed4634574291a1ee157f29022, type: 3}
   - {fileID: 411334465248924516, guid: e97ed880e0a70db49ae880d45e7291cc, type: 3}
   adProgress: 0
-  totalMoney: 750
+  totalMoney: 350
   researchLvl: 0
   carsUnlockStatus: 0100000000
   carsBuyStatus: 0100000000
-  trailersBuyStatus: 0000000000
+  trailersBuyStatus: 0100000000

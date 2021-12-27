@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2951656683050271192}
   - component: {fileID: 2951656683050271191}
   - component: {fileID: 2951656683050271190}
+  - component: {fileID: 9190643913601560459}
   m_Layer: 13
   m_Name: Rock small
   m_TagString: Untagged
@@ -95,3 +96,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.004923494
   m_Center: {x: -0.0007173085, y: 0.00028991222, z: 0.0016898781}
+--- !u!205 &9190643913601560459
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2951656683050271189}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: -0.00037407782, y: 0.0004362166, z: 0.0038350737}
+  m_Size: 0.011004676
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.006318071
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 2951656683050271191}
+  m_Enabled: 1
