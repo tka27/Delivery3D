@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Advertisements;
+using System.Collections;
 
 public class RewardedAD : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener
 {
@@ -26,42 +27,37 @@ public class RewardedAD : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLis
 
     private void Start()
     {
-        LoadAD();
-    }
-
-    void LoadAD()
-    {
-        Advertisement.Load(adUnit, this);
+        StartCoroutine(LoadAd());
     }
 
     public void ShowAD()
     {
         if (!isLoaded)
         {
-            LoadAD();
+            StartCoroutine(LoadAd());
             return;
         }
         Advertisement.Show(adUnit, this);
+        isLoaded = false;
     }
 
     public void OnUnityAdsAdLoaded(string placementId)
     {
-        Debug.Log("ad is loaded");
         if (placementId == adUnit)
         {
             isLoaded = true;
+            Debug.Log("Rewarded ad is loaded");
         }
     }
 
     public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
     {
-        Debug.LogError($"Ad load error: {error}-{message}");
-        isLoaded = false;
+        if (placementId == adUnit)
+        {
+            Debug.LogError($"Ad load error: {error}-{message}");
+            isLoaded = false;
+        }
     }
-
-
-
-
 
     public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
     {
@@ -74,11 +70,29 @@ public class RewardedAD : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLis
 
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
-        if (placementId == adUnit && showCompletionState == UnityAdsShowCompletionState.COMPLETED)
+        Debug.Log("Ad show is over: " + adUnit + "|" + placementId + "|" + showCompletionState);
+        if (placementId == adUnit)
+        {
+            StartCoroutine(EnterTheGarage(showCompletionState));
+        }
+    }
+    
+    IEnumerator EnterTheGarage(UnityAdsShowCompletionState showCompletionState)
+    {
+        yield return new WaitForEndOfFrame();
+        if (showCompletionState == UnityAdsShowCompletionState.COMPLETED)
         {
             staticData.totalMoney += staticData.currentMoney / 2;
         }
 
-        LoadAD();
+        Debug.Log("Coroutine");
+        Garage.singleton.GarageEnterProcess();
+        StartCoroutine(LoadAd());
+    }
+
+    IEnumerator LoadAd()
+    {
+        yield return new WaitForEndOfFrame();
+        Advertisement.Load(adUnit, this);
     }
 }

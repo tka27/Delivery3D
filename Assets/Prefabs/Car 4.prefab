@@ -5430,9 +5430,9 @@ MonoBehaviour:
   engineSound: {fileID: 132636109833228571}
   enginePitchDefault: 0.8
   maxSteerAngle: 45
-  maxTorque: 200
+  maxTorque: 160
   maxDurability: 200
-  acceleration: 1.5
+  acceleration: 1
   maxFuel: 100
   defaultMass: 2200
   carStorage: 600
@@ -25523,8 +25523,8 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.26
   m_SuspensionSpring:
-    spring: 35000
-    damper: 4500
+    spring: 30000
+    damper: 2000
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0.33
@@ -25541,7 +25541,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.4
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1.1
+    m_Stiffness: 1
   m_Enabled: 1
 --- !u!1 &3627538917024235484
 GameObject:
@@ -25746,8 +25746,8 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.26
   m_SuspensionSpring:
-    spring: 35000
-    damper: 4500
+    spring: 30000
+    damper: 2000
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0.33
@@ -25764,7 +25764,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.4
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1.1
+    m_Stiffness: 1
   m_Enabled: 1
 --- !u!1 &6327536494978376381
 GameObject:

@@ -43,7 +43,7 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
                 }
 
 
-                if (distanceToCurrentPoint >= 3f)
+                if (distanceToCurrentPoint >= 2.5f)
                 {
                     Vector3 tgtAt0 = new Vector3(tgtPos.x, 0, tgtPos.z);
                     Vector3 playerAt0 = new Vector3(player.carData.wheelPos.position.x, 0, player.carData.wheelPos.position.z);

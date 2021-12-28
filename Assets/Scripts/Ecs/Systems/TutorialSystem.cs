@@ -41,9 +41,26 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
 
     void IEcsRunSystem.Run()
     {
-        if (staticData.currentMoney < 10)
+
+        if (settings.tutorialLvl >= 0)
         {
-            staticData.currentMoney = staticData.moneyForGame;
+            ref var player = ref playerFilter.Get2(0);
+            if (player.currentDurability < player.maxDurability / 5)
+            {
+                player.currentDurability = player.maxDurability;
+                UIData.UpdateUI();
+            }
+            if (player.currentFuel < player.maxFuel / 5)
+            {
+                player.currentFuel = player.maxFuel;
+                UIData.UpdateUI();
+            }
+            if (staticData.currentMoney < 10)
+            {
+                staticData.currentMoney = staticData.moneyForGame;
+                UIData.UpdateUI();
+                flowingText.DisplayText("+" + staticData.moneyForGame);
+            }
         }
 
         switch (settings.tutorialLvl)
@@ -251,10 +268,11 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
                 settings.tutorialLvl = -1;
                 sceneData.researchSpeed /= RESEARCH_SPEED_MULTIPLIER;
                 settings.SavePrefs();
-                
+
                 staticData.currentMoney += 500;
                 flowingText.DisplayText("+500");
                 SoundData.PlayCoin();
+                UIData.UpdateUI();
                 break;
 
             default: return;

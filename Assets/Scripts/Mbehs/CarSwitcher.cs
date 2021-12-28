@@ -34,6 +34,7 @@ public class CarSwitcher : MonoBehaviour
         {
             tgtPos = camera.ScreenToViewportPoint(Input.mousePosition);
             xDifference = startPos.x - tgtPos.x;
+            SoundData.PlayBtn();
         }
 
 

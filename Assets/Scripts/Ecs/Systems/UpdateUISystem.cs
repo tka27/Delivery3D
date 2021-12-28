@@ -24,6 +24,7 @@ sealed class UpdateUISystem : IEcsInitSystem, IEcsDestroySystem
     {
         TradePointData.tradeEvent += SwitchTradeBtns;
         UIData.updateUIEvent += UpdateUI;
+        UpdateUI();
     }
 
 

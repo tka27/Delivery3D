@@ -68,12 +68,12 @@ sealed class AutoServiceSystem : IEcsInitSystem
                 if (seller.product.type == ProductType.Fuel)
                 {
                     player.currentFuel += dealMass;
-                    uiData.fuelText.text = player.currentFuel.ToString("0");
+                    uiData.fuelText.text = player.currentFuel.ToString("0") + "/" + player.maxFuel.ToString("0");
                 }
                 else
                 {
                     player.currentDurability += dealMass;
-                    uiData.durabilityText.text = player.currentDurability.ToString("0");
+                    uiData.durabilityText.text = player.currentDurability.ToString("0") + "/" + player.maxDurability.ToString("0");
                 }
                 SoundData.PlayCoin();
             }

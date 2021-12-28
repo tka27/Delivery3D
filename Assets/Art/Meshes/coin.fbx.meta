@@ -1,11 +1,8 @@
 fileFormatVersion: 2
-guid: ff11b655eebd61e4b921cb70dc65969b
+guid: 4c86d58e9c6d3dc46ac9991329dc6994
 ModelImporter:
   serializedVersion: 20200
-  internalIDToNameTable:
-  - first:
-      74: -6789620564421074086
-    second: coin|Cylinder.006Action
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 0
@@ -36,7 +33,9 @@ ModelImporter:
     clipAnimations: []
     isReadable: 0
   meshes:
-    lODScreenPercentages: []
+    lODScreenPercentages:
+    - 0.25
+    - 0.01
     globalScale: 1
     meshCompression: 0
     addColliders: 0

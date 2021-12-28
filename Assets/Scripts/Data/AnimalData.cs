@@ -15,9 +15,9 @@ public class AnimalData : MonoBehaviour
     public bool isAlive;
     const string ROAD_TAG = "Road";
     const string PLAYER_TAG = "Player";
-    const float DEADLY_SPEED = 10;
-    const int MIN_RADIUS = 20;
-    const int SEARCH_RADIUS = 150;
+    const float DEADLY_FORCE_TRESHOLD = 10000;
+    const int MIN_SEARCH_RADIUS = 20;
+    const int MAX_SEARCH_RADIUS = 150;
 
 
     void Awake()
@@ -32,18 +32,16 @@ public class AnimalData : MonoBehaviour
         {
             StartCoroutine(OnRoadCrossing(collider));
         }
-        else if (collider.tag == PLAYER_TAG && collider.attachedRigidbody.velocity.magnitude > DEADLY_SPEED)
+        else if (collider.tag == PLAYER_TAG)
         {
-            Kill();
+            var rb = collider.attachedRigidbody;
+            if (rb.velocity.magnitude * rb.mass > DEADLY_FORCE_TRESHOLD)
+                Kill();
         }
-
     }
 
     public void Revive()
     {
-
-
-        //animator.gameObject.SetActive(true);
         SwitchComponents(true);
 
         int randomIndex = Random.Range(0, sceneData.animalPoints.Count);
@@ -98,7 +96,7 @@ public class AnimalData : MonoBehaviour
         List<Transform> availablePoints = new List<Transform>();
         foreach (var point in sceneData.animalPoints)
         {
-            if ((point.position - transform.position).magnitude < SEARCH_RADIUS && (point.position - transform.position).magnitude > MIN_RADIUS)
+            if ((point.position - transform.position).magnitude < MAX_SEARCH_RADIUS && (point.position - transform.position).magnitude > MIN_SEARCH_RADIUS)
             {
                 availablePoints.Add(point);
             }
@@ -106,7 +104,7 @@ public class AnimalData : MonoBehaviour
         if (availablePoints.Count == 0) return;
 
         int randomIndex = Random.Range(0, availablePoints.Count);
-        if ((availablePoints[randomIndex].localPosition - transform.localPosition).magnitude < MIN_RADIUS)
+        if ((availablePoints[randomIndex].localPosition - transform.localPosition).magnitude < MIN_SEARCH_RADIUS)
         {
             SetPath();
             return;

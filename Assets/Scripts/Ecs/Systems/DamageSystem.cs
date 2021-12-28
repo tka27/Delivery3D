@@ -12,7 +12,7 @@ sealed class DamageSystem : IEcsRunSystem
     GameSettings settings;
     ParticleSystem.EmissionModule emissionModule;
     ParticleSystem.MainModule mainModule;
-    
+
     void IEcsRunSystem.Run()
     {
         ref var player = ref playerFilter.Get1(0);
@@ -40,7 +40,7 @@ sealed class DamageSystem : IEcsRunSystem
                 if (settings.vibration) Handheld.Vibrate();
 
                 player.currentDurability -= 0.005f * speed * player.playerRB.mass / 1000;
-                uiData.durabilityText.text = player.currentDurability.ToString("#");
+                uiData.durabilityText.text = player.currentDurability.ToString("0") + "/" + player.maxDurability.ToString("0");
             }
             else
             {
@@ -49,7 +49,7 @@ sealed class DamageSystem : IEcsRunSystem
             if (wheelData.inWater)
             {
                 player.currentDurability -= 0.05f;
-                uiData.durabilityText.text = player.currentDurability.ToString("#");
+                uiData.durabilityText.text = player.currentDurability.ToString("0") + "/" + player.maxDurability.ToString("0");
             }
         }
         if (player.currentDurability < 0)
@@ -60,7 +60,7 @@ sealed class DamageSystem : IEcsRunSystem
         }
     }
 
-    
+
 
 
 }

@@ -8,7 +8,13 @@ public class Garage : MonoBehaviour
     [SerializeField] StaticData staticData;
     [SerializeField] GameObject garageCanvas;
     [SerializeField] GameObject adCanvas;
-   
+    public static Garage singleton;
+
+    private void Awake()
+    {
+        singleton = this;
+    }
+
     void OnTriggerEnter(Collider collider)
     {
         if (collider.tag == PLAYER_TAG && isLeaveFromGarage)
@@ -18,7 +24,7 @@ public class Garage : MonoBehaviour
             ShowAdCanvas();
         }
     }
-    
+
     void OnTriggerExit(Collider collider)
     {
         if (collider.tag == PLAYER_TAG)
@@ -37,7 +43,7 @@ public class Garage : MonoBehaviour
 
     void ShowAdCanvas()
     {
-        if (RewardedAD.singleton.isLoaded)
+        if (RewardedAD.singleton.isLoaded || Application.isEditor)
         {
             if (garageCanvas != null)
             {
@@ -51,45 +57,9 @@ public class Garage : MonoBehaviour
         }
     }
 
-
-    /*public void OnUnityAdsReady(string placementId)
-    {
-    }
-
-    public void OnUnityAdsDidError(string message)
-    {
-        //sceneData.Notification("Ad error");
-    }
-
-    public void OnUnityAdsDidStart(string placementId)
-    {
-    }
-
-    public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
-    {
-        if (placementId != REWARDED_AD) return;
-        switch (showResult)
-        {
-            case ShowResult.Failed:
-                sceneData.Notification("Ad error");
-                break;
-
-            case ShowResult.Skipped:
-                GarageEnterProcess();
-                break;
-
-            case ShowResult.Finished:
-                staticData.totalMoney += staticData.currentMoney / 2;
-                GarageEnterProcess();
-                break;
-
-            default: return;
-        }
-    }*/
-
-
     public void GarageEnterProcess()
     {
+        Debug.Log("Garage");
         Time.timeScale = 1;
         staticData.currentMoney = 0;
         SaveSystem.Save();
