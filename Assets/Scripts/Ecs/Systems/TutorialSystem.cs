@@ -26,11 +26,11 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
         sceneData.researchSpeed *= RESEARCH_SPEED_MULTIPLIER;
 
         tutorialData.yellowText.gameObject.SetActive(true);
-        tutorialData.yellowText.text = "This is the game mode button.\nIn view mode you can move/zoom camera and see some info.\nTap on button to change mode";
+        tutorialData.yellowText.text = "This is the Game Mode button.\nIn view mode you can move/zoom camera and see some info.\nTap on button to change mode";
 
         tutorialData.blackPanel.gameObject.SetActive(true);
 
-        tutorialData.blackText.text = "In build mode you can build road.\nTap inside yellow sphere for building";
+        tutorialData.blackText.text = "You can construct road in Build mode.\nTap inside the yellow sphere for building";
         tutorialData.blackText.gameObject.SetActive(false);
     }
 
@@ -45,7 +45,7 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
         if (settings.tutorialLvl >= 0)
         {
             ref var player = ref playerFilter.Get2(0);
-            if (player.currentDurability < player.maxDurability / 5)
+            if (player.currentDurability < player.maxDurability / 2)
             {
                 player.currentDurability = player.maxDurability;
                 UIData.UpdateUI();
@@ -80,7 +80,7 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
                     settings.tutorialLvl++;
                     SwitchBlackPanel(true);
                     tutorialData.blackPanel.SetTransform(tutorialData.clearBtnPos);
-                    tutorialData.yellowText.text = "Destroy road button will remove the road.\nTap on the button to continue";
+                    tutorialData.yellowText.text = "Destroy Road button will remove the road.\nTap on the button to continue";
                 }
                 break;
 
@@ -101,7 +101,7 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
                 if (uiData.isPathConfirmed)
                 {
                     settings.tutorialLvl++;
-                    tutorialData.blackText.text = "In drive mode tap on the screen to accelerate.\nAcceleration is consuming fuel ";
+                    tutorialData.blackText.text = "Tap on the screen to accelerate, while in Drive mode.\nAcceleration consumes fuel";
                 }
                 break;
 
@@ -144,7 +144,7 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
             case 10:
 
                 settings.tutorialLvl++;
-                tutorialData.blackText.text = "Deliver 200kg of wheat to the quality control lab";
+                tutorialData.blackText.text = "Deliver 200kg of wheat to the Quality Control Lab";
                 break;
 
             case 11:
@@ -155,7 +155,7 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
                 if (sceneData.gameMode == GameMode.Drive)
                 {
                     settings.tutorialLvl++;
-                    tutorialData.blackText.text = "Deers leave droppings when they cross the road, which makes your wheels slippery";
+                    tutorialData.blackText.text = "Deers leave poop when they cross the road, it makes your wheels slippery";
                 }
                 break;
 
@@ -184,7 +184,7 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
                 break;
 
             case 16:
-                tutorialData.blackText.text = "In fuel station you can buy fuel";
+                tutorialData.blackText.text = "You can buy fuel at Gas Station";
                 settings.tutorialLvl++;
                 break;
 
@@ -197,7 +197,7 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
                 break;
 
             case 19:
-                tutorialData.blackText.text = "In auto service you can be repaired";
+                tutorialData.blackText.text = "You can repair your vehicle at Car Service";
                 settings.tutorialLvl++;
                 break;
 
@@ -210,13 +210,14 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
                 break;
 
             case 22:
-                tutorialData.blackText.text = "In shop you can sell a products at a high price\nRequired product is updated every 2 minutes or shop storage will be full";
+                tutorialData.blackText.text = "Products can be sold at a high price in Shop.\nRequired product refreshes every 3 minutes, or when you fulfil it";
                 settings.tutorialLvl++;
                 break;
 
             case 23:
                 MoveCamera(buildingsData.shop1TradePoint.transform);
                 break;
+
             case 24:
                 tutorialData.nextBtn.SetActive(true);
                 break;
@@ -255,7 +256,7 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
             case 31:
                 tutorialData.bakeryPanel.SetActive(false);
                 SwitchBlackPanel(false);
-                tutorialData.blackText.text = "Tutorial is complete\nYou can return to garage for upgrade car and map";
+                tutorialData.blackText.text = "Tutorial is completed\nYou can return now to garage for car and map upgrades";
                 settings.tutorialLvl++;
                 break;
 

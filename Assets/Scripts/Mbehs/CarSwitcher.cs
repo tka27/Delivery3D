@@ -38,25 +38,35 @@ public class CarSwitcher : MonoBehaviour
         }
 
 
-        if (xDifference > 0.2 )
+        if (xDifference > 0.2)
         {
-            mainMenuSceneData.cars[staticData.selectedCarID].gameObject.SetActive(false);
-            staticData.selectedCarID++;
-            if (staticData.selectedCarID > mainMenuSceneData.cars.Count - 1)
-            {
-                staticData.selectedCarID = 0;
-            }
-            carInfoUpdateEvent.Invoke();
+            NextCar();
         }
-        else if (xDifference < -0.2 )
+        else if (xDifference < -0.2)
         {
-            mainMenuSceneData.cars[staticData.selectedCarID].gameObject.SetActive(false);
-            staticData.selectedCarID--;
-            if (staticData.selectedCarID < 0)
-            {
-                staticData.selectedCarID = mainMenuSceneData.cars.Count - 1;
-            }
-            carInfoUpdateEvent.Invoke();
+            PrevCar();
         }
+    }
+
+    public void NextCar()
+    {
+        mainMenuSceneData.cars[staticData.selectedCarID].gameObject.SetActive(false);
+        staticData.selectedCarID++;
+        if (staticData.selectedCarID > mainMenuSceneData.cars.Count - 1)
+        {
+            staticData.selectedCarID = 0;
+        }
+        carInfoUpdateEvent.Invoke();
+    }
+
+    public void PrevCar()
+    {
+        mainMenuSceneData.cars[staticData.selectedCarID].gameObject.SetActive(false);
+        staticData.selectedCarID--;
+        if (staticData.selectedCarID < 0)
+        {
+            staticData.selectedCarID = mainMenuSceneData.cars.Count - 1;
+        }
+        carInfoUpdateEvent.Invoke();
     }
 }

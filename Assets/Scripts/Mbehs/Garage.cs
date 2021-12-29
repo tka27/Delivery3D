@@ -19,7 +19,6 @@ public class Garage : MonoBehaviour
     {
         if (collider.tag == PLAYER_TAG && isLeaveFromGarage)
         {
-            staticData.totalMoney += staticData.currentMoney;
             isLeaveFromGarage = false;
             ShowAdCanvas();
         }
@@ -36,7 +35,6 @@ public class Garage : MonoBehaviour
     public void ToGarageConfirm()
     {
         staticData.currentMoney /= 2;
-        staticData.totalMoney += staticData.currentMoney;
         UIData.UpdateUI();
         ShowAdCanvas();
     }
@@ -59,8 +57,9 @@ public class Garage : MonoBehaviour
 
     public void GarageEnterProcess()
     {
-        Debug.Log("Garage");
+        Debug.Log("Garage " + staticData.currentMoney);
         Time.timeScale = 1;
+        staticData.totalMoney += staticData.currentMoney;
         staticData.currentMoney = 0;
         SaveSystem.Save();
         SceneManager.LoadScene(0);

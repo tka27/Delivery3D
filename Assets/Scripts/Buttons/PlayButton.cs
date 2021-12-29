@@ -8,7 +8,6 @@ public class PlayButton : MonoBehaviour
     {
         SoundData.PlayBtn();
         SaveSystem.Save();
-        staticData.totalMoney -= staticData.moneyForGame;
         SceneManager.LoadScene(1);
     }
 }
