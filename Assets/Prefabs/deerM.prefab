@@ -517,7 +517,7 @@ MonoBehaviour:
   staticData: {fileID: 0}
   animator: {fileID: 1489658746609624106}
   bodyCollider: {fileID: 1393742286102426667}
-  isMale: 0
+  isMale: 1
   isAlive: 0
 --- !u!135 &1393742286102426667
 SphereCollider:

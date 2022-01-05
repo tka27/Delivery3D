@@ -6,6 +6,7 @@ public class BuyCarBtn : MonoBehaviour
     [SerializeField] StaticData staticData;
     [SerializeField] CarInfo carInfo;
     [SerializeField] Text totalMoney;
+    [SerializeField] GameObject rateCanvas;
 
 
     public void BuyCar()
@@ -20,6 +21,10 @@ public class BuyCarBtn : MonoBehaviour
                 staticData.carsBuyStatus[carID] = true;
                 carInfo.InfoUpdate();
                 SoundData.PlayCoin();
+                if (carID == 1)
+                {
+                    rateCanvas.SetActive(true);
+                }
             }
             else
             {

@@ -1,6 +1,6 @@
 using Leopotam.Ecs;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 
 sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
 {
@@ -71,7 +71,7 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
 
 
 
-                    if (Input.GetMouseButton(0))//move
+                    if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())//move
                     {
                         if (player.currentTorque < player.maxTorque - player.acceleration)
                         {

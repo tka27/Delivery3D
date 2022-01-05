@@ -540,7 +540,7 @@ public class BuildingsInitSystem : IEcsInitSystem
 
         SwitchBuildings(30, buildingsData.pizzaTradePoint);
 
-        sceneData.navMeshSurface.BuildNavMesh();
+        //sceneData.navMeshSurface.BuildNavMesh();
     }
 
     void SwitchBuildings(int requiredLvl, params GameObject[] gameObjects)
