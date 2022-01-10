@@ -5,6 +5,7 @@ using System.Collections.Generic;
 [CreateAssetMenu]
 public class StaticData : ScriptableObject
 {
+    public bool firebaseIsInit;
     public List<ProductType> availableProductTypes;
     public GameObject trailPrefab;
     public GameObject tutorialPrefab;

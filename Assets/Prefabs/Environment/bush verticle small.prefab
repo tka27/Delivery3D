@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 172307044188556213}
   - component: {fileID: 172307044188556210}
   - component: {fileID: 172307044188556211}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: bush verticle small
   m_TagString: Untagged
   m_Icon: {fileID: 0}

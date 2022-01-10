@@ -1,3 +1,4 @@
+using Firebase.Analytics;
 using Leopotam.Ecs;
 using UnityEngine;
 
@@ -32,6 +33,11 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
 
         tutorialData.blackText.text = "You can construct road in Build mode.\nTap inside the yellow sphere for building";
         tutorialData.blackText.gameObject.SetActive(false);
+
+        ChangePlayerStats(2);
+
+
+        FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventTutorialBegin);
     }
 
     public void Destroy()
@@ -270,6 +276,7 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
                 sceneData.researchSpeed /= RESEARCH_SPEED_MULTIPLIER;
                 settings.SavePrefs();
 
+                FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventTutorialComplete);
                 staticData.currentMoney += 500;
                 flowingText.DisplayText("+500");
                 SoundData.PlayCoin();
@@ -294,7 +301,8 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
     void MoveCamera(in Transform tf)
     {
         Vector3 tgt = new Vector3(tf.position.x, 30, tf.position.z);
-        sceneData.buildCam.position = Vector3.Lerp(sceneData.buildCam.position, tgt, .03f);
+        float cameraSpeed = 80 * Time.deltaTime;
+        sceneData.buildCam.position = Vector3.MoveTowards(sceneData.buildCam.position, tgt, cameraSpeed);//Vector3.Lerp(sceneData.buildCam.position, tgt, .03f);
 
         if ((sceneData.buildCam.position - tgt).magnitude < .5f)
         {
@@ -331,7 +339,14 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
         return false;
     }
 
-
+    void ChangePlayerStats(float value)
+    {
+        ref var player = ref playerFilter.Get2(0);
+        {
+            player.maxTorque *= value;
+            player.acceleration *= value;
+        }
+    }
 }
 
 

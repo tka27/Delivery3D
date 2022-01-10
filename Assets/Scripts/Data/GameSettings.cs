@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [CreateAssetMenu]
 public class GameSettings : ScriptableObject
@@ -6,6 +8,7 @@ public class GameSettings : ScriptableObject
     [HideInInspector] public bool vibration;
     [HideInInspector] public bool sound;
     [HideInInspector] public bool music;
+    [SerializeField] RenderPipelineAsset[] qualityAssets;
     public int tutorialLvl;
 
     public void LoadPrefs()
@@ -72,5 +75,25 @@ public class GameSettings : ScriptableObject
         PlayerPrefs.SetInt("tutorialLvl", tutorialLvl);
 
         PlayerPrefs.Save();
+    }
+
+    public void SetDefaultGraphics()
+    {
+        if (getSDKInt() > 25)
+        {
+            QualitySettings.renderPipeline = qualityAssets[1];
+        }
+        else
+        {
+            QualitySettings.renderPipeline = qualityAssets[0];
+        }
+    }
+
+    static int getSDKInt()
+    {
+        using (var version = new AndroidJavaClass("android.os.Build$VERSION"))
+        {
+            return version.GetStatic<int>("SDK_INT");
+        }
     }
 }

@@ -8,7 +8,7 @@ sealed class CarReturnBtnSwitchSystem : IEcsRunSystem
     void IEcsRunSystem.Run()
     {
         ref var player = ref playerFilter.Get1(0);
-        if (player.currentTorque > player.maxTorque * 0.9f && player.playerRB.velocity.magnitude < 0.5f && !uiData.carReturnBtn.activeSelf)
+        if (player.currentTorque > player.maxTorque * 0.9f && player.playerRB.velocity.magnitude < 0.5f && !uiData.carReturnBtn.activeSelf && BuildingsData.lastVisit != null)
         {
             uiData.carReturnBtn.SetActive(true);
         }

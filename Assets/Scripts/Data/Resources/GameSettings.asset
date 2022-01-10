@@ -15,4 +15,7 @@ MonoBehaviour:
   vibration: 1
   sound: 1
   music: 1
+  qualityAssets:
+  - {fileID: 11400000, guid: 6d5cdfa7aac721346942d5facb32d1fb, type: 2}
+  - {fileID: 11400000, guid: fed1eb30b4ca20c44a95aa1638f7f1fe, type: 2}
   tutorialLvl: 6

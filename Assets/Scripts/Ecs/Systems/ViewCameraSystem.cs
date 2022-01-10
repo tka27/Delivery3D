@@ -85,7 +85,7 @@ sealed class ViewCameraSystem : IEcsRunSystem, IEcsInitSystem
             !UIData.IsMouseOverUI())
             {
                 Vector3 tgtPos = new Vector3(camera.ScreenToViewportPoint(Input.mousePosition).x, 0, camera.ScreenToViewportPoint(Input.mousePosition).y);
-                sceneData.buildCam.position += (tgtPos - startPos) * cameraHeight / 50;
+                sceneData.buildCam.position += (tgtPos - startPos) * cameraHeight / 30;
             }
             BorderCheck();
         }

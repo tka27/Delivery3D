@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class TradePointData : MonoBehaviour
 {
     public Transform finalPoint;
+    public Transform escapePoint;
     public GameObject canvas;
     public Text storageInfo;
     public bool ableToTrade;
@@ -28,7 +29,7 @@ public class TradePointData : MonoBehaviour
         {
             ableToTrade = true;
             tradeEvent.Invoke();
-            BuildingsData.lastVisit = this.transform;
+            BuildingsData.lastVisit = this;
         }
     }
     void OnTriggerExit(Collider collider)

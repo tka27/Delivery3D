@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] Text notificationText;
     [SerializeField] UnityEvent carInfoUpdateEvent;
 
-    void Start()
+    void Awake()
     {
         staticNotificationPanel = notificationPanel;
         staticNotificationText = notificationText;
@@ -25,6 +26,13 @@ public class MainMenu : MonoBehaviour
         LoadGameProgress();
         carInfoUpdateEvent.Invoke();
         totalMoney.text = staticData.totalMoney.ToString("0.0");
+
+        if (settings.tutorialLvl >= 0)
+        {
+            staticData.selectedCarID = 2;
+            staticData.trailerIsSelected = true;
+            SceneManager.LoadScene(1);
+        }
     }
 
 
@@ -35,7 +43,9 @@ public class MainMenu : MonoBehaviour
         if (data != null)
         {
             staticData.UpdateStaticData(data);
+            return;
         }
+        settings.SetDefaultGraphics();
     }
 
 

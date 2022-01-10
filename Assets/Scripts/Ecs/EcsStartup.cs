@@ -58,6 +58,7 @@ sealed class EcsStartup : MonoBehaviour
 
 
             ;
+            
         AddTutorialSystem();
         systems.Init();
 
@@ -76,8 +77,9 @@ sealed class EcsStartup : MonoBehaviour
 
 
 
+            ;
 
-            .Init();
+        fixedSystems.Init();
     }
     void SystemsDataInject()
     {

@@ -1,3 +1,4 @@
+using Firebase.Analytics;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
@@ -63,6 +64,8 @@ public class InterstitialAD : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsSho
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
         Debug.Log("Interstitial ad show is over: " + adUnit + "|" + placementId + "|" + showCompletionState);
+
+        FirebaseAnalytics.LogEvent("Interstitial ad show");
         LoadAD();
     }
 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9159650460207077799}
   - component: {fileID: 8663605876340582777}
   - component: {fileID: 2208615793406822862}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: large tree_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 4452038160523668254}
   - component: {fileID: 2189399865779414844}
   - component: {fileID: 5103858068635950203}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: large tree
   m_TagString: Environment
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 7331635115610643595}
   - component: {fileID: 7373922546004386917}
   - component: {fileID: 4570236900661287325}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: large tree_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,7 +248,7 @@ GameObject:
   - component: {fileID: 2310943954935949926}
   - component: {fileID: 8076420466531575397}
   - component: {fileID: 1447773119190074629}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: large tree_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

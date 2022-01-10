@@ -25195,6 +25195,7 @@ MonoBehaviour:
   price: 1000
   trailer: {fileID: 5260342264447966839}
   trailerRB: {fileID: 5260342264447966844}
+  selfRB: {fileID: 1783551465398224363}
   carProductTypes: 000000000100000007000000
   trailerProductTypes: 0c0000000d0000000b000000
   allWheelMeshes:

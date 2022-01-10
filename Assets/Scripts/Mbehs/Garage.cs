@@ -57,7 +57,6 @@ public class Garage : MonoBehaviour
 
     public void GarageEnterProcess()
     {
-        Debug.Log("Garage " + staticData.currentMoney);
         Time.timeScale = 1;
         staticData.totalMoney += staticData.currentMoney;
         staticData.currentMoney = 0;

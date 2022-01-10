@@ -9,15 +9,16 @@ sealed class ReturnToLastPointSystem : IEcsInitSystem, IEcsDestroySystem
     StaticData staticData;
     EcsFilter<Player> playerFilter;
     EcsFilter<WorldCoinsComp> coinsFilter;
+    UIData uIData;
 
-    
+
 
     public void Init()
     {
         CarReturnBtns.returnEvent += ReturnToTP;
     }
-    
-    
+
+
     public void Destroy()
     {
         CarReturnBtns.returnEvent -= ReturnToTP;
@@ -29,14 +30,17 @@ sealed class ReturnToLastPointSystem : IEcsInitSystem, IEcsDestroySystem
 
         ref var player = ref playerFilter.Get1(0);
         player.currentDurability -= player.maxDurability / 10;
-        sceneData.cars[staticData.selectedCarID].transform.position = BuildingsData.lastVisit.position;
+        sceneData.cars[staticData.selectedCarID].transform.position = BuildingsData.lastVisit.transform.position;
+        sceneData.cars[staticData.selectedCarID].transform.LookAt(BuildingsData.lastVisit.escapePoint.position);
 
         _world.NewEntity().Get<DestroyRoadRequest>();
         coinsFilter.GetEntity(0).Get<WorldCoinsReplaceRequest>();
         Vector3 pos = new Vector3(player.playerGO.transform.position.x, 20, player.playerGO.transform.position.z);
         sceneData.buildCam.position = pos;
         sceneData.gameMode = GameMode.View;
+
         UIData.UpdateUI();
+        uIData.carReturnBtn.SetActive(false);
     }
 }
 

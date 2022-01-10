@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class CarData : MonoBehaviour
@@ -6,6 +7,7 @@ public class CarData : MonoBehaviour
     public float price;
     public GameObject trailer;
     public Rigidbody trailerRB;
+    [SerializeField] Rigidbody selfRB;
     public List<ProductType> carProductTypes;
     public List<ProductType> trailerProductTypes;
     public List<Transform> allWheelMeshes;
@@ -32,5 +34,21 @@ public class CarData : MonoBehaviour
     public float defaultMass;
     public float carStorage;
     public float trailerStorage;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Building")
+        {
+            StartCoroutine(StopCar());
+        }
+    }
+
+    IEnumerator StopCar()
+    {
+        selfRB.drag = 1;
+
+        yield return new WaitForSeconds(3);
+        selfRB.drag = 0;
+    }
 
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Advertisements;
 using System.Collections;
+using Firebase.Analytics;
 
 public class RewardedAD : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener
 {
@@ -73,10 +74,11 @@ public class RewardedAD : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLis
         Debug.Log("Ad show is over: " + adUnit + "|" + placementId + "|" + showCompletionState);
         if (placementId == adUnit)
         {
+            FirebaseAnalytics.LogEvent("Interstitial ad show");
             StartCoroutine(EnterTheGarage(showCompletionState));
         }
     }
-    
+
     IEnumerator EnterTheGarage(UnityAdsShowCompletionState showCompletionState)
     {
         yield return new WaitForEndOfFrame();
@@ -85,7 +87,6 @@ public class RewardedAD : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLis
             staticData.totalMoney += staticData.currentMoney / 2;
         }
 
-        Debug.Log("Coroutine");
         Garage.singleton.GarageEnterProcess();
         StartCoroutine(LoadAd());
     }

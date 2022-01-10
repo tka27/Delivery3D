@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "591123531899",
+    "project_id": "delivery-3d-4f71e",
+    "storage_bucket": "delivery-3d-4f71e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:591123531899:android:634e8078f5d64bc5be3ade",
+        "android_client_info": {
+          "package_name": "com.VAGames.Delivery3D"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "591123531899-hcsojbte6tm48o8a53ngiiro7vpachvo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuqxZdwjZwkhSR3TTviZl7FFyvI22dgdI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "591123531899-hcsojbte6tm48o8a53ngiiro7vpachvo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4122018634518094310}
   - component: {fileID: 5258616617034389983}
   - component: {fileID: 80751083138988197}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: medium tree
   m_TagString: Environment
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 8851965349923664487}
   - component: {fileID: 5500451920925425480}
   - component: {fileID: 2000179095529508447}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: medium tree_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 723863435600845533}
   - component: {fileID: 4404951318381964164}
   - component: {fileID: 7942341301094172029}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: medium tree_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,7 +248,7 @@ GameObject:
   - component: {fileID: 4415537153174635357}
   - component: {fileID: 8083406717865132980}
   - component: {fileID: 938388306443575463}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: medium tree_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

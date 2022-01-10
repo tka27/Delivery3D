@@ -5,11 +5,10 @@ public class BuildingsData : MonoBehaviour
 {
     [HideInInspector] public List<GameObject> tradePointCanvases;
     public BuildingsInitSystem buildingsInitSystem;
-    public static Transform lastVisit;
+    public static TradePointData lastVisit;
     public GameObject wheatTradePoint;
     public GameObject waterTradePoint;
     public GameObject bakeryTradePoint;
-    //public GameObject bakeryGO;
     public GameObject chickenTradePoint;
     public GameObject chickenGO;
     public GameObject meatFactoryTradePoint;

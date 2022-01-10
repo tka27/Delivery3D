@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8325239398448655329}
   - component: {fileID: 3231911212432731689}
   - component: {fileID: 7538036953096700730}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: large pine_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 2951619896722248214}
   - component: {fileID: 2364980296905312116}
   - component: {fileID: 6570539532160323061}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: large pine_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 601759660090259875}
   - component: {fileID: 7739142700752068000}
   - component: {fileID: 2302790446363102729}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: large pine_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 609867506970137884}
   - component: {fileID: 4509696040838693976}
   - component: {fileID: 7411298356597401857}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: large pine
   m_TagString: Environment
   m_Icon: {fileID: 0}

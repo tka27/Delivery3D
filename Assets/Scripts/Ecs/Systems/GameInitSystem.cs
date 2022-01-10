@@ -16,7 +16,7 @@ public class GameInitSystem : IEcsInitSystem
     ProductData productData;
 
     public void Init()
-    {
+    {        
         if (Application.isEditor) LoadForTests();
 
 

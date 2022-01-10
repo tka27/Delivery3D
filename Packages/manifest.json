@@ -1,5 +1,10 @@
 {
   "dependencies": {
+    "com.google.external-dependency-manager": "file:D:/UnityHub/Packages/com.google.external-dependency-manager-1.2.168.tgz",
+    "com.google.firebase.analytics": "file:D:/UnityHub/Packages/com.google.firebase.analytics-8.7.0.tgz",
+    "com.google.firebase.app": "file:D:/UnityHub/Packages/com.google.firebase.app-8.7.0.tgz",
+    "com.google.firebase.auth": "file:D:/UnityHub/Packages/com.google.firebase.auth-8.7.0.tgz",
+    "com.google.firebase.database": "file:D:/UnityHub/Packages/com.google.firebase.database-8.7.0.tgz",
     "com.leopotam.ecs": "https://github.com/Leopotam/ecs.git",
     "com.leopotam.ecs-unityintegration": "https://github.com/Leopotam/ecs-unityintegration.git",
     "com.unity.2d.sprite": "1.0.0",

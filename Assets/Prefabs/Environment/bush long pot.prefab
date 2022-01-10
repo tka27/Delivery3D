@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6266112232473335161}
   - component: {fileID: 6266112232473335166}
   - component: {fileID: 6266112232473335167}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: bush long pot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
