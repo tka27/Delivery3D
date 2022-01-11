@@ -9,6 +9,7 @@ public struct Player
     public GameObject playerGO;
     public CarData carData;
     public float maxSteerAngle;
+    public float maxSpeed;
     public float maxTorque;
     public float currentTorque;
     public float acceleration;

@@ -978,6 +978,7 @@ MonoBehaviour:
   engineSound: {fileID: 2442964847640323266}
   enginePitchDefault: 0.7
   maxSteerAngle: 45
+  maxSpeed: 8
   maxTorque: 600
   maxDurability: 150
   acceleration: 1.7

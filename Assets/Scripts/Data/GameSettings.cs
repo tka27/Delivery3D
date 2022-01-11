@@ -91,6 +91,8 @@ public class GameSettings : ScriptableObject
 
     static int getSDKInt()
     {
+        if (Application.isEditor) return 26;
+        
         using (var version = new AndroidJavaClass("android.os.Build$VERSION"))
         {
             return version.GetStatic<int>("SDK_INT");

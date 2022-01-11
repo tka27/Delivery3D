@@ -27,6 +27,7 @@ public class CarData : MonoBehaviour
     public float enginePitchDefault;
 
     public float maxSteerAngle;
+    public float maxSpeed;
     public float maxTorque;
     public float maxDurability;
     public float acceleration;

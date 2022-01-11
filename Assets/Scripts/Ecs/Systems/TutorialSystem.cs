@@ -3,7 +3,7 @@ using Leopotam.Ecs;
 using UnityEngine;
 
 
-sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
+sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem
 {
     StaticData staticData;
     SceneData sceneData;
@@ -19,7 +19,6 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
     const int RESEARCH_SPEED_MULTIPLIER = 10;
     public void Init()
     {
-        TradePointData.tradeEvent += OnTradeEvent;
 
         tutorialData = GameObject.Instantiate(staticData.tutorialPrefab).GetComponent<TutorialData>();
 
@@ -34,16 +33,13 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
         tutorialData.blackText.text = "You can construct road in Build mode.\nTap inside the yellow sphere for building";
         tutorialData.blackText.gameObject.SetActive(false);
 
-        ChangePlayerStats(2);
+        ChangePlayerStats(1.5f);
 
 
         FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventTutorialBegin);
     }
 
-    public void Destroy()
-    {
-        TradePointData.tradeEvent -= OnTradeEvent;
-    }
+   
 
     void IEcsRunSystem.Run()
     {
@@ -119,6 +115,10 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
                 }
                 break;
 
+            case 6:
+                if (sceneData.gameMode == GameMode.View && IsBuildingReadyToTrade(ProductType.Wheat)) settings.tutorialLvl++;
+                break;
+
             case 7:
                 if (playerFilter.Get2(0).playerRB.velocity.magnitude < 1)
                 {
@@ -135,7 +135,7 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
                     settings.tutorialLvl++;
                     SwitchBlackPanel(false);
                     tutorialData.farmPanel.SetActive(false);
-                    tutorialData.blackText.text = "Zoom in the camera to open your inventory";
+                    tutorialData.blackText.text = "Zoom in the camera in View mode to open your inventory";
                 }
                 break;
 
@@ -166,7 +166,7 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
                 break;
 
             case 13:
-                if (labFilter.Get3(0).tradePointData.ableToTrade && playerFilter.Get2(0).playerRB.velocity.magnitude < 1)
+                if (labFilter.Get3(0).tradePointData.ableToTrade && playerFilter.Get2(0).playerRB.velocity.magnitude < 1 && sceneData.gameMode == GameMode.View)
                 {
                     SwitchBlackPanel(true);
                     tutorialData.labPanel.SetActive(true);
@@ -216,7 +216,7 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
                 break;
 
             case 22:
-                tutorialData.blackText.text = "Products can be sold at a high price in Shop.\nRequired product refreshes every 3 minutes, or when you fulfil it";
+                tutorialData.blackText.text = "Products can be sold at a high price in Shop.\nRequired product refreshes every 3 minutes, or when you fulfill it";
                 settings.tutorialLvl++;
                 break;
 
@@ -250,9 +250,14 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
                 MoveCamera(buildingsData.bakeryTradePoint.transform);
                 break;
 
+            case 29:
+                if (sceneData.gameMode == GameMode.View && IsBuildingReadyToTrade(ProductType.Bread)) settings.tutorialLvl++;
+                break;
+
             case 30:
                 tutorialData.bakeryPanel.SetActive(true);
                 SwitchBlackPanel(true);
+
                 foreach (var sellerID in sellerFilter)
                 {
                     if (sellerFilter.Get2(sellerID).HasItem(ProductType.Bread, 1)) settings.tutorialLvl++;
@@ -277,8 +282,8 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
                 settings.SavePrefs();
 
                 FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventTutorialComplete);
-                staticData.currentMoney += 500;
-                flowingText.DisplayText("+500");
+                staticData.currentMoney += 1000;
+                flowingText.DisplayText("+1000");
                 SoundData.PlayCoin();
                 UIData.UpdateUI();
                 break;
@@ -302,7 +307,7 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
     {
         Vector3 tgt = new Vector3(tf.position.x, 30, tf.position.z);
         float cameraSpeed = 80 * Time.deltaTime;
-        sceneData.buildCam.position = Vector3.MoveTowards(sceneData.buildCam.position, tgt, cameraSpeed);//Vector3.Lerp(sceneData.buildCam.position, tgt, .03f);
+        sceneData.buildCam.position = Vector3.MoveTowards(sceneData.buildCam.position, tgt, cameraSpeed);
 
         if ((sceneData.buildCam.position - tgt).magnitude < .5f)
         {
@@ -310,23 +315,6 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
         }
     }
 
-    void OnTradeEvent()
-    {
-        switch (settings.tutorialLvl)
-        {
-            case 6:
-                if (IsBuildingReadyToTrade(ProductType.Wheat)) settings.tutorialLvl++;
-                break;
-
-            case 29:
-                if (IsBuildingReadyToTrade(ProductType.Bread)) settings.tutorialLvl++;
-                break;
-
-
-
-            default: return;
-        }
-    }
     bool IsBuildingReadyToTrade(in ProductType productType)
     {
         foreach (var sellerID in sellerFilter)
@@ -345,6 +333,7 @@ sealed class TutorialSystem : IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
         {
             player.maxTorque *= value;
             player.acceleration *= value;
+            player.maxSpeed *= value;
         }
     }
 }

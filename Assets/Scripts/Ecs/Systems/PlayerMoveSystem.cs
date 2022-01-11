@@ -69,37 +69,9 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
                     }
 
 
+                    MoveAction(ref player);
 
 
-                    if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())//move
-                    {
-                        if (player.currentTorque < player.maxTorque - player.acceleration)
-                        {
-                            if (player.currentTorque == 0)
-                            {
-                                player.currentTorque = player.activeWheelColliders[0].rpm;
-                            }
-
-                            player.currentTorque += player.acceleration;
-                        }
-                        foreach (var wheel in player.activeWheelColliders)
-                        {
-                            wheel.brakeTorque = 0;
-                        }
-
-                    }
-                    else    //stop
-                    {
-                        player.currentTorque = 0;
-                        foreach (var brakingWheel in player.carData.brakingWheelColliders)
-                        {
-                            brakingWheel.brakeTorque = player.playerRB.velocity.magnitude * player.maxTorque / 100;
-                        }
-                    }
-                    foreach (var drivingWheel in player.carData.drivingWheelColliders)
-                    {
-                        drivingWheel.motorTorque = player.currentTorque;
-                    }
 
 
 
@@ -127,7 +99,7 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
             }
             else
             {
-                //stop method
+                //stop 
                 player.currentTorque = 0;
                 for (int i = 0; i < player.carData.drivingWheelColliders.Count; i++)
                 {
@@ -135,6 +107,39 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
                     player.carData.drivingWheelColliders[i].brakeTorque = player.playerRB.velocity.magnitude * player.maxTorque;
                 }
             }
+        }
+    }
+
+    void MoveAction(ref Player player)
+    {
+        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject() && player.playerRB.velocity.magnitude < player.maxSpeed)//move
+        {
+            if (player.currentTorque == 0)
+            {
+                player.currentTorque = player.activeWheelColliders[0].rpm;
+            }
+
+            player.currentTorque += player.acceleration;
+
+            foreach (var wheel in player.activeWheelColliders)
+            {
+                wheel.brakeTorque = 0;
+            }
+        }
+        else    //brake
+        {
+            float brakeForce = player.playerRB.velocity.magnitude * player.maxTorque / 100;
+            player.currentTorque = 0;
+
+            foreach (var brakingWheel in player.carData.brakingWheelColliders)
+            {
+                brakingWheel.brakeTorque = brakeForce;
+            }
+        }
+
+        foreach (var drivingWheel in player.carData.drivingWheelColliders)
+        {
+            drivingWheel.motorTorque = player.currentTorque;
         }
     }
 }

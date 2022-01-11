@@ -16,7 +16,7 @@ public class CoinPickUp : MonoBehaviour
             particles.transform.position = transform.position;
             particles.Play();
             gameObject.SetActive(false);
-            float revardValue = 1 + 1 * sceneData.researchCurve.Evaluate(staticData.researchLvl);
+            float revardValue = 3 + 3 * sceneData.researchCurve.Evaluate(staticData.researchLvl);
             staticData.currentMoney += revardValue;
             flowingText.DisplayText("+" + (revardValue).ToString("0.0"));
             uiData.moneyText.text = staticData.currentMoney.ToString("0.0");

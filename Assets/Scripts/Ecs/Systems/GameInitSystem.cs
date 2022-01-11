@@ -2,6 +2,7 @@ using Leopotam.Ecs;
 using UnityEngine;
 using System.Collections.Generic;
 using Cinemachine;
+using Firebase.Analytics;
 
 public class GameInitSystem : IEcsInitSystem
 {
@@ -16,7 +17,10 @@ public class GameInitSystem : IEcsInitSystem
     ProductData productData;
 
     public void Init()
-    {        
+    {
+        
+        FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelStart);
+
         if (Application.isEditor) LoadForTests();
 
 
@@ -42,10 +46,11 @@ public class GameInitSystem : IEcsInitSystem
         player.playerRB.mass = player.carData.defaultMass;
         player.playerRB.centerOfMass = player.carData.centerOfMass.transform.localPosition;
         player.maxSteerAngle = player.carData.maxSteerAngle;
+        player.maxSpeed = player.carData.maxSpeed + player.carData.maxSpeed / 100 * 4 * staticData.carPerks[staticData.selectedCarID][1];
         player.maxFuel = player.carData.maxFuel + player.carData.maxFuel / 100 * 5 * staticData.carPerks[staticData.selectedCarID][0];
-        player.maxTorque = player.carData.maxTorque + player.carData.maxTorque / 100 * 5 * staticData.carPerks[staticData.selectedCarID][1];
-        player.acceleration = player.carData.acceleration + player.carData.acceleration / 100 * 5 * staticData.carPerks[staticData.selectedCarID][2];
-        player.maxDurability = player.carData.maxDurability + player.carData.maxDurability / 100 * 5 * staticData.carPerks[staticData.selectedCarID][3];
+        player.maxTorque = player.carData.maxTorque + player.carData.maxTorque / 100 * 6 * staticData.carPerks[staticData.selectedCarID][2];
+        player.acceleration = player.carData.acceleration + player.carData.acceleration / 100 * 6 * staticData.carPerks[staticData.selectedCarID][2];
+        player.maxDurability = player.carData.maxDurability + player.carData.maxDurability / 100 * 7 * staticData.carPerks[staticData.selectedCarID][3];
         player.currentDurability = player.maxDurability;
         player.currentFuel = player.maxFuel;
         ref var playerInventory = ref playerEntity.Get<Inventory>();

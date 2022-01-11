@@ -1,3 +1,4 @@
+using Firebase.Analytics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +25,8 @@ public class BuyCarBtn : MonoBehaviour
                 if (carID == 1)
                 {
                     rateCanvas.SetActive(true);
+
+                    FirebaseAnalytics.LogEvent("Buy_car_1");
                 }
             }
             else

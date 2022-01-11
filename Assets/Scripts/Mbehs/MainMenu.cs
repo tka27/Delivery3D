@@ -14,28 +14,29 @@ public class MainMenu : MonoBehaviour
     [SerializeField] GameObject notificationPanel;
     [SerializeField] Text notificationText;
     [SerializeField] UnityEvent carInfoUpdateEvent;
+    [SerializeField] GameObject tutorialPanel;
 
     void Awake()
+    {
+        staticData.SetDefaultData();
+        settings.LoadPrefs();
+        LoadGameProgress();
+
+        if (settings.tutorialLvl >= 0)
+        {
+            tutorialPanel.SetActive(true);
+        }
+    }
+
+    private void Start()
     {
         staticNotificationPanel = notificationPanel;
         staticNotificationText = notificationText;
         demoCam.SetActive(false);
 
-        staticData.SetDefaultData();
-        settings.LoadPrefs();
-        LoadGameProgress();
-        carInfoUpdateEvent.Invoke();
         totalMoney.text = staticData.totalMoney.ToString("0.0");
-
-        if (settings.tutorialLvl >= 0)
-        {
-            staticData.selectedCarID = 2;
-            staticData.trailerIsSelected = true;
-            SceneManager.LoadScene(1);
-        }
+        carInfoUpdateEvent.Invoke();
     }
-
-
 
     void LoadGameProgress() //copy SaveData to staticData
     {

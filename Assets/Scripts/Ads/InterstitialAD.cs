@@ -65,7 +65,7 @@ public class InterstitialAD : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsSho
     {
         Debug.Log("Interstitial ad show is over: " + adUnit + "|" + placementId + "|" + showCompletionState);
 
-        FirebaseAnalytics.LogEvent("Interstitial ad show");
+        FirebaseAnalytics.LogEvent("Interstitial_ad_show");
         LoadAD();
     }
 

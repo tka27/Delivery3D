@@ -25248,11 +25248,12 @@ MonoBehaviour:
   playerCargoDefaultPos: []
   playerCargoDefaultRot: []
   engineSound: {fileID: 1921179193}
-  enginePitchDefault: 1.1
+  enginePitchDefault: 1
   maxSteerAngle: 45
+  maxSpeed: 8
   maxTorque: 200
   maxDurability: 100
-  acceleration: 1
+  acceleration: 1.5
   maxFuel: 100
   defaultMass: 1200
   carStorage: 400

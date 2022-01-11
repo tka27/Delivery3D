@@ -54,6 +54,7 @@ sealed class EcsStartup : MonoBehaviour
             .Add(new ReturnToLastPointSystem())
             .Add(new AdSystem())
             .Add(new CarReturnBtnSwitchSystem())
+            .Add(new CanvasScalingSystem())
 
 
 

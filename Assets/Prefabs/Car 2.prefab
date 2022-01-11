@@ -11781,10 +11781,11 @@ MonoBehaviour:
   engineSound: {fileID: 8079227877522844757}
   enginePitchDefault: 1.2
   maxSteerAngle: 45
+  maxSpeed: 10
   maxTorque: 180
   maxDurability: 135
-  acceleration: 1
-  maxFuel: 100
+  acceleration: 1.2
+  maxFuel: 120
   defaultMass: 1900
   carStorage: 600
   trailerStorage: 700

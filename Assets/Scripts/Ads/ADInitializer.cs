@@ -16,7 +16,6 @@ public class ADInitializer : MonoBehaviour, IUnityAdsInitializationListener
     void ADInit()
     {
         testMode = Application.isEditor;
-        Advertisement.Initialize(ANDROID_GAME_ID, testMode);
 
         if (Application.platform == RuntimePlatform.IPhonePlayer)
         {
@@ -26,6 +25,8 @@ public class ADInitializer : MonoBehaviour, IUnityAdsInitializationListener
         {
             gameID = ANDROID_GAME_ID;
         }
+
+        Advertisement.Initialize(gameID, testMode);
     }
 
     public void OnInitializationComplete()

@@ -69,7 +69,7 @@ public class StaticData : ScriptableObject
 
     public void SetDefaultData()
     {
-        this.totalMoney = 1000;
+        this.totalMoney = moneyForGame;
         this.researchLvl = 0;
 
         int carsCount = this.allCars.Count;

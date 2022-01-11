@@ -8,7 +8,7 @@ public class FirebaseInit : MonoBehaviour
     [SerializeField] StaticData staticData;
     void Awake()
     {
-        if (staticData.firebaseIsInit) return;
+        if (staticData.firebaseIsInit || Application.isEditor) return;
 
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
             {

@@ -71,10 +71,11 @@ public class RewardedAD : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLis
 
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
+        StartCoroutine(LoadAd());
         Debug.Log("Ad show is over: " + adUnit + "|" + placementId + "|" + showCompletionState);
         if (placementId == adUnit)
         {
-            FirebaseAnalytics.LogEvent("Interstitial ad show");
+            FirebaseAnalytics.LogEvent("Interstitial_ad_show");
             StartCoroutine(EnterTheGarage(showCompletionState));
         }
     }
@@ -88,7 +89,6 @@ public class RewardedAD : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLis
         }
 
         Garage.singleton.GarageEnterProcess();
-        StartCoroutine(LoadAd());
     }
 
     IEnumerator LoadAd()
