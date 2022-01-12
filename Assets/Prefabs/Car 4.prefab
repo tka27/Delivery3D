@@ -364,10 +364,10 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: 9bdf7c4c667ba244bab2ee0fb40e836f, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5998337
+  m_Radius: 0.6964454
   m_Height: 2.6529737
   m_Direction: 2
-  m_Center: {x: 0.0038303137, y: 0.16234483, z: -0.29363048}
+  m_Center: {x: 0.0038303137, y: -0.070958085, z: -0.29363048}
 --- !u!65 &5076194572631028465
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -379,8 +379,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.700023, z: 2.6462042}
-  m_Center: {x: 0, y: -6.37117e-10, z: -0.22951937}
+  m_Size: {x: 1.5, y: 1.5658212, z: 2.6462042}
+  m_Center: {x: 0, y: -0.06710289, z: -0.22951937}
 --- !u!208 &738420205479164617
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -391,7 +391,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.7, y: 0.875, z: 1.3}
+  m_Extents: {x: 0.7, y: 0.675, z: 1.3}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
@@ -10539,13 +10539,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 1.2
     m_AsymptoteValue: 0.8
-    m_Stiffness: 1.5
+    m_Stiffness: 1
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 1.3
+    m_AsymptoteSlip: 0.3
+    m_AsymptoteValue: 0.9
+    m_Stiffness: 1.7
   m_Enabled: 1
 --- !u!1 &3227250268158357653
 GameObject:
@@ -15485,9 +15485,9 @@ WheelCollider:
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.4
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 1.1
+    m_AsymptoteSlip: 0.3
+    m_AsymptoteValue: 0.97
+    m_Stiffness: 1.3
   m_Enabled: 1
 --- !u!1 &3227250268279729541
 GameObject:
@@ -15572,13 +15572,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 1.2
     m_AsymptoteValue: 0.8
-    m_Stiffness: 1.5
+    m_Stiffness: 1
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 1.3
+    m_AsymptoteSlip: 0.3
+    m_AsymptoteValue: 0.9
+    m_Stiffness: 1.7
   m_Enabled: 1
 --- !u!1 &3227250268838023762
 GameObject:
@@ -15637,9 +15637,9 @@ WheelCollider:
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.4
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 1.1
+    m_AsymptoteSlip: 0.3
+    m_AsymptoteValue: 0.97
+    m_Stiffness: 1.3
   m_Enabled: 1
 --- !u!1 &3227250268877462450
 GameObject:
@@ -25525,7 +25525,7 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.26
   m_SuspensionSpring:
-    spring: 30000
+    spring: 20000
     damper: 2000
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
@@ -25541,9 +25541,9 @@ WheelCollider:
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.4
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_AsymptoteSlip: 0.3
+    m_AsymptoteValue: 0.9
+    m_Stiffness: 1.3
   m_Enabled: 1
 --- !u!1 &3627538917024235484
 GameObject:
@@ -25748,7 +25748,7 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.26
   m_SuspensionSpring:
-    spring: 30000
+    spring: 20000
     damper: 2000
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
@@ -25764,9 +25764,9 @@ WheelCollider:
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.4
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_AsymptoteSlip: 0.3
+    m_AsymptoteValue: 0.9
+    m_Stiffness: 1.3
   m_Enabled: 1
 --- !u!1 &6327536494978376381
 GameObject:
@@ -26037,8 +26037,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8883200037750438803}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.144, z: -0.31}
-  m_LocalScale: {x: 110, y: 120, z: 120}
+  m_LocalPosition: {x: 0, y: 0.099, z: -0.31}
+  m_LocalScale: {x: 110, y: 120, z: 96.717606}
   m_Children: []
   m_Father: {fileID: 9001481461380459535}
   m_RootOrder: 4

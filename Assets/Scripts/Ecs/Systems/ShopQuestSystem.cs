@@ -1,7 +1,7 @@
 using Leopotam.Ecs;
 using System.Collections.Generic;
 using System;
-
+using UnityEngine;
 
 sealed class ShopQuestSystem : IEcsRunSystem
 {
@@ -70,6 +70,7 @@ sealed class ShopQuestSystem : IEcsRunSystem
         int randomIndex = UnityEngine.Random.Range(0, similarProducts.Count);
         if (similarProducts.Count > 0)
         {
+            Debug.Log(similarProducts[randomIndex].type);
             return similarProducts[randomIndex];
         }
         return SelectRandomProducedProduct();

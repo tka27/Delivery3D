@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -26,6 +25,11 @@ public class MainMenu : MonoBehaviour
         {
             tutorialPanel.SetActive(true);
         }
+        if (!StaticData.isUpdated)
+        {
+            StaticData.onStartup.Invoke();
+            StaticData.isUpdated = true;
+        }
     }
 
     private void Start()
@@ -46,7 +50,6 @@ public class MainMenu : MonoBehaviour
             staticData.UpdateStaticData(data);
             return;
         }
-        settings.SetDefaultGraphics();
     }
 
 

@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class CarSwitcher : MonoBehaviour
 {
-    new Camera camera;
+    Camera camera;
     Vector3 startPos;
     Vector3 tgtPos;
     [SerializeField] StaticData staticData;

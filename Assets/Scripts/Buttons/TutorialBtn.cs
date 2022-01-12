@@ -1,3 +1,4 @@
+using Firebase.Analytics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,5 +24,7 @@ public class TutorialBtn : MonoBehaviour
     {
         settings.tutorialLvl = -1;
         settings.SavePrefs();
+        
+        FirebaseAnalytics.LogEvent("Tutorial_skipped");
     }
 }

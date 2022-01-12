@@ -11,6 +11,16 @@ public class GameSettings : ScriptableObject
     [SerializeField] RenderPipelineAsset[] qualityAssets;
     public int tutorialLvl;
 
+    private void OnEnable()
+    {
+        StaticData.onStartup += SetDefaultGraphics;
+    }
+
+    private void OnDestroy()
+    {
+        StaticData.onStartup -= SetDefaultGraphics;
+    }
+
     public void LoadPrefs()
     {
         if (!PlayerPrefs.HasKey("vibration"))
@@ -77,7 +87,7 @@ public class GameSettings : ScriptableObject
         PlayerPrefs.Save();
     }
 
-    public void SetDefaultGraphics()
+    void SetDefaultGraphics()
     {
         if (getSDKInt() > 25)
         {
@@ -89,10 +99,10 @@ public class GameSettings : ScriptableObject
         }
     }
 
-    static int getSDKInt()
+    int getSDKInt()
     {
         if (Application.isEditor) return 26;
-        
+
         using (var version = new AndroidJavaClass("android.os.Build$VERSION"))
         {
             return version.GetStatic<int>("SDK_INT");

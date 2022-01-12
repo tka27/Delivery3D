@@ -5,15 +5,21 @@ using UnityEngine;
 
 public class FirebaseInit : MonoBehaviour
 {
-    [SerializeField] StaticData staticData;
     void Awake()
     {
-        if (staticData.firebaseIsInit || Application.isEditor) return;
+        StaticData.onStartup += Init;
+    }
+    private void OnDestroy()
+    {
+        StaticData.onStartup -= Init;
+    }
 
+    void Init()
+    {
+        Debug.Log("Firebase init");
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
-            {
-                staticData.firebaseIsInit = true;
-                FirebaseAnalytics.SetAnalyticsCollectionEnabled(true);
-            });
+        {
+            FirebaseAnalytics.SetAnalyticsCollectionEnabled(true);
+        });
     }
 }

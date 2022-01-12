@@ -39,7 +39,7 @@ sealed class DamageSystem : IEcsRunSystem
 
                 if (settings.vibration) Handheld.Vibrate();
 
-                player.currentDurability -= 0.005f * speed * player.playerRB.mass / 1000;
+                player.currentDurability -= 0.002f * speed * player.playerRB.mass / 1000;
                 uiData.durabilityText.text = player.currentDurability.ToString("0") + "/" + player.maxDurability.ToString("0");
             }
             else

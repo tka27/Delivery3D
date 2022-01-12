@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
-
+using System;
 
 [CreateAssetMenu]
 public class StaticData : ScriptableObject
 {
-    public bool firebaseIsInit;
+    public static bool isUpdated;
     public List<ProductType> availableProductTypes;
     public GameObject trailPrefab;
     public GameObject tutorialPrefab;
@@ -18,6 +18,9 @@ public class StaticData : ScriptableObject
     public bool trailerIsSelected;
     public List<CarData> allCars;
     [HideInInspector] public int adProgress;
+
+
+    public static Action onStartup;
 
 
 

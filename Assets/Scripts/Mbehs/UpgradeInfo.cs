@@ -27,11 +27,11 @@ public class UpgradeInfo : MonoBehaviour
 
     public void MapUpgradeUpdate()
     {
-        float defaultPrice = 100;
+        const float DEFAULT_PRICE = 50;
         for (int i = 0; i < perksPrices.Length; i++)
         {
             int perkLvl = staticData.mapPerks[staticData.selectedMapID][i];
-            perksPrices[i] = perksPricesMultiplier[i] * defaultPrice + perksPricesMultiplier[i] * defaultPrice * multiplierCurve.Evaluate(perkLvl);
+            perksPrices[i] = perksPricesMultiplier[i] * DEFAULT_PRICE + perksPricesMultiplier[i] * DEFAULT_PRICE * multiplierCurve.Evaluate(perkLvl);
             lvls[i].text = "lvl : " + perkLvl.ToString();
             prices[i].text = perksPrices[i].ToString("0.0");
         }

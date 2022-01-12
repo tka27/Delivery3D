@@ -33,14 +33,7 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
                 float distanceToCurrentPoint = (pathData.wayPoints[pathData.currentWaypointIndex].transform.position - player.carData.wheelPos.position).magnitude;
 
 
-                for (int i = pathData.currentWaypointIndex; i < pathData.wayPoints.Count; i++) //calc nearest point
-                {
-                    float checkDist = (pathData.wayPoints[i].transform.position - player.carData.wheelPos.position).magnitude;
-                    if (checkDist < distanceToCurrentPoint)
-                    {
-                        pathData.currentWaypointIndex = i;
-                    }
-                }
+                //
 
 
                 if (distanceToCurrentPoint >= 2.5f)
@@ -69,7 +62,7 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
                     }
 
 
-                    MoveAction(ref player);
+                    MoveAction(ref player, distanceToCurrentPoint);
 
 
 
@@ -110,10 +103,20 @@ sealed class PlayerMoveSystem : IEcsRunSystem, IEcsInitSystem
         }
     }
 
-    void MoveAction(ref Player player)
+    void MoveAction(ref Player player, in float distance)
     {
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject() && player.playerRB.velocity.magnitude < player.maxSpeed)//move
         {
+
+            for (int i = pathData.currentWaypointIndex; i < pathData.wayPoints.Count; i++) //calc nearest point
+            {
+                float checkDist = (pathData.wayPoints[i].transform.position - player.carData.wheelPos.position).magnitude;
+                if (checkDist < distance)
+                {
+                    pathData.currentWaypointIndex = i;
+                }
+            }
+
             if (player.currentTorque == 0)
             {
                 player.currentTorque = player.activeWheelColliders[0].rpm;
